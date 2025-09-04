@@ -1,0 +1,10 @@
+---
+const values = Astro.locals;
+import DesktopLayout from "../../layouts/Desktop/Layout.astro";
+import MobileLayout from "../../layouts/Mobile/Layout.astro";
+const {isMobileView, isPrimeUser, isAppView, requestDomain, akamaiHeader, akamaiHeaderCountryCode, isGlance } = values;
+---
+<div>
+    {isMobileView ? <MobileLayout /> : <DesktopLayout />}
+    Listing Page 
+</div>

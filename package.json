@@ -9,6 +9,23 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.13.5"
-  }
+    "@astrojs/node": "^1.0.0",
+		"@astrojs/react": "^4.3.0",
+		"@astrojs/sitemap": "^3.4.0",
+		"@astrojs/solid-js": "^5.1.0",
+		"@astrojs/vercel": "^8.2.5",
+    "astro": "^5.13.5",
+    "dayjs": "^1.11.10",
+		"lodash": "^4.17.21",
+		"react": "^19.1.1",
+		"react-dom": "^19.1.1",
+		"solid-js": "^1.9.7"
+  },
+  "devDependencies": {
+		"@types/markdown-it": "^12.2.3",
+		"@types/react": "^18.2.7",
+		"@types/react-dom": "^18.2.4",
+		"@types/sanitize-html": "^2.9.0",
+		"sass": "^1.79.3"
+	}
 }
