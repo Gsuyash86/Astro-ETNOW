@@ -1,0 +1,106 @@
+---
+export interface Props {
+  adCode?: string;
+  size?: (number | number[])[];
+  divId?: string;
+  className?: string;
+  spacing?: boolean;
+  isInterstitial?: boolean;
+  stickyAd?: boolean;
+  isGlance?: boolean;
+  isShortAd?: boolean;
+  pageTarget?: {
+    section?: {
+      category?: string;
+      sub_category?: string;
+    };
+    page?: string;
+    msid?: string;
+  };
+}
+
+const {
+  adCode,
+  size,
+  divId,
+  className = "",
+  spacing = true,
+  isInterstitial = false,
+  stickyAd = false,
+  isGlance = false,
+  isShortAd = false,
+  pageTarget
+} = Astro.props;
+
+if (!adCode || !divId) {
+  return null;
+}
+
+// Extract width/height from first size
+let width = 300;
+let height = 250;
+if (Array.isArray(size) && Array.isArray(size[0])) {
+  width = size[0][0];
+  height = size[0][1];
+}
+
+const targeting = {
+  ...(pageTarget?.section?.category && { section: pageTarget.section.category }),
+  ...(pageTarget?.section?.sub_category && { subsec: pageTarget.section.sub_category }),
+  ...(pageTarget?.page && { page: pageTarget.page }),
+  ...(pageTarget?.msid && { msid: pageTarget.msid }),
+};
+---
+
+{isInterstitial ? (
+  // Interstitial ad using amp-lightbox
+  <amp-lightbox id={`interstitial-${divId}`} layout="nodisplay">
+    <amp-ad
+      width={width}
+      height={height}
+      type="doubleclick"
+      data-slot={adCode}
+      json={JSON.stringify({ targeting })}
+    ></amp-ad>
+  </amp-lightbox>
+) : stickyAd ? (
+  // Sticky ad
+  <amp-sticky-ad layout="nodisplay">
+    <amp-ad
+      width={width}
+      height={height}
+      type="doubleclick"
+      data-slot={adCode}
+      json={JSON.stringify({ targeting })}
+    ></amp-ad>
+  </amp-sticky-ad>
+) : isGlance ? (
+  // Immersive scrollable ad
+  <amp-fx-flying-carpet height={height + 100}>
+    <amp-ad
+      width={width}
+      height={height}
+      type="doubleclick"
+      data-slot={adCode}
+      json={JSON.stringify({ targeting })}
+    ></amp-ad>
+  </amp-fx-flying-carpet>
+) : (
+  // Regular display ad
+  <div class={`amp-ad-container ${className}`} style={!spacing ? "padding:0;" : "padding:8px;"}>
+    <amp-ad
+      width={width}
+      height={height}
+      type="doubleclick"
+      data-slot={adCode}
+      json={JSON.stringify({ targeting })}
+    ></amp-ad>
+  </div>
+)}
+
+<style>
+  .amp-ad-container {
+    display: block;
+    margin: 10px auto;
+  }
+</style>
