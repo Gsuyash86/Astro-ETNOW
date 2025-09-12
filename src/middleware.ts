@@ -16,5 +16,24 @@ export const onRequest: MiddlewareHandler = (context, next) => {
   context.locals.akamaiHeaderCountryCode = requestMapping.akamaiHeaderCountryCode;
   context.locals.isGlance = requestMapping.isGlance;
 
+  const url = new URL(context.request.url);
+  const path = url.pathname;
+ 
+  let match = path.match(/^\/([^/]+)\/(.+)-(article)-(\d+)$/);
+  if (match) {
+    const [_, category, slug, article_type, id] = match;
+    return context.rewrite(
+      `/articleshow?category=${category}&slug=${slug}&article_type=${article_type}&id=${id}`
+    );
+  }
+
+  match = path.match(/^\/([^/]+)\/(.+)-(article)-(\d+)\/amp$/);
+  if (match) {
+    const [_,category, slug, article_type, id] = match;
+    return context.rewrite(
+      `/amp/articleshow?category=${category}&slug=${slug}&article_type=${article_type}&id=${id}`
+    );
+  }
+
   return next();
 };
