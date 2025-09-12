@@ -1,4 +1,63 @@
-<div>
-	AMP Layout
-</div>
+---
+    import AdCaller from "../../components/amp/adcaller/AdCaller.astro"
+    let ad = {
+  adCode: "/21806551354/ETNow/Desktop/ArticleShow/ETNow_Desk_AS_Header",
+  divId: "div-u-id-1-2",
+  size: [
+    [728, 90],
+    [970, 90],
+    [980, 90],
+  ],
+};
+---
 
+
+<!doctype html>
+<html amp lang="en">
+  <Fragment slot="head">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
+    <title>{"SOMETGING"}</title>
+
+    <!-- AMP runtime -->
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    <!-- Add AMP components you use (example: amp-img) -->
+    <script async custom-element="amp-img" src="https://cdn.ampproject.org/v0/amp-img-0.1.js"></script>
+
+    <!-- Required AMP boilerplate -->
+    <style amp-boilerplate>
+      body{ -webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both; 
+      -moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;
+      -ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both; 
+      animation:-amp-start 8s steps(1,end) 0s 1 normal both }
+      @-webkit-keyframes -amp-start{ from{visibility:hidden} to{visibility:visible} }
+      @-moz-keyframes -amp-start{ from{visibility:hidden} to{visibility:visible} }
+      @-ms-keyframes -amp-start{ from{visibility:hidden} to{visibility:visible} }
+      @-o-keyframes -amp-start{ from{visibility:hidden} to{visibility:visible} }
+      @keyframes -amp-start{ from{visibility:hidden} to{visibility:visible} }
+    </style>
+    <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+    <!-- Inline CSS only (must be <= 75KB) -->
+    <style amp-custom>
+      body { font-family: system-ui, sans-serif; padding: 16px; max-width: 740px; margin:auto; }
+      h1 { font-size: 28px; margin-top: 8px; }
+      /* ... other styles ... */
+    </style>
+
+    <!-- structured data / canonical links -->
+    <link rel="canonical" href={"https://etnow.com/"} />
+    <meta name="description" content={"Something"} />
+
+  </Fragment>
+
+  <body>
+    <div>
+        <AdCaller adCode={ad.adCode} divId={ad.divId} size={ad.size}/>
+    </div>
+
+    <!-- optional analytics: use amp-analytics if needed -->
+    <!-- <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script> -->
+  </body>
+</html>
