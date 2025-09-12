@@ -1,4 +1,5 @@
 ---
+import "../styles/global.scss";
 const values = Astro.locals;
 const {
   isMobileView,
@@ -43,74 +44,81 @@ let ad2 = {
 };
 ---
 
-  <Fragment slot={"head"}>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
-    <script is:inline>
-      !(function (a9, a, p, s, t, A, g) {
-        if (a[a9]) return;
-        function q(c, r) {
-          a[a9]._Q.push([c, r]);
-        }
-        a[a9] = {
-          init: function () {
-            q("i", arguments);
-          },
-          fetchBids: function () {
-            q("f", arguments);
-          },
-          setDisplayBids: function () {},
-          targetingKeys: function () {
-            return [];
-          },
-          _Q: [],
-        };
-        A = p.createElement(s);
-        A.async = !0;
-        A.defer = !0;
-        A.src = t;
-        g = p.getElementsByTagName(s)[0];
-        g.parentNode.insertBefore(A, g);
-      })(
-        "apstag",
-        window,
-        document,
-        "script",
-        "//c.amazon-adsystem.com/aax2/apstag.js"
-      );
-    </script>
-    <script id="dpfscript" src="/dfpamzn.js" type="text/javascript" defer
-    ></script>
-  </Fragment>
+<Fragment slot={"head"}>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link
+    rel="preload"
+    as="style"
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:wght@400;700&family=Inter:wght@400;700&display=swap"
+    fetchpriority="high"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+  <meta name="generator" content={Astro.generator} />
+  <title>Astro Basics</title>
+  <script is:inline>
+    !(function (a9, a, p, s, t, A, g) {
+      if (a[a9]) return;
+      function q(c, r) {
+        a[a9]._Q.push([c, r]);
+      }
+      a[a9] = {
+        init: function () {
+          q("i", arguments);
+        },
+        fetchBids: function () {
+          q("f", arguments);
+        },
+        setDisplayBids: function () {},
+        targetingKeys: function () {
+          return [];
+        },
+        _Q: [],
+      };
+      A = p.createElement(s);
+      A.async = !0;
+      A.defer = !0;
+      A.src = t;
+      g = p.getElementsByTagName(s)[0];
+      g.parentNode.insertBefore(A, g);
+    })(
+      "apstag",
+      window,
+      document,
+      "script",
+      "//c.amazon-adsystem.com/aax2/apstag.js",
+    );
+  </script>
+  <script id="dpfscript" src="/dfpamzn.js" type="text/javascript" defer
+  ></script>
+</Fragment>
 
-  <body>
-    {isMobileView ? <MobileLayout /> : <DesktopLayout />}
+<body>
+  {isMobileView ? <MobileLayout /> : <DesktopLayout />}
 
-    <div id={ad.divId}>
-      <AdCaller
-        pageTarget={pageTarget}
-        adCode={ad.adCode}
-        divId={ad.divId}
-        size={ad.size}
-      />
-    </div>
+  <div id={ad.divId}>
+    <AdCaller
+      pageTarget={pageTarget}
+      adCode={ad.adCode}
+      divId={ad.divId}
+      size={ad.size}
+    />
+  </div>
 
-    <div id={ad.divId + 1 + "ssss"}>
-      <AdCaller
-        pageTarget={pageTarget}
-        adCode={ad2.adCode}
-        divId={ad2.divId}
-        size={ad2.size}
-      />
-    </div>
+  <div id={ad.divId + 1 + "ssss"}>
+    <AdCaller
+      pageTarget={pageTarget}
+      adCode={ad2.adCode}
+      divId={ad2.divId}
+      size={ad2.size}
+    />
+  </div>
 
-    <div>
-      <MgIdComponent
-        scriptID={CONST.MGID_ADD_5X5}
-        elementID={CONST.MGID_ADD_5X5}
-      />
-    </div>
-  </body>
+  <div>
+    <MgIdComponent
+      scriptID={CONST.MGID_ADD_5X5}
+      elementID={CONST.MGID_ADD_5X5}
+    />
+  </div>
+</body>
