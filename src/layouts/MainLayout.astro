@@ -1,31 +1,89 @@
 ---
 const values = Astro.locals;
-const {isMobileView, isPrimeUser, isAppView, requestDomain, akamaiHeader, akamaiHeaderCountryCode, isGlance } = values;
+const {
+  isMobileView,
+  isPrimeUser,
+  isAppView,
+  requestDomain,
+  akamaiHeader,
+  akamaiHeaderCountryCode,
+  isGlance,
+} = values;
+
 import MobileLayout from "./mobile/Layout.astro";
 import DesktopLayout from "./desktop/Layout.astro";
----
 
+import AdCaller from "../components/common/adcaller.js/AdCaller.astro";
+import MgIdComponent from "../components/common/mgid/MgIdComponent.astro";
+import CONST from "../constant";
+
+const pageTarget = {
+  section: { category: 'news', sub_category: 'tech' },
+  page: 'article',
+  msid: '12345'
+};
+
+let ad = {
+  adCode: "/21806551354/ETNow/Desktop/ArticleShow/ETNow_Desk_AS_Header",
+  divId: "div-u-id-1-2",
+  size: [[728, 90], [970, 90] , [980, 90]]
+}
+---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-            {isMobileView ? <MobileLayout /> : <DesktopLayout />}
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro Basics</title>
+    <script is:inline>
+      !function(a9,a,p,s,t,A,g){
+        if(a[a9]) return;
+        function q(c,r){a[a9]._Q.push([c,r])}
+        a[a9] = {
+          init: function(){q("i",arguments)},
+          fetchBids: function(){q("f",arguments)},
+          setDisplayBids: function(){},
+          targetingKeys: function(){return []},
+          _Q:[]
+        };
+        A=p.createElement(s);A.async=!0;A.defer=!0;A.src=t;
+        g=p.getElementsByTagName(s)[0];
+        g.parentNode.insertBefore(A,g)
+      }("apstag",window,document,"script","//c.amazon-adsystem.com/aax2/apstag.js");
+    </script>
+
+    <script
+      id="dpfscript"
+      src="/dfpamzn.js"
+      type="text/javascript"
+      defer
+    ></script>
+
+  </head>
+  <body>
+    {isMobileView ? <MobileLayout /> : <DesktopLayout />}
+
+    <div id={ad.divId}>
+    <AdCaller pageTarget={pageTarget} adCode={ad.adCode} divId={ad.divId} size={ad.size} />
+    </div>
+
+    <div>
+      <MgIdComponent 
+      scriptID={CONST.MGID_ADD_5X5}
+      elementID={CONST.MGID_ADD_5X5} 
+      />
+    </div>
+  </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
 </style>

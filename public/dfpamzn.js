@@ -40,8 +40,8 @@ if (typeof getCohortData === 'undefined') {
     return [];
   };
 }
-
-apstag?.init(APS_CONFIG),
+ 
+  window && window.apstag && window.apstag?.init(APS_CONFIG),
   (tndbgmsg = (e, t = '') => {
     // console.log(
     //   '%cTNN',
@@ -148,7 +148,7 @@ apstag?.init(APS_CONFIG),
         a &&
           t &&
           pubmaticOn &&
-          apstag.fetchBids({ slots: a || [], timeout: BID_TIMEOUT }, () => {
+          apstag?.fetchBids({ slots: a || [], timeout: BID_TIMEOUT }, () => {
             isApsDone = true;
             // window.OWT.notifyExternalBiddingComplete(o),
             // googletag.cmd.push(function () {
@@ -184,7 +184,7 @@ apstag?.init(APS_CONFIG),
         let refresh = () => {
           if (isPubDone && isApsDone) {
             googletag.cmd.push(function () {
-              apstag.setDisplayBids(), googletag.pubads().refresh(t);
+              apstag?.setDisplayBids(), googletag.pubads().refresh(t);
             });
           } else {
             setTimeout(refresh, 100);
