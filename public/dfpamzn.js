@@ -7,38 +7,6 @@ var INITIAL_RENDERING = !0,
     adServer: 'googletag',
     bidTimeout: BID_TIMEOUT,
   };
-
-
-  function getCohortData() {
-    if (typeof document !== 'undefined') {
-      const cohortData = localStorage.getItem('cdp_audience');
-      if (cohortData) {
-        return cohortData.split(',');
-      }
-    }
-    return [];
-  }
-
-  if (typeof getCurrentCustomParams === 'undefined') {
-  function getCurrentCustomParams () {
-    if (typeof document !== 'undefined') {
-      try {
-        const customParams = localStorage.getItem('customParams');
-        if (customParams) {
-          const parsed = JSON.parse(customParams);
-          if (typeof parsed === 'object' && parsed !== null) {
-            // Return a flat object for query string use
-            return parsed;
-          }
-        }
-      } catch (e) {
-        console.warn('Error parsing customParams from localStorage:', e);
-      }
-    }
-    return {};
-  }
-}
-  
 var cookieStrKey = 'privacy-policy';
 var getCookie = function () {
   var cookies = document.cookie.split(';');
@@ -50,23 +18,30 @@ var getCookie = function () {
     }
   }
   //cookie values are copied into cookieObj and return in JSON format.
-  try {
-    if (cookieObj) {
-      cookieObj = cookieObj.substring(
-        cookieObj.indexOf('=') + 1,
-        cookieObj.length,
-      );
-      return JSON.parse(cookieObj);
-    }
-    return null;
-  } catch (error) {
-    console.error('Error', error);
+  if (cookieObj) {
+    cookieObj = cookieObj.substring(
+      cookieObj.indexOf('=') + 1,
+      cookieObj.length,
+    );
+    return JSON.parse(cookieObj);
   }
+  return null;
 };
-
 var consentValue = getCookie() == 1 ? true : false;
 
-apstag.init(APS_CONFIG),
+if (typeof getCohortData === 'undefined') {
+  function getCohortData() {
+    if (typeof document !== 'undefined') {
+      const cohortData = localStorage.getItem('cdp_audience');
+      if (cohortData) {
+        return cohortData.split(',');
+      }
+    }
+    return [];
+  };
+}
+
+apstag?.init(APS_CONFIG),
   (tndbgmsg = (e, t = '') => {
     // console.log(
     //   '%cTNN',
@@ -94,11 +69,7 @@ apstag.init(APS_CONFIG),
         }
       });
       // let o = pubmaticOn && window.OWT.registerExternalBidders(g);
-      // debugger;
-
-      var tg_ppid = window.getCookieValue('tg_ppid');
-      if (!!tg_ppid === false)
-        console.log('tg_ppid value as accessed in dfpamzn = ', tg_ppid);
+      const tg_ppid = window.getCookieValue("tg_ppid");
 
       googletag.cmd.push(() => {
         e.forEach((e, a) => {
@@ -110,26 +81,26 @@ apstag.init(APS_CONFIG),
           ptype = e?.getAttribute('data-pagetype');
           medium = e?.getAttribute('data-med');
           source = e?.getAttribute('data-src');
-          metaInfoAttr = e?.getAttribute('data-metainfoattr');
+          metaInfoAttr = e?.getAttribute('data-metaInfoAttr');
           id = e?.getAttribute('data-msid');
           sequence = e?.getAttribute('data-idx');
           query = e?.getAttribute('data-QueryId');
-          if (e.getElementsByTagName('iframe').length > 0) return;       
+          if (e?.getElementsByTagName('iframe').length > 0) return;
           t[a] = d?.includes('_ROS_Interstitial')
             ? googletag
-                .defineOutOfPageSlot(
-                  d,
-                  googletag.enums.OutOfPageFormat.INTERSTITIAL,
-                )
-                .addService(googletag.pubads())
-            : googletag.defineSlot(d, o, g).addService(googletag.pubads());
+              ?.defineOutOfPageSlot(
+                d,
+                googletag?.enums?.OutOfPageFormat?.INTERSTITIAL,
+              )
+              ?.addService(googletag.pubads())
+            : googletag?.defineSlot(d, o, g)?.addService(googletag.pubads());
         }),
           tndbgmsg('TNH sec : ', sec);
         tndbgmsg('TNH sec : ', sequence);
         let isPubDone = false,
           isApsDone = false;
         googletag.pubads().clearTargeting();
-        // googletag.pubads().setTargeting('lang', 'hi'),
+        // googletag.pubads().setTargeting('lang', 'en'),
         sec && googletag.pubads().setTargeting('section', [sec]);
         subsec && googletag.pubads().setTargeting('subsec', [subsec]);
         ptype && googletag.pubads().setTargeting('page', [ptype]);
@@ -140,15 +111,19 @@ apstag.init(APS_CONFIG),
           googletag.pubads().setTargeting('article_sequence', [sequence]);
         query && googletag.pubads().setTargeting('demo', [query]);
         tg_ppid && googletag.pubads().setPublisherProvidedId(tg_ppid);
-        currentCustomParams  = getCurrentCustomParams();
-        
+
         googletag.pubads().setCentering(!0),
           googletag.pubads().enableSingleRequest(),
           googletag.pubads().enableAsyncRendering(),
-        (cohortList = getCohortData());
-        cohortList &&
-          googletag.pubads().setTargeting('cdp_audience', [cohortList]);
-          if (currentCustomParams && typeof currentCustomParams === 'object') {
+          cohortList = getCohortData();
+          cohortList && googletag.pubads().setTargeting('cdp_audience', [cohortList]);
+
+        let currentCustomParams;
+          if (typeof window !== 'undefined' && window.cdpCustomParams) {
+          currentCustomParams = window.cdpCustomParams;
+          }
+
+        if (currentCustomParams && typeof currentCustomParams === 'object') {
             Object.keys(currentCustomParams).forEach((key) => {
               googletag.pubads().setTargeting(key, currentCustomParams[key]);
             });
@@ -158,6 +133,7 @@ apstag.init(APS_CONFIG),
               currentCustomParams,
             );
           } 
+
         googletag.pubads().setPrivacySettings({
           restrictDataProcessing: consentValue,
         });
@@ -169,7 +145,6 @@ apstag.init(APS_CONFIG),
           }),
           tndbgmsg('HHH a >', a),
           tndbgmsg('HHH t >', t);
-
         a &&
           t &&
           pubmaticOn &&
@@ -180,7 +155,11 @@ apstag.init(APS_CONFIG),
             //   apstag.setDisplayBids(), googletag.pubads().refresh(t);
             // });
           });
-        if (window?.PWT?.requestBids && typeof PWT.requestBids === 'function') {
+        if (
+          window?.PWT?.requestBids &&
+          typeof window?.PWT?.requestBids === 'function'
+        ) {
+          console.log('PWT.requestBids');
           PWT.initAdserverSet = false;
           PWT.requestBids(PWT.generateConfForGPT(t), function (adUnitsArray) {
             PWT.addKeyValuePairsToGPTSlots(adUnitsArray);
@@ -190,7 +169,18 @@ apstag.init(APS_CONFIG),
         } else {
           isPubDone = true;
         }
-
+        googletag
+          .pubads()
+          .addEventListener('slotRenderEnded', function (event) {
+            let e = event?.slot?.getSlotElementId();
+            let p = event?.slot?.getAdUnitPath();
+            if (e && p?.includes('_ShortVideos_')) {
+              document.getElementById(event.slot.getSlotElementId()).className =
+                document
+                  .getElementById(event.slot.getSlotElementId())
+                  .className.replace('dfp ', 'dfploaded ');
+            }
+          });
         let refresh = () => {
           if (isPubDone && isApsDone) {
             googletag.cmd.push(function () {
@@ -207,37 +197,29 @@ apstag.init(APS_CONFIG),
       tndbgmsg('ADS ERROR : ', d);
     }
   });
-// var PWT = {},
 var googletag = googletag || {};
 (googletag.cmd = googletag.cmd || []),
-  // (PWT.jsLoaded = () => {
-  //   var e = document.querySelectorAll('.dfp');
-  //   'undefined' != typeof window &&
-  //     e?.length > 0 &&
-  //     INITIAL_RENDERING &&
-  //     (RENDER_ADS(e || []), (INITIAL_RENDERING = !1));
-  // }),
   (() => {
-    // var e = document.createElement('script');
-    // (e.async = !0),
-    //   (e.id = 'dfppwt'),
-    //   (e.type = 'text/javascript'),
-    //   (e.src = `//ads.pubmatic.com/AdServer/js/pwt/156537/${
-    //     document?.documentElement?.clientWidth < 720 ? 3401 : 445
-    //   }/pwt.js`);
-    // var t = document.getElementsByTagName('script')[0];
-    // t.parentNode.insertBefore(e, t);
+    const adToRender = (adSelector) => {
+      var e = document.querySelectorAll(adSelector);
+      if ('undefined' != typeof window && e?.length > 0) {
+        RENDER_ADS(e || []);
+        INITIAL_RENDERING = !1;
+      }
+    };
     var a = document.createElement('script');
     (a.id = 'dfpgpt'),
       (a.src = 'https://securepubads.g.doubleclick.net/tag/js/gpt.js');
+    a.defer = true;
+    a.async = true;
     var t = document.getElementsByTagName('script')[0];
     document.head.appendChild(a);
-
     a.onload = function () {
-      var e = document.querySelectorAll('.dfp');
-      'undefined' != typeof window &&
-        e?.length > 0 &&
-        INITIAL_RENDERING &&
-        (RENDER_ADS(e || []), (INITIAL_RENDERING = !1));
+      adToRender('.dfp');
+      window?.addEventListener('load', function () {
+        setTimeout(function () {
+          adToRender('.dfp-delay');
+        }, 7000);
+      });
     };
   })();

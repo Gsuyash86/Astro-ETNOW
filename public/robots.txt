@@ -1,6 +1,0 @@
-User-agent: *
-Disallow: /wapi/
-Disallow: /?nbck=1
-Disallow: /?nexthome=1
-Disallow: /presite
-Disallow: /story/*
