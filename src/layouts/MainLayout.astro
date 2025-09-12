@@ -1,15 +1,6 @@
 ---
 import "../styles/global.scss";
-const values = Astro.locals;
-const {
-  isMobileView,
-  isPrimeUser,
-  isAppView,
-  requestDomain,
-  akamaiHeader,
-  akamaiHeaderCountryCode,
-  isGlance,
-} = values;
+const isMobileView = Astro.url.searchParams.get("isMobileView");
 
 import MobileLayout from "./mobile/Layout.astro";
 import DesktopLayout from "./desktop/Layout.astro";
@@ -87,7 +78,7 @@ let ad2 = {
       window,
       document,
       "script",
-      "//c.amazon-adsystem.com/aax2/apstag.js",
+      "//c.amazon-adsystem.com/aax2/apstag.js"
     );
   </script>
   <script id="dpfscript" src="/dfpamzn.js" type="text/javascript" defer
@@ -95,7 +86,7 @@ let ad2 = {
 </Fragment>
 
 <body>
-  {isMobileView ? <MobileLayout /> : <DesktopLayout />}
+  {isMobileView === "true" ? <MobileLayout /> : <DesktopLayout />}
 
   <div id={ad.divId}>
     <AdCaller

@@ -8,15 +8,5 @@ export default defineConfig({
   }),
   server: {
     port: 3000,
-  },
-  async rewrites() {
-    return {
-      source: '/:category/(.*)-article-:id',
-      destination: '/articleShow',
-    },
-    {
-      source: '/favicon.ico',
-      destination: '/favicon.svg'
-    };
   }
 });
