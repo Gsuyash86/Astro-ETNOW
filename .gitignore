@@ -4,6 +4,7 @@ dist/
 # generated types
 .astro/
 
+
 # dependencies
 node_modules/
 
@@ -25,3 +26,5 @@ pnpm-debug.log*
 
 # yarn lock file
 yarn.lock
+
+package-lock.json
