@@ -8,5 +8,14 @@ export default defineConfig({
   }),
   server: {
     port: 3000,
-  }
+  },
+  vite: {
+    resolve: {
+      alias: {
+        "@components": "/src/components",
+        "@layouts": "/src/layouts",
+        "@lib": "/src/lib",
+      },
+    },
+  },
 });
