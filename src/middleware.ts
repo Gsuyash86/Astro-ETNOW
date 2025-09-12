@@ -3,13 +3,11 @@ import getRequestMappings from "./utils/requestLogic";
 
 export const onRequest: MiddlewareHandler = (context, next) => {
 
-
   const requestMapping = getRequestMappings({
     headers: context.request.headers,
     query: context.url.searchParams,
     pathname: context.url.pathname, 
   });
-
   context.locals.isMobileView = requestMapping.isMobileView;
   context.locals.isPrimeUser = requestMapping.isPrimeUser;
   context.locals.isAppView = requestMapping.isAppView;
