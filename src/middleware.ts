@@ -18,20 +18,39 @@ export const onRequest: MiddlewareHandler = (context, next) => {
 
   const url = new URL(context.request.url);
   const path = url.pathname;
+
+  const appendCommonParams = (url: string) => {
+    const extra = new URLSearchParams({
+      isMobileView: String(requestMapping.isMobileView),
+      isPrimeUser: String(requestMapping.isPrimeUser),
+      isAppView: String(requestMapping.isAppView),
+      requestDomain: requestMapping.requestDomain ?? "",
+      akamaiHeader: requestMapping.akamaiHeader ?? "",
+      akamaiHeaderCountryCode: requestMapping.akamaiHeaderCountryCode ?? "",
+      isGlance: String(requestMapping.isGlance),
+    });
+    return `${url}&${extra.toString()}`;
+  };
+
  
   let match = path.match(/^\/([^/]+)\/(.+)-(article)-(\d+)$/);
   if (match) {
     const [_, category, slug, article_type, id] = match;
     return context.rewrite(
-      `/articleshow?category=${category}&slug=${slug}&article_type=${article_type}&id=${id}`
+      appendCommonParams(
+        `/articleshow?category=${category}&slug=${slug}&article_type=${article_type}&id=${id}`
+      )
     );
   }
 
+  // 🔀 Rewrite for AMP articles
   match = path.match(/^\/([^/]+)\/(.+)-(article)-(\d+)\/amp$/);
   if (match) {
-    const [_,category, slug, article_type, id] = match;
+    const [_, category, slug, article_type, id] = match;
     return context.rewrite(
-      `/amp/articleshow?category=${category}&slug=${slug}&article_type=${article_type}&id=${id}`
+      appendCommonParams(
+        `/amp/articleshow?category=${category}&slug=${slug}&article_type=${article_type}&id=${id}`
+      )
     );
   }
 
