@@ -21,6 +21,7 @@ const navLinks = [
   { href: "https://www.zoomtventertainment.com/", title: "Zoom", isActive: "" }
 ];
 
+
 const {
   changeStyle = '',
   inLineStyle = {},
@@ -28,24 +29,106 @@ const {
 
 ---
 
-<ul class={`${style["nav-ul"]} ${changeStyle ? style[changeStyle] : ''}`} style={inLineStyle}>
-    
+<div style={{ overflow: 'hidden' }} id="topNavigationContainer">
+  <ul class={`${style["nav-ul"]} ${changeStyle ? style[changeStyle] : ''}`} style={inLineStyle} id="topNavigation">
     {navLinks.map(({ href, title, isActive = false }) => (
-        <li>
+      <li>
         <a href={href} title={title} target="_blank" class={`${style["nav-link"]} ${isActive ? style['nav-active'] : ''}`}>
-            <Typography
-                tag="span"
-                text={title}
-                changeStyle="font-size-12"
-                fontWeight="400"
-                isLineClamp={false}
-                inLineStyle={{
-                    lineHeight: "1.2",
-                    letterSpacing: ".1em",
-                    whiteSpace: 'nowrap',
-                }}
-            />
+          <Typography
+            tag="span"
+            text={title}
+            changeStyle="font-size-12"
+            fontWeight="400"
+            isLineClamp={false}
+            inLineStyle={{
+              lineHeight: "1.2",
+              letterSpacing: ".1em",
+              whiteSpace: 'nowrap',
+            }}
+          />
         </a>
-        </li>
+      </li>
     ))}
-</ul>
+    <li id="topNavigationMoreButton" class={`more-link-button ${style["more-link-button"]}`} style={{ display: 'none' }} >
+      <span class={`dot ${style["dot"]}`}>...</span>
+    </li>
+    <div class={`more-menu ${style["more-menu"]}`} id="topNavigationMoreMenu">
+      <ul class={`more-menu-list ${style["more-menu-list"]}`} id="topNavigationMoreMenuList"></ul>
+    </div>
+  </ul>
+
+</div>
+
+<script define:vars={{ navLinks}} >
+  document.addEventListener('DOMContentLoaded', function() {
+    const topNavigation = document.getElementById('topNavigation');
+    const moreButton = document.getElementById('topNavigationMoreButton');
+    const moreMenu = document.getElementById('topNavigationMoreMenu');
+    const moreMenuList = document.getElementById('topNavigationMoreMenuList');
+    const navItems = topNavigation.querySelectorAll('li');
+
+    function handleOverflow() {
+      // Reset
+      moreMenuList.innerHTML = '';
+      moreMenu.style.display = 'none';
+      moreButton.style.display = 'none';
+      navItems.forEach(item => item.style.display = '');
+
+      let totalWidth = topNavigation.offsetWidth;
+      let usedWidth = 0;
+      let overflowLinks = [];
+
+      for (let i = 0; i < navItems.length; i++) {
+        usedWidth += navItems[i].offsetWidth;
+        if (usedWidth > totalWidth) {
+          overflowLinks.push(navLinks[i]);
+          navItems[i].style.display = 'none';
+        }
+      }
+
+      if (overflowLinks.length > 0) {
+        moreButton.style.display = 'block';
+        // moreMenu.style.display = 'block';
+        overflowLinks.forEach(link => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          const typographySpan = document.createElement('span');
+          a.href = link?.href;
+          a.title = link?.title;
+          a.target = '_blank';
+          a.classList.add('nav-link');
+
+          typographySpan.textContent = link?.title;
+          typographySpan.style.cssText = `
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 1.2;
+            letter-spacing: .1em;
+            white-space: nowrap;
+          `;
+          
+          a.appendChild(typographySpan);
+          li.appendChild(a);
+          moreMenuList.appendChild(li);
+        });
+      }
+      
+      // Delete the nav items which are display none
+      navItems.forEach((item, index) => {
+        if (item.style.display === 'none') {
+          navItems[index].remove();
+        }
+      });
+
+    }
+
+    handleOverflow();
+    window.addEventListener('resize', handleOverflow);
+
+    // Toggle more menu visibility
+    moreButton.addEventListener('click', () => {
+      moreMenu.style.display = moreMenu.style.display === 'block' ? 'none' : 'block';
+    });
+
+  });
+</script>
