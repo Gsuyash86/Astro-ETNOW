@@ -1,6 +1,5 @@
 ---
 import style from "./TopNavigation.module.scss";
-import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.astro";
 import Typography from "@components/common/widgets/typography/Typography.astro";
 
 const navLinks = [
@@ -30,6 +29,7 @@ const {
 ---
 
 <ul class={`${style["nav-ul"]} ${changeStyle ? style[changeStyle] : ''}`} style={inLineStyle}>
+    
     {navLinks.map(({ href, title, isActive = false }) => (
         <li>
         <a href={href} title={title} target="_blank" class={`${style["nav-link"]} ${isActive ? style['nav-active'] : ''}`}>
