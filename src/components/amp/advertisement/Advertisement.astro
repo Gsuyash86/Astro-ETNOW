@@ -1,0 +1,60 @@
+---
+export interface Props {
+  id?: string;
+  divId?: string;
+  adCode?: string;
+  size?: (number | number[])[];
+  widgetType?: string;
+  className?: string;
+  theme?: string;
+  adKey?: string;
+  spacing?: boolean;
+  type?: "amp-ad" | "amp-sticky-ad" | "amp-lightbox" | "gpt"; // add more as needed
+  isPrimeUser?: boolean;
+  isCTN?: boolean;
+  position?: number;
+}
+
+// Don’t show ads for Prime users (business logic here)
+if (Astro.props.isPrimeUser) {
+  return null;
+}
+---
+
+{Astro.props.type === "amp-ad" && (
+  <amp-ad
+    width={Astro.props.size?.[0] ?? 300}
+    height={Astro.props.size?.[1] ?? 250}
+    type="doubleclick"
+    data-slot={Astro.props.adCode}
+    class={Astro.props.className}
+  ></amp-ad>
+)}
+
+{Astro.props.type === "amp-sticky-ad" && (
+  <amp-sticky-ad layout="nodisplay">
+    <amp-ad
+      width={Astro.props.size?.[0] ?? 320}
+      height={Astro.props.size?.[1] ?? 50}
+      type="doubleclick"
+      data-slot={Astro.props.adCode}
+      class={Astro.props.className}
+    ></amp-ad>
+  </amp-sticky-ad>
+)}
+
+{Astro.props.type === "amp-lightbox" && (
+  <amp-lightbox id={Astro.props.divId ?? "ad-lightbox"} layout="nodisplay">
+    <amp-ad
+      width={Astro.props.size?.[0] ?? 300}
+      height={Astro.props.size?.[1] ?? 250}
+      type="doubleclick"
+      data-slot={Astro.props.adCode}
+      class={Astro.props.className}
+    ></amp-ad>
+  </amp-lightbox>
+)}
+
+{Astro.props.type === "gpt" && (
+  <div id={Astro.props.divId} class={`gpt-ad ${Astro.props.className ?? ""}`}></div>
+)}

@@ -4,7 +4,7 @@ const isMobileView = Astro.url.searchParams.get("isMobileView");
 import MobileLayout from "./mobile/Layout.astro";
 import DesktopLayout from "./desktop/Layout.astro";
 
-import AdCaller from "../components/common/adcaller.js/AdCaller.astro";
+import AdCaller from "../components/common/adcaller/AdCaller.astro";
 import MgIdComponent from "../components/common/mgid/MgIdComponent.astro";
 import CONST from "../constant";
 
@@ -78,30 +78,61 @@ let ad2 = {
 </Fragment>
 
 <body>
-  {isMobileView === "true" ? <MobileLayout /> : <DesktopLayout />}
+  {
+    isMobileView === "true" ? (
+      <MobileLayout>
+        <div id={ad.divId}>
+          <AdCaller
+            pageTarget={pageTarget}
+            adCode={ad.adCode}
+            divId={ad.divId}
+            size={ad.size}
+          />
+        </div>
 
-  <div id={ad.divId}>
-    <AdCaller
-      pageTarget={pageTarget}
-      adCode={ad.adCode}
-      divId={ad.divId}
-      size={ad.size}
-    />
-  </div>
+        <div id={ad.divId + 1 + "ssss"}>
+          <AdCaller
+            pageTarget={pageTarget}
+            adCode={ad2.adCode}
+            divId={ad2.divId}
+            size={ad2.size}
+          />
+        </div>
 
-  <div id={ad.divId + 1 + "ssss"}>
-    <AdCaller
-      pageTarget={pageTarget}
-      adCode={ad2.adCode}
-      divId={ad2.divId}
-      size={ad2.size}
-    />
-  </div>
+        <div>
+          <MgIdComponent
+            scriptID={CONST.MGID_ADD_5X5}
+            elementID={CONST.MGID_ADD_5X5}
+          />
+        </div>
+      </MobileLayout>
+    ) : (
+      <DesktopLayout>
+        <div id={ad.divId}>
+          <AdCaller
+            pageTarget={pageTarget}
+            adCode={ad.adCode}
+            divId={ad.divId}
+            size={ad.size}
+          />
+        </div>
 
-  <div>
-    <MgIdComponent
-      scriptID={CONST.MGID_ADD_5X5}
-      elementID={CONST.MGID_ADD_5X5}
-    />
-  </div>
+        <div id={ad.divId + 1 + "ssss"}>
+          <AdCaller
+            pageTarget={pageTarget}
+            adCode={ad2.adCode}
+            divId={ad2.divId}
+            size={ad2.size}
+          />
+        </div>
+
+        <div>
+          <MgIdComponent
+            scriptID={CONST.MGID_ADD_5X5}
+            elementID={CONST.MGID_ADD_5X5}
+          />
+        </div>
+      </DesktopLayout>
+    )
+  }
 </body>
