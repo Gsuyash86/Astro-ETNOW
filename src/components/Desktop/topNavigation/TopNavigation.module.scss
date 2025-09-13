@@ -1,0 +1,46 @@
+@use 'src/styles/_mixins-new'as *;
+
+.nav {
+    &-ul {
+        display: flex;
+
+        li {
+            &:first-child {
+                .nav-link {
+                    padding-left: 0;
+                }
+            }
+        }
+    }
+
+    &-link {
+        display: inline-block;
+        padding: 8px 6px;
+        border-right: 1px solid #404040;
+        text-transform: none;
+
+        &,
+        span {
+            color: var(--whiteColor);
+        }
+    }
+
+    &-active {
+        position: relative;
+
+        span {
+            font-weight: bold;
+
+            &::after {
+                content: '';
+                background: var(--whiteColor);
+                height: 2px;
+                position: absolute;
+                left: 0px;
+                right: 6px;
+                margin: auto;
+                bottom: 5px;
+            }
+        }
+    }
+}

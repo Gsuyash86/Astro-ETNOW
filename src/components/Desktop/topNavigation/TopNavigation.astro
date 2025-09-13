@@ -1,8 +1,7 @@
 ---
-import style from "./Header.module.scss";
+import style from "./TopNavigation.module.scss";
 import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.astro";
-import TopNavigation from "../topNavigation/TopNavigation.astro";
-import Navigation from "../navigation/Navigation.astro";
+import Typography from "@components/common/widgets/typography/Typography.astro";
 
 const navLinks = [
   { href: "https://www.etnownews.com", title: "ET Now", isActive: true },
@@ -22,24 +21,31 @@ const navLinks = [
   { href: "https://malayalam.timesnownews.com/", title: "Malayalam", isActive: "" },
   { href: "https://www.zoomtventertainment.com/", title: "Zoom", isActive: "" }
 ];
+
+const {
+  changeStyle = '',
+  inLineStyle = {},
+} = Astro.props;
+
 ---
 
-<header>
-  <div class={`${style["header-top-nav"]}`}>
-    <ContainerBox>
-      <TopNavigation />
-    </ContainerBox>
-  </div>
-  <ContainerBox>
-    <div class={`${style['header-logo']}`}>
-        <a href="#" class={`${style['header-logo']}`}>
-            <img src="assets/images/logo-large.svg" alt="ET Now" />
+<ul class={`${style["nav-ul"]} ${changeStyle ? style[changeStyle] : ''}`} style={inLineStyle}>
+    {navLinks.map(({ href, title, isActive = false }) => (
+        <li>
+        <a href={href} title={title} target="_blank" class={`${style["nav-link"]} ${isActive ? style['nav-active'] : ''}`}>
+            <Typography
+                tag="span"
+                text={title}
+                changeStyle="font-size-12"
+                fontWeight="400"
+                isLineClamp={false}
+                inLineStyle={{
+                    lineHeight: "1.2",
+                    letterSpacing: ".1em",
+                    whiteSpace: 'nowrap',
+                }}
+            />
         </a>
-    </div>
-  </ContainerBox>
-  <div class={`${style["header-main-nav"]}`}>
-    <ContainerBox>
-      <Navigation />
-    </ContainerBox>
-  </div>
-</header>
+        </li>
+    ))}
+</ul>

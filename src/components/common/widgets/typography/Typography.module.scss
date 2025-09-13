@@ -1,0 +1,153 @@
+@use 'src/styles/_mixins-new' as *;
+
+.default-paragraph {
+  @include font-size(16);
+  @include lineClamp(2);
+  line-height: 1.714;
+  color: var(--textColor);
+  font-weight: normal;
+
+  a {
+    text-decoration: none;
+    color: var(--hrefColor);
+    font-style: italic;
+  }
+
+  @include list();
+  @include table();
+
+  ul,
+  ol {
+    margin-bottom: 15px;
+  }
+
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: inherit;
+  }
+
+  span {
+    -webkit-box-decoration-break: clone;
+    -o-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+}
+
+.second-font-family {
+  font-family: var(--fontFamilyDMDisplay);
+}
+
+.no-line-clamp {
+  @include lineClamp(inherit);
+}
+
+.white {
+  color: var(--whiteColor);
+}
+
+.black {
+  color: var(--blackColor);
+}
+
+.font-weight {
+  &-normal {
+    font-weight: normal;
+  }
+
+  &-400 {
+    font-weight: normal;
+  }
+
+  &-500 {
+    font-weight: 500;
+  }
+
+  &-600 {
+    font-weight: 600;
+  }
+
+  &-700 {
+    font-weight: 700;
+  }
+
+  &-bold {
+    font-weight: bold;
+  }
+}
+
+.font-size {
+  &-10 {
+    @include font-size(10);
+  }
+
+  &-11 {
+    @include font-size(11);
+  }
+
+  &-12 {
+    @include font-size(12);
+  }
+
+  &-13 {
+    @include font-size(13);
+  }
+
+  &-14 {
+    @include font-size(14);
+  }
+
+  &-15 {
+    @include font-size(15);
+  }
+
+  &-16 {
+    @include font-size(16);
+  }
+
+  &-17 {
+    @include font-size(17);
+  }
+
+  &-18 {
+    @include font-size(18);
+  }
+
+  &-19 {
+    @include font-size(19);
+  }
+
+  &-20 {
+    @include font-size(20);
+  }
+
+  &-22 {
+    @include font-size(22);
+  }
+
+  &-24 {
+    @include font-size(24);
+  }
+
+  &-26 {
+    @include font-size(26);
+  }
+
+  &-28 {
+    @include font-size(28);
+  }
+}
+
+.faq-title {
+  border-left: 6px solid #b52025;
+  padding-left: 8px;
+  line-height: normal;
+}
+
+.tableheight {
+  table {
+    max-height: 750px;
+  }
+}

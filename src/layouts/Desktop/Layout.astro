@@ -2,6 +2,7 @@
 import GutterAds from "@components/common/wrappers/gutterAds/GutterAds.astro";
 import AdCaller from "@components/amp/adcaller/AdCaller.astro";
 import Header from "@components/Desktop/Header/Header.astro";
+import AdContainer from "@components/common/adcontainer/AdContainer.astro";
 
 const pageTarget = {
     section: { category: "news", sub_category: "tech" },
@@ -30,7 +31,7 @@ let ad2 = {
 ---
 
 <>
-    <GutterAds>
+    <!-- <GutterAds>
         <AdCaller
             pageTarget={pageTarget}
             adCode={ad.adCode}
@@ -45,8 +46,9 @@ let ad2 = {
             size={ad.size}
             slot="right"
         />
-    </GutterAds>
+    </GutterAds> -->
 
+    <AdContainer />
     <Header />
     <slot />
 </>

@@ -1,0 +1,132 @@
+---
+import style from "./Navigation.module.scss";
+import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.astro";
+import Typography from "@components/common/widgets/typography/Typography.astro";
+import SvgIcon from '@components/common/svg/SvgIcon.astro';
+
+const navLinks = [
+    {
+        title: "Latest",
+        href: "https://www.etnownews.com/latest-news",
+        isActive: true,
+    },
+    {
+        title: "Market Overview",
+        href: "https://www.etnownews.com/market-overview",
+        isActive: "",
+        children: [
+            {
+                title: "Market News",
+                href: "https://www.etnownews.com/markets",
+            },
+            {
+                title: "Stocks",
+                href: "https://www.etnownews.com/stocks",
+            },
+            {
+                title: "IPO",
+                href: "https://www.etnownews.com/markets/ipo",
+            },
+            {
+                title: "Indices",
+                href: "https://www.etnownews.com/indices/nse",
+            },
+            {
+                title: "Forex",
+                href: "https://www.etnownews.com/markets/forex",
+            },
+        ],
+    },
+    {
+        title: "News",
+        href: "https://www.etnownews.com/news",
+        isActive: "",
+    },
+    {
+        title: "Mutual Funds",
+        href: "https://www.etnownews.com/mutual-funds",
+        isActive: "",
+    },
+    {
+        title: "Corporates",
+        href: "https://www.etnownews.com/companies",
+        isActive: "",
+    },
+    {
+        title: "Money",
+        href: "https://www.etnownews.com/personal-finance",
+        isActive: "",
+    },
+    {
+        title: "Crypto Now",
+        href: "https://www.etnownews.com/cryptocurrency",
+        isActive: "",
+    },
+];
+
+const { changeStyle = "", inLineStyle = {} } = Astro.props;
+---
+
+<ul
+  class={`${style["nav-ul"]} ${changeStyle ? style[changeStyle] : ""}`}
+  style={inLineStyle}
+>
+  <li>
+    <a href="#" title="" class={`${style["nav-link"]} ${style["nav-link-home"]}`}>
+      <span><SvgIcon IconName={'HomeIcon'} width={17} height={16} /></span>
+    </a>
+  </li>
+
+  {navLinks.map(({ href, title, isActive = false, children }) => (
+    <li class={`${children && children.length > 0 && style['rightArrow']}`}>
+      <a
+        href={href}
+        title={title}
+        target="_blank"
+        class={`${style["nav-link"]} ${isActive ? style["nav-active"] : ""}`}
+      >
+        <Typography
+          tag="span"
+          text={title}
+          changeStyle="font-size-12"
+          fontWeight="400"
+          isLineClamp={false}
+          inLineStyle={{
+            lineHeight: "1.2",
+            letterSpacing: ".1em",
+            whiteSpace: "nowrap",
+          }}
+        />
+      </a>
+
+      {/* Render submenu if children exist */}
+      {children && children.length > 0 && (
+        <ul class={style["sub-container-design1"]}>
+          {children.map(({ href: subHref, title: subTitle }) => (
+            <li>
+              <a
+                href={subHref}
+                title={subTitle}
+                target="_blank"
+                class={style["submenu-link"]}
+              >
+                <Typography
+                  tag="span"
+                  text={subTitle}
+                  changeStyle="font-size-12"
+                  fontWeight="400"
+                  isLineClamp={false}
+                  inLineStyle={{
+                    lineHeight: "1.2",
+                    letterSpacing: ".1em",
+                    whiteSpace: "nowrap",
+                  }}
+                />
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </li>
+  ))}
+</ul>

@@ -4,20 +4,23 @@ const isMobileView = Astro.url.searchParams.get("isMobileView");
 
 import MobileLayout from "./mobile/Layout.astro";
 import DesktopLayout from "./desktop/Layout.astro";
-
 ---
 
 <Fragment slot={"head"}>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- Preconnect to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Load Google Fonts with display=swap to prevent CLS -->
   <link
-    rel="preload"
-    as="style"
+    rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:wght@400;700&family=Inter:wght@400;700&display=swap"
-    fetchpriority="high"
-    onload="this.onload=null;this.rel='stylesheet'"
   />
+
   <meta name="generator" content={Astro.generator} />
   <title>Astro Basics</title>
   <script is:inline>
@@ -50,18 +53,13 @@ import DesktopLayout from "./desktop/Layout.astro";
       window,
       document,
       "script",
-      "//c.amazon-adsystem.com/aax2/apstag.js"
+      "//c.amazon-adsystem.com/aax2/apstag.js",
     );
   </script>
-  <script id="dpfscript" src="/dfpamzn.js" type="text/javascript" defer />
+  <script id="dpfscript" src="/dfpamzn.js" type="text/javascript" defer
+  ></script>
 </Fragment>
 
 <body>
-  {
-    isMobileView === "true" ? (
-      <MobileLayout />
-    ) : (
-      <DesktopLayout />
-    )
-  }
+  {isMobileView === "true" ? <MobileLayout /> : <DesktopLayout />}
 </body>
