@@ -1,2 +1,57 @@
+---
+import AdCaller from "@components/common/adcaller/AdCaller.astro";
+import MgIdComponent from "@components/common/mgid/MgIdComponent.astro";
+import CONST from "src/constant";
 
+const pageTarget = {
+  section: { category: "news", sub_category: "tech" },
+  page: "article",
+  msid: "12345",
+};
+
+let ad = {
+  adCode: "/21806551354/ETNow/Desktop/ArticleShow/ETNow_Desk_AS_Header",
+  divId: "div-u-id-1-2",
+  size: [
+    [728, 90],
+    [970, 90],
+    [980, 90],
+  ],
+};
+let ad2 = {
+  adCode: "/21806551354/ETNow/Desktop/ArticleShow/ETNow_Desk_AS_Header",
+  divId: "div-u-id-1-2-3",
+  size: [
+    [728, 90],
+    [970, 90],
+    [980, 90],
+  ],
+};
+---
+<>
+	<div id={ad.divId}>
+		<AdCaller
+			pageTarget={pageTarget}
+			adCode={ad.adCode}
+			divId={ad.divId}
+			size={ad.size}
+		/>
+	</div>
+
+	<div id={ad.divId + 1 + "ssss"}>
+		<AdCaller
+			pageTarget={pageTarget}
+			adCode={ad2.adCode}
+			divId={ad2.divId}
+			size={ad2.size}
+		/>
+	</div>
+
+	<div>
+		<MgIdComponent
+			scriptID={CONST.MGID_ADD_5X5}
+			elementID={CONST.MGID_ADD_5X5}
+		/>
+	</div>
 	<slot />
+</>

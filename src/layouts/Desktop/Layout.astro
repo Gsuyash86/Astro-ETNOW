@@ -1,1 +1,52 @@
-<slot />
+---
+import GutterAds from "@components/common/wrappers/gutterAds/GutterAds.astro";
+import AdCaller from "@components/amp/adcaller/AdCaller.astro";
+import Header from "@components/Desktop/Header/Header.astro";
+
+const pageTarget = {
+    section: { category: "news", sub_category: "tech" },
+    page: "article",
+    msid: "12345",
+};
+
+let ad = {
+    adCode: "/21806551354/ETNow/Desktop/ArticleShow/ETNow_Desk_AS_Header",
+    divId: "div-u-id-1-2",
+    size: [
+        [728, 90],
+        [970, 90],
+        [980, 90],
+    ],
+};
+let ad2 = {
+    adCode: "/21806551354/ETNow/Desktop/ArticleShow/ETNow_Desk_AS_Header",
+    divId: "div-u-id-1-2-3",
+    size: [
+        [728, 90],
+        [970, 90],
+        [980, 90],
+    ],
+};
+---
+
+<>
+    <GutterAds>
+        <AdCaller
+            pageTarget={pageTarget}
+            adCode={ad.adCode}
+            divId={ad.divId}
+            size={ad.size}
+            slot="left"
+        />
+        <AdCaller
+            pageTarget={pageTarget}
+            adCode={ad.adCode}
+            divId={ad.divId}
+            size={ad.size}
+            slot="right"
+        />
+    </GutterAds>
+
+    <Header />
+    <slot />
+</>

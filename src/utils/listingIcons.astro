@@ -1,0 +1,33 @@
+---
+import SvgIcon from '@components/common/svg/SvgIcon.astro';
+
+const { type = '' } = Astro.props;
+
+let iconName = '';
+
+switch (type) {
+  case 'VIDEOS':
+  case 'MEDIAVIDEO':
+    iconName = 'videoGreyWhite';
+    break;
+  case 'IMAGES':
+    iconName = 'storyGreyWhite';
+    break;
+  case 'MEDIAAUDIO':
+    iconName = 'bytesVideoIcon';
+    break;
+  case 'PHOTOGALLERYSECTION':
+  case 'PHOTOGALLERYSLIDESHOWSECTION':
+    iconName = 'photoGreyWhite';
+    break;
+  case 'WEBSTORIES':
+    iconName = 'storyGreyWhite';
+    break;
+  case 'MOVIEREVIEW':
+  default:
+    iconName = '';
+    break;
+}
+---
+
+{iconName && <SvgIcon IconName={iconName} />}

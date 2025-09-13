@@ -1,0 +1,16 @@
+---
+import style from './PlayButton.module.scss';
+
+const {
+  layoutStyle = '',
+  time = ''
+} = Astro.props;
+
+const wrapperClass = `${style.duration} ${layoutStyle && style[layoutStyle] ? style[layoutStyle] : ''}`;
+const iconClass = time ? style['play-icon'] : style['play-icon-9'];
+---
+
+<i class={wrapperClass}>
+  <i class={iconClass}></i>
+  {time}
+</i>

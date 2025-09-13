@@ -1,0 +1,39 @@
+.inner-container {
+  width: 100%;
+  display: flex;
+  gap: 0 20px;
+}
+
+.lhs {
+  flex: 0 0 40px;
+  width: 40px;
+}
+
+.mid {
+  flex: 1;
+  min-width: 0;
+}
+
+.rhs {
+  flex: 0 0 300px;
+  width: 300px;
+
+  > div {
+    height: 100%;
+  }
+}
+
+.three-column-layout {
+  .lhs {
+    flex: 0 0 180px;
+    width: 180px;
+  }
+}
+
+.live-tv-wrapper {
+  gap: 0 4px;
+  .rhs {
+    flex: 0 0 310px;
+    width: 310px;
+  }
+}
