@@ -3,672 +3,360 @@ import style from "./Footer.module.scss";
 import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.astro";
 import Typography from "@components/common/widgets/typography/Typography.astro";
 import SvgIcon from "@components/common/svg/SvgIcon.astro";
+import CONST from "@constant/index";
 
-const aboutText =
-    '<span>ETNow.in, India’s leading English business news website, is a one-stop solution for all your business news related needs. The platform offers news, views, features, visual stories, explainers, interviews, analysis, etc. from the world of <a href="/markets">Stock Market</a>, Economy, <a href="/markets/ipo">IPOs</a>, <a href="/mutual-funds">Mutual Funds</a>, Income Tax related news, <a href="/personal-finance">Personal Finance</a> related tips and tricks, in addition with latest updates and developments from other relevant domains, that too in the easiest language. ETNow.in is loved, read, watched, subscribed and recommended by top business leaders, industry experts, economists, top researchers, and who\'s who of the business fraternity. The biggest strength of ETNow.in lies in its jargon-free language offered in the articles, so that our readers and audience can comfortably decode the toughest of business news and trending topics like complex earnings details, results, revenue sheets and research documents in the easy, simple and understandable language. <br />ET Now is a part of the Times Network, the broadcast division of India’s largest media conglomerate, The Times Group. With the brand ethos, ‘Rise with India’, ET Now is dedicated to the cause of India’s development and aims to empower the discerning Indian to participate in and influence the nation’s growth story. <a href="/live-tv">ET Now Live TV</a> channel sharply differentiates itself from other business channels with its focus beyond markets and finance to content around development, economy, government, and policy issues. ET Now business news channel engages with viewers in 16 countries across the globe.</span>';
-const readMore = '<a href="/info/about-us">Read More</a>';
+const response = await fetch(
+  `https://api.etnownews.com/request/footer?channel_id=382`
+);
 
-const stockLinks = [
-    { title: "Browse Companies", href: "#" },
-    { title: "#", href: "#" },
-    { title: "A", href: "#" },
-    { title: "B", href: "#" },
-    { title: "C", href: "#" },
-    { title: "D", href: "#" },
-    { title: "E", href: "#" },
-    { title: "F", href: "#" },
-    { title: "G", href: "#" },
-    { title: "H", href: "#" },
-    { title: "I", href: "#" },
-    { title: "J", href: "#" },
-    { title: "K", href: "#" },
-    { title: "L", href: "#" },
-    { title: "M", href: "#" },
-    { title: "N", href: "#" },
-    { title: "O", href: "#" },
-    { title: "P", href: "#" },
-    { title: "Q", href: "#" },
-    { title: "R", href: "#" },
-    { title: "S", href: "#" },
-    { title: "T", href: "#" },
-    { title: "U", href: "#" },
-    { title: "V", href: "#" },
-    { title: "W", href: "#" },
-    { title: "X", href: "#" },
-    { title: "Y", href: "#" },
-    { title: "Z", href: "#" },
-];
-const amcLinks = [
-    { title: "Browse Asset Management Companies", href: "#" },
-    { title: "SBI Mutual Fund", href: "#" },
-    { title: "ICICI Prudential Mutual Fund", href: "#" },
-    { title: "HDFC Mutual Fund", href: "#" },
-    { title: "Nippon India Mutual Fund", href: "#" },
-    { title: "Kotak Mahindra Mutual Fund", href: "#" },
-    { title: "Aditya Birla Sun Life Mutual Fund", href: "#" },
-    { title: "UTI Mutual Fund", href: "#" },
-    { title: "Axis Mutual Fund", href: "#" },
-    { title: "Mirae Asset Mutual Fund", href: "#" },
-    { title: "TATA Mutual Fund", href: "#" },
-    { title: "All Mutual Fund Houses", href: "#" },
-    { title: "DSP Mutual Fund", href: "#" },
-];
+const data = await response.json();
 
-const footerMenu = [
-    {
-        "Top Searches": [
-            {
-                title: "Market Overview",
-                url: "https://www.etnownews.com/market-overview",
-            },
-            {
-                title: "Stocks Listing",
-                url: "https://www.etnownews.com/stocks",
-            },
-            {
-                title: "Holidays Calendar 2025",
-                url: "https://www.etnownews.com/about/holiday-calendar",
-            },
-            {
-                title: "Mutual Fund Calculator",
-                url: "https://www.etnownews.com/tools-calculators/mutual-fund-calculator",
-            },
-            {
-                title: "Home Loan Calculator",
-                url: "https://www.etnownews.com/tools-calculators/home-loan-calculator",
-            },
-            {
-                title: "Car Loan Calculator",
-                url: "https://www.etnownews.com/tools-calculators/car-loan-calculator",
-            },
-            {
-                title: "Personal Loan Calculator",
-                url: "https://www.etnownews.com/tools-calculators/personal-loan-emi-calculator",
-            },
-            {
-                title: "Stock Return Calculator",
-                url: "https://www.etnownews.com/tools-calculators/return-calculator",
-            },
-            {
-                title: "Mirae Asset Mutual Fund",
-                url: "https://www.etnownews.com/mutual-funds/amc/mirae-asset-mutual-fund-house-400033",
-            },
-            {
-                title: "Mutual Fund Performance",
-                url: "https://www.etnownews.com/mutual-funds/mutual-fund-performance",
-            },
-        ],
-    },
-    {
-        "Popular Searches": [
-            {
-                title: "Market Overview",
-                url: "https://www.etnownews.com/market-overview",
-            },
-            {
-                title: "Stocks Listing",
-                url: "https://www.etnownews.com/stocks",
-            },
-            {
-                title: "Holidays Calendar 2025",
-                url: "https://www.etnownews.com/about/holiday-calendar",
-            },
-            {
-                title: "Mutual Fund Calculator",
-                url: "https://www.etnownews.com/tools-calculators/mutual-fund-calculator",
-            },
-            {
-                title: "Home Loan Calculator",
-                url: "https://www.etnownews.com/tools-calculators/home-loan-calculator",
-            },
-            {
-                title: "Car Loan Calculator",
-                url: "https://www.etnownews.com/tools-calculators/car-loan-calculator",
-            },
-            {
-                title: "Personal Loan Calculator",
-                url: "https://www.etnownews.com/tools-calculators/personal-loan-emi-calculator",
-            },
-            {
-                title: "Stock Return Calculator",
-                url: "https://www.etnownews.com/tools-calculators/return-calculator",
-            },
-            {
-                title: "Mirae Asset Mutual Fund",
-                url: "https://www.etnownews.com/mutual-funds/amc/mirae-asset-mutual-fund-house-400033",
-            },
-            {
-                title: "Mutual Fund Performance",
-                url: "https://www.etnownews.com/mutual-funds/mutual-fund-performance",
-            },
-        ],
-    },
-    {
-        "Top Stocks": [
-            {
-                title: "Market Overview",
-                url: "https://www.etnownews.com/market-overview",
-            },
-            {
-                title: "Stocks Listing",
-                url: "https://www.etnownews.com/stocks",
-            },
-            {
-                title: "Holidays Calendar 2025",
-                url: "https://www.etnownews.com/about/holiday-calendar",
-            },
-            {
-                title: "Mutual Fund Calculator",
-                url: "https://www.etnownews.com/tools-calculators/mutual-fund-calculator",
-            },
-            {
-                title: "Home Loan Calculator",
-                url: "https://www.etnownews.com/tools-calculators/home-loan-calculator",
-            },
-            {
-                title: "Car Loan Calculator",
-                url: "https://www.etnownews.com/tools-calculators/car-loan-calculator",
-            },
-            {
-                title: "Personal Loan Calculator",
-                url: "https://www.etnownews.com/tools-calculators/personal-loan-emi-calculator",
-            },
-            {
-                title: "Stock Return Calculator",
-                url: "https://www.etnownews.com/tools-calculators/return-calculator",
-            },
-            {
-                title: "Mirae Asset Mutual Fund",
-                url: "https://www.etnownews.com/mutual-funds/amc/mirae-asset-mutual-fund-house-400033",
-            },
-            {
-                title: "Mutual Fund Performance",
-                url: "https://www.etnownews.com/mutual-funds/mutual-fund-performance",
-            },
-        ],
-    },
-    {
-        "Top Picks": [
-            {
-                title: "Market Overview",
-                url: "https://www.etnownews.com/market-overview",
-            },
-            {
-                title: "Stocks Listing",
-                url: "https://www.etnownews.com/stocks",
-            },
-            {
-                title: "Holidays Calendar 2025",
-                url: "https://www.etnownews.com/about/holiday-calendar",
-            },
-            {
-                title: "Mutual Fund Calculator",
-                url: "https://www.etnownews.com/tools-calculators/mutual-fund-calculator",
-            },
-            {
-                title: "Home Loan Calculator",
-                url: "https://www.etnownews.com/tools-calculators/home-loan-calculator",
-            },
-            {
-                title: "Car Loan Calculator",
-                url: "https://www.etnownews.com/tools-calculators/car-loan-calculator",
-            },
-            {
-                title: "Personal Loan Calculator",
-                url: "https://www.etnownews.com/tools-calculators/personal-loan-emi-calculator",
-            },
-            {
-                title: "Stock Return Calculator",
-                url: "https://www.etnownews.com/tools-calculators/return-calculator",
-            },
-            {
-                title: "Mirae Asset Mutual Fund",
-                url: "https://www.etnownews.com/mutual-funds/amc/mirae-asset-mutual-fund-house-400033",
-            },
-            {
-                title: "Mutual Fund Performance",
-                url: "https://www.etnownews.com/mutual-funds/mutual-fund-performance",
-            },
-        ],
-    },
-];
-
-const footerBrandMenu = [
-    {
-        "Times Brands": [
-            { title: "Times Now", url: "#" },
-            { title: "Times Now Navbharat", url: "#" },
-            { title: "Times Drive", url: "#" },
-            { title: "ET Now Advisor", url: "#" },
-            { title: "UniList", url: "#" },
-            { title: "Digit", url: "#" },
-            { title: "Health and Me", url: "#" },
-            { title: "Magicbricks", url: "#" },
-            { title: "Telugu", url: "#" },
-            { title: "Tamil", url: "#" },
-            { title: "Marathi", url: "#" },
-            { title: "Kannada", url: "#" },
-            { title: "Bengali", url: "#" },
-            { title: "Malayalam", url: "#" },
-            { title: "Zoom", url: "#" },
-        ],
-    },
-];
-
-const footerLatestMenu = [
-    {
-        "Latest Stories": [
-            {
-                title: "ITR Filing Deadline: समय से फाइल नहीं की आईटीआर, तो जानें क्या-क्या हो सकते हैं नुकसान | Explainer",
-                url: "#",
-            },
-            {
-                title: "एयर इंडिया एक्सप्रेस फेस्टिव सीजन डिस्काउंट सेल; जानें कितने सस्ते में कर सकते हैं हवाई सफर!  DETAILS",
-                url: "#",
-            },
-            {
-                title: "Explainer: विदेश में भी UPI! जानें विदेशों में कैसे बढ़ रही है भारत की डिजिटल पेमेंट की ताकत",
-                url: "#",
-            },
-            {
-                title: "Free Fire Max Redeem Codes: आज फ्री में मिल रहे ये तगड़े रिवॉर्ड्स; जानें कैसे करें रिडीम",
-                url: "#",
-            },
-            {
-                title: "भारत में बैंकिंग सुविधाओं में होगा बड़ा बदलाव? 2 बैंकों को ग्लोबल टॉप 20 का हिस्सा बनाने का लक्ष्य",
-                url: "#",
-            },
-            {
-                title: "Bank FD, Fixed Deposit: 3 साल की एफडी पर ये बैंक दे रहे तगड़ा ब्याज! यहां देखें लिस्ट",
-                url: "#",
-            },
-            {
-                title: "तमिलनाडु-बिहार को जोड़ेगी नई Amrit Bharat Express, 15 सितंबर को पीएम मोदी करेंगे उद्घाटन; यहां देखें रूट, टाइमिंग और सबकुछ",
-                url: "#",
-            },
-            {
-                title: "Mutual Fund: 500 रुपए महीने की SIP से 10 साल में कितना बनेगा पैसा? कैलकुलेशन समझें आसान भाषा में | EXPLAINER",
-                url: "#",
-            },
-            {
-                title: "दर्दनाक! कर्नाटक के हासन में गणेश विसर्जन यात्रा के दौरान ट्रक ने कुचले 9 लोग",
-                url: "#",
-            },
-        ],
-    },
-];
-
-const footerCompanyMenu = [
-    {
-        Company: [
-            {
-                title: "About Us",
-                url: "/info/about-us",
-            },
-            {
-                title: "Contact Us",
-                url: "/info/contact-us",
-            },
-            {
-                title: "Advertise with us",
-                url: "/info/advertise-with-us",
-            },
-            {
-                title: "Regulatory",
-                url: "/info/regulatory",
-            },
-            {
-                title: "Terms & Conditions",
-                url: "/info/terms-conditions",
-            },
-            {
-                title: "Privacy Policy",
-                url: "/info/privacy-policy",
-            },
-            {
-                title: "Disclaimer",
-                url: "/info/disclaimer",
-            },
-            {
-                title: "Complaint Redressal",
-                url: "/info/complaint-redressal",
-            },
-            {
-                title: "RSS Feed",
-                url: "/info/rssfeed",
-            },
-        ],
-    },
-];
+const aboutText = data?.response?.[0]?.title;
+const readMore = data?.response?.[0]?.description;
+const assetMngComp = data?.response?.[0]?.data?.browseAssetManagementCompanies;
+const footerMenu = data?.response?.[0]?.data?.footerlinks;
+const footerBrandMenu = data?.response?.[0]?.data?.footerBrandlinks;
+const footerLatestMenu = data?.response?.[0]?.data?.latestNews;
+const footerCompanyMenu = data?.response?.[0]?.data;
 ---
 
 <footer class={`${style["footer"]}`}>
-    <ContainerBox>
+  <ContainerBox>
+    <Typography
+      tag="h2"
+      text={aboutText}
+      changeStyle="font-size-16"
+      fontWeight="700"
+      isLineClamp={false}
+      isWhiteLayout={true}
+      inLineStyle={{
+        marginBottom: "10px",
+      }}
+    />
+    <div class={`${style["footer-description"]}`}>
+      <Typography
+        tag="p"
+        text={`${readMore}`}
+        changeStyle="font-size-12"
+        fontWeight="400"
+        isLineClamp={false}
+        isWhiteLayout={true}
+        inLineStyle={{
+          lineHeight: "20px",
+          color: "hsla(0,0%,100%,.75)",
+          marginBottom: "15px",
+        }}
+      />
+    </div>
+
+    <ul class={`${style["footer-social"]}`}>
+      <li>
         <Typography
-            tag="h2"
-            text={"About ET Now News"}
-            changeStyle="font-size-16"
+          tag="p"
+          text={"Follow Us :"}
+          changeStyle="font-size-16"
+          fontWeight="700"
+          isLineClamp={false}
+          isWhiteLayout={true}
+          inLineStyle={{
+            lineHeight: "24px",
+          }}
+        />
+      </li>
+      <li>
+        <a href="#">
+          <SvgIcon IconName={"footerFbIcon"} width="22" height="22" />
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <SvgIcon IconName={"footerXIcon"} width="22" height="22" />
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <SvgIcon IconName={"footerInstaIcon"} width="22" height="22" />
+        </a>
+      </li>
+    </ul>
+
+    <ul class={`${style["footer-stocks"]}`}>
+      <li>
+        <a href="#">
+          <Typography
+            tag="p"
+            text={`Browse Companies :-`}
+            changeStyle={"font-size-16"}
             fontWeight="700"
             isLineClamp={false}
             isWhiteLayout={true}
             inLineStyle={{
-                marginBottom: "10px",
+              lineHeight: "1",
             }}
-        />
-        <div class={`${style["footer-description"]}`}>
-            <Typography
+          />
+        </a>
+      </li>
+      {
+        CONST["STOCK_LINKS"].map(({ link, value }, index) => (
+          <li>
+            <a href={link}>
+              <Typography
                 tag="p"
-                text={`${aboutText} ${"&nbsp;"} ${readMore}`}
-                changeStyle="font-size-12"
+                text={`${value}`}
+                changeStyle={"font-size-12"}
                 fontWeight="400"
                 isLineClamp={false}
                 isWhiteLayout={true}
                 inLineStyle={{
-                    lineHeight: "20px",
-                    color: "hsla(0,0%,100%,.75)",
-                    marginBottom: "15px",
+                  lineHeight: "1",
                 }}
-            />
-        </div>
+              />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
 
-        <ul class={`${style["footer-social"]}`}>
-            <li>
-                <Typography
-                    tag="p"
-                    text={"Follow Us :"}
-                    changeStyle="font-size-16"
-                    fontWeight="700"
-                    isLineClamp={false}
-                    isWhiteLayout={true}
-                    inLineStyle={{
-                        lineHeight: "24px",
-                    }}
-                />
-            </li>
-            <li>
-                <a href="#">
-                    <SvgIcon IconName={"footerFbIcon"} width="22" height="22" />
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <SvgIcon IconName={"footerXIcon"} width="22" height="22" />
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <SvgIcon
-                        IconName={"footerInstaIcon"}
-                        width="22"
-                        height="22"
-                    />
-                </a>
-            </li>
-        </ul>
-
-        <ul class={`${style["footer-stocks"]}`}>
-            {
-                stockLinks.map(({ title, href }, index) => (
-                    <li key={index}>
-                        <a href={href}>
-                            <Typography
-                                tag="p"
-                                text={`${title} ${index === 0 ? ":-" : ""}`}
-                                changeStyle={
-                                    index === 0
-                                        ? "font-size-16"
-                                        : "font-size-12"
-                                }
-                                fontWeight={index === 0 ? "700" : "400"}
-                                isLineClamp={false}
-                                isWhiteLayout={true}
-                                inLineStyle={{
-                                    lineHeight: "1",
-                                }}
-                            />
-                        </a>
-                    </li>
-                ))
-            }
-        </ul>
-
-        <ul class={`${style["footer-stocks"]}`}>
-            {
-                amcLinks.map(({ title, href }, index) => (
-                    <li key={index}>
-                        <a href={href}>
-                            <Typography
-                                tag="p"
-                                text={`${title} ${index === 0 ? ":-" : ""}`}
-                                changeStyle={
-                                    index === 0
-                                        ? "font-size-16"
-                                        : "font-size-12"
-                                }
-                                fontWeight={index === 0 ? "700" : "400"}
-                                isLineClamp={false}
-                                isWhiteLayout={true}
-                                inLineStyle={{
-                                    lineHeight: "1",
-                                }}
-                            />
-                        </a>
-                    </li>
-                ))
-            }
-        </ul>
-
-        <div class={style["footer-menu"]}>
-            {
-                footerMenu.map((section, sectionIndex) => {
-                    const title = Object.keys(section)[0];
-                    const links = section[title];
-                    return (
-                        <div key={sectionIndex}>
-                            <Typography
-                                tag="h4"
-                                text={title}
-                                changeStyle="font-size-16"
-                                fontWeight="700"
-                                isLineClamp={false}
-                                isWhiteLayout={true}
-                                inLineStyle={{
-                                    lineHeight: "1",
-                                    marginBottom: "16px",
-                                }}
-                            />
-                            <ul class={style["footer-menu-list"]}>
-                                {links.map((item, index) => (
-                                    <li key={index}>
-                                        <a href={item.url}>
-                                            <SvgIcon
-                                                IconName={"rightArrowIconGrey"}
-                                                width="6"
-                                                height="10"
-                                            />
-                                            <Typography
-                                                tag="p"
-                                                text={item.title}
-                                                changeStyle="font-size-12"
-                                                fontWeight="400"
-                                                isLineClamp={false}
-                                                isWhiteLayout={true}
-                                                inLineStyle={{
-                                                    lineHeight: "1",
-                                                    color: "hsla(0,0%,100%,.75)",
-                                                }}
-                                            />
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    );
-                })
-            }
-        </div>
-
-        <div class={style["footer-menu"]}>
-            {
-                footerBrandMenu.map((section, sectionIndex) => {
-                    const title = Object.keys(section)[0];
-                    const links = section[title];
-                    return (
-                        <div key={sectionIndex}>
-                            <Typography
-                                tag="h4"
-                                text={title}
-                                changeStyle="font-size-16"
-                                fontWeight="700"
-                                isLineClamp={false}
-                                isWhiteLayout={true}
-                                inLineStyle={{
-                                    lineHeight: "1",
-                                    marginBottom: "16px",
-                                }}
-                            />
-                            <ul
-                                class={`${style["footer-menu-list"]} ${style["footer-menu-list-1"]}`}
-                            >
-                                {links.map((item, index) => (
-                                    <li key={index}>
-                                        <a href={item.url}>
-                                            <SvgIcon
-                                                IconName={"rightArrowIconGrey"}
-                                                width="6"
-                                                height="10"
-                                            />
-                                            <Typography
-                                                tag="p"
-                                                text={item.title}
-                                                changeStyle="font-size-12"
-                                                fontWeight="400"
-                                                isLineClamp={false}
-                                                isWhiteLayout={true}
-                                                inLineStyle={{
-                                                    lineHeight: "1",
-                                                    color: "hsla(0,0%,100%,.75)",
-                                                }}
-                                            />
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    );
-                })
-            }
-        </div>
-
-        <div class={style["footer-menu"]}>
-            {
-                footerLatestMenu.map((section, sectionIndex) => {
-                    const title = Object.keys(section)[0];
-                    const links = section[title];
-                    return (
-                        <div key={sectionIndex}>
-                            <Typography
-                                tag="h4"
-                                text={title}
-                                changeStyle="font-size-16"
-                                fontWeight="700"
-                                isLineClamp={false}
-                                isWhiteLayout={true}
-                                inLineStyle={{
-                                    lineHeight: "1",
-                                    marginBottom: "16px",
-                                }}
-                            />
-                            <ul
-                                class={`${style["footer-menu-list"]} ${style["footer-menu-list-2"]}`}
-                            >
-                                {links.map((item, index) => (
-                                    <li key={index}>
-                                        <a href={item.url}>
-                                            <Typography
-                                                tag="p"
-                                                text={item.title}
-                                                changeStyle="font-size-12"
-                                                fontWeight="400"
-                                                isLineClamp={false}
-                                                isWhiteLayout={true}
-                                                inLineStyle={{
-                                                    lineHeight: "1.56",
-                                                    color: "hsla(0,0%,100%,.75)",
-                                                    display: "inline-block",
-                                                }}
-                                            />
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    );
-                })
-            }
-        </div>
-
-        <div class={style["footer-menu"]}>
-            {
-                footerCompanyMenu.map((section, sectionIndex) => {
-                    const title = Object.keys(section)[0];
-                    const links = section[title];
-                    return (
-                        <div key={sectionIndex}>
-                            <Typography
-                                tag="h4"
-                                text={title}
-                                changeStyle="font-size-16"
-                                fontWeight="700"
-                                isLineClamp={false}
-                                isWhiteLayout={true}
-                                inLineStyle={{
-                                    lineHeight: "1",
-                                    marginBottom: "16px",
-                                }}
-                            />
-                            <ul
-                                class={`${style["footer-menu-list"]} ${style["footer-menu-list-1"]}`}
-                            >
-                                {links.map((item, index) => (
-                                    <li key={index}>
-                                        <a href={item.url}>
-                                            <SvgIcon
-                                                IconName={"rightArrowIconGrey"}
-                                                width="6"
-                                                height="10"
-                                            />
-                                            <Typography
-                                                tag="p"
-                                                text={item.title}
-                                                changeStyle="font-size-12"
-                                                fontWeight="400"
-                                                isLineClamp={false}
-                                                isWhiteLayout={true}
-                                                inLineStyle={{
-                                                    lineHeight: "1",
-                                                    color: "hsla(0,0%,100%,.75)",
-                                                }}
-                                            />
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    );
-                })
-            }
-        </div>
-    </ContainerBox>
-
-    <div class={style["footer-copy-right"]}>
-        <Typography
-            tag={"p"}
-            text={`© ${new Date().getFullYear()} Bennett, Coleman & Company Limited`}
-            changeStyle={"font-size-12"}
+    <ul class={`${style["footer-stocks"]}`}>
+      <li>
+        <a href={`http://localhost:3000${assetMngComp?.seopath}`}>
+          <Typography
+            tag="p"
+            text={`${assetMngComp?.title} :-`}
+            changeStyle={"font-size-16"}
+            fontWeight="700"
             isLineClamp={false}
             isWhiteLayout={true}
-            inLineStyle={{}}
-        />
+            inLineStyle={{
+              lineHeight: "1",
+            }}
+          />
+        </a>
+      </li>
+      {
+        assetMngComp?.children?.map(({ title, overridelink } : { title: string; overridelink: string }) => (
+          <li>
+            <a href={overridelink}>
+              <Typography
+                tag="p"
+                text={`${title}`}
+                changeStyle={"font-size-12"}
+                fontWeight="400"
+                isLineClamp={false}
+                isWhiteLayout={true}
+                inLineStyle={{
+                  lineHeight: "1",
+                }}
+              />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class={style["footer-menu"]}>
+      {
+        footerMenu.map((section, sectionIndex) => {
+          const title = section?.title;
+          const links = section?.children;
+          return (
+            <div id={`${sectionIndex} ${title}`}>
+              <Typography
+                tag="h4"
+                text={title}
+                changeStyle="font-size-16"
+                fontWeight="700"
+                isLineClamp={false}
+                isWhiteLayout={true}
+                inLineStyle={{
+                  lineHeight: "1",
+                  marginBottom: "16px",
+                }}
+              />
+              <ul class={style["footer-menu-list"]}>
+                {links?.map((item, index) => (
+                  <li id={`${index}-footer-menu-list`}>
+                    <a href={item.url}>
+                      <SvgIcon
+                        IconName={"rightArrowIconGrey"}
+                        width="6"
+                        height="10"
+                      />
+                      <Typography
+                        tag="p"
+                        text={item.title}
+                        changeStyle="font-size-12"
+                        fontWeight="400"
+                        isLineClamp={false}
+                        isWhiteLayout={true}
+                        inLineStyle={{
+                          lineHeight: "1",
+                          color: "hsla(0,0%,100%,.75)",
+                        }}
+                      />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })
+      }
     </div>
+
+    <div class={style["footer-menu"]}>
+      {
+        footerBrandMenu.map((section, sectionIndex) => {
+          const title = section?.title;
+          const links = section?.children;
+          return (
+            <div id={`${sectionIndex}-footer-brand-menu`}>
+              <Typography
+                tag="h4"
+                text={title}
+                changeStyle="font-size-16"
+                fontWeight="700"
+                isLineClamp={false}
+                isWhiteLayout={true}
+                inLineStyle={{
+                  lineHeight: "1",
+                  marginBottom: "16px",
+                }}
+              />
+              <ul
+                class={`${style["footer-menu-list"]} ${style["footer-menu-list-1"]}`}
+              >
+                {links.map((item, index) => (
+                  <li id={`${index}-footer-brand-menu`}>
+                    <a href={item.url}>
+                      <SvgIcon
+                        IconName={"rightArrowIconGrey"}
+                        width="6"
+                        height="10"
+                      />
+                      <Typography
+                        tag="p"
+                        text={item.title}
+                        changeStyle="font-size-12"
+                        fontWeight="400"
+                        isLineClamp={false}
+                        isWhiteLayout={true}
+                        inLineStyle={{
+                          lineHeight: "1",
+                          color: "hsla(0,0%,100%,.75)",
+                        }}
+                      />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })
+      }
+    </div>
+
+    <div class={style["footer-menu"]}>
+      {
+        (
+          <div id={`footerLatestMenu`}>
+            <Typography
+              tag="h4"
+              text={"Latest Stories"}
+              changeStyle="font-size-16"
+              fontWeight="700"
+              isLineClamp={false}
+              isWhiteLayout={true}
+              inLineStyle={{
+                lineHeight: "1",
+                marginBottom: "16px",
+              }}
+            />
+            <ul
+              class={`${style["footer-menu-list"]} ${style["footer-menu-list-2"]}`}
+            >
+              {footerLatestMenu?.children.map((item) => (
+                <li id={`${item?.id}-latest-stories`}>
+                  <a href={item?.url}>
+                    <Typography
+                      tag="p"
+                      text={item?.title}
+                      changeStyle="font-size-12"
+                      fontWeight="400"
+                      isLineClamp={false}
+                      isWhiteLayout={true}
+                      inLineStyle={{
+                        lineHeight: "1.56",
+                        color: "hsla(0,0%,100%,.75)",
+                        display: "inline-block",
+                      }}
+                    />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+    </div>
+
+    <div class={style["footer-menu"]}>
+      {
+        (
+          <div>
+            <Typography
+              tag="h4"
+              text={footerCompanyMenu?.title}
+              changeStyle="font-size-16"
+              fontWeight="700"
+              isLineClamp={false}
+              isWhiteLayout={true}
+              inLineStyle={{
+                lineHeight: "1",
+                marginBottom: "16px",
+              }}
+            />
+            <ul
+              class={`${style["footer-menu-list"]} ${style["footer-menu-list-1"]}`}
+            >
+              {footerCompanyMenu?.children.map((item, index) => (
+                <li key={index}>
+                  <a href={item.url}>
+                    <SvgIcon
+                      IconName={"rightArrowIconGrey"}
+                      width="6"
+                      height="10"
+                    />
+                    <Typography
+                      tag="p"
+                      text={item.title}
+                      changeStyle="font-size-12"
+                      fontWeight="400"
+                      isLineClamp={false}
+                      isWhiteLayout={true}
+                      inLineStyle={{
+                        lineHeight: "1",
+                        color: "hsla(0,0%,100%,.75)",
+                      }}
+                    />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+    </div>
+  </ContainerBox>
+
+  <div class={style["footer-copy-right"]}>
+    <Typography
+      tag={"p"}
+      text={`© ${new Date().getFullYear()} Bennett, Coleman & Company Limited`}
+      changeStyle={"font-size-12"}
+      isLineClamp={false}
+      isWhiteLayout={true}
+      inLineStyle={{}}
+    />
+  </div>
 </footer>
