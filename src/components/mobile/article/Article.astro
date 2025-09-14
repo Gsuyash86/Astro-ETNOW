@@ -8,6 +8,12 @@ import KeyHighlight from "./KeyHighlight.astro";
 import SocialWidgets from "@components/common/embeds/SocialWidgets.astro";
 import TextLinkComponent from "./TextLinkComponent.astro";
 import HtmlParagraph from "./HtmlParagraph.astro";
+import RecommendedNews from "@components/common/recommendedNews/RecommendedNews.astro";
+import AdCaller from "@components/common/adcaller/AdCaller.astro";
+import CoverVDOAndImg from "./CoverVDOAndImg.astro";
+import MgIdComponent from "@components/common/mgid/MgIdComponent.astro";
+import VideoAiComponent from "@components/common/mgid/VideoAiComponent.astro";
+import CONST from "src/constant";
 const { category = "news" } = Astro.props;
 const data = await fetch(
   "https://api.etnownews.com/request/articleshow/?origin=mobile&msid=152524877&channel_id=382"
@@ -45,10 +51,15 @@ const mainData = response?.response?.sections?.article_show?.data?.[0];
 }
 
 <Synopsis text={mainData.synopsis} inLineStyle={{ marginBottom: "34px" }} />
+<AdCaller {...response?.response?.ads?.atf} />
 <KeyHighlight summary={mainData?.summary} />
-
+<CoverVDOAndImg
+  data={mainData?.cmsassoc || []}
+  isMediaWireStory={mainData?.isMediaWireStory}
+  mainData={mainData}
+/>
 {
-  mainData?.embedData?.map((embedData) => (
+  mainData?.embedData?.map((embedData, dataIndex) => (
     <Fragment>
       <SocialWidgets data={{ text: embedData?.twitterList, type: "twitter" }} />
       <SocialWidgets
@@ -71,6 +82,17 @@ const mainData = response?.response?.sections?.article_show?.data?.[0];
         }
         firstPara={embedData.paraLength == 1 && embedData?.ispara}
       />
+      {embedData?.ad ? <AdCaller {...embedData?.ad} /> : null}
+      {embedData.isMGIDShow ? (
+        <MgIdComponent
+          scriptID={CONST.MGID_ADD_1X1}
+          elementID={CONST.MGID_ADD_1X1}
+        />
+      ) : null}
+      {embedData?.isVDOAiShow ? <VideoAiComponent /> : null}
+      {dataIndex == 1 ? (
+        <RecommendedNews data={response?.response?.recommendedNews} />
+      ) : null}
     </Fragment>
   ))
 }

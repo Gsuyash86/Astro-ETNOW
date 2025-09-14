@@ -1,0 +1,51 @@
+---
+import SvgIcon from "@components/common/svg/SvgIcon.astro";
+import style from "./ShowCoverVideo.module.scss";
+const { data, index, mainData, aList, MULTI_VIDEO_LIST_COUNT } = Astro.props;
+---
+
+{
+  index == 0 ? (
+    <>
+      {!data?.media?.thumbUrl ? (
+        <div
+          data-attr-slk={data?.media?.id || ""}
+          data-attr-autoplay={mainData?.leadVideoAutoPlay}
+          data-attr-msid={data?.msid}
+          title={`${data.msid}`}
+          data-attr-cat={"CATEGORY_TYPE_VIDEO_ARTICLE"}
+        />
+      ) : (
+        <div
+          data-attr-slk={data?.media?.id || ""}
+          data-attr-autoplay={mainData?.leadVideoAutoPlay}
+          title={"DEFAULT_IMAGE_MSID"}
+          data-attr-cat={"CATEGORY_TYPE_VIDEO_ARTICLE"}
+        />
+      )}
+      {aList.length != MULTI_VIDEO_LIST_COUNT ? (
+        <>
+          <div
+            class={`${style["_z_imagecard"]} ${style["br-0"]} ${style["videoIconWrap"]} `}
+          >
+            <img src=" " alt={data?.title || null} />
+            <div class={style["videoplayericon"]}>
+              <SvgIcon IconName="video-player" />
+            </div>
+          </div>
+        </>
+      ) : null}
+    </>
+  ) : (
+    <div class={style["youTubeIframe"]}>
+      <iframe
+        src={`https://www.youtube.com/embed/${data.media.id}`}
+        title="YouTube video player"
+        width="100%"
+        height="500px"
+        frame-border="0"
+        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      />
+    </div>
+  )
+}

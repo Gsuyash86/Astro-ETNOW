@@ -1,0 +1,209 @@
+@mixin child-width($width, $value, $element) {
+  @if $width=='fixed' {
+    .overflow {
+      display: grid;
+
+      @if $value==1 {
+        grid-template-columns: 1fr;
+      }
+
+      @else {
+        grid-template-columns: repeat(#{$value}, 1fr);
+      }
+
+      @if $element=='*' {
+        >* {
+          white-space: normal;
+        }
+      }
+
+      @else {
+        >#{$element} {
+          white-space: normal;
+        }
+      }
+    }
+  }
+
+  @else {
+    .overflow {
+      @if $element=='*' {
+        >* {
+          flex: 0 0 calc(100% - #{$value}px);
+          width: calc(100% - #{$value}px);
+          white-space: normal;
+        }
+      }
+
+      @else {
+        >#{$element} {
+          flex: 0 0 calc(100% - #{$value}px);
+          width: calc(100% - #{$value}px);
+          white-space: normal;
+        }
+      }
+    }
+  }
+}
+
+.overflow {
+  display: flex;
+  white-space: nowrap;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  list-style: none;
+  width: 100%;
+
+  >* {
+    scroll-snap-align: start;
+  }
+
+  &:empty {
+    display: none;
+  }
+}
+
+.default {
+  display: flex;
+}
+
+.default-vertical {
+  .overflow {
+    flex-direction: column;
+    scroll-snap-type: y mandatory;
+    white-space: normal;
+    max-height: 290px;
+  }
+}
+
+@media (min-width: 768px) {
+  .col-3 {
+    @include child-width(fixed, 3, '*');
+  }
+
+  .col-4 {
+    @include child-width(fixed, 4, '*');
+  }
+
+  .col-5 {
+    @include child-width(fixed, 5, '*');
+  }
+}
+
+@media (max-width: 767px) {
+  .default {
+    margin: 0 -15px;
+
+    .overflow {
+      padding: 0 15px;
+
+      >* {
+        scroll-snap-align: center;
+      }
+    }
+  }
+
+  .width-100-35 {
+    @include child-width('', 35, '*');
+
+    .overflow {
+      >div {
+        padding: 0;
+      }
+    }
+  }
+
+  .width-100-50 {
+    @include child-width('', 50, '*');
+  }
+
+  .width-100-60 {
+    @include child-width('', 60, '*');
+  }
+
+  .width-100-120 {
+    @include child-width('', 120, '*');
+
+    .overflow {
+      >a {
+        padding: 0;
+      }
+    }
+  }
+
+  .width-100-195 {
+    @include child-width('', 195, '*');
+  }
+
+  .width-100-110 {
+    @include child-width('', 110, '*');
+
+    .overflow {
+      >li {
+        padding: 0;
+        margin: 0;
+
+        >div {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .width-100-120 {
+    @include child-width('', 120, '*');
+
+    .overflow {
+      >a {
+        padding: 0;
+      }
+    }
+  }
+
+  .col-3,
+  .col-4 {
+    @include child-width('', 70, '*');
+  }
+
+  .col-5 {
+    @include child-width('', 160, '*');
+  }
+
+  .content-wrap {
+    .overflow {
+      >a {
+        white-space: normal;
+      }
+    }
+  }
+
+  .movie-review {
+    @include child-width('', 15, '*');
+
+    .overflow {
+      >section {
+        >div {
+          padding: 0;
+          border: 0;
+        }
+      }
+    }
+
+    h5 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  }
+}
+
+
+.singleItem {
+  .overflow {
+
+    >* {
+      flex: 1;
+    }
+  }
+}

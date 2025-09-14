@@ -1,0 +1,63 @@
+---
+import style from "./RecommendedNews.module.scss";
+import ContainerBox from "../containerBox/ContainerBox.astro";
+import CustomSlideBox from "../customSlideBox/CustomSlideBox.astro";
+import HorizontalCard from "../horizontalCard/HorizontalCard.astro";
+import { getNewImageUrl } from "src/utils/common";
+const fetchTime = (item) => new Date(item.updatedate).toLocaleTimeString();
+const { data } = Astro.props;
+---
+
+<div class={`${style["box"]}`}>
+  <ContainerBox>
+    <h3>Recommended News</h3>
+    <CustomSlideBox gridGap={32} changeStyle={"width-100-50"} marginBottom={0}>
+      {
+        data?.map((item, index) => {
+          if (item.cmstype.toUpperCase() === "SECTION") return null;
+          const time =
+            item.cmstype === "MEDIAVIDEO" && item.media && fetchTime(item);
+
+          return (
+            <a
+              href={item?.seopath}
+              title={item.msid}
+              class={style["list-items"]}
+            >
+              <HorizontalCard
+                data={item}
+                isConditionalRendering={true}
+                isWhiteLayout={false}
+                isRowReverse={true}
+                imageConfig={{
+                  style: "width-110x62",
+                  inLineStyle: {},
+                  imagePath: getNewImageUrl({
+                    msid: item?.msid,
+                    imgWidth: item?.imageWidth || 175,
+                    imgHeight: item?.imageHeight || 85,
+                  }),
+                  imgWidth: item?.imageWidth || 175,
+                  imgHeight: item?.imageHeight || 85,
+                  time: time || "",
+                }}
+                titleConfig={{
+                  style: "",
+                  inLineStyle: {},
+                  text: index + 1,
+                  tag: "h6",
+                }}
+                paraConfig={{
+                  style: "",
+                  inLineStyle: { WebkitLineClamp: "3", lineHeight: "1.3" },
+                  text: item.title || "",
+                  tag: "p",
+                }}
+              />
+            </a>
+          );
+        })
+      }
+    </CustomSlideBox>
+  </ContainerBox>
+</div>

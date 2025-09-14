@@ -1,0 +1,13 @@
+<div id="v-etnownews-v3"></div>
+
+<script>
+  (function (v, d, o, ai) {
+    ai = d.createElement("script");
+    ai.src = v.location.protocol + o;
+    d.head.appendChild(ai);
+  })(window, document, `//a.vdo.ai/core/v-etnownews-v3/vdo.ai.js`);
+
+  document.addEventListener("astro:before-preparation", () => {
+    console.log("Remove vdo ai");
+  });
+</script>
