@@ -5,15 +5,24 @@ import SvgIcon from "@components/common/svg/SvgIcon.astro";
 import DotsMenuIcon from "@components/common/widgets/dotsMenuIcon/DotsMenuIcon.astro";
 import MegaDropDownBox from "@components/common/wrappers/megaDropDownBox/MegaDropDownBox.astro";
 
-const { changeStyle = "", inLineStyle = {}, navLinks = [] , pageTarget} = Astro.props;
+const {
+  changeStyle = "",
+  inLineStyle = {},
+  navLinks = [],
+  pageTarget,
+} = Astro.props;
 ---
 
-<div id="hamburgerWrapper" class={`${style['hamburgerWrapper']}`} data-nav-disabled-class={style.navDisabled}>
+<div
+  id="hamburgerWrapper"
+  class={`${style["hamburgerWrapper"]}`}
+  data-nav-disabled-class={style.navDisabled}
+>
   <ul
     class={`${style["nav-ul"]} ${changeStyle ? style[changeStyle] : ""}`}
     style={inLineStyle}
   >
-    <li class={`${style['disable']}`}>
+    <li class={`${style["disable"]}`}>
       <a
         href="#"
         title=""
@@ -34,14 +43,16 @@ const { changeStyle = "", inLineStyle = {}, navLinks = [] , pageTarget} = Astro.
           title: string;
           child: any;
         }) => (
-          <li class={`${child && child.length > 0 && style["rightArrow"]} ${style['disable']}`}>
+          <li
+            class={`${child && child.length > 0 && style["rightArrow"]} ${style["disable"]}`}
+          >
             <a
               href={seopath}
               title={title}
               target="_blank"
               class={`${style["nav-link"]} ${pageTarget.category === seopath ? style["nav-active"] : ""}`}
             >
-              <Typography 
+              <Typography
                 tag="span"
                 text={title}
                 changeStyle="font-size-12"
@@ -87,16 +98,16 @@ const { changeStyle = "", inLineStyle = {}, navLinks = [] , pageTarget} = Astro.
                         />
                       </a>
                     </li>
-                  ),
+                  )
                 )}
               </ul>
             )}
           </li>
-        ),
+        )
       )
     }
 
-    <li class={`${style["nav-premium-list"]} ${style['disable']}`}>
+    <li class={`${style["nav-premium-list"]} ${style["disable"]}`}>
       <a
         href="#"
         title=""
@@ -107,7 +118,7 @@ const { changeStyle = "", inLineStyle = {}, navLinks = [] , pageTarget} = Astro.
         </span>
       </a>
     </li>
-    <li class={`${style['disable']}`}>
+    <li class={`${style["disable"]}`}>
       <a
         href="#"
         title=""
@@ -122,18 +133,21 @@ const { changeStyle = "", inLineStyle = {}, navLinks = [] , pageTarget} = Astro.
       </a>
     </li>
     <li>
-        <button class={`${style["nav-link"]} ${style["nav-more-btn"]}`} id="hamburgerToggleBtn">
-          <DotsMenuIcon id="hamburgerIcon" inLineStyle={{ color: "#34495e" }} />
-          <SvgIcon
-            id="hamburgerCloseIcon"
-            size="sm"
-            IconName="CloseIconBig"
-            width="40"
-            height="14"
-            inLineStyle={{ display: "none" }}
-          />
-        </button>
-      </li>
+      <button
+        class={`${style["nav-link"]} ${style["nav-more-btn"]}`}
+        id="hamburgerToggleBtn"
+      >
+        <DotsMenuIcon id="hamburgerIcon" inLineStyle={{ color: "#34495e" }} />
+        <SvgIcon
+          id="hamburgerCloseIcon"
+          size="sm"
+          IconName="CloseIconBig"
+          width="40"
+          height="14"
+          inLineStyle={{ display: "none" }}
+        />
+      </button>
+    </li>
   </ul>
   <MegaDropDownBox id="hamburgerDropdownMenu" inLineStyle={{ display: "none" }}>
     Search goes here
