@@ -51,6 +51,42 @@
             font-weight: bold;
         }
     }
+
+    &-premium-list {
+        margin-left: auto;
+    }
+
+    &-premium,
+    &-mutual-fund {
+        img {
+            width: 90px;
+            height: 15px;
+        }
+    }
+
+    &-mutual-fund {
+        img {
+            width: 155px;
+            margin-bottom: -5px;
+        }
+    }
+
+    &-more-btn {
+        width: 40px;
+        position: relative;
+        padding: 0;
+    }
+
+    &-premium,
+    &-mutual-fund,
+    &-more-btn {
+        display: inline-flex;
+        align-items: center;
+        height: 100%;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
 }
 
 .rightArrow {

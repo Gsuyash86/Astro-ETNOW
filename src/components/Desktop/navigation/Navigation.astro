@@ -1,8 +1,8 @@
 ---
 import style from "./Navigation.module.scss";
-import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.astro";
 import Typography from "@components/common/widgets/typography/Typography.astro";
-import SvgIcon from '@components/common/svg/SvgIcon.astro';
+import SvgIcon from "@components/common/svg/SvgIcon.astro";
+import DotsMenuIcon from "@components/common/widgets/dotsMenuIcon/DotsMenuIcon.astro";
 
 const { changeStyle = "", inLineStyle = {}, navLinks = [] } = Astro.props;
 ---
@@ -12,61 +12,114 @@ const { changeStyle = "", inLineStyle = {}, navLinks = [] } = Astro.props;
   style={inLineStyle}
 >
   <li>
-    <a href="#" title="" class={`${style["nav-link"]} ${style["nav-link-home"]}`}>
-      <span><SvgIcon IconName={'HomeIcon'} width={17} height={16} /></span>
+    <a
+      href="#"
+      title=""
+      class={`${style["nav-link"]} ${style["nav-link-home"]}`}
+    >
+      <span><SvgIcon IconName={"HomeIcon"} width={17} height={16} /></span>
     </a>
   </li>
 
-  {navLinks.map(({ href, title, isActive = false, child } : { href: string, title: string, isActive: boolean, child: any }) => (
-    <li class={`${child && child.length > 0 && style['rightArrow']}`}>
-      <a
-        href={href}
-        title={title}
-        target="_blank"
-        class={`${style["nav-link"]} ${isActive ? style["nav-active"] : ""}`}
-      >
-        <Typography
-          tag="span"
-          text={title}
-          changeStyle="font-size-12"
-          fontWeight="400"
-          isLineClamp={false}
-          inLineStyle={{
-            lineHeight: "1.2",
-            letterSpacing: ".1em",
-            whiteSpace: "nowrap",
-          }}
-        />
-      </a>
+  {
+    navLinks.map(
+      ({
+        href,
+        title,
+        isActive = false,
+        child,
+      }: {
+        href: string;
+        title: string;
+        isActive: boolean;
+        child: any;
+      }) => (
+        <li class={`${child && child.length > 0 && style["rightArrow"]}`}>
+          <a
+            href={href}
+            title={title}
+            target="_blank"
+            class={`${style["nav-link"]} ${isActive ? style["nav-active"] : ""}`}
+          >
+            <Typography
+              tag="span"
+              text={title}
+              changeStyle="font-size-12"
+              fontWeight="400"
+              isLineClamp={false}
+              inLineStyle={{
+                lineHeight: "1.2",
+                letterSpacing: ".1em",
+                whiteSpace: "nowrap",
+              }}
+            />
+          </a>
 
-      {/* Render submenu if children exist */}
-      {child && child.length > 0 && (
-        <ul class={style["sub-container-design1"]}>
-          {child.map(({ href: subHref, title: subTitle } : { href: string, title: string }) => (
-            <li>
-              <a
-                href={subHref}
-                title={subTitle}
-                target="_blank"
-                class={style["submenu-link"]}
-              >
-                <Typography
-                  tag="span"
-                  text={subTitle}
-                  changeStyle="font-size-12"
-                  fontWeight="400"
-                  isLineClamp={false}
-                  inLineStyle={{
-                    lineHeight: "1.2",
-                    letterSpacing: ".1em",
-                    whiteSpace: "nowrap",
-                  }}
-                />
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
-    </li>
-  ))}
+          {/* Render submenu if children exist */}
+          {child && child.length > 0 && (
+            <ul class={style["sub-container-design1"]}>
+              {child.map(
+                ({
+                  href: subHref,
+                  title: subTitle,
+                }: {
+                  href: string;
+                  title: string;
+                }) => (
+                  <li>
+                    <a
+                      href={subHref}
+                      title={subTitle}
+                      target="_blank"
+                      class={style["submenu-link"]}
+                    >
+                      <Typography
+                        tag="span"
+                        text={subTitle}
+                        changeStyle="font-size-12"
+                        fontWeight="400"
+                        isLineClamp={false}
+                        inLineStyle={{
+                          lineHeight: "1.2",
+                          letterSpacing: ".1em",
+                          whiteSpace: "nowrap",
+                        }}
+                      />
+                    </a>
+                  </li>
+                ),
+              )}
+            </ul>
+          )}
+        </li>
+      ),
+    )
+  }
+
+  <li class={style["nav-premium-list"]}>
+    <a href="#" title="" class={`${style["nav-link"]} ${style["nav-premium"]}`}>
+      <span>
+        <img src="/assets/images/Premiumhead.svg" alt="Premium" />
+      </span>
+    </a>
+  </li>
+  <li>
+    <a
+      href="#"
+      title=""
+      class={`${style["nav-link"]} ${style["nav-mutual-fund"]}`}
+    >
+      <span>
+        <img
+          src="https://images.etnownews.com/photo/msid-118213542/118213542.jpg"
+          alt="Mutual Fund Sahi Hai"
+        />
+      </span>
+    </a>
+  </li>
+  <li>
+    <button class={`${style["nav-link"]} ${style["nav-more-btn"]}`}>
+      <DotsMenuIcon inLineStyle={{ color: "#34495e" }} />
+    </button>
+  </li>
 </ul>
