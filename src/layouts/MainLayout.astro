@@ -3,9 +3,12 @@ import "@styles/global.scss";
 import MobileLayout from "./mobile/Layout.astro";
 import DesktopLayout from "./desktop/Layout.astro";
 import _get from "lodash/get";
+import { gtagScript , ga4TagScript } from "../scripts/ga";
+import { getCustomDimensionsSSR } from "@utils/common";
+import serverConfig from "src/scripts/serverConfig";
 
 const values =  Astro.url.searchParams
-const articleDataJson = Astro.props.articleDataJson;
+const app = Astro.props.app;
 const isMobileView = values.get("isMobileView");
 
 const pageTarget = {
@@ -15,7 +18,10 @@ const pageTarget = {
   articleType: values.get("articleType"),
   id: values.get("id"),
 }
-
+const seoData = _get(app, "response.sections.article_show.data.[0].seo", {})
+const customDimension : any = getCustomDimensionsSSR(app, pageTarget, seoData);
+const gaScript = `${gtagScript(customDimension?.custom_dimension)}`;
+const ga4Script = `${ga4TagScript(customDimension?.GA4CustomDimensions, serverConfig.analytics.ga4TrackingId)}`;
 ---
 
 <Fragment slot={"head"}>
@@ -30,50 +36,28 @@ const pageTarget = {
   />
 
   <meta name="generator" content={Astro.generator} />
-  <title>Astro Basics</title>
-  <script is:inline>
-    !(function (a9, a, p, s, t, A, g) {
-      if (a[a9]) return;
-      function q(c, r) {
-        a[a9]._Q.push([c, r]);
-      }
-      a[a9] = {
-        init: function () {
-          q("i", arguments);
-        },
-        fetchBids: function () {
-          q("f", arguments);
-        },
-        setDisplayBids: function () {},
-        targetingKeys: function () {
-          return [];
-        },
-        _Q: [],
-      };
-      A = p.createElement(s);
-      A.async = !0;
-      A.defer = !0;
-      A.src = t;
-      g = p.getElementsByTagName(s)[0];
-      g.parentNode.insertBefore(A, g);
-    })(
-      "apstag",
-      window,
-      document,
-      "script",
-      "//c.amazon-adsystem.com/aax2/apstag.js",
-    );
+  <title>{_get(app, "response.sections.article_show.data.[0].title", "")}</title>
+
+  <script id="gtagScript" set:html={gaScript} defer async/>
+
+  <script id="ga4Script" set:html={ga4Script} defer async />
+  
+  <script>
+      import apstagScript from "../scripts/apstag.js"
+      {apstagScript}
   </script>
-  <script id="dpfscript" src="/dfpamzn.js" type="text/javascript" defer
-  ></script>
+
+  <script id="dpfscript" src="/dfpamzn.js" type="text/javascript" defer />
+
   <script>
     import { checkScriptLoad } from "../scripts/onetap.js";
     document.addEventListener("DOMContentLoaded", () => {
       checkScriptLoad();
     });
   </script>
+
 </Fragment>
 
 <body>
-  {isMobileView === "true" ? <MobileLayout /> : <DesktopLayout ads = {_get(articleDataJson, "response.ads", {})} pageTarget={pageTarget}/>}
+  {isMobileView === "true" ? <MobileLayout /> : <DesktopLayout ads = {_get(app, "response.ads", {})} pageTarget={pageTarget} />}
 </body>

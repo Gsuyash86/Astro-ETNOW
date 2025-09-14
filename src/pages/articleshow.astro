@@ -6,7 +6,8 @@ const msid = values.get("id");
 const isMobileView = values.get("isMobileView");
 
 const articleData = await fetch(`https://api.etnownews.com/request/articleshow?origin=${isMobileView === "true" ? "mobile" : "desktop"}&msid=${msid}&channel_id=382`);
-const articleDataJson = await articleData.json();
+const app = await articleData.json();
+
 ---
 
-<MainLayout articleDataJson={articleDataJson} />
+<MainLayout app={app} />
