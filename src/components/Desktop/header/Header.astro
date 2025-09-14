@@ -4,30 +4,15 @@ import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.
 import TopNavigation from "../topNavigation/TopNavigation.astro";
 import Navigation from "../navigation/Navigation.astro";
 
-const navLinks = [
-  { href: "https://www.etnownews.com", title: "ET Now", isActive: true },
-  { href: "https://www.timesnownews.com/", title: "Times Now", isActive: "" },
-  { href: "https://www.timesnowhindi.com/", title: "Times Now Navbharat", isActive: "" },
-  { href: "https://www.timesdrive.in/", title: "Times Drive", isActive: "" },
-  { href: "https://advisor.etnownews.com", title: "ET Now Advisor", isActive: "" },
-  { href: "https://www.unilist.in/", title: "UniList", isActive: "" },
-  { href: "https://www.digit.in/", title: "Digit", isActive: "" },
-  { href: "https://www.healthandme.com/", title: "Health and Me", isActive: "" },
-  { href: "https://www.magicbricks.com/", title: "Magicbricks", isActive: "" },
-  { href: "https://telugu.timesnownews.com/", title: "Telugu", isActive: "" },
-  { href: "https://tamil.timesnownews.com/", title: "Tamil", isActive: "" },
-  { href: "https://marathi.timesnownews.com/", title: "Marathi", isActive: "" },
-  { href: "https://kannada.timesnownews.com/", title: "Kannada", isActive: "" },
-  { href: "https://bengali.timesnownews.com/", title: "Bengali", isActive: "" },
-  { href: "https://malayalam.timesnownews.com/", title: "Malayalam", isActive: "" },
-  { href: "https://www.zoomtventertainment.com/", title: "Zoom", isActive: "" }
-];
+const navData = await fetch("https://api.etnownews.com/api/getnavigation?msid=ALL&channel_id=382");
+const navDataJson = await navData.json();
+
 ---
 
 <header>
   <div class={`${style["header-top-nav"]}`}>
     <ContainerBox>
-      <TopNavigation />
+      <TopNavigation navLinks={navDataJson?.networks}/>
     </ContainerBox>
   </div>
   <ContainerBox>
@@ -39,7 +24,7 @@ const navLinks = [
   </ContainerBox>
   <div class={`${style["header-main-nav"]}`}>
     <ContainerBox>
-      <Navigation />
+      <Navigation navLinks={navDataJson?.response}/>
     </ContainerBox>
   </div>
 </header>
