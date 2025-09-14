@@ -1,206 +1,132 @@
 @use 'src/styles/_mixins-new'as *;
 
 .nav {
-    &-ul {
-        display: flex;
-
-        li {
-            &:first-child {
-                .nav-link {
-                    padding-left: 0;
-                }
-            }
-        }
-    }
-
-    &-link {
-        display: inline-block;
-        padding: 8px 6px;
-        border-right: 1px solid #404040;
-        text-transform: none;
-
-        &,
-        span {
-            color: var(--whiteColor);
-        }
-    }
-
-    &-active {
-        position: relative;
-
-        span {
-            font-weight: bold;
-
-            &::after {
-                content: '';
-                background: var(--whiteColor);
-                height: 2px;
-                position: absolute;
-                left: 0px;
-                right: 6px;
-                margin: auto;
-                bottom: 5px;
-            }
-        }
-    }
-}
-
-.position-relative {
-    position: relative;
-    max-width: 900px;
-}
-
-.outer-div {
-  width: 100%;
-  overflow: hidden;
-
-  &,
-  & ul {
+  &-ul {
     display: flex;
-    transform: translate3d(0, 0, 0);
+    overflow: hidden;
+
+    li {
+      &:first-child {
+        .nav-link {
+          padding-left: 0;
+        }
+      }
+    }
   }
 
-  ul {
-    li {
-      a {
-        white-space: nowrap;
+  &-link {
+    display: inline-block;
+    padding: 8px 6px;
+    border-right: 1px solid #404040;
+    text-transform: none;
+
+    &,
+    span {
+      color: var(--whiteColor);
+    }
+  }
+
+  &-active {
+    position: relative;
+
+    span {
+      font-weight: bold;
+
+      &::after {
+        content: '';
+        background: var(--whiteColor);
+        height: 2px;
+        position: absolute;
+        left: 0px;
+        right: 6px;
+        margin: auto;
+        bottom: 5px;
       }
     }
   }
 }
 
-.more-menu,
+.position-relative {
+  position: relative;
+  max-width: 900px;
+}
+
 .more-link-button {
+  border-left: 1px solid #404040;
+  border-right: 1px solid #404040;
+  cursor: pointer;
   position: absolute;
   width: 40px;
   right: 0;
   top: 0;
   bottom: 0;
-  background: var(--topNav);
+  background: #2f2f2f;
   z-index: 9;
-
-  .dot {
-    position: absolute;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background-color: #fff;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    &::before,
-    &::after {
-      position: absolute;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background-color: #fff;
-      content: '';
-    }
-
-    &:before {
-      right: 7px;
-      transition: right 0.3s ease-out;
-    }
-
-    &:after {
-      left: 7px;
-      transition: left 0.3s ease-out;
-    }
-  }
-}
-
-.more-link-button {
-  border-left: 1px solid #404040;
-  border-right: 1px solid #404040;
 
   svg {
     width: 12px;
     height: 12px;
     filter: invert(1);
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
-}
 
-header {
-  .more-menu {
-    background-color: var(--bgWhite);
-    width: auto;
-    top: 100%;
-    bottom: inherit;
-    border-top: 2px solid #000;
-    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.5);
-    min-height: 50px;
-    border-radius: 0 0 7px 7px;
-    overflow: hidden;
-    z-index: 9;
+  &:hover {
 
-    ul.more-menu-list {
-      flex-direction: column;
-      align-items: flex-end;
+    .dot {
+      display: none;
+    }
 
-      li {
-        a {
-          color: var(--textColor);
-          border-right: 0;
-        }
-      }
+    .more-menu,
+    svg {
+      display: block;
     }
   }
 }
 
-.more-link-button {
-  position: relative;
-  border-left: 1px solid #404040;
-  border-right: 1px solid #404040;
-  cursor: pointer;
+.dot {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #fff;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
-  .dot {
+  &::before,
+  &::after {
     position: absolute;
     width: 5px;
     height: 5px;
     border-radius: 50%;
     background-color: #fff;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    &::before,
-    &::after {
-      position: absolute;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background-color: #fff;
-      content: '';
-    }
-
-    &:before {
-      right: 7px;
-      transition: right 0.3s ease-out;
-    }
-
-    &:after {
-      left: 7px;
-      transition: left 0.3s ease-out;
-    }
+    content: '';
   }
 
-  // ✅ Show dropdown on hover
-  &:hover .more-menu {
-    display: block;
+  &:before {
+    right: 7px;
+    transition: right 0.3s ease-out;
+  }
+
+  &:after {
+    left: 7px;
+    transition: left 0.3s ease-out;
   }
 }
 
 .more-menu {
-  display: none; // hidden by default
+  display: none;
   position: absolute;
-  background-color: var(--bgWhite);
+  background-color: var(--whiteColor);
   width: auto;
   top: 100%;
   right: 0;
   border-top: 2px solid #000;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   min-height: 50px;
   border-radius: 0 0 7px 7px;
   overflow: hidden;
@@ -216,9 +142,10 @@ header {
 
       a {
         display: block;
-        padding: 8px 12px;
+        padding: 5px 12px;
         color: var(--textColor);
         border-right: 0;
+        text-align: right;
 
         &:hover {
           background: #f0f0f0;
@@ -226,9 +153,4 @@ header {
       }
     }
   }
-}
-
-// This is the active class that will show the menu
-.active {
-  display: block; // Show the menu when the .active class is applied
 }
