@@ -4,6 +4,7 @@ import Typography from "@components/common/widgets/typography/Typography.astro";
 import DotsMenuIcon from "@components/common/widgets/dotsMenuIcon/DotsMenuIcon.astro";
 import SvgIcon from "@components/common/svg/SvgIcon.astro";
 import MegaDropDownBox from "@components/common/wrappers/megaDropDownBox/MegaDropDownBox.astro";
+import Search from "@components/common/search/Search.astro";
 
 const { changeStyle = "", inLineStyle = {}, navLinks = [] } = Astro.props;
 
@@ -151,8 +152,8 @@ let combinedNavLinks = [
     </ul>
   </div>
 
-  <MegaDropDownBox id="searchDropdown" inLineStyle={{ display: "none" }}>
-    Search goes here
+  <MegaDropDownBox id="searchDropdown" inLineStyle={{ display: "none", minHeight: 'auto' }}>
+    <Search />
   </MegaDropDownBox>
 </div>
 

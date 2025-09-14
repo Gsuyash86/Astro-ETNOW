@@ -1,0 +1,239 @@
+---
+import style from "./Search.module.scss";
+---
+
+<div class={style.searchWrapper}>
+    <div class={style.searchBox}>
+        <input
+            id="searchInput"
+            type="text"
+            placeholder="Search Stocks/IPOs, Mutual Funds, Articles..."
+            autocomplete="off"
+            aria-label="Search"
+        />
+        <button id="searchBtn" type="button">SEARCH</button>
+    </div>
+
+    <!-- note: we add both the hashed module class and a global class so JS & CSS both work -->
+    <div
+        id="resultsContainer"
+        class={`${style.resultsContainer} results-container`}
+        data-open="false"
+        aria-hidden="true"
+    >
+    </div>
+</div>
+
+<script>
+    // local dummy data (client-only)
+    const searchData = {
+        "Stocks/IPOs": [
+            "Tata Chemicals Ltd",
+            "Tata Communications Ltd",
+            "Tata Consultancy Services Ltd",
+            "Tata Consumer Products Ltd",
+            "Tata Elxsi Ltd",
+            "Tata Gold Exchange Traded Fund",
+            "Tata Investment Corporation Ltd",
+            "Tata Motors Ltd",
+            "Tata Steel Ltd",
+            "Tata Power Ltd",
+        ],
+        "Mutual Funds": [
+            "Tata Aggressive Hybrid Fund - Regular (G)",
+            "Tata Short Term Bond Fund - (G)",
+            "Tata Equity PE Fund",
+            "Tata Digital India Fund",
+        ],
+        Articles: [
+            "Tata Capital IPO: BIG returns for World Bank Group's IFC",
+            "Tata Technologies to acquire Germany’s ES-Tec Group",
+            "Tata Capital IPO launch in October",
+        ],
+    };
+
+    const input = document.getElementById("searchInput");
+    const btn = document.getElementById("searchBtn");
+    const resultsContainer = document.getElementById("resultsContainer");
+
+    function setOpen(open) {
+        resultsContainer.setAttribute("data-open", open ? "true" : "false");
+        resultsContainer.setAttribute("aria-hidden", open ? "false" : "true");
+    }
+
+    function sanitizeText(s) {
+        // minimal sanitization for inserted text nodes
+        return String(s);
+    }
+
+    // Build the results DOM using plain (global) class names the client can create
+    function renderResults(q) {
+        const term = String(q || "")
+            .trim()
+            .toLowerCase();
+        resultsContainer.innerHTML = ""; // clear old nodes
+
+        if (!term) {
+            setOpen(false);
+            return;
+        }
+
+        let any = false;
+
+        Object.keys(searchData).forEach((section) => {
+            const matches = searchData[section].filter((item) =>
+                item.toLowerCase().includes(term),
+            );
+            if (matches.length) {
+                any = true;
+
+                const sectionDiv = document.createElement("div");
+                sectionDiv.className = "results-section";
+
+                const h = document.createElement("h2");
+                h.textContent = section;
+                sectionDiv.appendChild(h);
+
+                const ul = document.createElement("ul");
+                matches.forEach((item) => {
+                    const li = document.createElement("li");
+                    li.className = "result-item";
+                    li.tabIndex = 0; // make focusable
+                    li.dataset.value = sanitizeText(item);
+
+                    const a = document.createElement("a");
+                    a.href = "#"; // replace later with real link
+                    a.textContent = item;
+
+                    li.appendChild(a);
+                    ul.appendChild(li);
+                });
+
+                sectionDiv.appendChild(ul);
+                resultsContainer.appendChild(sectionDiv);
+            }
+        });
+
+        if (any) {
+            // footer "Show all result" as <a> tag now
+            const footer = document.createElement("a");
+            footer.className = "show-all";
+            footer.tabIndex = 0;
+            footer.href = "#"; // replace later with actual URL
+            footer.textContent = "Show all result";
+            resultsContainer.appendChild(footer);
+
+            setOpen(true);
+        } else {
+            setOpen(false);
+        }
+    }
+
+    function renderAll() {
+        resultsContainer.innerHTML = "";
+        Object.keys(searchData).forEach((section) => {
+            const sectionDiv = document.createElement("div");
+            sectionDiv.className = "results-section";
+
+            const h = document.createElement("h3");
+            h.textContent = section;
+            sectionDiv.appendChild(h);
+
+            const ul = document.createElement("ul");
+            searchData[section].forEach((item) => {
+                const li = document.createElement("li");
+                li.className = "result-item";
+
+                const a = document.createElement("a");
+                a.href = "#"; // replace later with real link
+                a.textContent = item;
+
+                li.appendChild(a);
+                ul.appendChild(li);
+            });
+            sectionDiv.appendChild(ul);
+            resultsContainer.appendChild(sectionDiv);
+        });
+
+        // Show All Results as <button> tag now
+        const showAll = document.createElement("button");
+        showAll.className = "show-all";
+        showAll.type = "button";
+        showAll.textContent = "Show All Results";
+
+        resultsContainer.appendChild(showAll);
+    }
+
+    // Debounce helper
+    function debounce(fn, wait = 160) {
+        let timer;
+        return (...args) => {
+            clearTimeout(timer);
+            timer = setTimeout(() => fn(...args), wait);
+        };
+    }
+
+    const onInput = debounce((e) => renderResults(e.target.value), 120);
+
+    input.addEventListener("input", onInput);
+    btn.addEventListener("click", () => renderResults(input.value));
+
+    // Click handlers for result items and footer
+    resultsContainer.addEventListener("click", (ev) => {
+        const item = ev.target.closest(".result-item");
+        if (item) {
+            const v = item.dataset.value || item.textContent;
+            input.value = v;
+            setOpen(false);
+            // TODO: perform navigation or callback here if needed
+            console.log("Selected:", v);
+            return;
+        }
+        const foot = ev.target.closest(".show-all");
+        if (foot) {
+            renderAll();
+        }
+    });
+
+    // keyboard: Enter on focused result or footer
+    resultsContainer.addEventListener("keydown", (ev) => {
+        if (ev.key === "Enter") {
+            const item = ev.target.closest(".result-item");
+            if (item) {
+                input.value = item.dataset.value || item.textContent;
+                setOpen(false);
+                console.log("Selected (enter):", input.value);
+            } else if (ev.target.classList.contains("show-all")) {
+                renderAll();
+            }
+        }
+    });
+
+    // close if clicked outside
+    document.addEventListener("click", (e) => {
+        if (
+            !document.querySelector(
+                "." + /* hashed wrapper is used for layout only */ "",
+            ) &&
+            !e.target.closest('[id="resultsContainer"], #searchInput')
+        ) {
+            // fallback - but use a safe containment check:
+            const root =
+                document
+                    .querySelector('[id="resultsContainer"]')
+                    ?.closest?.('[class^="') || null;
+        }
+        // simpler: if click outside resultsContainer and not the input -> close
+        if (!resultsContainer.contains(e.target) && e.target !== input) {
+            setOpen(false);
+        }
+    });
+
+    // close on Esc
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") setOpen(false);
+    });
+
+    // initial closed
+    setOpen(false);
+</script>
