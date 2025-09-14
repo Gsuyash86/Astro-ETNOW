@@ -4,12 +4,19 @@ import Typography from "@components/common/widgets/typography/Typography.astro";
 import SvgIcon from "@components/common/svg/SvgIcon.astro";
 
 const { changeStyle = "", inLineStyle = {}, navLinks = [] } = Astro.props;
+
+let combinedNavLinks = [ {
+    href: "https://www.etnownews.com/",
+    title: "ET Now",
+    isActive: true
+  }
+    , ...navLinks];
 ---
 
 <div class={`${style['position-relative']}`} id="topNavigationContainer">
   <ul class={`${style["nav-ul"]} ${changeStyle ? style[changeStyle] : ""}`} style={inLineStyle} id="topNavigation">
     {
-      navLinks.map(
+      combinedNavLinks.map(
         ({
           href,
           title,
@@ -64,7 +71,7 @@ const { changeStyle = "", inLineStyle = {}, navLinks = [] } = Astro.props;
 
 <script define:vars={{ navLinks }}>
   document.addEventListener("DOMContentLoaded", function () {
-    const topNavigation = document.getElementById("topNavigation");
+    const topNavigation = document.getElementById("topNavigationContainer");
     const moreButton = document.getElementById("topNavigationMoreButton");
     const moreMenu = document.getElementById("topNavigationMoreMenu");
     const moreMenuList = document.getElementById("topNavigationMoreMenuList");
@@ -84,7 +91,7 @@ const { changeStyle = "", inLineStyle = {}, navLinks = [] } = Astro.props;
       for (let i = 0; i < navItems.length; i++) {
         usedWidth += navItems[i].offsetWidth;
         if (usedWidth > totalWidth) {
-          overflowLinks.push(navLinks[i]);
+          overflowLinks.push(navLinks[i - 2]);
           navItems[i].style.display = "none";
         }
       }
@@ -100,7 +107,6 @@ const { changeStyle = "", inLineStyle = {}, navLinks = [] } = Astro.props;
           a.title = link?.title;
           a.target = "_blank";
           a.classList.add("nav-link");
-
           typographySpan.textContent = link?.title;
           typographySpan.style.cssText = `
             font-size: 12px;
@@ -109,7 +115,6 @@ const { changeStyle = "", inLineStyle = {}, navLinks = [] } = Astro.props;
             letter-spacing: .1em;
             white-space: nowrap;
           `;
-
           a.appendChild(typographySpan);
           li.appendChild(a);
           moreMenuList.appendChild(li);
