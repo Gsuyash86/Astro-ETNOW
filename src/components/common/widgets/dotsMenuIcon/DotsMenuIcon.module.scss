@@ -1,0 +1,33 @@
+.white {
+    color: #ffffff;
+}
+.dot {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: currentColor;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  &::before,
+  &::after {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: currentColor;
+    content: '';
+  }
+
+  &:before {
+    right: 7px;
+    transition: right 0.3s ease-out;
+  }
+
+  &:after {
+    left: 7px;
+    transition: left 0.3s ease-out;
+  }
+}
