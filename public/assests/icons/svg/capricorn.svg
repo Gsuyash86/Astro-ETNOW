@@ -1,0 +1,421 @@
+<svg width="118" height="118" viewBox="0 0 118 118" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <radialGradient cx="50.15%" cy="50.082%" fx="50.15%" fy="50.082%" r="49.993%" id="d">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="50.144%" cy="50.131%" fx="50.144%" fy="50.131%" r="49.993%" id="e">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="50.155%" cy="50.132%" fx="50.155%" fy="50.132%" r="49.993%" id="f">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="50.148%" cy="50.199%" fx="50.148%" fy="50.199%" r="49.993%" id="g">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="50.298%" cy="50.166%" fx="50.298%" fy="50.166%" r="49.993%" id="h">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="50.29%" cy="50.135%" fx="50.29%" fy="50.135%" r="49.993%" id="i">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="50.154%" cy="50.188%" fx="50.154%" fy="50.188%" r="49.993%" id="j">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="50.237%" cy="50.137%" fx="50.237%" fy="50.137%" r="49.993%" id="k">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="50.132%" cy="50.049%" fx="50.132%" fy="50.049%" r="49.993%" id="l">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="50.183%" cy="50.105%" fx="50.183%" fy="50.105%" r="49.993%" id="m">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="50.058%" cy="50.086%" fx="50.058%" fy="50.086%" r="49.993%" id="n">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="50.156%" cy="50.151%" fx="50.156%" fy="50.151%" r="49.993%" id="o">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="50.106%" cy="50.184%" fx="50.106%" fy="50.184%" r="49.993%" id="p">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="50.169%" cy="50.154%" fx="50.169%" fy="50.154%" r="49.993%" id="q">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="49.583%" cy="49.285%" fx="49.583%" fy="49.285%" r="49.876%" id="r">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="49.216%" cy="49.715%" fx="49.216%" fy="49.715%" r="49.876%" id="s">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="49.672%" cy="49.502%" fx="49.672%" fy="49.502%" r="49.876%" id="t">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="49.582%" cy="49.549%" fx="49.582%" fy="49.549%" r="49.876%" id="u">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="49.385%" cy="49.166%" fx="49.385%" fy="49.166%" r="49.876%" id="v">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="49.721%" cy="49.009%" fx="49.721%" fy="49.009%" r="49.876%" id="w">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="49.85%" cy="48.885%" fx="49.85%" fy="48.885%" r="49.876%" id="x">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="48.643%" cy="49.185%" fx="48.643%" fy="49.185%" r="49.876%" id="y">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="49.571%" cy="48.536%" fx="49.571%" fy="48.536%" r="49.876%" id="z">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="48.886%" cy="49.043%" fx="48.886%" fy="49.043%" r="49.876%" id="A">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="49.631%" cy="48.82%" fx="49.631%" fy="48.82%" r="49.876%" id="B">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="48.335%" cy="49.161%" fx="48.335%" fy="49.161%" r="49.876%" id="C">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="49.039%" cy="48.796%" fx="49.039%" fy="48.796%" r="49.876%" id="D">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="49.572%" cy="48.893%" fx="49.572%" fy="48.893%" r="49.876%" id="E">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="49.779%" cy="48.921%" fx="49.779%" fy="48.921%" r="49.876%" id="F">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="49.532%" cy="49.165%" fx="49.532%" fy="49.165%" r="49.876%" id="G">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="49.81%" cy="49.466%" fx="49.81%" fy="49.466%" r="49.876%" id="H">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="48.943%" cy="49.308%" fx="48.943%" fy="49.308%" r="49.876%" id="I">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="48.584%" cy="49.223%" fx="48.584%" fy="49.223%" r="49.876%" id="J">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="49.313%" cy="49.651%" fx="49.313%" fy="49.651%" r="49.876%" id="K">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="49.458%" cy="49.239%" fx="49.458%" fy="49.239%" r="49.876%" id="L">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="49.159%" cy="49.527%" fx="49.159%" fy="49.527%" r="49.876%" id="M">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="48.82%" cy="49.336%" fx="48.82%" fy="49.336%" r="49.876%" id="N">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <radialGradient cx="49.129%" cy="49.283%" fx="49.129%" fy="49.283%" r="49.876%" id="O">
+            <stop stop-color="#FFF" offset="15%"/>
+            <stop stop-color="#F6F6F6" stop-opacity=".915" offset="22.21%"/>
+            <stop stop-color="#DDD" stop-opacity=".775" offset="34.15%"/>
+            <stop stop-color="#B4B4B4" stop-opacity=".596" offset="49.34%"/>
+            <stop stop-color="#7B7B7B" stop-opacity=".386" offset="67.19%"/>
+            <stop stop-color="#333" stop-opacity=".153" offset="87.02%"/>
+            <stop stop-opacity="0" offset="100%"/>
+        </radialGradient>
+        <filter x="-11.8%" y="-11.8%" width="123.5%" height="123.5%" filterUnits="objectBoundingBox" id="b">
+            <feOffset in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur stdDeviation="4" in="shadowOffsetOuter1" result="shadowBlurOuter1"/>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"/>
+            <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.152808129 0" in="shadowBlurOuter1"/>
+        </filter>
+        <circle id="a" cx="51" cy="51" r="51"/>
+        <path id="P" d="M0 .472h3.836v7.297H0z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g transform="translate(8 8)">
+            <mask id="c" fill="#fff">
+                <use xlink:href="#a"/>
+            </mask>
+            <use fill="#000" filter="url(#b)" xlink:href="#a"/>
+            <circle stroke="#FFF" stroke-width="3" stroke-linejoin="square" fill="#38256B" cx="51" cy="51" r="49.5"/>
+            <g mask="url(#c)" fill-rule="nonzero">
+                <g transform="translate(8 10)">
+                    <circle fill="url(#d)" cx="61" cy="1" r="1"/>
+                    <circle fill="url(#e)" cx="31" cy="71" r="1"/>
+                    <circle fill="url(#f)" cx="1" cy="46" r="1"/>
+                    <circle fill="url(#g)" cx="2" cy="34" r="1"/>
+                    <circle fill="url(#h)" cx="82" cy="24" r="1"/>
+                    <circle fill="url(#i)" cx="80" cy="54" r="1"/>
+                    <circle fill="url(#j)" cx="43" cy="84" r="1"/>
+                    <circle fill="url(#k)" cx="69" cy="67" r="1"/>
+                    <circle fill="url(#l)" cx="33" cy="2" r="1"/>
+                    <circle fill="url(#m)" cx="23" cy="29" r="1"/>
+                    <circle fill="url(#n)" cx="8" cy="12" r="1"/>
+                    <circle fill="url(#o)" cx="12" cy="40" r="1"/>
+                    <circle fill="url(#p)" cx="7" cy="65" r="1"/>
+                    <circle fill="url(#q)" cx="46" cy="21" r="1"/>
+                    <circle fill="url(#q)" cx="53" cy="70" r="1"/>
+                    <circle fill="url(#r)" cx="30.5" cy="19.5" r="1"/>
+                    <circle fill="url(#s)" cx="40.5" cy="7.5" r="1"/>
+                    <circle fill="url(#t)" cx="15.5" cy="5.5" r="1"/>
+                    <circle fill="url(#u)" cx="26.5" cy="10.5" r="1"/>
+                    <circle fill="url(#v)" cx="47.5" cy="40.5" r="1"/>
+                    <circle fill="url(#w)" cx="25.5" cy="57.5" r="1"/>
+                    <circle fill="url(#x)" cx="13.5" cy="57.5" r="1"/>
+                    <circle fill="url(#y)" cx="77.5" cy="42.5" r="1"/>
+                    <circle fill="url(#z)" cx="27.5" cy="81.5" r="1"/>
+                    <circle fill="url(#A)" cx="70.5" cy="52.5" r="1"/>
+                    <circle fill="url(#B)" cx="22.5" cy="68.5" r="1"/>
+                    <circle fill="url(#C)" cx="78.5" cy="39.5" r="1"/>
+                    <circle fill="url(#D)" cx="61.5" cy="52.5" r="1"/>
+                    <circle fill="url(#E)" cx="22.5" cy="50.5" r="1"/>
+                    <circle fill="url(#F)" cx="4.5" cy="52.5" r="1"/>
+                    <circle fill="url(#G)" cx="24.5" cy="43.5" r="1"/>
+                    <circle fill="url(#H)" cx="7.5" cy="23.5" r="1"/>
+                    <circle fill="url(#I)" cx="69.5" cy="33.5" r="1"/>
+                    <circle fill="url(#J)" cx="88.5" cy="39.5" r="1"/>
+                    <circle fill="url(#K)" cx="49.5" cy="6.5" r="1"/>
+                    <circle fill="url(#L)" cx="34.5" cy="32.5" r="1"/>
+                    <circle fill="url(#M)" cx="60.5" cy="7.5" r="1"/>
+                    <circle fill="url(#s)" cx="44.5" cy="74.5" r="1"/>
+                    <circle fill="url(#K)" cx="57.5" cy="78.5" r="1"/>
+                    <circle fill="url(#M)" cx="61.5" cy="65.5" r="1"/>
+                    <circle fill="url(#N)" cx="69.5" cy="19.5" r="1"/>
+                    <circle fill="url(#O)" cx="59.5" cy="35.5" r="1"/>
+                </g>
+            </g>
+        </g>
+        <path d="M36.304 34.51c-2.11-.017-4.162.147-6.259.345 1.815 1.166 3.626 2.325 5.443 3.49.855-.79 3.198-3.816.816-3.834M64.951 53.113c3.02 2.21 5.244.809 7.571-1.566-1.501-.009-3.368-.7-4.527-1.623-1.248-.976-2.053-2.828-2.896-4.134-.946 2.489-2.856 5.341-.148 7.323M42.852 36.23c.03-1.253-3.03-1.298-3.815-1.363-1.135-.092-.783.992-1.143 1.927-.294.764-.76 1.477-1.448 1.94 1.248 1.25 2.41 3.518 4.31 2.19 1.395-.975 2.032-3.104 2.096-4.695" fill="#FFF"/>
+        <path d="M47.346 38.447c-.948-1.055-2.252-1.743-3.587-2.236-.685 2.895-1.204 5.4-4.476 5.784.642.8 1.345 1.55 1.908 2.412.006.006.01.016.016.022 2.104 3.247 7.95-3.976 6.139-5.982" fill="#FFF"/>
+        <path d="M50.65 47.434c2.11-3.248.03-4.974-2.011-7.642-.65 3.429-2.325 6.326-6.193 6.293.714 1.313 1.731 3.158 2.166 4.02 1.162 2.34 5.323-1.568 6.039-2.67M72.595 54.891l.173.362c.005.011.01.027.022.038v.006a.04.04 0 0 0 .012.022v.006l.005.006v.01c.553 1.146 1.045 2.33 1.092 3.621 1.457-.698 2.433-2.23 3.192-3.59.983-1.738 2.355-3.175 3.37-4.885-1.62-.08-3.16.378-4.55 1.193-.9.525-3.958 1.91-3.316 3.211M73.204 50.054c.432-.864 1.442-2.712 2.152-4.027-3.867.046-5.554-2.844-6.215-6.272-2.033 2.675-4.106 4.41-1.985 7.65.72 1.1 4.894 4.994 6.048 2.649" fill="#FFF"/>
+        <g transform="rotate(90 26.88 61.308)">
+            <mask id="Q" fill="#fff">
+                <use xlink:href="#P"/>
+            </mask>
+            <path d="M3.836 5.902C2.663 4.091 1.498 2.284.326.472.135 2.57-.024 4.624.003 6.732c.027 2.382 3.044.029 3.833-.83" fill="#FFF" mask="url(#Q)"/>
+        </g>
+        <path d="M77.027 40.86c1.906 1.321 3.06-.951 4.304-2.206-.691-.46-1.16-1.171-1.457-1.934-.363-.935-.014-2.02-1.15-1.923-.784.067-3.844.124-3.808 1.376.07 1.591.713 3.715 2.111 4.687" fill="#FFF"/>
+        <path d="M76.588 44.367c.005-.006.011-.018.017-.023.56-.863 1.26-1.616 1.899-2.418-3.273-.373-3.8-2.876-4.496-5.769-1.334.498-2.636 1.19-3.58 2.249-1.804 2.013 4.068 9.214 6.16 5.96M61.002 85.796c.873-.347 1.683 1.216 2.101 1.738.276-1.92.69-3.763.436-5.693-1.273.998-3.032 1.062-4.573 1.077-1.541-.009-3.3-.067-4.576-1.06-.247 1.93.174 3.772.455 5.69.417-.524 1.221-2.088 2.096-1.745.757.299 1.028 2.72 1.201 3.409.258 1.04.405 2.164.84 2.792.433-.63.576-1.753.83-2.795.171-.69.434-3.11 1.19-3.413M52.876 53.134c2.701-1.991.781-4.837-.175-7.322-.838 1.309-1.636 3.163-2.88 4.144-1.156.926-3.02 1.626-4.522 1.64 2.336 2.365 4.564 3.758 7.577 1.538M45.028 55.38l.006-.006v-.006a.043.043 0 0 0 .01-.022v-.006c.011-.01.017-.027.022-.039l.172-.362c.638-1.303-2.425-2.677-3.328-3.2-1.392-.81-2.934-1.262-4.554-1.176 1.022 1.706 2.399 3.14 3.387 4.874.765 1.356 1.747 2.885 3.206 3.578.042-1.29.53-2.478 1.079-3.624v-.011z" fill="#FFF"/>
+        <path d="M56.368 79.945c-.112-.345-.558-.584-.82-.895-.206-.238-.496-.483-.163-.845.334-.363.54-.101.757.131.535.578 1.527 1.574 1.423 2.107-.103.533-.962.23-1.197-.498m6.162-1.753c.335.36.046.606-.16.845-.261.313-.706.553-.816.898-.233.73-1.09 1.036-1.195.503-.106-.532.881-1.531 1.415-2.112.216-.233.421-.495.756-.134m-9.796-8.358c-2.505-.448-5.536-3.817-3.359-6.506-.172-.172-.27-.241-.319-.252-.748-.51-2.151-1.133-2.234-1.707-.119-.82 2.931.915 3.303 1.17 3.749 2.563 5.342 11.313 4.304 11.791-.919.423-.847-4.344-1.695-4.496m18.3-8.507c-.081.573-1.482 1.2-2.228 1.715-.049.01-.147.08-.318.252 2.186 2.681-.833 6.061-3.336 6.518-.847.155-.76 4.921-1.68 4.502-1.038-.475.523-9.23 4.263-11.807.371-.255 3.415-2 3.3-1.18M65.43 78.56c1.876-2.619 3.77-5.237 5.095-8.189 1.252-2.79 2.042-5.941 2.299-8.98.075-.94-.66-8.14-2.317-6.951-.006.005-.012.01-.017.01-1.723 1.212-4.189 1.073-5.874.046-2.003-1.22-1.659-2.52-3.047-3.313-.278-.161-1.809-.683-2.66-.67-.851-.01-2.381.518-2.659.68-1.384.798-1.036 2.096-3.035 3.324-1.68 1.033-4.147 1.18-5.874-.026-.005 0-.011-.004-.017-.01-1.66-1.183-2.37 6.02-2.29 6.96.266 3.037 1.067 6.186 2.33 8.971 1.335 2.948 3.236 5.56 5.123 8.172 1.506 2.09 3.147 3.56 6.478 3.555 3.331-.005 4.966-1.484 6.465-3.579" fill="#FFF"/>
+    </g>
+</svg>

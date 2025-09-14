@@ -1,0 +1,19 @@
+---
+import style from "./HtmlParagraph.module.scss";
+const { htmlText, tempId, firstPara, premium = false } = Astro.props;
+---
+
+{
+  htmlText && htmlText.length > 1 && (
+    <div
+      id={tempId ? tempId : ""}
+      class={`${style["article-paragraph"]} article-paragraph ${
+        firstPara ? style["firstchild_bold"] : ""
+      } ${premium ? style["premiumPara"] : ""}`}
+      set:html={htmlText}
+      style={{
+        display: htmlText ? "block" : "none",
+      }}
+    />
+  )
+}

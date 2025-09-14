@@ -1,0 +1,76 @@
+---
+import TitleComponent from "./TitleComponent.astro";
+import ContainerBox from "@components/common/containerBox/ContainerBox.astro";
+import CategoryName from "@components/common/categoryName/CategoryName.astro";
+import AuthorDetailMobile from "./AuthorDetailMobile.astro";
+import Synopsis from "./Synopsis.astro";
+import KeyHighlight from "./KeyHighlight.astro";
+import SocialWidgets from "@components/common/embeds/SocialWidgets.astro";
+import TextLinkComponent from "./TextLinkComponent.astro";
+import HtmlParagraph from "./HtmlParagraph.astro";
+const { category = "news" } = Astro.props;
+const data = await fetch(
+  "https://api.etnownews.com/request/articleshow/?origin=mobile&msid=152524877&channel_id=382"
+);
+const response = await data.json();
+const mainData = response?.response?.sections?.article_show?.data?.[0];
+---
+
+<ContainerBox inLineStyle={{ marginBottom: "7px" }}>
+  <CategoryName
+    categoryName={category?.split("-").join(" ") ||
+      mainData?.categoryname ||
+      ""}
+    changeStyle={"font-size-12"}
+    inLineStyle={{
+      fontWeight: "600",
+      color: "#696969",
+      lineHeight: "1.2",
+      textDecoration: "underline",
+    }}
+    redirectToUrl={`${category}`}
+    title={category || mainData?.categoryname || ""}
+  />
+</ContainerBox>
+<TitleComponent index={0} mainData={mainData} />
+
+{
+  mainData && (mainData.authors || mainData.updatedate || mainData.agency) ? (
+    <AuthorDetailMobile
+      byline={mainData?.Byline}
+      updatedate={`${mainData?.updatedate}`}
+      inLineStyle={{ marginBottom: "15px" }}
+    />
+  ) : null
+}
+
+<Synopsis text={mainData.synopsis} inLineStyle={{ marginBottom: "34px" }} />
+<KeyHighlight summary={mainData?.summary} />
+
+{
+  mainData?.embedData?.map((embedData) => (
+    <Fragment>
+      <SocialWidgets data={{ text: embedData?.twitterList, type: "twitter" }} />
+      <SocialWidgets
+        data={{ text: embedData?.instagramList, type: "instagram" }}
+      />
+      <SocialWidgets data={{ text: embedData?.fbList, type: "fb" }} />
+      <SocialWidgets data={{ text: embedData?.reditList, type: "reddIt" }} />
+      <SocialWidgets data={{ text: embedData?.iframeText, type: "iframe" }} />
+      <TextLinkComponent
+        htmlText={embedData.htmlText}
+        iconType={embedData.iconType}
+      />
+      <HtmlParagraph
+        htmlText={
+          embedData.htmlText
+            ? embedData.htmlText
+                .replace(/(<!\[CDATA\[)/gm, "")
+                .replace(/(]]>)/gm, "")
+            : ""
+        }
+        firstPara={embedData.paraLength == 1 && embedData?.ispara}
+      />
+    </Fragment>
+  ))
+}

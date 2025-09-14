@@ -1,0 +1,32 @@
+---
+import style from "./Synopsis.module.scss";
+import ContainerBox from "@components/common/containerBox/ContainerBox.astro";
+import WidgetParagraph from "@components/common/widgetParagraph/WidgetParagraph.astro";
+const {
+  text,
+  changeStyle = "",
+  inLineStyle = {},
+  noGutterSpace = false,
+  isConditionalRendering,
+} = Astro.props;
+if (!text) return null;
+---
+
+<div
+  class={`${style["synopsis"]} ${changeStyle && style[changeStyle]}`}
+  style={{ ...inLineStyle }}
+>
+  <ContainerBox noGutterSpace={noGutterSpace}>
+    <WidgetParagraph
+      tag="h2"
+      text={text}
+      changeStyle="font-size-16"
+      isConditionalRendering={isConditionalRendering}
+      isLineClamp={false}
+      inLineStyle={{
+        lineHeight: "1.7",
+        fontWeight: "normal",
+      }}
+    />
+  </ContainerBox>
+</div>

@@ -1,0 +1,55 @@
+.container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.article-paragraph-video {
+  padding-left: 15px;
+  padding-right: 15px;
+
+  iframe {
+    width: 100%;
+    height: initial;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+  }
+}
+.mb-5 {
+  margin-bottom: 10px;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.youtube_cover {
+  margin-top: 16px;
+  margin-bottom: 11px;
+
+  .youtubeicon {
+    margin-top: 6px;
+    margin-right: 9px;
+
+    svg {
+      width: 17px;
+      height: 17px;
+    }
+  }
+
+  .article-paragraph {
+    font-size: 1rem;
+    font-weight: normal;
+    line-height: 1.6;
+    word-break: break-word;
+    overflow-x: auto;
+  }
+
+  a {
+    color: var(--hrefTextColor-1);
+    text-decoration: underline;
+    font-size: 1rem;
+    line-height: 1.63;
+  }
+}

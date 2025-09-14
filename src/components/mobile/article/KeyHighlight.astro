@@ -1,0 +1,14 @@
+---
+import style from "./KeyHighlight.module.scss";
+const { summary, premium = false } = Astro.props;
+if (!summary) return null;
+---
+
+<div class={`${style["container"]} ${premium && style["premiumkeyHighlight"]}`}>
+  <div class={`${style["content"]} ${style["KeyHighlights"]}`}>
+    <div class={`${style["f-bold"]} ${style["f-s-16"]} ${style["head"]}`}>
+      Highlights
+    </div>
+    <div set:html={summary} class={`${style["lh"]} ${style["f-s-14"]}`} />
+  </div>
+</div>

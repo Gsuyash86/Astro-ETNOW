@@ -1,8 +1,8 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config";
 import node from "@astrojs/node";
 // https://astro.build/config
 export default defineConfig({
-  output: 'server',
+  output: "server",
   adapter: node({
     mode: "standalone", // or "middleware"
   }),
@@ -15,6 +15,13 @@ export default defineConfig({
         "@components": "/src/components",
         "@layouts": "/src/layouts",
         "@lib": "/src/lib",
+      },
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@use "src/styles/_mixins_new.scss" as *;`,
+        },
       },
     },
   },
