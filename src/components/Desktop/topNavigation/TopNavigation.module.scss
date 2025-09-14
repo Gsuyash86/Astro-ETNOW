@@ -1,5 +1,11 @@
 @use 'src/styles/_mixins-new'as *;
 
+.nav-wrap {
+  position: relative;
+  display: flex;
+  gap: 20px;
+}
+
 .nav {
   &-ul {
     display: flex;
@@ -18,6 +24,8 @@
     display: inline-block;
     padding: 8px 6px;
     border-right: 1px solid #404040;
+    border-top: 0;
+    border-bottom: 0;
     text-transform: none;
 
     &,
@@ -44,11 +52,35 @@
       }
     }
   }
+
+  &-rhs {
+    .nav-link {
+      padding: 1px 10px;
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+  }
+
+  &-live-tv {
+    background: #be1f24;
+    border: 0;
+    padding: 0 10px;
+    height: 24px;
+    gap: 6px;
+    margin: 2.2px 10px;
+
+    svg {
+      margin-top: -1px;
+    }
+  }
+
 }
 
 .position-relative {
   position: relative;
-  max-width: 900px;
+  flex: 1;
+  min-width: 0;
 }
 
 .more-link-button {
@@ -64,9 +96,6 @@
   z-index: 9;
 
   svg {
-    width: 12px;
-    height: 12px;
-    filter: invert(1);
     display: none;
     position: absolute;
     top: 50%;
@@ -76,7 +105,7 @@
 
   &:hover {
 
-    .dot {
+    >span {
       display: none;
     }
 
@@ -87,70 +116,31 @@
   }
 }
 
-.dot {
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background-color: #fff;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.more-menu-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 
-  &::before,
-  &::after {
-    position: absolute;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background-color: #fff;
-    content: '';
-  }
+  li {
+    width: 100%;
 
-  &:before {
-    right: 7px;
-    transition: right 0.3s ease-out;
-  }
+    a {
+      display: block;
+      padding: 5px 12px;
+      color: var(--textColor);
+      border-right: 0;
+      text-align: right;
 
-  &:after {
-    left: 7px;
-    transition: left 0.3s ease-out;
+      &:hover {
+        background: #f0f0f0;
+      }
+    }
   }
 }
 
-.more-menu {
-  display: none;
-  position: absolute;
-  background-color: var(--whiteColor);
-  width: auto;
-  top: 100%;
-  right: 0;
-  border-top: 2px solid #000;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-  min-height: 50px;
-  border-radius: 0 0 7px 7px;
-  overflow: hidden;
-  z-index: 9;
-
-  ul.more-menu-list {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-
-    li {
-      width: 100%;
-
-      a {
-        display: block;
-        padding: 5px 12px;
-        color: var(--textColor);
-        border-right: 0;
-        text-align: right;
-
-        &:hover {
-          background: #f0f0f0;
-        }
-      }
-    }
+.navDisabled {
+  .disable {
+    pointer-events: none;
+    opacity: 0.4;
   }
 }

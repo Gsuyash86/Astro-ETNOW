@@ -10,7 +10,7 @@ const navDataJson = await navData.json();
 
 ---
 
-<header>
+<header class={`${style['header']}`}>
   <div class={`${style["header-top-nav"]}`}>
     <ContainerBox>
       <TopNavigation navLinks={navDataJson?.networks}/>

@@ -1,72 +1,159 @@
 ---
 import style from "./TopNavigation.module.scss";
 import Typography from "@components/common/widgets/typography/Typography.astro";
+import DotsMenuIcon from "@components/common/widgets/dotsMenuIcon/DotsMenuIcon.astro";
 import SvgIcon from "@components/common/svg/SvgIcon.astro";
+import MegaDropDownBox from "@components/common/wrappers/megaDropDownBox/MegaDropDownBox.astro";
 
 const { changeStyle = "", inLineStyle = {}, navLinks = [] } = Astro.props;
 
-let combinedNavLinks = [ {
+let combinedNavLinks = [
+  {
     href: "https://www.etnownews.com/",
     title: "ET Now",
-    isActive: true
-  }
-    , ...navLinks];
+    isActive: true,
+  },
+  ...navLinks,
+];
 ---
 
-<div class={`${style['position-relative']}`} id="topNavigationContainer">
-  <ul class={`${style["nav-ul"]} ${changeStyle ? style[changeStyle] : ""}`} style={inLineStyle} id="topNavigation">
-    {
-      combinedNavLinks.map(
-        ({
-          href,
-          title,
-          isActive = false,
-        }: {
-          href: string;
-          title: string;
-          isActive: boolean;
-        }) => (
-          <li>
-            <a
-              href={href}
-              title={title}
-              target="_blank"
-              class={`${style["nav-link"]} ${isActive ? style["nav-active"] : ""}`}
-            >
-              <Typography
-                tag="span"
-                text={title}
-                changeStyle="font-size-12"
-                fontWeight="400"
-                isLineClamp={false}
-                inLineStyle={{
-                  lineHeight: "1.2",
-                  letterSpacing: ".1em",
-                  whiteSpace: "nowrap",
-                }}
-              />
-            </a>
-          </li>
-        ),
-      )
-    }
-    <li
-      id="topNavigationMoreButton"
-      class={`${style["more-link-button"]}`}
-      style={{ display: "none" }}
+<div id="navDisabled" class={`${style["nav-wrap"]}`} data-nav-disabled-class={style.navDisabled}>
+  <div class={`${style["position-relative"]}`} id="topNavigationContainer">
+    <ul
+      class={`${style["nav-ul"]} ${changeStyle ? style[changeStyle] : ""}`}
+      style={inLineStyle}
+      id="topNavigation"
     >
-      <span class={`${style["dot"]}`}></span>
-      <SvgIcon size="sm" IconName="CloseIconBig" />
+      {
+        combinedNavLinks.map(
+          ({
+            href,
+            title,
+            isActive = false,
+          }: {
+            href: string;
+            title: string;
+            isActive: boolean;
+          }) => (
+            <li class={`${style['disable']}`}>
+              <a
+                href={href}
+                title={title}
+                class={`${style["nav-link"]} ${isActive ? style["nav-active"] : ""}`}
+              >
+                <Typography
+                  tag="span"
+                  text={title}
+                  changeStyle="font-size-12"
+                  fontWeight="400"
+                  isLineClamp={false}
+                  inLineStyle={{
+                    lineHeight: "1.2",
+                    letterSpacing: ".1em",
+                    whiteSpace: "nowrap",
+                  }}
+                />
+              </a>
+            </li>
+          ),
+        )
+      }
+      <li
+        id="topNavigationMoreButton"
+        class={`${style["more-link-button"]} ${style['disable']}`}
+        style={{ display: "none" }}
+      >
+        <DotsMenuIcon />
+        <SvgIcon
+          size="sm"
+          IconName="CloseIconBigWhite"
+          width="12"
+          height="12"
+        />
 
-      <div class={`more-menu ${style["more-menu"]}`} id="topNavigationMoreMenu">
-        <ul
-          class={`${style["more-menu-list"]}`}
-          id="topNavigationMoreMenuList"
+        <MegaDropDownBox
+          id="topNavigationMoreMenu"
+          inLineStyle={{
+            display: "none",
+            width: "auto",
+            padding: "0",
+            minHeight: "50px",
+            left: "inherit",
+            maxWidth: "fit-content",
+          }}
         >
-        </ul>
-      </div>
-    </li>
-  </ul>
+          <ul
+            class={`${style["more-menu-list"]}`}
+            id="topNavigationMoreMenuList"
+          >
+          </ul>
+        </MegaDropDownBox>
+      </li>
+    </ul>
+  </div>
+  <div class={`${style["nav-rhs"]}`}>
+    <ul class={`${style["nav-ul"]}`}>
+      <li class={style['disable']}>
+        <a href="#" title={""} class={`${style["nav-link"]}`}>
+          <SvgIcon
+            size="sm"
+            IconName="LanguageSwaitchIcon"
+            width="27"
+            height="27"
+          />
+        </a>
+      </li>
+      <li class={style['disable']}>
+        <a
+          href="#"
+          title="Live Tv"
+          class={`${style["nav-link"]} ${style["nav-live-tv"]}`}
+        >
+          <SvgIcon size="sm" IconName="livetvNewIcon" width="17" height="15" />
+          <Typography
+            tag="span"
+            text={"Live Tv"}
+            changeStyle="font-size-12"
+            fontWeight="700"
+            isLineClamp={false}
+            inLineStyle={{
+              lineHeight: "1.2",
+              whiteSpace: "nowrap",
+              textTransform: "uppercase",
+            }}
+          />
+        </a>
+      </li>
+      <li class={style['disable']}>
+        <button class={`${style["nav-link"]} ${style["nav-user"]}`}>
+          <SvgIcon size="sm" IconName="userIconWhite" width="27" height="27" />
+        </button>
+      </li>
+      <li>
+        <button class={`${style["nav-link"]}`} id="searchToggleBtn">
+          <SvgIcon
+            id="searchIcon"
+            size="sm"
+            IconName="searchNewIconDesktopWhite"
+            width="27"
+            height="27"
+          />
+          <SvgIcon
+            id="closeIcon"
+            size="sm"
+            IconName="CloseIconBigWhite"
+            width="27"
+            height="18"
+            inLineStyle={{ display: "none" }}
+          />
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <MegaDropDownBox id="searchDropdown" inLineStyle={{ display: "none" }}>
+    Search goes here
+  </MegaDropDownBox>
 </div>
 
 <script define:vars={{ navLinks }}>
@@ -133,18 +220,74 @@ let combinedNavLinks = [ {
     window.addEventListener("resize", handleOverflow);
 
     // Toggle more menu visibility
-    
+
     // moreButton.addEventListener("click", () => {
     //   moreMenu.style.display =
     //     moreMenu.style.display === "block" ? "none" : "block";
     // });
 
-    moreButton.addEventListener('mouseover', () => {
-      moreMenu.style.display = 'block';
+    moreButton.addEventListener("mouseover", () => {
+      moreMenu.style.display = "block";
     });
 
-    moreButton.addEventListener('mouseout', () => {
-      moreMenu.style.display = 'none';
+    moreButton.addEventListener("mouseout", () => {
+      moreMenu.style.display = "none";
+    });
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const searchToggleBtn = document.getElementById("searchToggleBtn");
+    const searchDropdown = document.getElementById("searchDropdown");
+    const searchIcon = document.getElementById("searchIcon");
+    const closeIcon = document.getElementById("closeIcon");
+    const navDisabled = document.getElementById("navDisabled");
+
+    if (
+      !searchToggleBtn ||
+      !searchDropdown ||
+      !searchIcon ||
+      !closeIcon ||
+      !navDisabled
+    )
+      return;
+
+    const navDisabledClass = navDisabled.dataset.navDisabledClass; // ✅ This is now the hashed class
+
+    let isSearchOpen = false;
+
+    function toggleSearchDropdown() {
+      isSearchOpen = !isSearchOpen;
+
+      searchDropdown.style.display = isSearchOpen ? "block" : "none";
+      searchIcon.style.display = isSearchOpen ? "none" : "inline-block";
+      closeIcon.style.display = isSearchOpen ? "inline-block" : "none";
+
+      if (isSearchOpen) {
+        navDisabled.classList.add(navDisabledClass);
+      } else {
+        navDisabled.classList.remove(navDisabledClass);
+      }
+    }
+
+    searchToggleBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleSearchDropdown();
+    });
+
+    document.addEventListener("click", (event) => {
+      if (
+        isSearchOpen &&
+        !searchDropdown.contains(event.target) &&
+        !searchToggleBtn.contains(event.target)
+      ) {
+        isSearchOpen = false;
+        searchDropdown.style.display = "none";
+        searchIcon.style.display = "inline-block";
+        closeIcon.style.display = "none";
+        navDisabled.classList.remove(navDisabledClass);
+      }
     });
   });
 </script>

@@ -1,5 +1,9 @@
 @use 'src/styles/_mixins-new'as *;
 
+.hamburgerWrapper {
+    position: relative;
+}
+
 .nav {
     &-ul {
         display: flex;
@@ -51,6 +55,42 @@
             font-weight: bold;
         }
     }
+
+    &-premium-list {
+        margin-left: auto;
+    }
+
+    &-premium,
+    &-mutual-fund {
+        img {
+            width: 90px;
+            height: 15px;
+        }
+    }
+
+    &-mutual-fund {
+        img {
+            width: 155px;
+            margin-bottom: -5px;
+        }
+    }
+
+    &-more-btn {
+        width: 40px;
+        position: relative;
+        padding: 0;
+    }
+
+    &-premium,
+    &-mutual-fund,
+    &-more-btn {
+        display: inline-flex;
+        align-items: center;
+        height: 100%;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
 }
 
 .rightArrow {
@@ -140,4 +180,11 @@
             }
         }
     }
+}
+
+.navDisabled {
+  .disable {
+    pointer-events: none;
+    opacity: 0.4;
+  }
 }
