@@ -1,6 +1,7 @@
 ---
 const { data } = Astro.props;
 const htmlText = data.text;
+if (!htmlText) return null;
 ---
 
 <div class={`_z_subblogs mb-5`}>
