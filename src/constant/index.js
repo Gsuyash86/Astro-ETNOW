@@ -42,5 +42,25 @@ const CONST = {
     { link: `https://www.etnownews.com/stocks/stock-price-quote/y`, value: "Y" },
     { link: `https://www.etnownews.com/stocks/stock-price-quote/z`, value: "Z" },
   ],
+ SSO_AUTH: {
+    CHANNEL: 'tnnet',
+    PLATFORM: 'WEB',
+    SSO_BASEURL: "",
+    REDIRECT_URL: import.meta.env.WEBAPP_BASE_URL,
+    SOCIAL_APP: {
+      FB: {
+        F_URL: '/fb/home',
+        F_APP_ID: '1546988615744423',
+        F_APP_SECRET_ID: 'a3160d5b7c73cfedcaf4ec47744e622d',
+      },
+      GOOGLE: {
+        G_URL: '/google/home',
+        G_CLIENT_ID:
+          '48539669424-nc92l47o2q9njqf9fv3ijdk5u5vmpg5k.apps.googleusercontent.com',
+        G_APP_SECRET_ID: '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',
+      },
+    },
+    SOCIAL_APP_BASEURL : 'https://socialappsintegrator.indiatimes.com'
+  }
 };
 export default CONST;

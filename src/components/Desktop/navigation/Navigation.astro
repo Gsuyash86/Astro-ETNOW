@@ -35,7 +35,6 @@ const { changeStyle = "", inLineStyle = {}, navLinks = [] , pageTarget} = Astro.
           child: any;
         }) => (
           <li class={`${child && child.length > 0 && style["rightArrow"]} ${style['disable']}`}>
-            {console.log("@@@@@" , pageTarget.category, seopath)}
             <a
               href={seopath}
               title={title}

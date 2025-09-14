@@ -66,6 +66,12 @@ const pageTarget = {
   </script>
   <script id="dpfscript" src="/dfpamzn.js" type="text/javascript" defer
   ></script>
+  <script>
+    import { checkScriptLoad } from "../scripts/onetap.js";
+    document.addEventListener("DOMContentLoaded", () => {
+      checkScriptLoad();
+    });
+  </script>
 </Fragment>
 
 <body>
