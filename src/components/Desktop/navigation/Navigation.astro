@@ -4,6 +4,7 @@ import Typography from "@components/common/widgets/typography/Typography.astro";
 import SvgIcon from "@components/common/svg/SvgIcon.astro";
 import DotsMenuIcon from "@components/common/widgets/dotsMenuIcon/DotsMenuIcon.astro";
 import MegaDropDownBox from "@components/common/wrappers/megaDropDownBox/MegaDropDownBox.astro";
+import Search from "@components/common/search/Search.astro";
 
 const {
   changeStyle = "",
@@ -150,7 +151,7 @@ const {
     </li>
   </ul>
   <MegaDropDownBox id="hamburgerDropdownMenu" inLineStyle={{ display: "none" }}>
-    Search goes here
+    <Search />
   </MegaDropDownBox>
 </div>
 
