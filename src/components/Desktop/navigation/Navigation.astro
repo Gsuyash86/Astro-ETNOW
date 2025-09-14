@@ -5,6 +5,7 @@ import SvgIcon from "@components/common/svg/SvgIcon.astro";
 import DotsMenuIcon from "@components/common/widgets/dotsMenuIcon/DotsMenuIcon.astro";
 import MegaDropDownBox from "@components/common/wrappers/megaDropDownBox/MegaDropDownBox.astro";
 import Search from "@components/common/search/Search.astro";
+import Hamburger from "@components/desktop/hamburger/Hamburger.astro";
 
 const { changeStyle = "", inLineStyle = {}, navLinks = [] , pageTarget} = Astro.props;
 ---
@@ -138,6 +139,7 @@ const { changeStyle = "", inLineStyle = {}, navLinks = [] , pageTarget} = Astro.
   </ul>
   <MegaDropDownBox id="hamburgerDropdownMenu" inLineStyle={{ display: "none" }}>
     <Search />
+    <Hamburger />
   </MegaDropDownBox>
 </div>
 
@@ -176,7 +178,7 @@ const { changeStyle = "", inLineStyle = {}, navLinks = [] , pageTarget} = Astro.
     toggleBtn.addEventListener("mouseenter", openDropdown);
 
     // Close dropdown on mouse leave from wrapper (to cover dropdown area too)
-    wrapper.addEventListener("mouseleave", closeDropdown);
+    // wrapper.addEventListener("mouseleave", closeDropdown);
 
     // Optional: prevent any clicks from toggling menu
     toggleBtn.addEventListener("click", (e) => {
