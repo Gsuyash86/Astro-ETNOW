@@ -7,7 +7,7 @@ import EmblaSlider from "@components/common/slider/EmblaSlider.astro";
 
 const navData = await fetch("https://api.etnownews.com/api/getnavigation?msid=ALL&channel_id=382");
 const navDataJson = await navData.json();
-
+const { pageTarget } = Astro.props;
 ---
 
 <header class={`${style['header']}`}>
@@ -39,7 +39,7 @@ const navDataJson = await navData.json();
   </EmblaSlider> -->
   <div class={`${style["header-main-nav"]}`}>
     <ContainerBox>
-      <Navigation navLinks={navDataJson?.response?.slice(0, 7)}/>
+      <Navigation navLinks={navDataJson?.response?.slice(0, 7)} pageTarget = {pageTarget} />
     </ContainerBox>
   </div>
 </header>
