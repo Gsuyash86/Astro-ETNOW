@@ -1,34 +1,12 @@
 ---
 import GutterAds from "@components/common/wrappers/gutterAds/GutterAds.astro";
-import AdCaller from "@components/amp/adcaller/AdCaller.astro";
+import AdCaller from "@components/common/adcaller/AdCaller.astro";
 import Header from "@components/desktop/header/Header.astro"
 import AdContainer from "@components/common/adcontainer/AdContainer.astro";
 import Footer from "@components/desktop/footer/Footer.astro";
 
-const pageTarget = {
-    section: { category: "news", sub_category: "tech" },
-    page: "article",
-    msid: "12345",
-};
+const { ads, pageTarget } = Astro.props;
 
-let ad = {
-    adCode: "/21806551354/ETNow/Desktop/ArticleShow/ETNow_Desk_AS_Header",
-    divId: "div-u-id-1-2",
-    size: [
-        [728, 90],
-        [970, 90],
-        [980, 90],
-    ],
-};
-let ad2 = {
-    adCode: "/21806551354/ETNow/Desktop/ArticleShow/ETNow_Desk_AS_Header",
-    divId: "div-u-id-1-2-3",
-    size: [
-        [728, 90],
-        [970, 90],
-        [980, 90],
-    ],
-};
 ---
 
 <>
@@ -49,7 +27,12 @@ let ad2 = {
         />
     </GutterAds> -->
 
-    <AdContainer />
+    <AdContainer>
+        <AdCaller
+            {...ads.atf_1}
+            pageTarget={pageTarget}
+        />
+    </AdContainer>
     <Header />
     <slot />
     <Footer />

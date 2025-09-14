@@ -1,6 +1,7 @@
 ---
 import style from './AdContainer.module.scss';
-import AdCaller from "@components/amp/adcaller/AdCaller.astro";
 ---
 
-<div class={style['ad-box']}></div>
+<div class={style['ad-box']}>
+    <slot />
+</div>
