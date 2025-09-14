@@ -60,7 +60,7 @@ const CONST = {
         G_APP_SECRET_ID: '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',
       },
     },
-    SOCIAL_APP_BASEURL : 'https://socialappsintegrator.indiatimes.com'
+    SOCIAL_APP_BASEURL : import.meta.env.SOCIAL_APP_BASEURL
   }
 };
 export default CONST;
