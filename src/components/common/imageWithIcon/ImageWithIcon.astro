@@ -1,0 +1,59 @@
+---
+import MediaIcons from "../MediaIcons/MediaIcons.astro";
+import style from "./ImageWithIcon.module.scss";
+import Blinker from "../Blinker/Blinker.astro";
+const {
+  data,
+  imgWidth,
+  imgHeight,
+  imagePath,
+  time,
+  changeStyle,
+  inLineStyle,
+  mediaIconStyle,
+  inLineMediaIconStyle,
+  fetchpriority,
+  isShowCaptionOnImage,
+  cmsType,
+} = Astro.props;
+---
+
+<span
+  class={`${style["image-con"]} ${style[changeStyle]}`}
+  style={{ ...inLineStyle }}
+>
+  <img
+    src={imagePath}
+    alt={data.title || null}
+    width={imgWidth}
+    height={imgHeight}
+    fetchpriority={fetchpriority}
+  />
+
+  {
+    cmsType === "LIVEBLOG" ? (
+      <Blinker
+        isTextVisible={true}
+        transparentBtn={false}
+        inLineStyleBlinker={{
+          position: "absolute",
+          bottom: "10px",
+          left: "10px",
+        }}
+      />
+    ) : (
+      ""
+    )
+  }
+
+  {
+    !isShowCaptionOnImage && (
+      <MediaIcons
+        mediaIconStyle={mediaIconStyle}
+        inLineMediaIconStyle={inLineMediaIconStyle}
+        data={data}
+        time={time}
+      />
+    )
+  }
+</span>

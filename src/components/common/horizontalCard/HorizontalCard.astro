@@ -1,0 +1,55 @@
+---
+import style from "./HorizontalCard.module.scss";
+import ImageWithIcon from "../imageWithIcon/ImageWithIcon.astro";
+import WidgetParagraph from "../widgetParagraph/WidgetParagraph.astro";
+const {
+  changeStyle = "",
+  inLineStyle = {},
+  data,
+  imageConfig,
+  paraConfig,
+  isRowReverse = false,
+  isWhiteLayout = false,
+  titleConfig,
+} = Astro.props;
+---
+
+<figure
+  class={`${style["figure"]} ${style[changeStyle]} ${
+    isRowReverse && style["row-reverse"]
+  }`}
+  style={{ ...inLineStyle }}
+>
+  <figcaption class={`${style["figcaption"]}`}>
+    <WidgetParagraph
+      tag={titleConfig?.tag}
+      text={titleConfig?.text}
+      changeStyle={titleConfig?.style}
+      inLineStyle={titleConfig?.inLineStyle}
+      isConditionalRendering={true}
+      isWhiteLayout={isWhiteLayout}
+    />
+    <WidgetParagraph
+      tag={paraConfig?.tag}
+      text={paraConfig?.text}
+      changeStyle={paraConfig.style}
+      fontWeight={paraConfig?.fontWeight}
+      inLineStyle={paraConfig?.inLineStyle}
+      isConditionalRendering={true}
+      isWhiteLayout={isWhiteLayout}
+    />
+  </figcaption>
+
+  <ImageWithIcon
+    data={data}
+    time={imageConfig.time}
+    imgWidth={imageConfig.imgWidth}
+    imgHeight={imageConfig.imgHeight}
+    isConditionalRendering={true}
+    imagePath={imageConfig.imagePath}
+    changeStyle={imageConfig?.style}
+    inLineStyle={imageConfig?.inLineStyle}
+    mediaIconStyle={imageConfig.iconStyle}
+    inLineMediaIconStyle={imageConfig.inLineIconStyle}
+  />
+</figure>

@@ -1,0 +1,34 @@
+---
+import SvgIcon from "../svg/SvgIcon.astro";
+
+const { type } = Astro.props;
+
+let iconName = "";
+
+switch (type) {
+  case "VIDEOS":
+  case "MEDIAVIDEO":
+    iconName = "videoWithoutShadow";
+    break;
+  case "IMAGES":
+    iconName = "storyWithoutShadow";
+    break;
+  case "MEDIAAUDIO":
+    iconName = "bytesVideoIcon";
+    break;
+  case "MOVIEREVIEW":
+    iconName = "";
+    break;
+  case "PHOTOGALLERYSECTION":
+  case "PHOTOGALLERYSLIDESHOWSECTION":
+    iconName = "photoWithoutShadow";
+    break;
+  case "WEBSTORIES":
+    iconName = "storyWithoutShadow";
+    break;
+  default:
+    iconName = "";
+}
+---
+
+{iconName && <SvgIcon IconName={iconName} />}

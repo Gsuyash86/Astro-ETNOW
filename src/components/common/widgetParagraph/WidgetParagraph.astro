@@ -1,0 +1,81 @@
+---
+import style from "./WidgetParagraph.module.scss";
+import MediaIcons from "../mediaIcons/MediaIcons.astro";
+import DateTime from "../dateTime/DateTime.astro";
+import Blinker from "../blinker/Blinker.astro";
+const {
+  tag: Tag = "p",
+  text,
+  changeStyle = "default-paragraph",
+  forTable = "",
+  inLineStyle = {},
+  isLineClamp = true,
+  isWhiteLayout = false,
+  data,
+  time,
+  mediaIconStyle,
+  inLineMediaIconStyle,
+  isShowCaptionOnImage = false,
+  isWebStory = false,
+  dateTime,
+  isHighlightBlinker,
+  isBlinker,
+  isBlinkerText,
+  isbBlinkerSmall,
+  isBlinkerAnimation,
+  isTextVisible,
+  transparentBtn,
+  inLineStyleBlinker,
+  cmsType,
+  fontWeight = "400",
+  isSecondFontFamily = false,
+} = Astro.props;
+
+const className = `${changeStyle && style[changeStyle]} ${forTable && style[forTable]} ${!isLineClamp && style["no-line-clamp"]} ${(isWhiteLayout || isShowCaptionOnImage) && style["white"]} ${fontWeight ? style[`font-weight-${fontWeight}`] : ""} ${isSecondFontFamily ? style["second-font-family"] : ""} ${style["default-paragraph"]} `;
+---
+
+{
+  isShowCaptionOnImage && (
+    <MediaIcons
+      mediaIconStyle={mediaIconStyle}
+      inLineMediaIconStyle={inLineMediaIconStyle}
+      data={data}
+      time={time}
+      isShowCaptionOnImage={isShowCaptionOnImage}
+    />
+  )
+}
+
+{
+  !cmsType === "LIVEBLOG" ||
+    (isHighlightBlinker && (
+      <Blinker
+        isBlinker={isBlinker}
+        isBlinkerText={isBlinkerText}
+        isbBlinkerSmall={isbBlinkerSmall}
+        isBlinkerAnimation={isBlinkerAnimation}
+        isTextVisible={isTextVisible}
+        transparentBtn={transparentBtn}
+        inLineStyleBlinker={{ ...inLineStyleBlinker }}
+      />
+    ))
+}
+{
+  cmsType === "LIVEBLOG" ? (
+    <Tag class={className} style={{ ...inLineStyle }}>
+      <Blinker
+        isBlinker={isBlinker}
+        isBlinkerText={isBlinkerText}
+        isbBlinkerSmall={isbBlinkerSmall}
+        isBlinkerAnimation={isBlinkerAnimation}
+        isTextVisible={isTextVisible}
+        transparentBtn={transparentBtn}
+        inLineStyleBlinker={{ ...inLineStyleBlinker }}
+      />
+      <span style={{ display: "block" }} set:html={text} />
+    </Tag>
+  ) : (
+    <Tag class={`${className}`} style={{ ...inLineStyle }} set:html={text} />
+  )
+}
+{isWebStory && <DateTime data={data} dateTime={dateTime} time={time} />}

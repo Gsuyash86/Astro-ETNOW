@@ -1,0 +1,41 @@
+---
+import style from "./MediaIcons.scss";
+import PlayButton from "../playButton/PlayButton.Astro";
+import ListingIcon from "../listingIcon/ListingIconType.astro";
+const {
+  mediaIconStyle,
+  inLineMediaIconStyle,
+  data,
+  time,
+  isShowCaptionOnImage,
+} = Astro.props;
+---
+
+<span
+  class={`${style["default"]} ${style[mediaIconStyle]}`}
+  style={{
+    ...inLineMediaIconStyle,
+    position: isShowCaptionOnImage && "static",
+    paddingTop: "10px",
+    display: !isShowCaptionOnImage && "flex",
+    justifyContent: !isShowCaptionOnImage && "space-between",
+    right: !isShowCaptionOnImage && "0",
+  }}
+>
+  {
+    data?.cmstype === "MEDIAVIDEO" && time ? (
+      <PlayButton time={time} />
+    ) : (
+      <ListingIcon
+        type={
+          data?.cmstype
+            ? data.cmstype
+            : data?.seopath?.indexOf("web-stories") === 0 ||
+                data?.url?.includes("web-stories")
+              ? "WEBSTORIES"
+              : ""
+        }
+      />
+    )
+  }
+</span>

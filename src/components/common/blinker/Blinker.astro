@@ -1,0 +1,26 @@
+---
+import liveStyle from "./Blinker.scss";
+const {
+  isTextVisible,
+  isbBlinkerSmall,
+  transparentBtn,
+  channelId,
+  isBlinkerAnimation,
+  inLineStyleBlinker,
+} = Astro.props;
+---
+
+<span
+  class={`${liveStyle["_live"]}
+      ${isTextVisible && !transparentBtn ? liveStyle["live-bg"] : ""} 
+      ${liveStyle[isbBlinkerSmall]} ${isBlinkerAnimation ? "" : liveStyle["no-animation"]}`}
+  style={{ ...inLineStyleBlinker }}
+>
+  <span class={liveStyle["blinker"]}>
+    <span class={liveStyle["blinkOuter"]}></span>
+    <span class={liveStyle["blinkInner"]}></span>
+  </span>
+  {isTextVisible && <span class={`${liveStyle["text"]} text`}>Live</span>}
+</span>
+);
+

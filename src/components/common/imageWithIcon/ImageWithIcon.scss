@@ -1,0 +1,45 @@
+// must add this to every component
+@import 'styles/common/helpers/_mixins-new';
+
+.image-con {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: inline-block;
+  position: relative;
+  font-size: 0;
+
+  &,
+  & img {
+    aspect-ratio: 16/9;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.2s;
+    background: #f1f1f1;
+    border-radius: 0;
+
+    @media (min-width: 767px) {
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+.default {
+  border-radius: 0px;
+}
+
+.width-110x62 {
+  width: 110px;
+  height: 62px;
+}
+
+.width-90x50 {
+  width: 90px;
+  height: 50px;
+}

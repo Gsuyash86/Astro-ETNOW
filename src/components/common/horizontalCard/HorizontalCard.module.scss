@@ -1,0 +1,15 @@
+.figure {
+  display: flex;
+  gap: 0 15px;
+  align-items: center;
+  width: 100%;
+}
+
+.figcaption {
+  flex: 1;
+  margin: 0;
+}
+
+.row-reverse {
+  flex-direction: row-reverse;
+}

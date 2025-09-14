@@ -1,0 +1,35 @@
+.default {
+  position: absolute;
+  font-size: 0;
+
+  svg {
+    width: 28px;
+    height: 28px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    border-radius: 50%;
+  }
+}
+
+.bottom-left, .image-icon {
+  left: 5px;
+  bottom: 5px;
+  svg {
+    width: 40px;
+    height: 40px;
+    box-shadow: none;
+  }
+}
+
+.image-icon {
+  svg {
+    width:28px;
+    height:28px;
+  }
+}
+
+.bottom-right {
+  right: 5px;
+  bottom: 5px;
+}

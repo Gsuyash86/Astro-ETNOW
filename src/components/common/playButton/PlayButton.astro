@@ -1,0 +1,13 @@
+---
+import style from "./PlayButton.module.scss";
+import SvgIcon from "../svg/SvgIcon.astro";
+const { time, layoutStyle } = Astro.props;
+---
+
+<SvgIcon IconName="video-player" />
+<span class={`${style["duration"]} ${style[layoutStyle]}`}>
+  {
+    /* <span className={`${time ? style['play-icon'] : style['play-icon-9']}`}></span> */
+  }
+  {time}
+</span>

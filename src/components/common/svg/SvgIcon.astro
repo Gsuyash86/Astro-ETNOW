@@ -1,0 +1,9 @@
+---
+import style from "./SvgIcon.scss";
+const { IconName, size, ColorTheme, width, height } = Astro.props;
+const svgStyle = { width: `${width}px`, height: `${height}px` };
+---
+
+<svg class={`${style["icon-" + size]}`} style={width !== 0 ? svgStyle : null}>
+  <use xlink:href={`/assets/icons/svg/sprite-global.svg#${IconName}`}></use>
+</svg>
