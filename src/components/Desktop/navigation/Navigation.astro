@@ -3,123 +3,185 @@ import style from "./Navigation.module.scss";
 import Typography from "@components/common/widgets/typography/Typography.astro";
 import SvgIcon from "@components/common/svg/SvgIcon.astro";
 import DotsMenuIcon from "@components/common/widgets/dotsMenuIcon/DotsMenuIcon.astro";
+import MegaDropDownBox from "@components/common/wrappers/megaDropDownBox/MegaDropDownBox.astro";
 
 const { changeStyle = "", inLineStyle = {}, navLinks = [] } = Astro.props;
 ---
 
-<ul
-  class={`${style["nav-ul"]} ${changeStyle ? style[changeStyle] : ""}`}
-  style={inLineStyle}
->
-  <li>
-    <a
-      href="#"
-      title=""
-      class={`${style["nav-link"]} ${style["nav-link-home"]}`}
-    >
-      <span><SvgIcon IconName={"HomeIcon"} width={17} height={16} /></span>
-    </a>
-  </li>
+<div id="hamburgerWrapper" class={`${style['hamburgerWrapper']}`} data-nav-disabled-class={style.navDisabled}>
+  <ul
+    class={`${style["nav-ul"]} ${changeStyle ? style[changeStyle] : ""}`}
+    style={inLineStyle}
+  >
+    <li class={`${style['disable']}`}>
+      <a
+        href="#"
+        title=""
+        class={`${style["nav-link"]} ${style["nav-link-home"]}`}
+      >
+        <span><SvgIcon IconName={"HomeIcon"} width={17} height={16} /></span>
+      </a>
+    </li>
 
-  {
-    navLinks.map(
-      ({
-        href,
-        title,
-        isActive = false,
-        child,
-      }: {
-        href: string;
-        title: string;
-        isActive: boolean;
-        child: any;
-      }) => (
-        <li class={`${child && child.length > 0 && style["rightArrow"]}`}>
-          <a
-            href={href}
-            title={title}
-            target="_blank"
-            class={`${style["nav-link"]} ${isActive ? style["nav-active"] : ""}`}
-          >
-            <Typography
-              tag="span"
-              text={title}
-              changeStyle="font-size-12"
-              fontWeight="400"
-              isLineClamp={false}
-              inLineStyle={{
-                lineHeight: "1.2",
-                letterSpacing: ".1em",
-                whiteSpace: "nowrap",
-              }}
-            />
-          </a>
+    {
+      navLinks.map(
+        ({
+          href,
+          title,
+          isActive = false,
+          child,
+        }: {
+          href: string;
+          title: string;
+          isActive: boolean;
+          child: any;
+        }) => (
+          <li class={`${child && child.length > 0 && style["rightArrow"]} ${style['disable']}`}>
+            <a
+              href={href}
+              title={title}
+              target="_blank"
+              class={`${style["nav-link"]} ${isActive ? style["nav-active"] : ""}`}
+            >
+              <Typography
+                tag="span"
+                text={title}
+                changeStyle="font-size-12"
+                fontWeight="400"
+                isLineClamp={false}
+                inLineStyle={{
+                  lineHeight: "1.2",
+                  letterSpacing: ".1em",
+                  whiteSpace: "nowrap",
+                }}
+              />
+            </a>
 
-          {/* Render submenu if children exist */}
-          {child && child.length > 0 && (
-            <ul class={style["sub-container-design1"]}>
-              {child.map(
-                ({
-                  href: subHref,
-                  title: subTitle,
-                }: {
-                  href: string;
-                  title: string;
-                }) => (
-                  <li>
-                    <a
-                      href={subHref}
-                      title={subTitle}
-                      target="_blank"
-                      class={style["submenu-link"]}
-                    >
-                      <Typography
-                        tag="span"
-                        text={subTitle}
-                        changeStyle="font-size-12"
-                        fontWeight="400"
-                        isLineClamp={false}
-                        inLineStyle={{
-                          lineHeight: "1.2",
-                          letterSpacing: ".1em",
-                          whiteSpace: "nowrap",
-                        }}
-                      />
-                    </a>
-                  </li>
-                ),
-              )}
-            </ul>
-          )}
-        </li>
-      ),
-    )
-  }
+            {/* Render submenu if children exist */}
+            {child && child.length > 0 && (
+              <ul class={style["sub-container-design1"]}>
+                {child.map(
+                  ({
+                    href: subHref,
+                    title: subTitle,
+                  }: {
+                    href: string;
+                    title: string;
+                  }) => (
+                    <li>
+                      <a
+                        href={subHref}
+                        title={subTitle}
+                        target="_blank"
+                        class={style["submenu-link"]}
+                      >
+                        <Typography
+                          tag="span"
+                          text={subTitle}
+                          changeStyle="font-size-12"
+                          fontWeight="400"
+                          isLineClamp={false}
+                          inLineStyle={{
+                            lineHeight: "1.2",
+                            letterSpacing: ".1em",
+                            whiteSpace: "nowrap",
+                          }}
+                        />
+                      </a>
+                    </li>
+                  ),
+                )}
+              </ul>
+            )}
+          </li>
+        ),
+      )
+    }
 
-  <li class={style["nav-premium-list"]}>
-    <a href="#" title="" class={`${style["nav-link"]} ${style["nav-premium"]}`}>
-      <span>
-        <img src="/assets/images/Premiumhead.svg" alt="Premium" />
-      </span>
-    </a>
-  </li>
-  <li>
-    <a
-      href="#"
-      title=""
-      class={`${style["nav-link"]} ${style["nav-mutual-fund"]}`}
-    >
-      <span>
-        <img
-          src="https://images.etnownews.com/photo/msid-118213542/118213542.jpg"
-          alt="Mutual Fund Sahi Hai"
-        />
-      </span>
-    </a>
-  </li>
-  <li>
-    <button class={`${style["nav-link"]} ${style["nav-more-btn"]}`}>
-      <DotsMenuIcon inLineStyle={{ color: "#34495e" }} />
-    </button>
-  </li>
-</ul>
+    <li class={`${style["nav-premium-list"]} ${style['disable']}`}>
+      <a
+        href="#"
+        title=""
+        class={`${style["nav-link"]} ${style["nav-premium"]}`}
+      >
+        <span>
+          <img src="/assets/images/Premiumhead.svg" alt="Premium" />
+        </span>
+      </a>
+    </li>
+    <li class={`${style['disable']}`}>
+      <a
+        href="#"
+        title=""
+        class={`${style["nav-link"]} ${style["nav-mutual-fund"]}`}
+      >
+        <span>
+          <img
+            src="https://images.etnownews.com/photo/msid-118213542/118213542.jpg"
+            alt="Mutual Fund Sahi Hai"
+          />
+        </span>
+      </a>
+    </li>
+    <li>
+        <button class={`${style["nav-link"]} ${style["nav-more-btn"]}`} id="hamburgerToggleBtn">
+          <DotsMenuIcon id="hamburgerIcon" inLineStyle={{ color: "#34495e" }} />
+          <SvgIcon
+            id="hamburgerCloseIcon"
+            size="sm"
+            IconName="CloseIconBig"
+            width="40"
+            height="14"
+            inLineStyle={{ display: "none" }}
+          />
+        </button>
+      </li>
+  </ul>
+  <MegaDropDownBox id="hamburgerDropdownMenu" inLineStyle={{ display: "none" }}>
+    Search goes here
+  </MegaDropDownBox>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggleBtn = document.getElementById("hamburgerToggleBtn");
+    const dropdown = document.getElementById("hamburgerDropdownMenu");
+    const openIcon = document.getElementById("hamburgerIcon");
+    const closeIcon = document.getElementById("hamburgerCloseIcon");
+    const wrapper = document.getElementById("hamburgerWrapper");
+
+    if (!toggleBtn || !dropdown || !openIcon || !closeIcon || !wrapper) return;
+
+    const navDisabledClass = wrapper.dataset.navDisabledClass;
+    let isOpen = false;
+
+    function openDropdown() {
+      if (isOpen) return;
+      isOpen = true;
+      dropdown.style.display = "block";
+      openIcon.style.display = "none";
+      closeIcon.style.display = "inline-block";
+      wrapper.classList.add(navDisabledClass);
+    }
+
+    function closeDropdown() {
+      if (!isOpen) return;
+      isOpen = false;
+      dropdown.style.display = "none";
+      openIcon.style.display = "inline-block";
+      closeIcon.style.display = "none";
+      wrapper.classList.remove(navDisabledClass);
+    }
+
+    // Open dropdown on mouse enter
+    toggleBtn.addEventListener("mouseenter", openDropdown);
+
+    // Close dropdown on mouse leave from wrapper (to cover dropdown area too)
+    wrapper.addEventListener("mouseleave", closeDropdown);
+
+    // Optional: prevent any clicks from toggling menu
+    toggleBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+    });
+  });
+</script>

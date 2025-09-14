@@ -1,7 +1,7 @@
 ---
 import style from "./DotsMenuIcon.module.scss";
 
-const {inLineStyle={}} = Astro.props;
+const {id='', inLineStyle={}} = Astro.props;
 ---
 
-<span class={`${style["dot"]} ${style["white"]}`} style={{...inLineStyle}} />
+<span id={id} class={`${style["dot"]} ${style["white"]}`} style={{...inLineStyle}} />
