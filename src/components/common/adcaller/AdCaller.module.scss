@@ -1,0 +1,92 @@
+/* Ad container styles */
+  .ad-div {
+    display: block;
+    min-height: 50px;
+  }
+
+  .bggrayAd {
+    background-color: #f5f5f5;
+  }
+
+  .bggrayAdGlance {
+    background-color: #f0f0f0;
+  }
+
+  .atfAdContainer {
+    margin-bottom: 20px;
+  }
+
+  .shortvideo-ad {
+    position: relative;
+    margin: 15px 0;
+  }
+
+  .sticky-blocked-container {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  /* Height classes */
+  .ads-50-h {
+    min-height: 50px;
+  }
+  .ads-90-h {
+    min-height: 90px;
+  }
+  .ads-100-h {
+    min-height: 100px;
+  }
+  .ads-125-h {
+    min-height: 125px;
+  }
+  .ads-200-h {
+    min-height: 200px;
+  }
+  .ads-250-h {
+    min-height: 250px;
+  }
+  .ads-280-h {
+    min-height: 280px;
+  }
+  .ads-600-h {
+    min-height: 600px;
+  }
+
+  /* Ad type classes */
+  .mrec {
+    width: 300px;
+    margin: 0 auto;
+  }
+
+  .leaderboard {
+    text-align: center;
+  }
+
+  /* Theme classes */
+  .boxed {
+    border: 1px solid #ddd;
+    padding: 10px;
+  }
+
+  .top-strip {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  /* Utility classes */
+  .hide_m {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .hide_m {
+      display: block;
+    }
+  }
+
+  .mb40 {
+    margin-bottom: 40px;
+  }
