@@ -6,7 +6,7 @@ import DotsMenuIcon from "@components/common/widgets/dotsMenuIcon/DotsMenuIcon.a
 import MegaDropDownBox from "@components/common/wrappers/megaDropDownBox/MegaDropDownBox.astro";
 import Search from "@components/common/search/Search.astro";
 
-const { changeStyle = "", inLineStyle = {}, navLinks = [] } = Astro.props;
+const { changeStyle = "", inLineStyle = {}, navLinks = [] , pageTarget} = Astro.props;
 ---
 
 <div id="hamburgerWrapper" class={`${style['hamburgerWrapper']}`} data-nav-disabled-class={style.navDisabled}>
@@ -27,24 +27,22 @@ const { changeStyle = "", inLineStyle = {}, navLinks = [] } = Astro.props;
     {
       navLinks.map(
         ({
-          href,
+          seopath,
           title,
-          isActive = false,
           child,
         }: {
-          href: string;
+          seopath: string;
           title: string;
-          isActive: boolean;
           child: any;
         }) => (
           <li class={`${child && child.length > 0 && style["rightArrow"]} ${style['disable']}`}>
             <a
-              href={href}
+              href={seopath}
               title={title}
               target="_blank"
-              class={`${style["nav-link"]} ${isActive ? style["nav-active"] : ""}`}
+              class={`${style["nav-link"]} ${pageTarget.category === seopath ? style["nav-active"] : ""}`}
             >
-              <Typography
+              <Typography 
                 tag="span"
                 text={title}
                 changeStyle="font-size-12"
@@ -63,10 +61,10 @@ const { changeStyle = "", inLineStyle = {}, navLinks = [] } = Astro.props;
               <ul class={style["sub-container-design1"]}>
                 {child.map(
                   ({
-                    href: subHref,
+                    seopath: subHref,
                     title: subTitle,
                   }: {
-                    href: string;
+                    seopath: string;
                     title: string;
                   }) => (
                     <li>
