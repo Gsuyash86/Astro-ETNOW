@@ -1,14 +1,15 @@
 import { defineConfig } from "astro/config";
 import node from "@astrojs/node";
+import react from "@astrojs/react";
 
 const isProd = process.env.NODE_ENV === "production";
 
-// https://astro.build/config
-export default defineConfig({
+let config = {
   output: "server",
   adapter: node({
     mode: "standalone",
   }),
+  integrations: [react()],
   server: {
     port: 3000,
   },
@@ -45,4 +46,18 @@ export default defineConfig({
       drop: isProd ? ["console", "debugger"] : [],
     },
   },
-});
+};
+if (isProd) {
+  config.vite.css = {
+    modules: {
+      generateScopedName: "[hash:base64:6]",
+    },
+    preprocessorOptions: {
+      scss: {
+        outputStyle: "compressed",
+      },
+    },
+  };
+}
+
+export default defineConfig(config);
