@@ -35,10 +35,12 @@ const inlineStyles = {
     onClick={onClick}
     isLeftRedBorder={isLeftRedBorder}
   >
-    <RightArrow
-      isWhiteLayout={isWhiteLayout}
-      arrowSize={arrowConfig?.size}
-      arrowColor={isWhiteLayout ? "white" : arrowConfig?.color}
-    />
+    {moreButtonLink && (
+      <RightArrow
+        isWhiteLayout={isWhiteLayout}
+        arrowSize={arrowConfig?.size}
+        arrowColor={isWhiteLayout ? "white" : arrowConfig?.color}
+      />
+    )}
   </DynamicTag>
 </div>

@@ -1,5 +1,5 @@
 ---
-import {decodeHtml} from "@utils/common";
+import { decodeHtml } from "@utils/common";
 
 const {
   tag: Tag = "h2",
@@ -13,19 +13,20 @@ const {
   isLeftRedBorder = false,
 } = Astro.props;
 
-const baseClass = `${style['default-title']} ${changeStyle && style[changeStyle]} ${isWhiteLayout ? style['white'] : style['black']} ${isLeftRedBorder ? style['left-red-border'] : ''}`;
+const baseClass = `${style['default-title']} ${changeStyle && style[changeStyle]} ${
+  isWhiteLayout ? style['white'] : style['black']
+} ${isLeftRedBorder ? style['left-red-border'] : ''}`;
 ---
-
 {moreButtonLink ? (
   <a href={moreButtonLink} class={style['inline-block']} onClick={onClick}>
     <Tag class={baseClass}>
       {decodeHtml(titleText)}
-      {children}
+      <slot />
     </Tag>
   </a>
 ) : (
   <Tag class={baseClass}>
     {decodeHtml(titleText)}
-    {moreButtonLink && children}
+    <slot />
   </Tag>
 )}
