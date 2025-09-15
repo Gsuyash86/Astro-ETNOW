@@ -35,7 +35,7 @@ const {
     </li>
 
     {
-      navLinks.map(
+      navLinks?.slice(0, 7)?.map(
         ({
           seopath,
           title,
@@ -153,7 +153,7 @@ const {
   </ul>
   <MegaDropDownBox id="hamburgerDropdownMenu" inLineStyle={{ display: "none" }}>
     <Search isTopNavigation = {false} instanceId="hamburger"/>
-    <Hamburger />
+    <Hamburger data={navLinks}/>
   </MegaDropDownBox>
 </div>
 

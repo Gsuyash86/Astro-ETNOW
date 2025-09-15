@@ -169,3 +169,79 @@ export const convertToTitleCase = (inputString) => {
 };
 
 export const getSlug = (storyType) =>  CONST?.ARTICLESLUGMAP?.[storyType];
+
+export const NAVIGATION_GROUPS = [
+  {
+    section: "News & Current Affairs",
+    icon: "newsIcon",
+    titles: [
+      "Latest",
+      "News",
+      "Delhi Elections 2025",
+      "Education News"
+    ],
+  },
+  {
+    section: "Business & Finance",
+    icon: "businessIcon",
+    titles: [
+      "Corporates",
+      "Money",
+      "Brand Stories",
+      "Infrastructure",
+      "Real Estate"
+    ],
+  },
+  {
+    section: "Market & Investment",
+    icon: "marketIcon",
+    titles: [
+      "Market Overview",  
+      "Market News",       
+      "Indices",           
+      "Stocks",
+      "IPO",
+      "Mutual Funds",
+      "Economy",
+      "Crypto Now",
+      "Crypto Insights",
+      "Budget 2025",
+      "Income Tax"
+    ],
+  },
+  {
+    section: "Lifestyle & Culture",
+    icon: "lifestyleIcon",
+    titles: [
+      "ET Now Luxe",
+      "Entertainment",
+      "Web Stories",
+      "Photos",
+      "Videos",
+      "Shows"
+    ],
+  },
+  {
+    section: "Tech & Innovation",
+    icon: "techIcon",
+    titles: [
+      "Technology",
+      "Auto"
+    ],
+  },
+  {
+    section: "Career & Inspiration",
+    icon: "careerIcon",
+    titles: [
+      "Success Stories",
+      "Jobs"
+    ],
+  },
+  {
+    section: "Sports & Leisure",
+    icon: "sportsIcon",
+    titles: [
+      "Sports"
+    ],
+  },
+];
