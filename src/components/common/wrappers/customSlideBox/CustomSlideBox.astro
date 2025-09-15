@@ -10,16 +10,11 @@ const {
   inLineStyle = {},
   elementType = 'divBox',
   isVerticalSlide = false,
-  isSingleItem = true,
-  children
 } = Astro.props;
-
-const childCount = Array.isArray(children) ? children.length : 1;
 
 const wrapperClass = [
   isVerticalSlide ? styles['default-vertical'] : styles['default'],
   changeStyle ? styles[changeStyle] : '',
-  isSingleItem && childCount === 1 ? styles['singleItem'] : ''
 ].join(' ').trim();
 ---
 
