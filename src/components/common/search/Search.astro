@@ -1,0 +1,180 @@
+---
+import style from "./Search.module.scss";
+---
+
+<div class={style.searchWrapper}>
+    <div class={style.searchBox}>
+        <input
+            id="searchInput"
+            type="text"
+            placeholder="Search Stocks/IPOs, Mutual Funds, Articles..."
+            autocomplete="off"
+            aria-label="Search"
+        />
+        <button id="searchBtn" type="button">SEARCH</button>
+    </div>
+
+    <!-- note: we add both the hashed module class and a global class so JS & CSS both work -->
+    <div
+        id="resultsContainer"
+        class={`${style.resultsContainer} results-container`}
+        data-open="false"
+        aria-hidden="true"
+    >
+    </div>
+</div>
+
+<script>
+
+    import { getSlug } from "@utils/common";
+    const input = document.getElementById("searchInput");
+    const btn = document.getElementById("searchBtn");
+    const resultsContainer = document.getElementById("resultsContainer");
+
+    const API_URL =
+        "https://api.etnownews.com/api/search?row=20&start=0&origin=desktop&channel_id=382&searchterms=";
+
+    function setOpen(open) {
+        resultsContainer.setAttribute("data-open", open ? "true" : "false");
+        resultsContainer.setAttribute("aria-hidden", open ? "false" : "true");
+        if(!open) {
+            input.value = "";
+        }
+    }
+
+    function sanitizeText(s) {
+        return String(s || "");
+    }
+
+    async function fetchSearchResults(query) {
+        try {
+            const res = await fetch(API_URL + encodeURIComponent(query));
+            const data = await res.json();
+            return data?.response || {};
+        } catch (err) {
+            console.error("Search API error:", err);
+            return {};
+        }
+    }
+
+    async function renderResults(q) {
+        const term = String(q || "").trim().toLowerCase();
+        resultsContainer.innerHTML = "";
+
+        if (!term) {
+            setOpen(false);
+            return;
+        }
+
+        const response = await fetchSearchResults(term);
+        let any = false;
+
+        // keys we want to render from API
+        const sections = {
+            article: "Articles",
+            stocks: "Stocks/IPOs",
+            mutualfunds: "Mutual Funds",
+            video: "Videos",
+            liveblog: "Live Blogs",
+            image: "Images",
+        };
+
+        Object.keys(sections).forEach((key) => {
+            const items = response[key] || [];
+            if (items.length) {
+                any = true;
+                const sectionDiv = document.createElement("div");
+                sectionDiv.className = "results-section";
+
+                const h = document.createElement("h2");
+                h.textContent = sections[key];
+                sectionDiv.appendChild(h);
+
+                const ul = document.createElement("ul");
+                items.slice(0, 6)
+                items.forEach((item) => {
+                    const li = document.createElement("li");
+                    li.className = "result-item";
+                    li.tabIndex = 0;
+
+                    // for articles/videos we have title + msid link
+                    const a = document.createElement("a");
+                    a.href = `/${item?.seopath || ""}${getSlug(item?.cmstype) ? `-${getSlug(item?.cmstype)}-` : ""}${item?.msid ? item?.msid : ""}`;
+                    a.textContent = sanitizeText(item?.title || item?.name || item?.compname || item?.S_NAME);
+                    li.dataset.value = a.textContent;   
+                    li.appendChild(a);
+                    ul.appendChild(li);
+                });
+
+                sectionDiv.appendChild(ul);
+                resultsContainer.appendChild(sectionDiv);
+            }
+        });
+
+        if (any) {
+            const footer = document.createElement("a");
+            footer.className = "show-all";
+            footer.tabIndex = 0;
+            footer.href = "#";
+            footer.textContent = "Show all result";
+            resultsContainer.appendChild(footer);
+
+            setOpen(true);
+        } else {
+            setOpen(false);
+        }
+    }
+
+    function debounce(fn, wait = 160) {
+        let timer;
+        return (...args) => {
+            clearTimeout(timer);
+            timer = setTimeout(() => fn(...args), wait);
+        };
+    }
+
+    const onInput = debounce((e) => renderResults(e.target.value), 500);
+
+    input.addEventListener("input", onInput);
+    btn.addEventListener("click", () => renderResults(input.value));
+
+    resultsContainer.addEventListener("click", (ev) => {
+        const item = ev.target.closest(".result-item");
+        if (item) {
+            const v = item.dataset.value || item.textContent;
+            input.value = v;
+            setOpen(false);
+            console.info("Selected:", v);
+            return;
+        }
+        const foot = ev.target.closest(".show-all");
+        if (foot) {
+            console.log("Show all clicked");
+        }
+    });
+
+    resultsContainer.addEventListener("keydown", (ev) => {
+        if (ev.key === "Enter") {
+            const item = ev.target.closest(".result-item");
+            if (item) {
+                input.value = item.dataset.value || item.textContent;
+                setOpen(false);
+                console.log("Selected (enter):", input.value);
+            }
+        }
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!resultsContainer.contains(e.target) && e.target !== input) {
+            setOpen(false);
+
+        }
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") setOpen(false);
+    });
+
+    setOpen(false);
+</script>
+

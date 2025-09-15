@@ -1,0 +1,23 @@
+---
+import style from './SvgIcon.module.scss';
+
+const {
+  IconName = '',
+  size = 'md',
+  width = 0,
+  height = 0,
+  id = '',
+  inLineStyle = {},
+} = Astro.props;
+
+const svgStyle = (width !== 0 && height !== 0) ? { width: `${width}px`, height: `${height}px` } : {};
+const combinedStyle = { ...svgStyle, ...inLineStyle };
+
+const iconClass = style[`icon-${size}`] || '';
+---
+
+{IconName && (
+  <svg id={id} class={iconClass} style={combinedStyle} role="img" aria-label={IconName}>
+    <use xlink:href={`/assets/icons/sprite-global.svg#${IconName}`} />
+  </svg>
+)}

@@ -1,0 +1,146 @@
+@use 'src/styles/_mixins-new'as *;
+
+.nav-wrap {
+  position: relative;
+  display: flex;
+  gap: 20px;
+}
+
+.nav {
+  &-ul {
+    display: flex;
+    overflow: hidden;
+
+    li {
+      &:first-child {
+        .nav-link {
+          padding-left: 0;
+        }
+      }
+    }
+  }
+
+  &-link {
+    display: inline-block;
+    padding: 8px 6px;
+    border-right: 1px solid #404040;
+    border-top: 0;
+    border-bottom: 0;
+    text-transform: none;
+
+    &,
+    span {
+      color: var(--whiteColor);
+    }
+  }
+
+  &-active {
+    position: relative;
+
+    span {
+      font-weight: bold;
+
+      &::after {
+        content: '';
+        background: var(--whiteColor);
+        height: 2px;
+        position: absolute;
+        left: 0px;
+        right: 6px;
+        margin: auto;
+        bottom: 5px;
+      }
+    }
+  }
+
+  &-rhs {
+    .nav-link {
+      padding: 1px 10px;
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+  }
+
+  &-live-tv {
+    background: #be1f24;
+    border: 0;
+    padding: 0 10px;
+    height: 24px;
+    gap: 6px;
+    margin: 2.2px 10px;
+
+    svg {
+      margin-top: -1px;
+    }
+  }
+
+}
+
+.position-relative {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.more-link-button {
+  border-left: 1px solid #404040;
+  border-right: 1px solid #404040;
+  cursor: pointer;
+  position: absolute;
+  width: 40px;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: #2f2f2f;
+  z-index: 9;
+
+  svg {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &:hover {
+
+    >span {
+      display: none;
+    }
+
+    .more-menu,
+    svg {
+      display: block;
+    }
+  }
+}
+
+.more-menu-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  li {
+    width: 100%;
+
+    a {
+      display: block;
+      padding: 5px 12px;
+      color: var(--textColor);
+      border-right: 0;
+      text-align: right;
+
+      &:hover {
+        background: #f0f0f0;
+      }
+    }
+  }
+}
+
+.navDisabled {
+  .disable {
+    pointer-events: none;
+    opacity: 0.4;
+  }
+}

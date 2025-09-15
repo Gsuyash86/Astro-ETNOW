@@ -1,0 +1,8 @@
+---
+import style from './PremiumIcon.module.scss';
+
+const { changeStyle = '', inLineStyle = {} } = Astro.props;
+const className = `${style.premiumIcon} ${changeStyle ? style[changeStyle] : ''}`;
+---
+
+<span class={className} style={inLineStyle}></span>

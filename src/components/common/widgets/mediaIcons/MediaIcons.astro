@@ -1,0 +1,37 @@
+---
+import PlayButton from '@components/common/widgets/playButton/PlayButton.astro';
+import ListingIcon from '@utils/listingIcons.astro';
+import style from './MediaIcons.module.scss';
+
+const {
+  mediaIconStyle = 'default',
+  inLineMediaIconStyle = {},
+  data,
+  mediaType = '',
+  time,
+  isShowCaptionOnImage = false
+} = Astro.props;
+
+const iconType = data?.cmstype
+  ? data.cmstype
+  : data?.seopath?.startsWith('web-stories')
+    ? 'WEBSTORIES'
+    : '';
+
+const className = `${style.default} ${style[mediaIconStyle] || ''}`;
+const isVisible = data?.cmstype !== 'ARTICLE';
+const computedStyle = {
+  ...(isShowCaptionOnImage ? { position: 'static' } : {}),
+  ...inLineMediaIconStyle
+};
+---
+
+{isVisible && (
+  <i class={className} style={computedStyle}>
+    {data?.cmstype === 'MEDIAVIDEO' && time ? (
+      <PlayButton time={time} />
+    ) : (
+      <ListingIcon type={iconType} />
+    )}
+  </i>
+)}

@@ -1,1 +1,39 @@
-<slot />
+---
+import GutterAds from "@components/common/wrappers/gutterAds/GutterAds.astro";
+import AdCaller from "@components/common/adcaller/AdCaller.astro";
+import Header from "@components/desktop/header/Header.astro"
+import AdContainer from "@components/common/adcontainer/AdContainer.astro";
+import Footer from "@components/desktop/footer/Footer.astro";
+
+const { ads, pageTarget } = Astro.props;
+
+---
+
+<>
+    <!-- <GutterAds>
+        <AdCaller
+            pageTarget={pageTarget}
+            adCode={ad.adCode}
+            divId={ad.divId}
+            size={ad.size}
+            slot="left"
+        />
+        <AdCaller
+            pageTarget={pageTarget}
+            adCode={ad.adCode}
+            divId={ad.divId}
+            size={ad.size}
+            slot="right"
+        />
+    </GutterAds> -->
+
+    <AdContainer>
+        <AdCaller
+            {...ads.atf_1}
+            pageTarget={pageTarget}
+        />
+    </AdContainer>
+    <Header pageTarget={pageTarget}/>
+    <slot />
+    <Footer />
+</>

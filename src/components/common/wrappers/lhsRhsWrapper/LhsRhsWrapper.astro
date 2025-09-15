@@ -1,0 +1,22 @@
+---
+import style from './LhsRhsWrapper.module.scss';
+
+const { changeStyle = '', inLineStyle = {} } = Astro.props;
+
+const baseClass = style?.['inner-container'] || 'inner-container';
+const changeStyleClass = changeStyle && style?.[changeStyle] ? style[changeStyle] : '';
+
+const containerClass = `${baseClass} ${changeStyleClass}`.trim();
+
+const hasLhs = Boolean(Astro.slots.lhs);
+const hasMid = Boolean(Astro.slots.mid);
+const hasRhs = Boolean(Astro.slots.rhs);
+---
+
+{(hasLhs || hasMid || hasRhs) && (
+  <div class={containerClass} style={inLineStyle}>
+    {hasLhs && <div class={style?.lhs || 'lhs'}><slot name="lhs" /></div>}
+    {hasMid && <div class={style?.mid || 'mid'}><slot name="mid" /></div>}
+    {hasRhs && <div class={style?.rhs || 'rhs'}><slot name="rhs" /></div>}
+  </div>
+)}

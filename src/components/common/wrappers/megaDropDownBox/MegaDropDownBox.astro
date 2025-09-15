@@ -1,0 +1,8 @@
+---
+import style from './MegaDropDownBox.module.scss';
+const { changeStyle = '', inLineStyle = {}, id = '' } = Astro.props;
+---
+
+<div id={id} class={`${style.default} ${changeStyle && style[changeStyle] ? style[changeStyle] : ''}`} style={inLineStyle}>
+  <slot />
+</div>

@@ -1,138 +1,63 @@
 ---
-const isMobileView = Astro.url.searchParams.get("isMobileView");
-
+import "@styles/global.scss";
 import MobileLayout from "./mobile/Layout.astro";
 import DesktopLayout from "./desktop/Layout.astro";
+import _get from "lodash/get";
+import { gtagScript , ga4TagScript } from "../scripts/ga";
+import { getCustomDimensionsSSR } from "@utils/common";
+import serverConfig from "src/scripts/serverConfig";
 
-import AdCaller from "../components/common/adcaller/AdCaller.astro";
-import MgIdComponent from "../components/common/mgid/MgIdComponent.astro";
-import CONST from "../constant";
+const values =  Astro.url.searchParams
+const app = Astro.props.app;
+const isMobileView = values.get("isMobileView");
 
 const pageTarget = {
-  section: { category: "news", sub_category: "tech" },
-  page: "article",
-  msid: "12345",
-};
-
-let ad = {
-  adCode: "/21806551354/ETNow/Desktop/ArticleShow/ETNow_Desk_AS_Header",
-  divId: "div-u-id-1-2",
-  size: [
-    [728, 90],
-    [970, 90],
-    [980, 90],
-  ],
-};
-let ad2 = {
-  adCode: "/21806551354/ETNow/Desktop/ArticleShow/ETNow_Desk_AS_Header",
-  divId: "div-u-id-1-2-3",
-  size: [
-    [728, 90],
-    [970, 90],
-    [980, 90],
-  ],
-};
+  category: values.get("category"),
+  subCategory: values.get("subCategory"),
+  subSubCategory: values.get("subSubCategory"),
+  articleType: values.get("articleType"),
+  id: values.get("id"),
+}
+const seoData = _get(app, "response.sections.article_show.data.[0].seo", {})
+const customDimension : any = getCustomDimensionsSSR(app, pageTarget, seoData);
+const gaScript = `${gtagScript(customDimension?.custom_dimension)}`;
+const ga4Script = `${ga4TagScript(customDimension?.GA4CustomDimensions, serverConfig.analytics.ga4TrackingId)}`;
 ---
 
 <Fragment slot={"head"}>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:wght@400;700&family=Inter:wght@400;700&display=swap"
+  />
+
   <meta name="generator" content={Astro.generator} />
-  <title>Astro Basics</title>
-  <script is:inline>
-    !(function (a9, a, p, s, t, A, g) {
-      if (a[a9]) return;
-      function q(c, r) {
-        a[a9]._Q.push([c, r]);
-      }
-      a[a9] = {
-        init: function () {
-          q("i", arguments);
-        },
-        fetchBids: function () {
-          q("f", arguments);
-        },
-        setDisplayBids: function () {},
-        targetingKeys: function () {
-          return [];
-        },
-        _Q: [],
-      };
-      A = p.createElement(s);
-      A.async = !0;
-      A.defer = !0;
-      A.src = t;
-      g = p.getElementsByTagName(s)[0];
-      g.parentNode.insertBefore(A, g);
-    })(
-      "apstag",
-      window,
-      document,
-      "script",
-      "//c.amazon-adsystem.com/aax2/apstag.js"
-    );
+  <title>{_get(app, "response.sections.article_show.data.[0].title", "")}</title>
+
+  <script id="gtagScript" set:html={gaScript} defer async/>
+
+  <script id="ga4Script" set:html={ga4Script} defer async />
+  
+  <script>
+      import apstagScript from "../scripts/apstag.js"
+      {apstagScript}
   </script>
-  <script id="dpfscript" src="/dfpamzn.js" type="text/javascript" defer
-  ></script>
+
+  <script id="dpfscript" src="/dfpamzn.js" type="text/javascript" defer />
+
+  <script>
+    import { checkScriptLoad } from "../scripts/onetap.js";
+    document.addEventListener("DOMContentLoaded", () => {
+      checkScriptLoad();
+    });
+  </script>
+
 </Fragment>
 
 <body>
-  {
-    isMobileView === "true" ? (
-      <MobileLayout>
-        <div id={ad.divId}>
-          <AdCaller
-            pageTarget={pageTarget}
-            adCode={ad.adCode}
-            divId={ad.divId}
-            size={ad.size}
-          />
-        </div>
-
-        <div id={ad.divId + 1 + "ssss"}>
-          <AdCaller
-            pageTarget={pageTarget}
-            adCode={ad2.adCode}
-            divId={ad2.divId}
-            size={ad2.size}
-          />
-        </div>
-
-        <div>
-          <MgIdComponent
-            scriptID={CONST.MGID_ADD_5X5}
-            elementID={CONST.MGID_ADD_5X5}
-          />
-        </div>
-      </MobileLayout>
-    ) : (
-      <DesktopLayout>
-        <div id={ad.divId}>
-          <AdCaller
-            pageTarget={pageTarget}
-            adCode={ad.adCode}
-            divId={ad.divId}
-            size={ad.size}
-          />
-        </div>
-
-        <div id={ad.divId + 1 + "ssss"}>
-          <AdCaller
-            pageTarget={pageTarget}
-            adCode={ad2.adCode}
-            divId={ad2.divId}
-            size={ad2.size}
-          />
-        </div>
-
-        <div>
-          <MgIdComponent
-            scriptID={CONST.MGID_ADD_5X5}
-            elementID={CONST.MGID_ADD_5X5}
-          />
-        </div>
-      </DesktopLayout>
-    )
-  }
+  {isMobileView === "true" ? <MobileLayout /> : <DesktopLayout ads = {_get(app, "response.ads", {})} pageTarget={pageTarget} />}
 </body>
