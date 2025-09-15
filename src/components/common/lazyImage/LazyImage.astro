@@ -1,6 +1,6 @@
 ---
 const {
-  src,
+  datasrc,
   alt = "image",
   fallback = "/images/fallback.jpg",
   className = "",
@@ -9,7 +9,7 @@ const {
 ---
 
 <img
-  src={src}
+  src={datasrc}
   alt={alt}
   loading="lazy"
   onerror={`this.onerror=null;this.src='${fallback}';`}

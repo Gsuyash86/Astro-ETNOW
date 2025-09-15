@@ -7,7 +7,6 @@ const {
   changeStyle = "",
   inLineStyle = {},
   noGutterSpace = false,
-  isConditionalRendering,
 } = Astro.props;
 if (!text) return null;
 ---
@@ -21,7 +20,6 @@ if (!text) return null;
       tag="h2"
       text={text}
       changeStyle="font-size-16"
-      isConditionalRendering={isConditionalRendering}
       isLineClamp={false}
       inLineStyle={{
         lineHeight: "1.7",
