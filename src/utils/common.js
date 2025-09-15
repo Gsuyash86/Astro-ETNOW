@@ -168,8 +168,6 @@ export const convertToTitleCase = (inputString) => {
   return titleCaseWords.join(" ");
 };
 
-export const getSlug = (storyType) => CONST?.ARTICLESLUGMAP?.[storyType];
-
 export function getNewImageUrl({
   msid,
   imgWidth,
