@@ -27,8 +27,12 @@ const ga4Script = `${ga4TagScript(customDimension?.GA4CustomDimensions, serverCo
 <Fragment slot={"head"}>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width" />
-  <link rel="icon" type="image/svg+xml" href="/manifest/images/icons/favicon.png" />
-  
+  <link
+    rel="icon"
+    type="image/svg+xml"
+    href="/manifest/images/icons/favicon.png"
+  />
+
   <link
     rel="preload"
     as="style"
@@ -42,9 +46,9 @@ const ga4Script = `${ga4TagScript(customDimension?.GA4CustomDimensions, serverCo
     {_get(app, "response.sections.article_show.data.[0].title", "")}
   </title>
 
-  <script id="gtagScript" set:html={gaScript} defer async />
+  <script id="gtagScript" set:html={gaScript} defer async is:inline />
 
-  <script id="ga4Script" set:html={ga4Script} defer async />
+  <script id="ga4Script" set:html={ga4Script} defer async is:inline />
 
   <script>
     import apstagScript from "../scripts/apstag.js";

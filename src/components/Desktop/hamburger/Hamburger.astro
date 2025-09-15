@@ -1,94 +1,61 @@
 ---
+import { NAVIGATION_GROUPS } from "@utils/common";
 import style from "./Hamburger.module.scss";
 import SvgIcon from "@components/common/svg/SvgIcon.astro";
 
 // Menu data structure
-const menuData = [
-  {
-    title: "News & Current Affairs",
-    icon: "newsIcon",
-    items: [
-      { name: "Latest", href: "/latest" },
-      { name: "News", href: "/news" },
-      { name: "Education News", href: "/education-news" }
-    ]
-  },
-  {
-    title: "Market & Investment",
-    icon: "marketIcon",
-    items: [
-      { name: "Market Overview", href: "/market-overview" },
-      { name: "Market News", href: "/market-news" },
-      { name: "Stocks", href: "/stocks" },
-      { name: "IPO", href: "/ipo" },
-      { name: "Indices", href: "/indices" },
-      { name: "Forex", href: "/forex" }
-    ]
-  },
-  {
-    title: "Lifestyle & Culture",
-    icon: "lifestyle",
-    items: [
-      { name: "Entertainment", href: "/entertainment" },
-      { name: "Web Stories", href: "/web-stories" },
-      { name: "Photos", href: "/photos" },
-      { name: "Videos", href: "/videos" },
-      { name: "Shows", href: "/shows" }
-    ]
-  },
-  {
-    title: "Career & Inspiration",
-    icon: "career",
-    items: [
-      { name: "Success Stories", href: "/success-stories" },
-      { name: "Jobs", href: "/jobs" }
-    ]
-  },
-  {
-    title: "Business & Finance",
-    icon: "business",
-    items: [
-      { name: "Corporates", href: "/corporates" },
-      { name: "Money", href: "/money" },
-      { name: "Brand Stories", href: "/brand-stories" },
-      { name: "Infrastructure", href: "/infrastructure" },
-      { name: "Real Estate", href: "/real-estate" }
-    ]
-  },
-  {
-    title: "Sports & Leisure",
-    icon: "sports",
-    items: [
-      { name: "Sports", href: "/sports" }
-    ]
-  },
-  {
-    title: "Tech & Innovation",
-    icon: "tech",
-    items: [
-      { name: "Technology", href: "/technology" },
-      { name: "Auto", href: "/auto" }
-    ]
-  }
-];
+const menuData = NAVIGATION_GROUPS;
+const { data } = Astro.props;
+function groupMenuData(flatData) {
+      const findByTitle = (title) => flatData?.find(item => item?.title === title);
+    
+      return NAVIGATION_GROUPS?.map(group => ({
+        section: group?.section,
+        icon: group?.icon,
+        items: group?.titles
+          ?.map(title => findByTitle(title))
+          ?.filter(Boolean) // Remove undefined if title not found
+          ?.map(item => {
+            if (item?.child) {
+              return { ...item, child: item?.child?.map(child => ({ ...child })) };
+            }
+            return item;
+          }),
+      }));
+    }
+
+    const groupedDataNavigation = groupMenuData(data); 
 ---
 
 <nav class={style.navigation} id="hamburgerMenu">
   <ul class={style.mainMenu}>
-    {menuData.map((category) => (
+    {groupedDataNavigation?.map((category) => (
       <li class={style.categoryItem}>
         <div class={style.categoryHeader}>
           <span class={style.categoryIcon} aria-hidden="true">
             <SvgIcon IconName={category.icon} width="17" height="17" />
           </span>
-          <h3 class={style.categoryTitle}>{category.title}</h3>
+          <h3 class={style.categoryTitle}>{category.section}</h3>
         </div>
         <ul class={style.subMenu}>
           {category.items.map((item) => (
             <li class={style.subMenuItem}>
-              <a href={item.href} class={style.subMenuLink}>
-                {item.name}
+              <a href={item.seopath} class={style.subMenuLink}>
+                {item.title}
               </a>
+              {
+                item?.child?.length > 0 && (
+                  <ul class={style.subMenu}>
+                    {item?.child?.map((child) => (
+                      <li class={style.subMenuItem}>
+                        <a href={child.seopath} class={style.subMenuLink}>
+                          {child.title}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )
+              }
             </li>
           ))}
         </ul>
