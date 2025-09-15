@@ -1,0 +1,77 @@
+---
+import style from "./LatestNews.module.scss";
+import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.astro";
+import HorizontalCard from "@components/common/widgets/horizontalCard/HorizontalCard.astro";
+import { getNewImageUrl } from "src/utils/common";
+import Link from "../link/Link.astro";
+import TitleComponent from "@components/common/titleComponent/TitleComponent.astro";
+import CommonGridBox from "@components/common/wrappers/commonGridBox/CommonGridBox.astro";
+import Typography from "@components/common/widgets/typography/Typography.astro";
+const fetchTime = (item) => new Date(item.updatedate).toLocaleTimeString();
+const { data } = Astro.props;
+---
+
+<ContainerBox>
+  <Link link={`/`}>
+    <Typography
+      tag={"h2"}
+      text={'Related News'}
+      changeStyle={"faq-title"}
+      fontWeight={"400"}
+      isConditionalRendering={true}
+      isLineClamp={false}
+      isWhiteLayout={false}
+      inLineStyle={{
+        borderBottom: '1px dotted hsla(0, 0%, 71%, 0.5)',
+        paddingBottom: '10px',
+        marginBottom: '15px',
+      }}
+    />
+  </Link>
+  
+  <CommonGridBox
+    gridType="ulGridBox"
+    changeStyle={"listing-with-border"}
+    inLineStyle={{ marginBottom: "20px" }}
+  >
+    {
+      data?.map((item, index) => {
+        if (item.cmstype.toUpperCase() === "SECTION") return null;
+        const time =
+          item.cmstype === "MEDIAVIDEO" && item.media && fetchTime(item);
+
+        return (
+          <li class={style["list-items"]}>
+            <HorizontalCard
+              data={item}
+              isWhiteLayout={false}
+              isRowReverse={true}
+              getUrlConfig={{
+                to: item?.seopath,
+                title: item?.title,
+              }}
+              imageConfig={{
+                style: "width-106x60",
+                inLineStyle: {},
+                imagePath: getNewImageUrl({
+                  msid: item?.msid,
+                  imgWidth: item?.imageWidth || 106,
+                  imgHeight: item?.imageHeight || 60,
+                }),
+                imgWidth: item?.imageWidth || 106,
+                imgHeight: item?.imageHeight || 60,
+                time: time || "",
+              }}
+              titleConfig={{
+                style: "font-size-14",
+                inLineStyle: { WebkitLineClamp: "2", lineHeight: "24px" },
+                text: item.title || "",
+                tag: "p",
+              }}
+            />
+          </li>
+        );
+      })
+    }
+  </CommonGridBox>
+</ContainerBox>

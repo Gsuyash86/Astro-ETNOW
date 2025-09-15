@@ -5,11 +5,11 @@
   display: inline-block;
   position: relative;
   font-size: 0;
-  border-radius: 8px;
+  // border-radius: 8px;
 
-  @include mobile {
-    border-radius: 6px;
-  }
+  // @include mobile {
+  //   border-radius: 6px;
+  // }
 
   &,
   & img {
@@ -46,6 +46,11 @@
 .width-110x62 {
   width: 110px;
   height: 62px;
+}
+
+.width-106x60 {
+  width: 106px;
+  height: 60px;
 }
 
 .width-50x50 {
