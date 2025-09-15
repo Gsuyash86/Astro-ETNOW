@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import node from "@astrojs/node";
+import react from "@astrojs/react";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -8,6 +9,9 @@ let config = {
   adapter: node({
     mode: "standalone",
   }),
+  integrations: [
+    react(),
+  ],
   server: {
     port: 3000,
   },
@@ -44,4 +48,5 @@ if(isProd) {
     },
   }
 }
+
 export default defineConfig(config);
