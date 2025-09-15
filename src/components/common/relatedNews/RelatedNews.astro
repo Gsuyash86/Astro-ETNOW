@@ -1,5 +1,5 @@
 ---
-import style from "./LatestNews.module.scss";
+import style from "./RelatedNews.module.scss";
 import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.astro";
 import HorizontalCard from "@components/common/widgets/horizontalCard/HorizontalCard.astro";
 import { getNewImageUrl } from "src/utils/common";
@@ -11,11 +11,11 @@ const { data } = Astro.props;
 ---
 
 <ContainerBox>
-
+  
   <TitleComponent
     type={"h2"}
     moreButtonLink={"/"}
-    moreButtonText={"Latest News"}
+    moreButtonText={"Related News"}
     fontSize={"font-size-18"}
     fontWeight={"700"}
     isSeprator={true}
@@ -23,7 +23,7 @@ const { data } = Astro.props;
     changeStyle={"left-red-border"}
     inLineParentStyle={{ marginBottom: "11px" }}
   />
-
+  
   <CommonGridBox
     gridType="ulGridBox"
     changeStyle={"listing-with-border"}
@@ -41,10 +41,21 @@ const { data } = Astro.props;
               data={item}
               isWhiteLayout={false}
               isRowReverse={true}
-              isImage={false}
               getUrlConfig={{
                 to: item?.seopath,
                 title: item?.title,
+              }}
+              imageConfig={{
+                style: "width-106x60",
+                inLineStyle: {},
+                imagePath: getNewImageUrl({
+                  msid: item?.msid,
+                  imgWidth: item?.imageWidth || 106,
+                  imgHeight: item?.imageHeight || 60,
+                }),
+                imgWidth: item?.imageWidth || 106,
+                imgHeight: item?.imageHeight || 60,
+                time: time || "",
               }}
               titleConfig={{
                 style: "font-size-14",

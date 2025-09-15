@@ -1,48 +1,77 @@
 ---
-import style from "./TitleComponent.module.scss";
-import DynamicTag from "@components/common/dynamicTag/DynamicTag.astro";
+import styles from "./TitleComponent.module.scss";
+import Link from "@components/common/link/Link.astro";
+import SvgIcon from "@components/common/svg/SvgIcon.astro";
 import RightArrow from "@components/common/rightArrow/RightArrow.astro";
+import Typography from "@components/common/widgets/typography/Typography.astro";
 
 const {
-  marginBottom = 12,
-  titleText = "",
-  moreButtonLink = "",
-  titleType = "h2",
-  boldText,
-  changeStyle = "",
-  isWhiteLayout = true,
-  arrowConfig = {},
-  onClick = null,
-  isLeftRedBorder = false,
-  inLineStyle = {},
-  isSplitType=false
+    isIPOListing = false,
+    moreButtonText,
+    moreButtonLink,
+    type = "h2",
+    isWhiteLayout = false,
+    fontSize = "font-size-34",
+    fontWeight = "700",
+    margin = "mb-25",
+    changeStyle = "",
+    target = "",
+    isSeprator = true,
+    isDefaultFontFamily = false,
+    inLineStyle = {},
+    inLineParentStyle = {},
 } = Astro.props;
 
-const inlineStyles = {
-  marginBottom: `${marginBottom}px`,
-  ...inLineStyle,
-};
+const finalMoreButtonLink = isIPOListing ? "" : moreButtonLink;
+
+const wrapperClass = [
+    styles["cmn-title-wrap"],
+    changeStyle ? styles[changeStyle] : "",
+    margin ? styles[margin] : "",
+]
+    .filter(Boolean)
+    .join(" ");
 ---
 
-<div class={style["title-box"]} style={inlineStyles}>
-  <DynamicTag
-    tag={titleType}
-    boldText={boldText}
-    moreButtonLink={moreButtonLink}
-    style={style}
-    changeStyle={changeStyle}
-    titleText={titleText}
-    isWhiteLayout={isWhiteLayout}
-    onClick={onClick}
-    isLeftRedBorder={isLeftRedBorder}
-    isSplitType={isSplitType}
-  >
-    {moreButtonLink && (
-      <RightArrow
-        isWhiteLayout={isWhiteLayout}
-        arrowSize={arrowConfig?.size}
-        arrowColor={isWhiteLayout ? "white" : arrowConfig?.color}
-      />
-    )}
-  </DynamicTag>
+<div class={wrapperClass} style={inLineParentStyle}>
+    {
+        finalMoreButtonLink !== "" ? (
+            <Link
+                link={finalMoreButtonLink}
+                target={target}
+                class={`${styles["cmn-title"]}`}
+            >
+                <Typography
+                    tag={type}
+                    text={moreButtonText}
+                    changeStyle={fontSize}
+                    fontWeight={fontWeight}
+                    isLineClamp={false}
+                    isWhiteLayout={isWhiteLayout}
+                    isSecondFontFamily={isDefaultFontFamily ? false : true}
+                    inLineStyle={{
+                        fontStyle: isDefaultFontFamily ? "normal" : "italic", lineHeight: 'normal',
+                        ...inLineStyle,
+                    }}
+                />
+                <RightArrow isWhiteLayout={isWhiteLayout} />
+            </Link>
+        ) : (
+            <Typography
+                tag={type}
+                text={moreButtonText}
+                changeStyle={fontSize}
+                fontWeight={fontWeight}
+                isLineClamp={false}
+                isWhiteLayout={isWhiteLayout}
+                isSecondFontFamily={isDefaultFontFamily ? false : true}
+                inLineStyle={{
+                    fontStyle: isDefaultFontFamily ? "normal" : "italic", lineHeight: 'normal',
+                    ...inLineStyle,
+                }}
+            />
+        )
+    }
+
+    {isSeprator ? <div class={`${styles["seprator"]}`} /> : null}
 </div>

@@ -26,13 +26,13 @@ titleText = titleText?.replace(splitType, '')?.trim();
   <a href={moreButtonLink} class={style['inline-block']} onclick={onClick}>
     <Tag class={baseClass}>
       {decodeHtml(titleText)}
-     { isSplitType && <span style={{fontStyle:"italic"}}>{` ${decodeHtml(splitType)}`}</span>}
+     {isSplitType && <span style={{fontStyle:"italic"}}>{` ${decodeHtml(splitType)}`}</span>}
       <slot />
     </Tag>
   </a>
 ) : (
   <Tag class={baseClass}>
     {decodeHtml(titleText)}
-    <slot />
+    {isSplitType && <span style={{fontStyle:"italic"}}>{` ${decodeHtml(splitType)}`}</span>}
   </Tag>
 )}
