@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import CONST from "../constant/index"
+import CONST from "../constant/index";
 
 export const getCustomDimensionsSSR = (app, navigation, seoData) => {
   let custom_dimension = null;
@@ -168,7 +168,7 @@ export const convertToTitleCase = (inputString) => {
   return titleCaseWords.join(" ");
 };
 
-export const getSlug = (storyType) =>  CONST?.ARTICLESLUGMAP?.[storyType];
+export const getSlug = (storyType) => CONST?.ARTICLESLUGMAP?.[storyType];
 
 export function getNewImageUrl({
   msid,
@@ -188,32 +188,48 @@ export function getNewImageUrl({
   return imgurl;
 }
 
+export function generateDataListFromPath(category) {
+  const dataList = [
+    {
+      label: "Business News",
+      seopath: import.meta.env.WEBAPP_BASE_URL,
+    },
+  ];
+
+  if (category) {
+    dataList.push({
+      label: category,
+      seopath: `${import.meta.env.WEBAPP_BASE_URL}/${category}`,
+    });
+  }
+  return dataList;
+}
 const ALPHA_INDEX = {
-  '&lt': '<',
-  '&gt': '>',
-  '&quot': '"',
-  '&apos': "'",
-  '&amp': '&',
-  '&lt;': '<',
-  '&gt;': '>',
-  '&quot;': '"',
-  '&apos;': "'",
-  '&amp;': '&',
+  "&lt": "<",
+  "&gt": ">",
+  "&quot": '"',
+  "&apos": "'",
+  "&amp": "&",
+  "&lt;": "<",
+  "&gt;": ">",
+  "&quot;": '"',
+  "&apos;": "'",
+  "&amp;": "&",
 };
 
 export const decodeHtml = function decodeHtml(str) {
   if (!str || !str.length) {
-    return '';
+    return "";
   }
   return str?.replace(/&#?[0-9a-zA-Z]+;?/g, (s) => {
-    if (s.charAt(1) === '#') {
+    if (s.charAt(1) === "#") {
       const code =
-        s.charAt(2).toLowerCase() === 'x'
+        s.charAt(2).toLowerCase() === "x"
           ? parseInt(s.substr(3), 16)
           : parseInt(s.substr(2), 10);
 
       if (Number.isNaN(code) || code < -32768 || code > 65535) {
-        return '';
+        return "";
       }
       return String.fromCharCode(code);
     }

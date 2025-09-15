@@ -3,11 +3,11 @@ import "@styles/global.scss";
 import MobileLayout from "./mobile/Layout.astro";
 import DesktopLayout from "./desktop/Layout.astro";
 import _get from "lodash/get";
-import { gtagScript , ga4TagScript } from "../scripts/ga";
+import { gtagScript, ga4TagScript } from "../scripts/ga";
 import { getCustomDimensionsSSR } from "@utils/common";
 import serverConfig from "src/scripts/serverConfig";
 
-const values =  Astro.url.searchParams
+const values = Astro.url.searchParams;
 const app = Astro.props.app;
 const isMobileView = values.get("isMobileView");
 
@@ -17,9 +17,9 @@ const pageTarget = {
   subSubCategory: values.get("subSubCategory"),
   articleType: values.get("articleType"),
   id: values.get("id"),
-}
-const seoData = _get(app, "response.sections.article_show.data.[0].seo", {})
-const customDimension : any = getCustomDimensionsSSR(app, pageTarget, seoData);
+};
+const seoData = _get(app, "response.sections.article_show.data.[0].seo", {});
+const customDimension: any = getCustomDimensionsSSR(app, pageTarget, seoData);
 const gaScript = `${gtagScript(customDimension?.custom_dimension)}`;
 const ga4Script = `${ga4TagScript(customDimension?.GA4CustomDimensions, serverConfig.analytics.ga4TrackingId)}`;
 ---
@@ -38,18 +38,23 @@ const ga4Script = `${ga4TagScript(customDimension?.GA4CustomDimensions, serverCo
   />
 
   <meta name="generator" content={Astro.generator} />
-  <title>{_get(app, "response.sections.article_show.data.[0].title", "")}</title>
+  <title>
+    {_get(app, "response.sections.article_show.data.[0].title", "")}
+  </title>
 
-  <script id="gtagScript" set:html={gaScript} defer async/>
+  <script id="gtagScript" set:html={gaScript} defer async />
 
   <script id="ga4Script" set:html={ga4Script} defer async />
-  
+
   <script>
-      import apstagScript from "../scripts/apstag.js"
-      {apstagScript}
+    import apstagScript from "../scripts/apstag.js";
+    {
+      apstagScript;
+    }
   </script>
 
-  <script id="dpfscript" src="/dfpamzn.js" type="text/javascript" defer />
+  <script id="dpfscript" src="/dfpamzn.js" type="text/javascript" defer
+  ></script>
 
   <script>
     import { checkScriptLoad } from "../scripts/onetap.js";
@@ -57,9 +62,17 @@ const ga4Script = `${ga4TagScript(customDimension?.GA4CustomDimensions, serverCo
       checkScriptLoad();
     });
   </script>
-
 </Fragment>
 
 <body>
-  {isMobileView === "true" ? <MobileLayout /> : <DesktopLayout ads = {_get(app, "response.ads", {})} pageTarget={pageTarget} />}
+  {
+    isMobileView === "true" ? (
+      <MobileLayout category={pageTarget.category} msid={pageTarget.id} />
+    ) : (
+      <DesktopLayout
+        ads={_get(app, "response.ads", {})}
+        pageTarget={pageTarget}
+      />
+    )
+  }
 </body>
