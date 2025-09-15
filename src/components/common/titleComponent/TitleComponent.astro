@@ -1,0 +1,46 @@
+---
+import style from "./TitleComponent.module.scss";
+import DynamicTag from "@components/common/dynamicTag/DynamicTag.astro";
+import RightArrow from "@components/common/rightArrow/RightArrow.astro";
+
+const {
+  marginBottom = 12,
+  titleText = "",
+  moreButtonLink = "",
+  titleType = "h2",
+  boldText,
+  changeStyle = "",
+  isWhiteLayout = true,
+  arrowConfig = {},
+  onClick = null,
+  isLeftRedBorder = false,
+  inLineStyle = {},
+} = Astro.props;
+
+const inlineStyles = {
+  marginBottom: `${marginBottom}px`,
+  ...inLineStyle,
+};
+---
+
+<div class={style["title-box"]} style={inlineStyles}>
+  <DynamicTag
+    tag={titleType}
+    boldText={boldText}
+    moreButtonLink={moreButtonLink}
+    style={style}
+    changeStyle={changeStyle}
+    titleText={titleText}
+    isWhiteLayout={isWhiteLayout}
+    onClick={onClick}
+    isLeftRedBorder={isLeftRedBorder}
+  >
+    {moreButtonLink && (
+      <RightArrow
+        isWhiteLayout={isWhiteLayout}
+        arrowSize={arrowConfig?.size}
+        arrowColor={isWhiteLayout ? "white" : arrowConfig?.color}
+      />
+    )}
+  </DynamicTag>
+</div>

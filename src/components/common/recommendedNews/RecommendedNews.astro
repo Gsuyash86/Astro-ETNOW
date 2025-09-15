@@ -5,13 +5,21 @@ import CustomSlideBox from "@components/common/wrappers/customSlideBox/CustomSli
 import HorizontalCard from "@components/common/widgets/horizontalCard/HorizontalCard.astro";
 import { getNewImageUrl } from "src/utils/common";
 import Link from "../link/Link.astro";
+import TitleComponent from "@components/common/titleComponent/TitleComponent.astro";
 const fetchTime = (item) => new Date(item.updatedate).toLocaleTimeString();
 const { data } = Astro.props;
 ---
 
 <div class={`${style["box"]}`}>
   <ContainerBox>
-    <h3>Recommended News</h3>
+    <TitleComponent
+        titleType={'h3'}
+        moreButtonLink={'/mobile'}
+        titleText={'Recommended News'}
+        isWhiteLayout={false}
+        arrowConfig={{ size: '', color: '' }}
+        marginBottom={4}
+      />
     <CustomSlideBox
       gridGap={32}
       changeStyle={`${data?.length > 1 ? "width-100-50" : "singleItem"}`}
