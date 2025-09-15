@@ -1,8 +1,8 @@
 ---
 import style from "./TitleComponent.module.scss";
 import dayjs from "dayjs";
-import ContainerBox from "../../common/containerBox/ContainerBox.astro";
-import WidgetParagraph from "../../common/widgetParagraph/WidgetParagraph.astro";
+import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.astro";
+import Typography from "@components/common/widgets/typography/Typography.astro";
 const { index, mainData, premium = false, updatedate } = Astro.props;
 ---
 
@@ -10,7 +10,7 @@ const { index, mainData, premium = false, updatedate } = Astro.props;
   premium ? (
     <div class={`${style["PremiumTop"]}`}>
       <i class={`${style["PremiumTag"]}`}>
-        <WidgetParagraph
+        <Typography
           tag="span"
           text={"Premium"}
           isConditionalRendering={true}
@@ -26,7 +26,7 @@ const { index, mainData, premium = false, updatedate } = Astro.props;
         />
       </i>
       {updatedate && (
-        <WidgetParagraph
+        <Typography
           tag="span"
           text={" Updated "}
           isConditionalRendering={true}
@@ -38,7 +38,7 @@ const { index, mainData, premium = false, updatedate } = Astro.props;
           }}
         />
       )}
-      <WidgetParagraph
+      <Typography
         tag="h1"
         text={mainData.title}
         isConditionalRendering={true}
@@ -58,7 +58,7 @@ const { index, mainData, premium = false, updatedate } = Astro.props;
   ) : (
     <ContainerBox>
       {index == 0 ? (
-        <WidgetParagraph
+        <Typography
           tag="h1"
           text={mainData.title}
           isConditionalRendering={true}
@@ -72,7 +72,7 @@ const { index, mainData, premium = false, updatedate } = Astro.props;
           }}
         />
       ) : (
-        <WidgetParagraph
+        <Typography
           tag="h4"
           text={mainData.title}
           isConditionalRendering={true}

@@ -1,6 +1,6 @@
 ---
 import style from "./CategoryName.module.scss";
-import WidgetParagraph from "../widgetParagraph/WidgetParagraph.astro";
+import Typography from "@components/common/widgets/typography/Typography.astro";
 const {
   changeStyle = "font-size-13",
   fontWeight = "700",
@@ -13,7 +13,7 @@ const {
 {
   categoryName && (
     <a class={style.category} href={"/" + redirectToUrl || ""}>
-      <WidgetParagraph
+      <Typography
         tag={"p"}
         text={categoryName}
         changeStyle={changeStyle}

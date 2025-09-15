@@ -1,6 +1,6 @@
 ---
 import style from "./MutualFundCard.module.scss";
-import WidgetParagraph from "../widgetParagraph/WidgetParagraph.astro";
+import Typography from "@components/common/widgets/typography/Typography.astro";
 import StockPriceMovement from "../stockPriceMovement/StockPriceMovement.astro";
 const defaultImg =
   "https://img.timesnownews.com/stock-images/Default+stock+image.png";
@@ -38,13 +38,13 @@ if (assetType) {
       />
     </i>
 
-    <WidgetParagraph {...companyConfig} isConditionalRendering={true} />
+    <Typography {...companyConfig} isConditionalRendering={true} />
 
     <ul class={`${style["box-category"]}`}>
       {
         categoryList.map((cat, index) => (
           <li key={index}>
-            <WidgetParagraph
+            <Typography
               {...categoryConfig}
               text={cat}
               isConditionalRendering={true}
@@ -57,7 +57,7 @@ if (assetType) {
 
   <ul class={`${style["box-bottom"]}`}>
     <li>
-      <WidgetParagraph
+      <Typography
         tag="p"
         text="AUM"
         changeStyle="font-size-12"
@@ -70,7 +70,7 @@ if (assetType) {
         }}
         isConditionalRendering={true}
       />
-      <WidgetParagraph
+      <Typography
         tag="p"
         text={aum}
         changeStyle="font-size-14"
@@ -81,7 +81,7 @@ if (assetType) {
       />
     </li>
     <li>
-      <WidgetParagraph
+      <Typography
         tag="p"
         text="Returns (p.a)"
         changeStyle="font-size-12"
@@ -111,7 +111,7 @@ if (assetType) {
       />
     </li>
     <li>
-      <WidgetParagraph
+      <Typography
         tag="p"
         text="NAV"
         changeStyle="font-size-12"
@@ -124,7 +124,7 @@ if (assetType) {
         }}
         isConditionalRendering={true}
       />
-      <WidgetParagraph
+      <Typography
         tag="p"
         text={nav}
         changeStyle="font-size-14"

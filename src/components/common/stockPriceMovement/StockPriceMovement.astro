@@ -1,6 +1,6 @@
 ---
 import style from "./StockPriceMovement.module.scss";
-import WidgetParagraph from "../widgetParagraph/WidgetParagraph.astro";
+import Typography from "@components/common/widgets/typography/Typography.astro";
 const defaultTextConfig = {
   tag: "span",
   changeStyle: "font-size-12",
@@ -28,7 +28,7 @@ const displayText = displayOnlyPercent
   class={`${style["default"]} ${isUp ? style["up"] : style["down"]} ${changeStyle && style[changeStyle]}`}
   style={{ ...inLineStyle }}
 >
-  <WidgetParagraph
+  <Typography
     tag={textConfig.tag}
     text={displayText}
     changeStyle={textConfig.changeStyle}

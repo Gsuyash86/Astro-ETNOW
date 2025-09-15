@@ -1,7 +1,7 @@
 ---
 import style from "./Synopsis.module.scss";
-import ContainerBox from "@components/common/containerBox/ContainerBox.astro";
-import WidgetParagraph from "@components/common/widgetParagraph/WidgetParagraph.astro";
+import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.astro";
+import Typography from "@components/common/widgets/typography/Typography.astro";
 const {
   text,
   changeStyle = "",
@@ -17,7 +17,7 @@ if (!text) return null;
   style={{ ...inLineStyle }}
 >
   <ContainerBox noGutterSpace={noGutterSpace}>
-    <WidgetParagraph
+    <Typography
       tag="h2"
       text={text}
       changeStyle="font-size-16"

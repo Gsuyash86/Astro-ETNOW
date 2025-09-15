@@ -1,7 +1,7 @@
 ---
 import style from "./RecommendedNews.module.scss";
-import ContainerBox from "../containerBox/ContainerBox.astro";
-import CustomSlideBox from "../customSlideBox/CustomSlideBox.astro";
+import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.astro";
+import CustomSlideBox from "@components/common/wrappers/customSlideBox/CustomSlideBox.astro";
 import HorizontalCard from "../horizontalCard/HorizontalCard.astro";
 import { getNewImageUrl } from "src/utils/common";
 const fetchTime = (item) => new Date(item.updatedate).toLocaleTimeString();

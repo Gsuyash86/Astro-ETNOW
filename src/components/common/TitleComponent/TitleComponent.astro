@@ -1,12 +1,12 @@
 ---
-import WidgetParagraph from "../widgetParagraph/WidgetParagraph.astro";
+import Typography from "@components/common/widgets/typography/Typography.astro";
 import style from "./TitleComponent.module.scss";
 
 const { title = "ET NOW", subtitle = "Insights" } = Astro.props;
 ---
 
 <div class={style.titleWrapper}>
-    <WidgetParagraph
+    <Typography
         tag={"p"}
         text={title}
         changeStyle={'font-size-34'}

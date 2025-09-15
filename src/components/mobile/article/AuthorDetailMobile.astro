@@ -1,7 +1,7 @@
 ---
 import style from "./AuthorDetailMobile.module.scss";
-import ContainerBox from "@components/common/containerBox/ContainerBox.astro";
-import WidgetParagraph from "@components/common/widgetParagraph/WidgetParagraph.astro";
+import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.astro";
+import Typography from "@components/common/widgets/typography/Typography.astro";
 const {
   changeStyle = "",
   inLineStyle = {},
@@ -31,7 +31,7 @@ const formattedText = Object.entries(byline)
   <ContainerBox noGutterSpace={noGutterSpace}>
     {
       formattedText?.length > 0 && (
-        <WidgetParagraph
+        <Typography
           tag="p"
           text={formattedText}
           isConditionalRendering={true}
@@ -46,7 +46,7 @@ const formattedText = Object.entries(byline)
     }
     {
       updatedate && (
-        <WidgetParagraph
+        <Typography
           tag="p"
           text={"Updated "}
           isConditionalRendering={true}

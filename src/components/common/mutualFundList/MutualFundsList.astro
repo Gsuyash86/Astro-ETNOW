@@ -1,7 +1,7 @@
 ---
 import style from "./MutualFundsList.module.scss";
-import WidgetParagraph from "../widgetParagraph/WidgetParagraph.astro";
-import CommonGridBox from "../commonGridBox/CommonGridBox.astro";
+import Typography from "@components/common/widgets/typography/Typography.astro";
+import CommonGridBox from "@components/common/wrappers/commonGridBox/CommonGridBox.astro";
 import MutualFundCard from "../mutualFundCard/MutualFundCard.astro";
 const {
   changeStyle = "",
@@ -14,7 +14,7 @@ const {
   <h3>Mutual Funds</h3>
 
   <div class={`${style["filter"]}`}>
-    <WidgetParagraph
+    <Typography
       tag="p"
       text="Return period"
       changeStyle="font-size-14"
@@ -33,7 +33,7 @@ const {
       <option value="5">5Y</option>
     </select>
   </div>
-  <WidgetParagraph
+  <Typography
     tag="p"
     text="List of Best Funds in India sorted by Returns"
     changeStyle="font-size-12"

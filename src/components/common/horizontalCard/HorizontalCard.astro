@@ -1,7 +1,7 @@
 ---
 import style from "./HorizontalCard.module.scss";
 import ImageWithIcon from "../imageWithIcon/ImageWithIcon.astro";
-import WidgetParagraph from "../widgetParagraph/WidgetParagraph.astro";
+import Typography from "@components/common/widgets/typography/Typography.astro";
 const {
   changeStyle = "",
   inLineStyle = {},
@@ -21,7 +21,7 @@ const {
   style={{ ...inLineStyle }}
 >
   <figcaption class={`${style["figcaption"]}`}>
-    <WidgetParagraph
+    <Typography
       tag={titleConfig?.tag}
       text={titleConfig?.text}
       changeStyle={titleConfig?.style}
@@ -29,7 +29,7 @@ const {
       isConditionalRendering={true}
       isWhiteLayout={isWhiteLayout}
     />
-    <WidgetParagraph
+    <Typography
       tag={paraConfig?.tag}
       text={paraConfig?.text}
       changeStyle={paraConfig.style}

@@ -2,6 +2,7 @@
 import AdCaller from "@components/common/adcaller/AdCaller.astro";
 import MgIdComponent from "@components/common/mgid/MgIdComponent.astro";
 import CONST from "src/constant";
+import Article from "@components/mobile/article/Article.astro";
 
 const pageTarget = {
   section: { category: "news", sub_category: "tech" },
@@ -29,29 +30,6 @@ let ad2 = {
 };
 ---
 <>
-	<div id={ad.divId}>
-		<AdCaller
-			pageTarget={pageTarget}
-			adCode={ad.adCode}
-			divId={ad.divId}
-			size={ad.size}
-		/>
-	</div>
-
-	<div id={ad.divId + 1 + "ssss"}>
-		<AdCaller
-			pageTarget={pageTarget}
-			adCode={ad2.adCode}
-			divId={ad2.divId}
-			size={ad2.size}
-		/>
-	</div>
-
-	<div>
-		<MgIdComponent
-			scriptID={CONST.MGID_ADD_5X5}
-			elementID={CONST.MGID_ADD_5X5}
-		/>
-	</div>
+	<Article/>
 	<slot />
 </>

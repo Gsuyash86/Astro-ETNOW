@@ -1,7 +1,7 @@
 ---
 import style from "./ToolsAndCalculator.module.scss";
-import CommonGridBox from "../commonGridBox/CommonGridBox.astro";
-import WidgetParagraph from "../widgetParagraph/WidgetParagraph.astro";
+import CommonGridBox from "@components/common/wrappers/commonGridBox/CommonGridBox.astro";
+import Typography from "@components/common/widgets/typography/Typography.astro";
 import CalculatorImageSSR from "../imageSSR/CalculatorImageSSR.astro";
 const { changeStyle = "", inLineStyle = {} } = Astro.props;
 const dataList = [
@@ -87,7 +87,7 @@ const dataList = [
             />
           </div>
 
-          <WidgetParagraph
+          <Typography
             tag="p"
             text={item?.company}
             changeStyle="font-size-16"

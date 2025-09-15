@@ -1,6 +1,6 @@
 ---
 import style from "./LogoCardList.module.scss";
-import WidgetParagraph from "../widgetParagraph/WidgetParagraph.astro";
+import Typography from "@components/common/widgets/typography/Typography.astro";
 import StockPriceMovement from "../stockPriceMovement/StockPriceMovement.astro";
 import ImageSSR from "../imageSSR/ImageSSR.astro";
 const defaultImg =
@@ -28,7 +28,7 @@ const {
       <ImageSSR iconConfig={iconConfig} defaultImg={defaultImg} />
     </div>
 
-    <WidgetParagraph
+    <Typography
       tag={companyConfig?.tag || "p"}
       text={companyConfig?.text}
       changeStyle={companyConfig?.changeStyle}
@@ -42,7 +42,7 @@ const {
   {
     isMarketButton && (
       <div class={`${style["box-rhs"]}`}>
-        <WidgetParagraph
+        <Typography
           tag={priceConfig?.tag || "p"}
           text={`₹${priceConfig?.text}`}
           changeStyle={priceConfig?.changeStyle}
