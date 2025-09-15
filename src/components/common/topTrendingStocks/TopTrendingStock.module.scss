@@ -1,0 +1,13 @@
+.top-trending-stock {
+    &-box {
+        box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.13);
+        border-radius: 8px;
+        background-color: rgba(255, 255, 255, 1);
+        padding: 16px;
+    }
+}
+
+.load-more {
+    width: 100%;
+    text-align: center;
+}

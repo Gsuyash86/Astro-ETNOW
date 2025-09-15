@@ -1,0 +1,65 @@
+---
+import style from "./TopTrendingStock.module.scss";
+import CommonGridBox from "../commonGridBox/CommonGridBox.astro";
+import LogoCardList from "../LogoCardList/LogoCardList.astro";
+const { changeStyle = "", inLineStyle = {}, trendingStocks } = Astro.props;
+---
+
+<div class={`${changeStyle && style[changeStyle]}`} style={{ ...inLineStyle }}>
+  <h3>Top Trending Stock</h3>
+  <div class={`${style["top-trending-stock-box"]}`}>
+    <CommonGridBox
+      gridType="divGridBox"
+      changeStyle={""}
+      inLineStyle={{ marginBottom: "0px", gap: "24px" }}
+    >
+      {
+        Array.isArray(trendingStocks) &&
+          trendingStocks?.map((item, index) => (
+            <LogoCardList
+              key={index}
+              href={`/${item?.seopath}`}
+              iconConfig={{
+                iconUrl: item?.AMC_CODE,
+                iconName: item?.S_NAME || "Stock",
+              }}
+              companyConfig={{
+                tag: "p",
+                text: item?.lname,
+                changeStyle: "font-size-12",
+                fontWeight: "bold",
+                isLineClamp: true,
+                inLineStyle: {
+                  lineHeight: "1.2",
+                  color: "#171725",
+                },
+              }}
+              priceConfig={{
+                tag: "p",
+                text: item?.price,
+                changeStyle: "font-size-14",
+                fontWeight: "bold",
+                isLineClamp: true,
+                inLineStyle: {
+                  lineHeight: "1.2",
+                  color: "#171725",
+                },
+              }}
+              marketButtonConfig={{
+                isUp: item?.percchange > 0,
+                change: item?.priceperchange
+                  ? item.priceperchange.toFixed(2)
+                  : "",
+                change_percent: item?.percchange
+                  ? item.percchange.toFixed(2) + "%"
+                  : "",
+              }}
+            />
+          ))
+      }
+    </CommonGridBox>
+  </div>
+  <div class={`${style["load-more"]}`}>
+    <a href="/stocks"> Show more </a>
+  </div>
+</div>
