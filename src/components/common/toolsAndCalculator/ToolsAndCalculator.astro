@@ -3,6 +3,7 @@ import style from "./ToolsAndCalculator.module.scss";
 import CommonGridBox from "@components/common/wrappers/commonGridBox/CommonGridBox.astro";
 import Typography from "@components/common/widgets/typography/Typography.astro";
 import CalculatorImageSSR from "../imageSSR/CalculatorImageSSR.astro";
+import Link from "@components/common/link/Link.astro";
 const { changeStyle = "", inLineStyle = {} } = Astro.props;
 const dataList = [
   {
@@ -67,8 +68,21 @@ const dataList = [
     inLineStyle={{ marginBottom: "0px", gap: "16px" }}
   >
     {
-      dataList?.map((item, index) => (
-        <a href={item?.href}>
+      dataList?.map((item) => (
+        <Link
+          href={item?.href}
+          inLineStyle={{
+            backgroundColor: `rgba(${item?.backgroundColor}, 0.8)`,
+            boxShadow: "0 4px 11px 0 rgba(0, 0, 0, 0.15)",
+            borderRadius: "10px",
+            padding: "8px 12px 8px 0px",
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+            textDecoration: "none",
+            width: "100%",
+          }}
+        >
           <div
             class={`${style["img-box"]}`}
             style={{
@@ -100,7 +114,7 @@ const dataList = [
             }}
             isConditionalRendering={true}
           />
-        </a>
+        </Link>
       ))
     }
   </CommonGridBox>

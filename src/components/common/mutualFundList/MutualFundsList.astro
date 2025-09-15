@@ -3,6 +3,7 @@ import style from "./MutualFundsList.module.scss";
 import Typography from "@components/common/widgets/typography/Typography.astro";
 import CommonGridBox from "@components/common/wrappers/commonGridBox/CommonGridBox.astro";
 import MutualFundCard from "../mutualFundCard/MutualFundCard.astro";
+import Link from "../link/Link.astro";
 const {
   changeStyle = "",
   inLineStyle = {},
@@ -53,10 +54,9 @@ const {
       inLineStyle={{ marginBottom: "0px", gap: "24px" }}
     >
       {
-        mFCategoriesLandingData?.map((item, index) => (
-          <a href={`/${item?.seopath}`}>
+        mFCategoriesLandingData?.map((item) => (
+          <Link href={`/${item?.seopath}`}>
             <MutualFundCard
-              key={index}
               iconConfig={{
                 iconUrl: item?.AMC_CODE,
               }}
@@ -93,7 +93,7 @@ const {
               }}
               assetType={item?.mutualFundDetailsResponse?.assetType}
             />
-          </a>
+          </Link>
         ))
       }
     </CommonGridBox>
