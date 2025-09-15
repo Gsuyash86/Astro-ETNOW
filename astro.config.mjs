@@ -3,8 +3,7 @@ import node from "@astrojs/node";
 
 const isProd = process.env.NODE_ENV === "production";
 
-// https://astro.build/config
-export default defineConfig({
+let config = {
   output: 'server',
   adapter: node({
     mode: "standalone",
@@ -23,18 +22,6 @@ export default defineConfig({
         "@styles": ["src/styles"],
       },
     },
-    css: {
-      modules: {
-        generateScopedName: isProd
-          ? "[hash:base64:6]" 
-          : "[name]__[local]___[hash:base64:6]",
-      },
-      preprocessorOptions: {
-        scss: {
-          outputStyle: 'compressed',
-        },
-      },
-    },
     build: {
       minify: isProd ? "esbuild" : false,
       target: "es2017",
@@ -44,4 +31,17 @@ export default defineConfig({
       drop: isProd ? ["console", "debugger"] : [],
     },
   },
-});
+}
+if(isProd) {
+  config.vite.css = {
+    modules: {
+      generateScopedName: "[hash:base64:6]",
+    },
+    preprocessorOptions: {
+      scss: {
+        outputStyle: 'compressed',
+      },
+    },
+  }
+}
+export default defineConfig(config);
