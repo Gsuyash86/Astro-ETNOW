@@ -15,6 +15,9 @@ export default defineConfig({
         "@components": "/src/components",
         "@layouts": "/src/layouts",
         "@lib": "/src/lib",
+        "@utils": ["src/utils"],
+        "@constant": ["src/constant"],
+        "@styles": ["src/styles"],
       },
     },
     css: {

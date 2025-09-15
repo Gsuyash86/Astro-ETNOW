@@ -1,0 +1,60 @@
+---
+import type { EmblaOptionsType } from "embla-carousel";
+
+interface Props {
+  options?: EmblaOptionsType;
+}
+
+const { options = {} } = Astro.props;
+
+const {
+  loop = true,
+  align = "center",
+  draggable = true,
+  speed = 10,
+} = options;
+---
+
+<link rel="stylesheet" href="/embla.css" />
+
+<div class="embla"
+  data-loop={loop}
+  data-align={align}
+  data-draggable={draggable}
+  data-speed={speed}
+>
+  <div class="embla__container">
+    <slot />
+  </div>
+
+  <button class="embla__prev">‹</button>
+  <button class="embla__next">›</button>
+</div>
+
+<script>
+  import emblaCarousel from "embla-carousel";
+ 
+  document.querySelectorAll(".embla").forEach((emblaNode) => {
+    const viewport = emblaNode.querySelector(".embla__container");
+    const prevBtn = emblaNode.querySelector(".embla__prev");
+    const nextBtn = emblaNode.querySelector(".embla__next");
+
+    const options = {
+      loop: emblaNode.dataset.loop === "true",
+      align: emblaNode.dataset.align || "center",
+      draggable: emblaNode.dataset.draggable !== "false",
+      speed: parseInt(emblaNode.dataset.speed || "10"),
+    };
+
+    if (viewport) {
+      const embla = emblaCarousel(viewport, options);
+
+      if (prevBtn) {
+        prevBtn.addEventListener("click", () => embla.scrollPrev());
+      }
+      if (nextBtn) {
+        nextBtn.addEventListener("click", () => embla.scrollNext());
+      }
+    }
+  });
+</script>

@@ -1,0 +1,7 @@
+@use 'src/styles/_mixins-new' as *;
+
+.date-time {
+  color: var(--textColorGrey);
+  @include font-size(12);
+  margin-top: 10px;
+}

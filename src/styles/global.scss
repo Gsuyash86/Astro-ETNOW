@@ -1,0 +1,107 @@
+// @use './fontFamily' as *;
+@use './mixins-new' as *;
+@use './variables' as *;
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  font-family: var(--fontFamily);
+  background-color: #ffffff;
+  color: #171725;
+  @include font-size(16);
+  line-height: 1.5;
+}
+
+a,
+button,
+summary {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+img {
+  max-width: 100%;
+  background-clip: padding-box;
+  display: -webkit-box;
+}
+
+button {
+  all: unset;
+  cursor: pointer;
+  font: inherit;
+  display: inline-block;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+form {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+input,
+textarea,
+select,
+button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font: inherit;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  background-color: white;
+}
+
+input[type="checkbox"]:checked,
+input[type="radio"]:checked {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+button:focus {
+  outline: none;
+}
+
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

@@ -1,0 +1,31 @@
+---
+import liveStyle from './Blinker.module.scss';
+
+const {
+  isTextVisible = false,
+  isbBlinkerSmall = '',
+  translations = { LIVE: 'LIVE' },
+  transparentBtn = false,
+  isBlinkerAnimation = true,
+  inLineStyleBlinker = {},
+} = Astro.props;
+
+const classes = [
+  liveStyle['_live'],
+  isTextVisible && !transparentBtn ? liveStyle['live-bg'] : '',
+  isbBlinkerSmall ? liveStyle[isbBlinkerSmall] : '',
+  !isBlinkerAnimation ? liveStyle['no-animation'] : ''
+].filter(Boolean).join(' ');
+---
+
+<span class={classes} style={inLineStyleBlinker}>
+  <span class={liveStyle['blinker']}>
+    <span class={liveStyle['blinkOuter']}></span>
+    <span class={liveStyle['blinkInner']}></span>
+  </span>
+  {isTextVisible && (
+    <span class={`${liveStyle['text']} text`}>
+      {translations['LIVE']}
+    </span>
+  )}
+</span>

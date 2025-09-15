@@ -15,16 +15,17 @@
 
 <!doctype html>
 <html amp lang="en">
-  <Fragment slot="head">
+  <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
-    <title>{"SOMETGING"}</title>
+    <title>SOMETGING</title>
 
     <!-- AMP runtime -->
     <script async src="https://cdn.ampproject.org/v0.js"></script>
 
-    <!-- Add AMP components you use (example: amp-img) -->
+    <!-- Required AMP components for this example -->
     <script async custom-element="amp-img" src="https://cdn.ampproject.org/v0/amp-img-0.1.js"></script>
+    <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
 
     <!-- Required AMP boilerplate -->
     <style amp-boilerplate>
@@ -44,19 +45,29 @@
     <style amp-custom>
       body { font-family: system-ui, sans-serif; padding: 16px; max-width: 740px; margin:auto; }
       h1 { font-size: 28px; margin-top: 8px; }
-      /* ... other styles ... */
+      .ad-container {
+        margin: 20px auto;
+        border: 1px solid #ccc;
+        text-align: center;
+        padding: 10px;
+        background-color: #f9f9f9;
+      }
     </style>
 
     <!-- structured data / canonical links -->
-    <link rel="canonical" href={"https://etnow.com/"} />
-    <meta name="description" content={"Something"} />
-
-  </Fragment>
+    <link rel="canonical" href="https://etnow.com/" />
+    <meta name="description" content="Something" />
+  </head>
 
   <body>
-    <div>
-        <AdCaller adCode={ad.adCode} divId={ad.divId} size={ad.size}/>
+    <h1>AMP Ad Example</h1>
+    <p>This is a valid AMP HTML page with an ad component.</p>
+    
+    <div class="ad-container">
+      <AdCaller adCode={ad.adCode} divId={ad.divId} size={ad.size}/>
     </div>
+
+    <p>This is the content below the ad.</p>
 
     <!-- optional analytics: use amp-analytics if needed -->
     <!-- <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script> -->

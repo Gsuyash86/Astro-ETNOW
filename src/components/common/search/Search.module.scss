@@ -1,0 +1,135 @@
+@use 'src/styles/_mixins-new' as *;
+
+.searchBox {
+    display: flex;
+    height: 40px;
+    gap: 12px;
+    border: solid 1px var(--borderColor);
+    width: 100%;
+    border-radius: 1000px;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, .27);
+    position: relative;
+    z-index: 1;
+
+    input {
+        border: none;
+        outline: none;
+        flex: 1;
+        @include font-size(13);
+        padding: 0px 24px;
+        background: transparent;
+        border-radius: 999px;
+        color: #000000;
+        line-height: normal;
+    }
+
+    button {
+        background: transparent;
+        border: none;
+        padding: 0px 16px;
+        cursor: pointer;
+        @include font-size(16);
+        line-height: 22px;
+        color: #000000;
+    }
+}
+
+/* Global dropdown classes (client creates these) */
+:global(.results-container) {
+    background: #fff;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity 220ms ease, transform 220ms ease, max-height 320ms ease;
+}
+
+/* open state */
+:global(.results-container[data-open="true"]) {
+    max-height: 60vh;
+    opacity: 1;
+    transform: translateY(0);
+    overflow-y: auto;
+}
+
+/* section header styling to match screenshot */
+:global(.results-section) {
+    padding: 12px 0;
+    border-bottom: 1px solid #f3f3f3;
+}
+
+:global(.results-section h2) {
+    margin: 0 0 15px 0;
+    font-style: italic;
+    font-weight: 700;
+    @include font-size(18);
+    line-height: 18px;
+    color: #be1f24;
+    font-family: var(--fontFamilyTitle);
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+    &::after {
+        content: '';
+        height: 1px;
+        background: #be1f24;
+        flex: 1;
+    }
+}
+
+/* list and items */
+:global(.results-section ul) {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+:global(.result-item) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 13px;
+    margin-bottom: 13px;
+    @include font-size(14);
+    font-weight: 500;
+    color: rgb(23, 23, 37);
+    cursor: pointer;
+    line-height: normal;
+    border-bottom: 1px solid #d6d6d6;
+    background: transparent;
+    transition: background 150ms ease;
+}
+
+:global(.result-item:hover),
+:global(.result-item:focus) {
+    outline: none;
+}
+
+/* arrow on right */
+:global(.result-item)::after {
+    content: "›";
+    font-size: 20px;
+    line-height: 15px;
+    color: #000000;
+    margin-left: 12px;
+}
+
+/* show all footer */
+:global(.show-all) {
+    padding: 10px 0 0 0;
+    text-align: center;
+    font-weight: 600;
+    color: #000000;
+    cursor: pointer;
+    @include font-size(16);
+    position: sticky;
+    bottom: 0;
+    background: #ffffff;
+    width: 100%;
+    display: inline-block;
+}
+
+:global(.show-all:hover),
+:global(.show-all:focus) {
+    background: #ffffff;
+}

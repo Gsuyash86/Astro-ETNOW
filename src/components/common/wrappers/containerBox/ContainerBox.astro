@@ -1,0 +1,21 @@
+---
+import styles from './ContainerBox.module.scss';
+
+const {
+  changeStyle = '',
+  noGutterSpace = false,
+  inLineStyle = {},
+  isWrap = true
+} = Astro.props;
+---
+
+{isWrap ? (
+  <div
+    class={`${styles.container} ${noGutterSpace ? styles['no-gutter'] : ''} ${changeStyle ? styles[changeStyle] : ''}`}
+    style={inLineStyle}
+  >
+    <slot />
+  </div>
+) : (
+  <slot />
+)}
