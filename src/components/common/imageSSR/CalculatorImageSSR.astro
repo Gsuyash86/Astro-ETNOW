@@ -1,0 +1,12 @@
+---
+const {
+  imageId,
+  altText,
+  defaultImg = "https://img.timesnownews.com/stock-images/Default+stock+image.png",
+} = Astro.props;
+const imageUrl = `https://images.etnownews.com/thumb/${imageId}.cms`;
+---
+
+<div
+  set:html={`<img loading="lazy" src='${imageUrl}' alt='${altText}' onerror="this.onerror=null;this.src='${defaultImg}';"/>`}
+/>

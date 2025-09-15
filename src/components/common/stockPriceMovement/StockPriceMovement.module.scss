@@ -1,0 +1,27 @@
+.default {
+  display: inline-flex;
+  align-items: center;
+
+  &::before {
+    margin-right: 4px;
+    border-style: solid;
+    border-width: 0 6px 9px;
+    border-color: transparent;
+    border-bottom-color: inherit;
+    background: none;
+    content: "";
+  }
+
+  &.up {
+    color: rgba(24, 172, 128, 1);
+  }
+
+  &.down {
+    color: rgba(190, 31, 36, 1);
+
+    &::before {
+      transform: rotate(180deg);
+      top: 3px;
+    }
+  }
+}

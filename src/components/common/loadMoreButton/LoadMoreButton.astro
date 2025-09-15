@@ -1,0 +1,12 @@
+---
+import style from "./LoadMoreButton.module.scss";
+const { changeStyle, inLineStyle, link, text, ga, ariaLabel } = Astro.props;
+const commonProps = {
+  className: `${style["default"]} ${style[changeStyle]}`,
+  style: { ...inLineStyle },
+  ga,
+  "aria-label": ariaLabel,
+};
+---
+
+{link ? <a>{text}</a> : <button>{text}</button>}
