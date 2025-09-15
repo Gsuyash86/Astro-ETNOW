@@ -18,7 +18,9 @@
     "embla-carousel": "^8.6.0",
     "embla-carousel-autoplay": "^8.6.0",
     "lodash": "^4.17.21",
-    "solid-js": "^1.9.7"
+    "solid-js": "^1.9.7",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
   },
   "devDependencies": {
     "@types/markdown-it": "^12.2.3",
