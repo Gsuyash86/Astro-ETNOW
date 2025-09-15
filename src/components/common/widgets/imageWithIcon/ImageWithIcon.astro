@@ -1,0 +1,85 @@
+---
+import LazyImage from '@components/common/lazyImage/LazyImage.astro';
+import PremiumIcon from '@components/common/widgets/premiumIcon/PremiumIcon.astro';
+import Blinker from '@components/common/widgets/blinker/Blinker.astro';
+import SvgIcon from "@components/common/svg/SvgIcon.astro";
+import MediaIcons from '@components/common/widgets/mediaIcons/MediaIcons.astro';
+import WebStoryDots from '@components/common/widgets/webStoryDots/WebStoryDots.astro';
+
+import styles from './ImageWithIcon.module.scss';
+
+// Props from Astro
+const {
+  data,
+  imgWidth,
+  imgHeight,
+  imagePath,
+  time,
+  changeStyle = '',
+  fetchpriority = '',
+  leadStory = false,
+  noLazy = false,
+  mediaIconStyle = 'top-right',
+  isShowCaptionOnImage = false,
+  inLineStyle = {},
+  blinkerBottomPosition = '10px',
+  blinkerLeftPosition = '10px',
+  inLineMediaIconStyle,
+  isWebStory = false,
+  cmsType = '',
+  videoPlayIconCenter = false,
+  isFeaturedCard = false,
+} = Astro.props;
+---
+
+<span
+  class={`${styles['image-con']} ${changeStyle ? styles[changeStyle] : ''}`}
+  style={inLineStyle}
+>
+  <LazyImage
+    datasrc={imagePath}
+    alt={data?.title ?? ''}
+    width={imgWidth}
+    height={imgHeight}
+    useOriginalSource
+    fetchpriority={fetchpriority}
+    leadStory={leadStory}
+    noLazy={noLazy}
+  />
+
+  {data?.primeid ? <PremiumIcon data={data} /> : null}
+
+  {cmsType === 'LIVEBLOG' && !isFeaturedCard && !isShowCaptionOnImage ? (
+    <Blinker
+      isTextVisible={true}
+      transparentBtn={false}
+      inLineStyleBlinker={{
+        position: 'absolute',
+        bottom: blinkerBottomPosition,
+        left: blinkerLeftPosition,
+      }}
+    />
+  ) : null}
+
+  {(isShowCaptionOnImage || videoPlayIconCenter) && (
+    <SvgIcon
+      svgInlineStyle={{
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        transform: 'translate(-50%, -50%)',
+      }}
+      IconName="videoGreyWhite"
+    />
+  )}
+
+  <MediaIcons
+    mediaIconStyle={mediaIconStyle}
+    inLineMediaIconStyle={inLineMediaIconStyle}
+    data={data}
+    time={time}
+  />
+
+  {/* Uncomment to enable web story dots */}
+  {/* {isWebStory && <WebStoryDots />} */}
+</span>

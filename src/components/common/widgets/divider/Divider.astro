@@ -1,0 +1,10 @@
+---
+const { tag = 'div', text = '', changeStyle = '', inLineStyle = {} } = Astro.props;
+
+import styles from './Divider.module.scss';
+
+const Tag = tag;
+const className = `${changeStyle ? styles[changeStyle] : ''} ${styles.divider}`;
+---
+
+<Tag class={className} style={inLineStyle} innerHTML={text} />
