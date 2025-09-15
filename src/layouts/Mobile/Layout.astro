@@ -28,8 +28,10 @@ let ad2 = {
     [980, 90],
   ],
 };
+const { category, msid } = Astro.props;
 ---
+
 <>
-	<Article/>
-	<slot />
+  <Article category={category} msid={msid} />
+  <slot />
 </>

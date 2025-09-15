@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import CONST from "../constant/index"
+import CONST from "../constant/index";
 
 export const getCustomDimensionsSSR = (app, navigation, seoData) => {
   let custom_dimension = null;
@@ -168,7 +168,7 @@ export const convertToTitleCase = (inputString) => {
   return titleCaseWords.join(" ");
 };
 
-export const getSlug = (storyType) =>  CONST?.ARTICLESLUGMAP?.[storyType];
+export const getSlug = (storyType) => CONST?.ARTICLESLUGMAP?.[storyType];
 
 export function getNewImageUrl({
   msid,
@@ -186,4 +186,21 @@ export function getNewImageUrl({
     !is1x1Img && "resizemode-75"
   }/${msid}.jpg`;
   return imgurl;
+}
+
+export function generateDataListFromPath(category) {
+  const dataList = [
+    {
+      label: "Business News",
+      seopath: import.meta.env.WEBAPP_BASE_URL,
+    },
+  ];
+
+  if (category) {
+    dataList.push({
+      label: category,
+      seopath: `${import.meta.env.WEBAPP_BASE_URL}/${category}`,
+    });
+  }
+  return dataList;
 }

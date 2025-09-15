@@ -1,0 +1,43 @@
+.breadcrumb-list {
+  display: flex;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.listing {
+  display: inline-flex;
+
+  &:has(+ .listing) {
+    &::after {
+      content: "";
+      margin-right: 12px;
+      padding-right: 18px;
+      background: url("https://static.timesnownews.com/tnn-eng/static/assets/sports-now/icons/rightLineArrow.svg")
+        no-repeat;
+      background-size: 7px 12px;
+      background-position: center right;
+    }
+  }
+
+  &:last-child {
+    > * {
+      text-decoration: underline;
+    }
+  }
+}
+
+.black {
+  .listing {
+    &:has(+ .listing) {
+      &::after {
+        filter: invert(1);
+      }
+    }
+
+    &:last-child {
+      > * {
+        color: black;
+      }
+    }
+  }
+}
