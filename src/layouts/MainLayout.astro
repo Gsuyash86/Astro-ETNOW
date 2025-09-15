@@ -27,12 +27,14 @@ const ga4Script = `${ga4TagScript(customDimension?.GA4CustomDimensions, serverCo
 <Fragment slot={"head"}>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="icon" type="image/svg+xml" href="/manifest/images/icons/favicon.png" />
+  
   <link
-    rel="stylesheet"
+    rel="preload"
+    as="style"
     href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:wght@400;700&family=Inter:wght@400;700&display=swap"
+    fetchpriority="high"
+    onload="this.onload=null;this.rel='stylesheet'"
   />
 
   <meta name="generator" content={Astro.generator} />
