@@ -61,6 +61,18 @@ const CONST = {
       },
     },
     SOCIAL_APP_BASEURL : import.meta.env.SOCIAL_APP_BASEURL
+  },
+  ARTICLESLUGMAP : {
+    VIDEOS: 'video',
+    MEDIAVIDEO: 'video',
+    MOVIEREVIEW: 'review',
+    ARTICLE: 'article',
+    LIVEBLOG: 'liveblog',
+    PHOTOGALLERYSLIDESHOWSECTION: 'photo-gallery',
+    IMAGES: 'photostory',
+    PHOTOGALLERYLISTSECTION: 'photostory',
+    MEDIAAUDIO: 'audio',
+    SHORTMEDIAVIDEO: 'reels',
   }
 };
 export default CONST;

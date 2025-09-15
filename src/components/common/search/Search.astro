@@ -25,49 +25,40 @@ import style from "./Search.module.scss";
 </div>
 
 <script>
-    // local dummy data (client-only)
-    const searchData = {
-        "Stocks/IPOs": [
-            "Tata Chemicals Ltd",
-            "Tata Communications Ltd",
-            "Tata Consultancy Services Ltd",
-            "Tata Consumer Products Ltd",
-            "Tata Elxsi Ltd",
-            "Tata Gold Exchange Traded Fund",
-            "Tata Investment Corporation Ltd",
-            "Tata Motors Ltd",
-            "Tata Steel Ltd",
-            "Tata Power Ltd",
-        ],
-        "Mutual Funds": [
-            "Tata Aggressive Hybrid Fund - Regular (G)",
-            "Tata Short Term Bond Fund - (G)",
-            "Tata Equity PE Fund",
-            "Tata Digital India Fund",
-        ],
-        Articles: [
-            "Tata Capital IPO: BIG returns for World Bank Group's IFC",
-            "Tata Technologies to acquire Germany’s ES-Tec Group",
-            "Tata Capital IPO launch in October",
-        ],
-    };
 
+    import { getSlug } from "@utils/common";
     const input = document.getElementById("searchInput");
     const btn = document.getElementById("searchBtn");
     const resultsContainer = document.getElementById("resultsContainer");
 
+    const API_URL =
+        "https://api.etnownews.com/api/search?row=20&start=0&origin=desktop&channel_id=382&searchterms=";
+
     function setOpen(open) {
         resultsContainer.setAttribute("data-open", open ? "true" : "false");
         resultsContainer.setAttribute("aria-hidden", open ? "false" : "true");
+        if(!open) {
+            input.value = "";
+        }
     }
 
     function sanitizeText(s) {
-        return String(s);
+        return String(s || "");
     }
-    function renderResults(q) {
-        const term = String(q || "")
-            .trim()
-            .toLowerCase();
+
+    async function fetchSearchResults(query) {
+        try {
+            const res = await fetch(API_URL + encodeURIComponent(query));
+            const data = await res.json();
+            return data?.response || {};
+        } catch (err) {
+            console.error("Search API error:", err);
+            return {};
+        }
+    }
+
+    async function renderResults(q) {
+        const term = String(q || "").trim().toLowerCase();
         resultsContainer.innerHTML = "";
 
         if (!term) {
@@ -75,33 +66,42 @@ import style from "./Search.module.scss";
             return;
         }
 
+        const response = await fetchSearchResults(term);
         let any = false;
 
-        Object.keys(searchData).forEach((section) => {
-            const matches = searchData?.[section].filter((item) =>
-                item.toLowerCase().includes(term),
-            );
-            if (matches.length) {
-                any = true;
+        // keys we want to render from API
+        const sections = {
+            article: "Articles",
+            stocks: "Stocks/IPOs",
+            mutualfunds: "Mutual Funds",
+            video: "Videos",
+            liveblog: "Live Blogs",
+            image: "Images",
+        };
 
+        Object.keys(sections).forEach((key) => {
+            const items = response[key] || [];
+            if (items.length) {
+                any = true;
                 const sectionDiv = document.createElement("div");
                 sectionDiv.className = "results-section";
 
                 const h = document.createElement("h2");
-                h.textContent = section;
+                h.textContent = sections[key];
                 sectionDiv.appendChild(h);
 
                 const ul = document.createElement("ul");
-                matches.forEach((item) => {
+                items.slice(0, 6)
+                items.forEach((item) => {
                     const li = document.createElement("li");
                     li.className = "result-item";
                     li.tabIndex = 0;
-                    li.dataset.value = sanitizeText(item);
 
+                    // for articles/videos we have title + msid link
                     const a = document.createElement("a");
-                    a.href = "#";
-                    a.textContent = item;
-
+                    a.href = `/${item?.seopath || ""}${getSlug(item?.cmstype) ? `-${getSlug(item?.cmstype)}-` : ""}${item?.msid ? item?.msid : ""}`;
+                    a.textContent = sanitizeText(item?.title || item?.name || item?.compname || item?.S_NAME);
+                    li.dataset.value = a.textContent;   
                     li.appendChild(a);
                     ul.appendChild(li);
                 });
@@ -125,40 +125,6 @@ import style from "./Search.module.scss";
         }
     }
 
-    function renderAll() {
-        resultsContainer.innerHTML = "";
-        Object.keys(searchData).forEach((section) => {
-            const sectionDiv = document.createElement("div");
-            sectionDiv.className = "results-section";
-
-            const h = document.createElement("h3");
-            h.textContent = section;
-            sectionDiv.appendChild(h);
-
-            const ul = document.createElement("ul");
-            searchData?.[section].forEach((item) => {
-                const li = document.createElement("li");
-                li.className = "result-item";
-
-                const a = document.createElement("a");
-                a.href = "#";
-                a.textContent = item;
-
-                li.appendChild(a);
-                ul.appendChild(li);
-            });
-            sectionDiv.appendChild(ul);
-            resultsContainer.appendChild(sectionDiv);
-        });
-
-        const showAll = document.createElement("button");
-        showAll.className = "show-all";
-        showAll.type = "button";
-        showAll.textContent = "Show All Results";
-
-        resultsContainer.appendChild(showAll);
-    }
-
     function debounce(fn, wait = 160) {
         let timer;
         return (...args) => {
@@ -167,7 +133,7 @@ import style from "./Search.module.scss";
         };
     }
 
-    const onInput = debounce((e) => renderResults(e.target.value), 120);
+    const onInput = debounce((e) => renderResults(e.target.value), 500);
 
     input.addEventListener("input", onInput);
     btn.addEventListener("click", () => renderResults(input.value));
@@ -178,12 +144,12 @@ import style from "./Search.module.scss";
             const v = item.dataset.value || item.textContent;
             input.value = v;
             setOpen(false);
-            console.log("Selected:", v);
+            console.info("Selected:", v);
             return;
         }
         const foot = ev.target.closest(".show-all");
         if (foot) {
-            renderAll();
+            console.log("Show all clicked");
         }
     });
 
@@ -194,20 +160,21 @@ import style from "./Search.module.scss";
                 input.value = item.dataset.value || item.textContent;
                 setOpen(false);
                 console.log("Selected (enter):", input.value);
-            } else if (ev.target.classList.contains("show-all")) {
-                renderAll();
             }
         }
     });
+
     document.addEventListener("click", (e) => {
         if (!resultsContainer.contains(e.target) && e.target !== input) {
             setOpen(false);
+
         }
     });
-    
+
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") setOpen(false);
     });
 
     setOpen(false);
 </script>
+
