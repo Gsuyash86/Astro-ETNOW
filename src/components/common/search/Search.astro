@@ -36,25 +36,31 @@ const resultsContainerId = `resultsContainer_${instanceId}`;
   </div>
 </div>
 
-<script>
-  // Define the search functionality
-  function initializeSearch() {
-    // Get all search instances on the page
-    const searchWrappers = document.querySelectorAll("[data-instance]");
+<script define:vars={{ instanceId }}>
+  // Initialize only this specific instance
+  (function() {
+    const currentInstanceId = instanceId;
+    
+    // Check if this instance is already initialized
+    const wrapper = document.querySelector(`[data-instance="${currentInstanceId}"]`);
+    if (wrapper && wrapper.dataset.initialized) {
+      console.log(`Instance ${currentInstanceId} already initialized, skipping...`);
+      return;
+    }
 
-    searchWrappers.forEach((wrapper) => {
-      const instanceId = wrapper.getAttribute("data-instance");
-      const input = document.getElementById(`searchInput_${instanceId}`);
-      const btn = document.getElementById(`searchBtn_${instanceId}`);
-      const resultsContainer = document.getElementById(
-        `resultsContainer_${instanceId}`
-      );
+    function initializeThisInstance() {
+      const input = document.getElementById(`searchInput_${currentInstanceId}`);
+      const btn = document.getElementById(`searchBtn_${currentInstanceId}`);
+      const resultsContainer = document.getElementById(`resultsContainer_${currentInstanceId}`);
       const hamburger = document.getElementById("hamburgerMenu");
 
       if (!input || !btn || !resultsContainer) {
-        console.error(`Search elements not found for instance: ${instanceId}`);
+        console.error(`Search elements not found for instance: ${currentInstanceId}`);
         return;
       }
+
+      // Mark this instance as initialized
+      wrapper.dataset.initialized = "true";
 
       const API_URL =
         "https://api.etnownews.com/api/search?row=20&start=0&origin=desktop&channel_id=382&searchterms=";
@@ -62,8 +68,10 @@ const resultsContainerId = `resultsContainer_${instanceId}`;
       function setOpen(open) {
         resultsContainer.setAttribute("data-open", open ? "true" : "false");
         resultsContainer.setAttribute("aria-hidden", open ? "false" : "true");
-        if(instanceId == "hamburger") {
+        if(currentInstanceId === "hamburger") {
+          if (hamburger) {
             hamburger.style.display = open ? "none" : "block";
+          }
         }
         if (!open) {
           input.value = "";
@@ -87,7 +95,7 @@ const resultsContainerId = `resultsContainer_${instanceId}`;
 
       function getSlug(cmstype) {
         if (!cmstype) return "";
-        let ARTICLESLUGMAP =  {
+        let ARTICLESLUGMAP = {
           VIDEOS: "video",
           MEDIAVIDEO: "video",
           MOVIEREVIEW: "review",
@@ -103,9 +111,7 @@ const resultsContainerId = `resultsContainer_${instanceId}`;
       }
 
       async function renderResults(q) {
-        const term = String(q || "")
-          .trim()
-          .toLowerCase();
+        const term = String(q || "").trim().toLowerCase();
         resultsContainer.innerHTML = "";
 
         if (!term) {
@@ -113,9 +119,7 @@ const resultsContainerId = `resultsContainer_${instanceId}`;
           return;
         }
 
-        console.log(
-          `Fetching search results for: "${term}" (instance: ${instanceId})`
-        );
+        console.log(`[${currentInstanceId}] Fetching search results for: "${term}"`);
 
         const response = await fetchSearchResults(term);
         let any = false;
@@ -147,7 +151,6 @@ const resultsContainerId = `resultsContainer_${instanceId}`;
               li.className = "result-item";
               li.tabIndex = 0;
 
-              // for articles/videos we have title + msid link
               const a = document.createElement("a");
               a.href = `/${item?.seopath || ""}${getSlug(item?.cmstype) ? `-${getSlug(item?.cmstype)}-` : ""}${item?.msid ? item?.msid : ""}`;
               a.textContent = sanitizeText(
@@ -173,7 +176,7 @@ const resultsContainerId = `resultsContainer_${instanceId}`;
 
           setOpen(true);
         } else {
-          console.log(`No results found for: "${term}"`);
+          console.log(`[${currentInstanceId}] No results found for: "${term}"`);
           setOpen(false);
         }
       }
@@ -186,20 +189,16 @@ const resultsContainerId = `resultsContainer_${instanceId}`;
         };
       }
 
-      // Setup event listeners for this instance
+      // Setup event listeners for this specific instance only
       const onInput = debounce((e) => {
-        console.log(
-          `Input event triggered for instance: ${instanceId}, value: ${e.target.value}`
-        );
+        console.log(`[${currentInstanceId}] Input event: ${e.target.value}`);
         renderResults(e.target.value);
       }, 500);
 
       input.addEventListener("input", onInput);
 
       btn.addEventListener("click", () => {
-        console.log(
-          `Search button clicked for instance: ${instanceId}, value: ${input.value}`
-        );
+        console.log(`[${currentInstanceId}] Search button clicked: ${input.value}`);
         renderResults(input.value);
       });
 
@@ -209,12 +208,12 @@ const resultsContainerId = `resultsContainer_${instanceId}`;
           const v = item.dataset.value || item.textContent;
           input.value = v;
           setOpen(false);
-          console.info("Selected:", v);
+          console.info(`[${currentInstanceId}] Selected:`, v);
           return;
         }
         const foot = ev.target.closest(".show-all");
         if (foot) {
-          console.log("Show all clicked");
+          console.log(`[${currentInstanceId}] Show all clicked`);
         }
       });
 
@@ -224,31 +223,34 @@ const resultsContainerId = `resultsContainer_${instanceId}`;
           if (item) {
             input.value = item.dataset.value || item.textContent;
             setOpen(false);
-            console.log("Selected (enter):", input.value);
+            console.log(`[${currentInstanceId}] Selected (enter):`, input.value);
           }
         }
       });
 
-      // Only listen for clicks outside this instance
-      document.addEventListener("click", (e) => {
+      // Click outside and escape handlers - scoped to this instance
+      const clickOutsideHandler = (e) => {
         if (!resultsContainer.contains(e.target) && e.target !== input) {
           setOpen(false);
         }
-      });
+      };
 
-      document.addEventListener("keydown", (e) => {
+      const keydownHandler = (e) => {
         if (e.key === "Escape") setOpen(false);
-      });
+      };
+
+      document.addEventListener("click", clickOutsideHandler);
+      document.addEventListener("keydown", keydownHandler);
 
       setOpen(false);
+      console.log(`Search instance initialized: ${currentInstanceId}`);
+    }
 
-      console.log(`Search instance initialized: ${instanceId}`);
-    });
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initializeSearch);
-  } else {
-    initializeSearch();
-  }
+    // Initialize when DOM is ready
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initializeThisInstance);
+    } else {
+      initializeThisInstance();
+    }
+  })();
 </script>
