@@ -3,6 +3,7 @@ import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.
 import MutualFundsList from "../mutualFundList/MutualFundsList.astro";
 import ToolsAndCalculator from "../toolsAndCalculator/ToolsAndCalculator.astro";
 import TopTrendingStock from "./TopTrendingStock.astro";
+import MutualFundList from "@components/reactComponents/MutualFundList";
 const response = await fetch(
   "https://api.etnownews.com/api/get-trending-stocks-top-mutual-fund?&yearReturn=3YEARRET&perPage=5&pageNo=1"
 );
@@ -11,8 +12,13 @@ const stockData = await response.json();
 
 <ContainerBox>
   <TopTrendingStock trendingStocks={stockData?.data?.trendingStocks?.data} />
-  <MutualFundsList
+  <MutualFundList
     mFCategoriesLandingData={stockData?.data?.mutualFundRankings?.data}
+    client:load
   />
+  <!-- <MutualFundsList
+    mFCategoriesLandingData={stockData?.data?.mutualFundRankings?.data}
+  /> -->
+
   <ToolsAndCalculator />
 </ContainerBox>

@@ -1,0 +1,406 @@
+.MutualFundsList-module__filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 15px;
+  border-bottom: 0.5px solid rgba(23, 23, 37, 0.5);
+  margin-bottom: 13px;
+}
+
+.MutualFundsList-module__select {
+  flex: 1;
+  width: 200px;
+  height: 40px;
+  border: 0.5px solid rgba(23, 23, 37, 0.3);
+  background-color: rgb(255, 255, 255);
+  appearance: none;
+  color: rgb(23, 23, 37);
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0 20px 0 10px;
+  background-image: url(/assets/images/select_arrow.svg);
+  background-repeat: no-repeat;
+  background-position: 90%;
+}
+@media only screen and (max-width: 767px) {
+  .MutualFundsList-module__select {
+    width: 100%;
+  }
+}
+
+.MutualFundsList-module__load-more {
+  width: 100%;
+  text-align: center;
+}
+.Typography-module__default-paragraph {
+  font-size: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.714;
+  color: var(--textColor);
+  font-weight: normal;
+}
+.Typography-module__default-paragraph a {
+  text-decoration: none;
+  color: var(--hrefColor);
+  font-style: italic;
+}
+.Typography-module__default-paragraph ul,
+.Typography-module__default-paragraph ol {
+  margin-left: 20px;
+}
+.Typography-module__default-paragraph ul,
+.Typography-module__default-paragraph ul li,
+.Typography-module__default-paragraph ol,
+.Typography-module__default-paragraph ol li {
+  font-size: inherit;
+  color: inherit;
+  line-height: inherit;
+}
+.Typography-module__default-paragraph ul li img,
+.Typography-module__default-paragraph ol li img {
+  display: block;
+}
+.Typography-module__default-paragraph ul li amp-img,
+.Typography-module__default-paragraph ol li amp-img {
+  width: 100%;
+  display: block;
+  height: 180px;
+  object-fit: cover;
+}
+.Typography-module__default-paragraph ul li + li,
+.Typography-module__default-paragraph ol li + li {
+  margin-top: 4px;
+}
+.Typography-module__default-paragraph table {
+  display: block;
+  overflow: auto;
+  max-height: 400px;
+  outline: 1px solid var(--borderColor);
+  outline-offset: -1px;
+  width: 100% !important;
+  max-width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+  font-size: inherit;
+  word-break: normal;
+  font-family: var(--fontFamily);
+  background: transparent;
+}
+.Typography-module__default-paragraph table thead,
+.Typography-module__default-paragraph table tbody {
+  display: table;
+  width: 100%;
+}
+.Typography-module__default-paragraph table th,
+.Typography-module__default-paragraph table td {
+  border: 1px solid var(--borderColor);
+  padding: 5px;
+  font-family: var(--fontFamily);
+  white-space: normal;
+  vertical-align: inherit;
+  background: transparent;
+  font-size: inherit;
+  color: inherit;
+  line-height: inherit;
+}
+.Typography-module__default-paragraph table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  font-weight: bold;
+  position: sticky;
+  top: 0;
+  background: var(--bgWhite);
+  z-index: 1;
+}
+.Typography-module__default-paragraph table::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #f5f5f5;
+}
+.Typography-module__default-paragraph table::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+  background-color: #f5f5f5;
+  display: block;
+}
+.Typography-module__default-paragraph table::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+  background-color: var(--scrollbarColor);
+}
+.Typography-module__default-paragraph ul,
+.Typography-module__default-paragraph ol {
+  margin-bottom: 15px;
+}
+.Typography-module__default-paragraph h2,
+.Typography-module__default-paragraph h3,
+.Typography-module__default-paragraph h4,
+.Typography-module__default-paragraph h5,
+.Typography-module__default-paragraph h6 {
+  font-size: inherit;
+}
+.Typography-module__default-paragraph span {
+  -webkit-box-decoration-break: clone;
+  -o-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.Typography-module__second-font-family {
+  font-family: var(--fontFamilyTitle);
+}
+
+.Typography-module__no-line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: inherit;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.Typography-module__white {
+  color: var(--whiteColor);
+}
+
+.Typography-module__black {
+  color: var(--blackColor);
+}
+
+.Typography-module__font-weight-normal {
+  font-weight: normal;
+}
+.Typography-module__font-weight-400 {
+  font-weight: normal;
+}
+.Typography-module__font-weight-500 {
+  font-weight: 500;
+}
+.Typography-module__font-weight-600 {
+  font-weight: 600;
+}
+.Typography-module__font-weight-700 {
+  font-weight: 700;
+}
+.Typography-module__font-weight-bold {
+  font-weight: bold;
+}
+
+.Typography-module__font-size-10 {
+  font-size: 0.625rem;
+}
+.Typography-module__font-size-11 {
+  font-size: 0.6875rem;
+}
+.Typography-module__font-size-12 {
+  font-size: 0.75rem;
+}
+.Typography-module__font-size-13 {
+  font-size: 0.8125rem;
+}
+.Typography-module__font-size-14 {
+  font-size: 0.875rem;
+}
+.Typography-module__font-size-15 {
+  font-size: 0.9375rem;
+}
+.Typography-module__font-size-16 {
+  font-size: 1rem;
+}
+.Typography-module__font-size-17 {
+  font-size: 1.0625rem;
+}
+.Typography-module__font-size-18 {
+  font-size: 1.125rem;
+}
+.Typography-module__font-size-19 {
+  font-size: 1.1875rem;
+}
+.Typography-module__font-size-20 {
+  font-size: 1.25rem;
+}
+.Typography-module__font-size-22 {
+  font-size: 1.375rem;
+}
+.Typography-module__font-size-24 {
+  font-size: 1.5rem;
+}
+.Typography-module__font-size-26 {
+  font-size: 1.625rem;
+}
+.Typography-module__font-size-28 {
+  font-size: 1.75rem;
+}
+
+.Typography-module__faq-title {
+  border-left: 6px solid #b52025;
+  padding-left: 8px;
+  line-height: normal;
+}
+
+.Typography-module__tableheight table {
+  max-height: 750px;
+}
+.CommonGridBox-module__d-flex,
+.CommonGridBox-module__d-grid {
+  list-style: none;
+}
+
+.CommonGridBox-module__d-flex {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.CommonGridBox-module__d-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.CommonGridBox-module__grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.CommonGridBox-module__grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.CommonGridBox-module__grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.CommonGridBox-module__listing-with-border > a + a,
+.CommonGridBox-module__listing-with-border > a + div,
+.CommonGridBox-module__listing-with-border > div + a,
+.CommonGridBox-module__listing-with-border > div + div {
+  border-top: 1px dotted hsla(0, 0%, 71%, 0.5);
+  padding-top: 12px;
+  margin-top: 12px;
+}
+
+.CommonGridBox-module__d-flex::-webkit-scrollbar-track,
+.CommonGridBox-module__d-grid::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #f5f5f5;
+}
+.CommonGridBox-module__d-flex::-webkit-scrollbar,
+.CommonGridBox-module__d-grid::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+  background-color: #f5f5f5;
+}
+.CommonGridBox-module__d-flex::-webkit-scrollbar-thumb,
+.CommonGridBox-module__d-grid::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+  background-color: var(--scrollbarColor);
+}
+.MutualFundCard-module__box {
+  width: 100%;
+  justify-content: space-between;
+  gap: 10px;
+  border-radius: 8px;
+  background-color: rgb(255, 249, 249);
+  padding: 10px;
+  flex-direction: column;
+}
+.MutualFundCard-module__box,
+.MutualFundCard-module__box-top,
+.MutualFundCard-module__box-category {
+  display: flex;
+  align-items: center;
+}
+.MutualFundCard-module__box-top {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 2px 10px;
+}
+.MutualFundCard-module__box-top i {
+  padding: 2px;
+  border: 1px solid var(--et-borderColor);
+  border-radius: 50%;
+  overflow: hidden;
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  grid-row: 3/1;
+}
+.MutualFundCard-module__box-top i img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.MutualFundCard-module__box-category {
+  margin-left: 15px;
+  flex-wrap: wrap;
+  gap: 5px 28px;
+}
+.MutualFundCard-module__box-category li::marker {
+  padding-left: 10px;
+  color: #7c7e8c;
+}
+.MutualFundCard-module__box-bottom {
+  display: flex;
+  text-align: left;
+  border-top: 0.5px solid rgba(23, 23, 37, 0.2);
+  justify-content: space-between;
+  list-style: none;
+  padding-top: 10px;
+  gap: 10px;
+  width: 100%;
+}
+.MutualFundCard-module__box {
+  width: 100%;
+  justify-content: space-between;
+  gap: 10px;
+  border-radius: 8px;
+  background-color: rgb(255, 249, 249);
+  padding: 10px;
+  flex-direction: column;
+}
+.MutualFundCard-module__box,
+.MutualFundCard-module__box-top,
+.MutualFundCard-module__box-category {
+  display: flex;
+  align-items: center;
+}
+.MutualFundCard-module__box-top {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 2px 10px;
+}
+.MutualFundCard-module__box-top i {
+  padding: 2px;
+  border: 1px solid var(--et-borderColor);
+  border-radius: 50%;
+  overflow: hidden;
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  grid-row: 3/1;
+}
+.MutualFundCard-module__box-top i img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.MutualFundCard-module__box-category {
+  margin-left: 15px;
+  flex-wrap: wrap;
+  gap: 5px 28px;
+}
+.MutualFundCard-module__box-category li::marker {
+  padding-left: 10px;
+  color: #7c7e8c;
+}
+.MutualFundCard-module__box-bottom {
+  display: flex;
+  text-align: left;
+  border-top: 0.5px solid rgba(23, 23, 37, 0.2);
+  justify-content: space-between;
+  list-style: none;
+  padding-top: 10px;
+  gap: 10px;
+  width: 100%;
+}
