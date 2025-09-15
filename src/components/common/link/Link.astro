@@ -1,0 +1,25 @@
+---
+const {
+    link = null,
+    title = "",
+    className = "",
+    inLineStyle = {},
+} = Astro.props;
+---
+
+{
+    link ? (
+        <a
+            href={link}
+            title={title}
+            class={className}
+            style={{ ...inLineStyle }}
+        >
+            <slot />
+        </a>
+    ) : (
+        <div class={className} style={{ ...inLineStyle }}>
+            <slot />
+        </div>
+    )
+}
