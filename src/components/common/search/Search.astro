@@ -1,180 +1,254 @@
 ---
 import style from "./Search.module.scss";
+
+export interface Props {
+  isTopNavigation?: boolean;
+  instanceId?: string;
+}
+
+const { isTopNavigation = true, instanceId = "default" } = Astro.props;
+
+// Generate unique IDs for this instance
+const searchInputId = `searchInput_${instanceId}`;
+const searchBtnId = `searchBtn_${instanceId}`;
+const resultsContainerId = `resultsContainer_${instanceId}`;
 ---
 
-<div class={style.searchWrapper}>
-    <div class={style.searchBox}>
-        <input
-            id="searchInput"
-            type="text"
-            placeholder="Search Stocks/IPOs, Mutual Funds, Articles..."
-            autocomplete="off"
-            aria-label="Search"
-        />
-        <button id="searchBtn" type="button">SEARCH</button>
-    </div>
-
-    <!-- note: we add both the hashed module class and a global class so JS & CSS both work -->
-    <div
-        id="resultsContainer"
-        class={`${style.resultsContainer} results-container`}
-        data-open="false"
-        aria-hidden="true"
-    >
-    </div>
+<div class={style.searchWrapper} data-instance={instanceId}>
+  <div class={style.searchBox}>
+    <input
+      id={searchInputId}
+      type="text"
+      placeholder="Search Stocks/IPOs, Mutual Funds, Articles..."
+      autocomplete="off"
+      aria-label="Search"
+      class={isTopNavigation ? style.topNavInput : style.hamburgerInput}
+    />
+    <button id={searchBtnId} type="button">SEARCH</button>
+  </div>
+  <div
+    id={resultsContainerId}
+    class={`${style.resultsContainer} results-container ${isTopNavigation ? style.topNavResults : style.hamburgerResults}`}
+    data-open="false"
+    data-instance={instanceId}
+    aria-hidden="true"
+  >
+  </div>
 </div>
 
 <script>
+  // Define the search functionality
+  function initializeSearch() {
+    // Get all search instances on the page
+    const searchWrappers = document.querySelectorAll("[data-instance]");
 
-    import { getSlug } from "@utils/common";
-    const input = document.getElementById("searchInput");
-    const btn = document.getElementById("searchBtn");
-    const resultsContainer = document.getElementById("resultsContainer");
+    searchWrappers.forEach((wrapper) => {
+      const instanceId = wrapper.getAttribute("data-instance");
+      const input = document.getElementById(`searchInput_${instanceId}`);
+      const btn = document.getElementById(`searchBtn_${instanceId}`);
+      const resultsContainer = document.getElementById(
+        `resultsContainer_${instanceId}`
+      );
+      const hamburger = document.getElementById("hamburgerMenu");
 
-    const API_URL =
+      if (!input || !btn || !resultsContainer) {
+        console.error(`Search elements not found for instance: ${instanceId}`);
+        return;
+      }
+
+      const API_URL =
         "https://api.etnownews.com/api/search?row=20&start=0&origin=desktop&channel_id=382&searchterms=";
 
-    function setOpen(open) {
+      function setOpen(open) {
         resultsContainer.setAttribute("data-open", open ? "true" : "false");
         resultsContainer.setAttribute("aria-hidden", open ? "false" : "true");
-        if(!open) {
-            input.value = "";
+        if(instanceId == "hamburger") {
+            hamburger.style.display = open ? "none" : "block";
         }
-    }
+        if (!open) {
+          input.value = "";
+        }
+      }
 
-    function sanitizeText(s) {
+      function sanitizeText(s) {
         return String(s || "");
-    }
+      }
 
-    async function fetchSearchResults(query) {
+      async function fetchSearchResults(query) {
         try {
-            const res = await fetch(API_URL + encodeURIComponent(query));
-            const data = await res.json();
-            return data?.response || {};
+          const res = await fetch(API_URL + encodeURIComponent(query));
+          const data = await res.json();
+          return data?.response || {};
         } catch (err) {
-            console.error("Search API error:", err);
-            return {};
+          console.error("Search API error:", err);
+          return {};
         }
-    }
+      }
 
-    async function renderResults(q) {
-        const term = String(q || "").trim().toLowerCase();
+      function getSlug(cmstype) {
+        if (!cmstype) return "";
+        let ARTICLESLUGMAP =  {
+          VIDEOS: "video",
+          MEDIAVIDEO: "video",
+          MOVIEREVIEW: "review",
+          ARTICLE: "article",
+          LIVEBLOG: "liveblog",
+          PHOTOGALLERYSLIDESHOWSECTION: "photo-gallery",
+          IMAGES: "photostory",
+          PHOTOGALLERYLISTSECTION: "photostory",
+          MEDIAAUDIO: "audio",
+          SHORTMEDIAVIDEO: "reels",
+        };
+        return ARTICLESLUGMAP[cmstype] || "";
+      }
+
+      async function renderResults(q) {
+        const term = String(q || "")
+          .trim()
+          .toLowerCase();
         resultsContainer.innerHTML = "";
 
         if (!term) {
-            setOpen(false);
-            return;
+          setOpen(false);
+          return;
         }
+
+        console.log(
+          `Fetching search results for: "${term}" (instance: ${instanceId})`
+        );
 
         const response = await fetchSearchResults(term);
         let any = false;
 
         // keys we want to render from API
         const sections = {
-            article: "Articles",
-            stocks: "Stocks/IPOs",
-            mutualfunds: "Mutual Funds",
-            video: "Videos",
-            liveblog: "Live Blogs",
-            image: "Images",
+          stocks: "Stocks/IPOs",
+          mutualfunds: "Mutual Funds",
+          article: "Articles",
+          video: "Videos",
+          liveblog: "Live Blogs",
+          image: "Images",
         };
 
         Object.keys(sections).forEach((key) => {
-            const items = response[key] || [];
-            if (items.length) {
-                any = true;
-                const sectionDiv = document.createElement("div");
-                sectionDiv.className = "results-section";
+          const items = response[key] || [];
+          if (items.length) {
+            any = true;
+            const sectionDiv = document.createElement("div");
+            sectionDiv.className = "results-section";
 
-                const h = document.createElement("h2");
-                h.textContent = sections[key];
-                sectionDiv.appendChild(h);
+            const h = document.createElement("h2");
+            h.textContent = sections[key];
+            sectionDiv.appendChild(h);
 
-                const ul = document.createElement("ul");
-                items.slice(0, 6)
-                items.forEach((item) => {
-                    const li = document.createElement("li");
-                    li.className = "result-item";
-                    li.tabIndex = 0;
+            const ul = document.createElement("ul");
+            items.slice(0, 6).forEach((item) => {
+              const li = document.createElement("li");
+              li.className = "result-item";
+              li.tabIndex = 0;
 
-                    // for articles/videos we have title + msid link
-                    const a = document.createElement("a");
-                    a.href = `/${item?.seopath || ""}${getSlug(item?.cmstype) ? `-${getSlug(item?.cmstype)}-` : ""}${item?.msid ? item?.msid : ""}`;
-                    a.textContent = sanitizeText(item?.title || item?.name || item?.compname || item?.S_NAME);
-                    li.dataset.value = a.textContent;   
-                    li.appendChild(a);
-                    ul.appendChild(li);
-                });
+              // for articles/videos we have title + msid link
+              const a = document.createElement("a");
+              a.href = `/${item?.seopath || ""}${getSlug(item?.cmstype) ? `-${getSlug(item?.cmstype)}-` : ""}${item?.msid ? item?.msid : ""}`;
+              a.textContent = sanitizeText(
+                item?.title || item?.name || item?.compname || item?.S_NAME
+              );
+              li.dataset.value = a.textContent;
+              li.appendChild(a);
+              ul.appendChild(li);
+            });
 
-                sectionDiv.appendChild(ul);
-                resultsContainer.appendChild(sectionDiv);
-            }
+            sectionDiv.appendChild(ul);
+            resultsContainer.appendChild(sectionDiv);
+          }
         });
 
         if (any) {
-            const footer = document.createElement("a");
-            footer.className = "show-all";
-            footer.tabIndex = 0;
-            footer.href = "#";
-            footer.textContent = "Show all result";
-            resultsContainer.appendChild(footer);
+          const footer = document.createElement("a");
+          footer.className = "show-all";
+          footer.tabIndex = 0;
+          footer.href = "#";
+          footer.textContent = "Show all result";
+          resultsContainer.appendChild(footer);
 
-            setOpen(true);
+          setOpen(true);
         } else {
-            setOpen(false);
+          console.log(`No results found for: "${term}"`);
+          setOpen(false);
         }
-    }
+      }
 
-    function debounce(fn, wait = 160) {
+      function debounce(fn, wait = 160) {
         let timer;
         return (...args) => {
-            clearTimeout(timer);
-            timer = setTimeout(() => fn(...args), wait);
+          clearTimeout(timer);
+          timer = setTimeout(() => fn(...args), wait);
         };
-    }
+      }
 
-    const onInput = debounce((e) => renderResults(e.target.value), 500);
+      // Setup event listeners for this instance
+      const onInput = debounce((e) => {
+        console.log(
+          `Input event triggered for instance: ${instanceId}, value: ${e.target.value}`
+        );
+        renderResults(e.target.value);
+      }, 500);
 
-    input.addEventListener("input", onInput);
-    btn.addEventListener("click", () => renderResults(input.value));
+      input.addEventListener("input", onInput);
 
-    resultsContainer.addEventListener("click", (ev) => {
+      btn.addEventListener("click", () => {
+        console.log(
+          `Search button clicked for instance: ${instanceId}, value: ${input.value}`
+        );
+        renderResults(input.value);
+      });
+
+      resultsContainer.addEventListener("click", (ev) => {
         const item = ev.target.closest(".result-item");
         if (item) {
-            const v = item.dataset.value || item.textContent;
-            input.value = v;
-            setOpen(false);
-            console.info("Selected:", v);
-            return;
+          const v = item.dataset.value || item.textContent;
+          input.value = v;
+          setOpen(false);
+          console.info("Selected:", v);
+          return;
         }
         const foot = ev.target.closest(".show-all");
         if (foot) {
-            console.log("Show all clicked");
+          console.log("Show all clicked");
         }
-    });
+      });
 
-    resultsContainer.addEventListener("keydown", (ev) => {
+      resultsContainer.addEventListener("keydown", (ev) => {
         if (ev.key === "Enter") {
-            const item = ev.target.closest(".result-item");
-            if (item) {
-                input.value = item.dataset.value || item.textContent;
-                setOpen(false);
-                console.log("Selected (enter):", input.value);
-            }
-        }
-    });
-
-    document.addEventListener("click", (e) => {
-        if (!resultsContainer.contains(e.target) && e.target !== input) {
+          const item = ev.target.closest(".result-item");
+          if (item) {
+            input.value = item.dataset.value || item.textContent;
             setOpen(false);
-
+            console.log("Selected (enter):", input.value);
+          }
         }
-    });
+      });
 
-    document.addEventListener("keydown", (e) => {
+      // Only listen for clicks outside this instance
+      document.addEventListener("click", (e) => {
+        if (!resultsContainer.contains(e.target) && e.target !== input) {
+          setOpen(false);
+        }
+      });
+
+      document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") setOpen(false);
+      });
+
+      setOpen(false);
+
+      console.log(`Search instance initialized: ${instanceId}`);
     });
+  }
 
-    setOpen(false);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeSearch);
+  } else {
+    initializeSearch();
+  }
 </script>
-
