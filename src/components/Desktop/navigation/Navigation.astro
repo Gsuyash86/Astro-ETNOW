@@ -166,10 +166,8 @@ const {
     const wrapper = document.getElementById("hamburgerWrapper");
 
     if (!toggleBtn || !dropdown || !openIcon || !closeIcon || !wrapper) return;
-
     const navDisabledClass = wrapper.dataset.navDisabledClass;
     let isOpen = false;
-
     function openDropdown() {
       if (isOpen) return;
       isOpen = true;
@@ -178,7 +176,6 @@ const {
       closeIcon.style.display = "inline-block";
       wrapper.classList.add(navDisabledClass);
     }
-
     function closeDropdown() {
       if (!isOpen) return;
       isOpen = false;
@@ -187,16 +184,27 @@ const {
       closeIcon.style.display = "none";
       wrapper.classList.remove(navDisabledClass);
     }
-
-    // Open dropdown on mouse enter
-    toggleBtn.addEventListener("mouseenter", openDropdown);
-
-    // Close dropdown on mouse leave from wrapper (to cover dropdown area too)
-    wrapper.addEventListener("mouseleave", closeDropdown);
-
     // Optional: prevent any clicks from toggling menu
     toggleBtn.addEventListener("click", (e) => {
-      e.preventDefault();
+      if (!isOpen) {
+        openDropdown();
+      } else {
+        closeDropdown();
+      }
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!wrapper.contains(e.target) && e.target !== toggleBtn) {
+        closeDropdown();
+      }
+    });
+
+    wrapper.addEventListener("mouseleave", () => {
+      closeDropdown();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeDropdown();
     });
   });
 </script>

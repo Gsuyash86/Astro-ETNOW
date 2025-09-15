@@ -62,16 +62,13 @@ import style from "./Search.module.scss";
     }
 
     function sanitizeText(s) {
-        // minimal sanitization for inserted text nodes
         return String(s);
     }
-
-    // Build the results DOM using plain (global) class names the client can create
     function renderResults(q) {
         const term = String(q || "")
             .trim()
             .toLowerCase();
-        resultsContainer.innerHTML = ""; // clear old nodes
+        resultsContainer.innerHTML = "";
 
         if (!term) {
             setOpen(false);
@@ -81,7 +78,7 @@ import style from "./Search.module.scss";
         let any = false;
 
         Object.keys(searchData).forEach((section) => {
-            const matches = searchData[section].filter((item) =>
+            const matches = searchData?.[section].filter((item) =>
                 item.toLowerCase().includes(term),
             );
             if (matches.length) {
@@ -98,11 +95,11 @@ import style from "./Search.module.scss";
                 matches.forEach((item) => {
                     const li = document.createElement("li");
                     li.className = "result-item";
-                    li.tabIndex = 0; // make focusable
+                    li.tabIndex = 0;
                     li.dataset.value = sanitizeText(item);
 
                     const a = document.createElement("a");
-                    a.href = "#"; // replace later with real link
+                    a.href = "#";
                     a.textContent = item;
 
                     li.appendChild(a);
@@ -115,11 +112,10 @@ import style from "./Search.module.scss";
         });
 
         if (any) {
-            // footer "Show all result" as <a> tag now
             const footer = document.createElement("a");
             footer.className = "show-all";
             footer.tabIndex = 0;
-            footer.href = "#"; // replace later with actual URL
+            footer.href = "#";
             footer.textContent = "Show all result";
             resultsContainer.appendChild(footer);
 
@@ -140,12 +136,12 @@ import style from "./Search.module.scss";
             sectionDiv.appendChild(h);
 
             const ul = document.createElement("ul");
-            searchData[section].forEach((item) => {
+            searchData?.[section].forEach((item) => {
                 const li = document.createElement("li");
                 li.className = "result-item";
 
                 const a = document.createElement("a");
-                a.href = "#"; // replace later with real link
+                a.href = "#";
                 a.textContent = item;
 
                 li.appendChild(a);
@@ -155,7 +151,6 @@ import style from "./Search.module.scss";
             resultsContainer.appendChild(sectionDiv);
         });
 
-        // Show All Results as <button> tag now
         const showAll = document.createElement("button");
         showAll.className = "show-all";
         showAll.type = "button";
@@ -164,7 +159,6 @@ import style from "./Search.module.scss";
         resultsContainer.appendChild(showAll);
     }
 
-    // Debounce helper
     function debounce(fn, wait = 160) {
         let timer;
         return (...args) => {
@@ -178,14 +172,12 @@ import style from "./Search.module.scss";
     input.addEventListener("input", onInput);
     btn.addEventListener("click", () => renderResults(input.value));
 
-    // Click handlers for result items and footer
     resultsContainer.addEventListener("click", (ev) => {
         const item = ev.target.closest(".result-item");
         if (item) {
             const v = item.dataset.value || item.textContent;
             input.value = v;
             setOpen(false);
-            // TODO: perform navigation or callback here if needed
             console.log("Selected:", v);
             return;
         }
@@ -195,7 +187,6 @@ import style from "./Search.module.scss";
         }
     });
 
-    // keyboard: Enter on focused result or footer
     resultsContainer.addEventListener("keydown", (ev) => {
         if (ev.key === "Enter") {
             const item = ev.target.closest(".result-item");
@@ -208,32 +199,15 @@ import style from "./Search.module.scss";
             }
         }
     });
-
-    // close if clicked outside
     document.addEventListener("click", (e) => {
-        if (
-            !document.querySelector(
-                "." + /* hashed wrapper is used for layout only */ "",
-            ) &&
-            !e.target.closest('[id="resultsContainer"], #searchInput')
-        ) {
-            // fallback - but use a safe containment check:
-            const root =
-                document
-                    .querySelector('[id="resultsContainer"]')
-                    ?.closest?.('[class^="') || null;
-        }
-        // simpler: if click outside resultsContainer and not the input -> close
         if (!resultsContainer.contains(e.target) && e.target !== input) {
             setOpen(false);
         }
     });
-
-    // close on Esc
+    
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") setOpen(false);
     });
 
-    // initial closed
     setOpen(false);
 </script>
