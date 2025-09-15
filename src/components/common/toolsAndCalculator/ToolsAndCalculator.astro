@@ -70,7 +70,7 @@ const dataList = [
     {
       dataList?.map((item) => (
         <Link
-          href={item?.href}
+          link={item?.href}
           inLineStyle={{
             backgroundColor: `rgba(${item?.backgroundColor}, 0.8)`,
             boxShadow: "0 4px 11px 0 rgba(0, 0, 0, 0.15)",
@@ -120,6 +120,15 @@ const dataList = [
   </CommonGridBox>
 
   <div class={`${style["load-more"]}`}>
-    <a href="/tools-calculators"> Show more </a>
+    <Link
+      link="/tools-calculators"
+      inLineStyle={{
+        width: "145px",
+        height: "39px",
+        padding: "0px",
+      }}
+    >
+      Show more
+    </Link>
   </div>
 </div>

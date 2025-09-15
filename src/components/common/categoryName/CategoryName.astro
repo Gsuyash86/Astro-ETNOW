@@ -1,4 +1,5 @@
 ---
+import Link from "../link/Link.astro";
 import style from "./CategoryName.module.scss";
 import Typography from "@components/common/widgets/typography/Typography.astro";
 const {
@@ -12,7 +13,7 @@ const {
 
 {
   categoryName && (
-    <a class={style.category} href={"/" + redirectToUrl || ""}>
+    <Link class={style.category} link={"/" + redirectToUrl || ""}>
       <Typography
         tag={"p"}
         text={categoryName}
@@ -21,6 +22,6 @@ const {
         isConditionalRendering={true}
         inLineStyle={inLineStyle}
       />
-    </a>
+    </Link>
   )
 }

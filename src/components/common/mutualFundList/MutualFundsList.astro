@@ -55,7 +55,7 @@ const {
     >
       {
         mFCategoriesLandingData?.map((item) => (
-          <Link href={`/${item?.seopath}`}>
+          <Link link={`/${item?.seopath}`}>
             <MutualFundCard
               iconConfig={{
                 iconUrl: item?.AMC_CODE,
@@ -99,6 +99,15 @@ const {
     </CommonGridBox>
   </div>
   <div class={`${style["load-more"]}`}>
-    <a href="/mutual-funds/mutual-fund-performance"> Show more </a>
+    <Link
+      link="/mutual-funds/mutual-fund-performance"
+      inLineStyle={{
+        width: "145px",
+        height: "39px",
+        padding: "0px",
+      }}
+    >
+      Show more
+    </Link>
   </div>
 </div>
