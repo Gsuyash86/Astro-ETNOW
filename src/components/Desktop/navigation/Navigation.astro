@@ -152,7 +152,7 @@ const {
     </li>
   </ul>
   <MegaDropDownBox id="hamburgerDropdownMenu" inLineStyle={{ display: "none" }}>
-    <Search />
+    <Search isTopNavigation = {false} instanceId="hamburger"/>
     <Hamburger />
   </MegaDropDownBox>
 </div>
@@ -164,6 +164,8 @@ const {
     const openIcon = document.getElementById("hamburgerIcon");
     const closeIcon = document.getElementById("hamburgerCloseIcon");
     const wrapper = document.getElementById("hamburgerWrapper");
+    const searchResult = document.getElementById('resultsContainer_hamburger');
+    const hamburger = document.getElementById('hamburgerMenu');
 
     if (!toggleBtn || !dropdown || !openIcon || !closeIcon || !wrapper) return;
     const navDisabledClass = wrapper.dataset.navDisabledClass;

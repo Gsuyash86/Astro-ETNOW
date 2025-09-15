@@ -11,7 +11,11 @@ const { data } = Astro.props;
 <div class={`${style["box"]}`}>
   <ContainerBox>
     <h3>Recommended News</h3>
-    <CustomSlideBox gridGap={32} changeStyle={"width-100-50"} marginBottom={0}>
+    <CustomSlideBox
+      gridGap={32}
+      changeStyle={`${data?.length > 1 ? "width-100-50" : "singleItem"}`}
+      marginBottom={0}
+    >
       {
         data?.map((item, index) => {
           if (item.cmstype.toUpperCase() === "SECTION") return null;

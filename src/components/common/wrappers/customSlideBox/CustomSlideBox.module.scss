@@ -1,5 +1,3 @@
-@import '../../../../styles/mixins-new';
-
 @mixin child-width($width, $value, $element) {
   @if $width=='fixed' {
     .overflow {
@@ -132,6 +130,10 @@
 
 .width-100-70 {
   @include child-width('', 70, '*');
+}
+
+.width-100-50 {
+  @include child-width('', 50, '*');
 }
 
 .width-100-30 {
