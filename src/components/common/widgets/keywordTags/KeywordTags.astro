@@ -1,0 +1,46 @@
+---
+import Link from "@components/common/link/Link.astro";
+import style from "./KeywordTags.module.scss";
+const { data, isArticleShow = false } = Astro.props;
+
+if (!data?.keywords) {
+  return "";
+}
+let keytags = data?.keywords.filter((item) => item.type && item.type);
+const checkSpecialCharacter = (value) => {
+  const format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+  if (format.test(value)) {
+    return true;
+  } else {
+    return false;
+  }
+};
+---
+
+{
+  keytags && (
+    <div
+      class={`${style["keyTags"]} ${data.keywords.length === 2 ? style["pl-15"] : ""} ${isArticleShow ? style["article-padding"] : ""}`}
+    >
+      <div class={style["keyTagsStyle"]}>
+        {keytags &&
+          keytags.length > 0 &&
+          keytags.slice(0, 5).map((items) => {
+            return !checkSpecialCharacter(items?.name) && items?.keywordseo ? (
+              <Link
+                class={style["anchor"]}
+                key={items.id}
+                to={`${import.meta.env.WEBAPP_BASE_URL}/topic/${items.keywordseo.toLowerCase()}`}
+              >
+                <div
+                  class={`anchor keytag ${style["f-s-14"]} ${style["anchor"]} ${style["mb-5"]} ${style["keytag"]} `}
+                >
+                  {items?.name}
+                </div>
+              </Link>
+            ) : null;
+          })}
+      </div>
+    </div>
+  )
+}

@@ -4,6 +4,7 @@ import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.
 import CustomSlideBox from "@components/common/wrappers/customSlideBox/CustomSlideBox.astro";
 import HorizontalCard from "../horizontalCard/HorizontalCard.astro";
 import { getNewImageUrl } from "src/utils/common";
+import Link from "../link/Link.astro";
 const fetchTime = (item) => new Date(item.updatedate).toLocaleTimeString();
 const { data } = Astro.props;
 ---
@@ -23,8 +24,8 @@ const { data } = Astro.props;
             item.cmstype === "MEDIAVIDEO" && item.media && fetchTime(item);
 
           return (
-            <a
-              href={item?.seopath}
+            <Link
+              link={item?.seopath}
               title={item.msid}
               class={style["list-items"]}
             >
@@ -58,7 +59,7 @@ const { data } = Astro.props;
                   tag: "p",
                 }}
               />
-            </a>
+            </Link>
           );
         })
       }

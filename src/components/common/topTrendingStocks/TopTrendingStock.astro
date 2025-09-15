@@ -2,6 +2,7 @@
 import style from "./TopTrendingStock.module.scss";
 import CommonGridBox from "@components/common/wrappers/commonGridBox/CommonGridBox.astro";
 import LogoCardList from "../LogoCardList/LogoCardList.astro";
+import Link from "../link/Link.astro";
 const { changeStyle = "", inLineStyle = {}, trendingStocks } = Astro.props;
 ---
 
@@ -60,6 +61,15 @@ const { changeStyle = "", inLineStyle = {}, trendingStocks } = Astro.props;
     </CommonGridBox>
   </div>
   <div class={`${style["load-more"]}`}>
-    <a href="/stocks"> Show more </a>
+    <Link
+      link="/stocks"
+      inLineStyle={{
+        width: "145px",
+        height: "39px",
+        padding: "0px",
+      }}
+    >
+      Show more
+    </Link>
   </div>
 </div>
