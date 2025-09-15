@@ -13,7 +13,6 @@ const { index, mainData, premium = false, updatedate } = Astro.props;
         <Typography
           tag="span"
           text={"Premium"}
-          isConditionalRendering={true}
           changeStyle={"font-size-16"}
           fontWeight={"700"}
           isLineClamp={false}
@@ -29,7 +28,6 @@ const { index, mainData, premium = false, updatedate } = Astro.props;
         <Typography
           tag="span"
           text={" Updated "}
-          isConditionalRendering={true}
           changeStyle={"font-size-12"}
           isLineClamp={false}
           isWhiteLayout={false}
@@ -41,7 +39,6 @@ const { index, mainData, premium = false, updatedate } = Astro.props;
       <Typography
         tag="h1"
         text={mainData.title}
-        isConditionalRendering={true}
         changeStyle={"font-size-24"}
         fontWeight={"700"}
         isLineClamp={false}
@@ -61,7 +58,6 @@ const { index, mainData, premium = false, updatedate } = Astro.props;
         <Typography
           tag="h1"
           text={mainData.title}
-          isConditionalRendering={true}
           changeStyle={"font-size-26"}
           isLineClamp={false}
           isWhiteLayout={false}
@@ -75,7 +71,6 @@ const { index, mainData, premium = false, updatedate } = Astro.props;
         <Typography
           tag="h4"
           text={mainData.title}
-          isConditionalRendering={true}
           changeStyle={"font-size-18"}
           fontWeight={"700"}
           isLineClamp={false}

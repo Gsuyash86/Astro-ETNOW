@@ -38,7 +38,7 @@ if (assetType) {
       />
     </i>
 
-    <Typography {...companyConfig} isConditionalRendering={true} />
+    <Typography {...companyConfig} />
 
     <ul class={`${style["box-category"]}`}>
       {
@@ -47,7 +47,6 @@ if (assetType) {
             <Typography
               {...categoryConfig}
               text={cat}
-              isConditionalRendering={true}
             />
           </li>
         ))
@@ -68,7 +67,6 @@ if (assetType) {
           color: "#878787",
           marginBottom: "4px",
         }}
-        isConditionalRendering={true}
       />
       <Typography
         tag="p"
@@ -77,7 +75,6 @@ if (assetType) {
         fontWeight="500"
         isLineClamp={true}
         inLineStyle={{ lineHeight: "1.2", color: "#26232C" }}
-        isConditionalRendering={true}
       />
     </li>
     <li>
@@ -92,7 +89,6 @@ if (assetType) {
           color: "#878787",
           marginBottom: "4px",
         }}
-        isConditionalRendering={true}
       />
       <StockPriceMovement
         changeStyle={returns?.changeStyle}
@@ -122,7 +118,6 @@ if (assetType) {
           color: "#878787",
           marginBottom: "4px",
         }}
-        isConditionalRendering={true}
       />
       <Typography
         tag="p"
@@ -131,7 +126,6 @@ if (assetType) {
         fontWeight="500"
         isLineClamp={true}
         inLineStyle={{ lineHeight: "1.2", color: "#26232C" }}
-        isConditionalRendering={true}
       />
     </li>
   </ul>
