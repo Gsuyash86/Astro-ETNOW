@@ -42,7 +42,7 @@ const ga4Script = `${ga4TagScript(customDimension?.GA4CustomDimensions, serverCo
 
   <script id="ga4Script" set:html={ga4Script} defer async is:inline/>
   
-  <script id="apstagScript">
+  <script>
       import apstagScript from "../scripts/apstag.js"
       {apstagScript}
   </script>
