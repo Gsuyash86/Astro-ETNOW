@@ -4,7 +4,6 @@ import Typography from "@components/common/widgets/typography/Typography.astro";
 import CommonGridBox from "@components/common/wrappers/commonGridBox/CommonGridBox.astro";
 import MutualFundCard from "../mutualFundCard/MutualFundCard.astro";
 import Link from "../link/Link.astro";
-import MutualFundList from "@components/reactComponents/MutualFundList";
 const {
   changeStyle = "",
   inLineStyle = {},
@@ -52,7 +51,49 @@ const {
       changeStyle={""}
       inLineStyle={{ marginBottom: "0px", gap: "24px" }}
     >
-      <MutualFundList mFCategoriesLandingData={mFCategoriesLandingData} />
+      {
+        mFCategoriesLandingData?.map((item) => (
+          <Link link={`/${item?.seopath}`}>
+            <MutualFundCard
+              iconConfig={{
+                iconUrl: item?.AMC_CODE,
+              }}
+              companyConfig={{
+                tag: "p",
+                text: item?.S_NAME,
+                changeStyle: "font-size-16",
+                fontWeight: "500",
+                isLineClamp: true,
+                inLineStyle: {
+                  lineHeight: "1.375",
+                  color: "#000000",
+                },
+              }}
+              categoryConfig={{
+                tag: "p",
+                text: item?.mutualFundDetailsResponse?.category || "-",
+                changeStyle: "font-size-14",
+                fontWeight: "500",
+                isLineClamp: true,
+                inLineStyle: {
+                  lineHeight: "1.2",
+                  color: "#7C7E8C",
+                },
+              }}
+              aum={item?.totalAUM}
+              nav={item?.navRs}
+              returns={{
+                value:
+                  typeof item?.Return === "number"
+                    ? item.Return.toFixed(2)
+                    : "--" + "%",
+                isUp: item?.Return > 0,
+              }}
+              assetType={item?.mutualFundDetailsResponse?.assetType}
+            />
+          </Link>
+        ))
+      }
     </CommonGridBox>
   </div>
   <div class={`${style["load-more"]}`}>

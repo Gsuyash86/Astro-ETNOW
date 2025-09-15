@@ -13,13 +13,13 @@ const { data } = Astro.props;
 <div class={`${style["box"]}`}>
   <ContainerBox>
     <TitleComponent
-        titleType={'h3'}
-        moreButtonLink={'/mobile'}
-        titleText={'Recommended News'}
-        isWhiteLayout={false}
-        arrowConfig={{ size: '', color: '' }}
-        marginBottom={4}
-      />
+      titleType={"h3"}
+      moreButtonLink={"/mobile"}
+      titleText={"Recommended News"}
+      isWhiteLayout={false}
+      arrowConfig={{ size: "", color: "" }}
+      marginBottom={4}
+    />
     <CustomSlideBox
       gridGap={32}
       changeStyle={`${data?.length > 1 ? "width-100-50" : "singleItem"}`}
@@ -32,15 +32,15 @@ const { data } = Astro.props;
             item.cmstype === "MEDIAVIDEO" && item.media && fetchTime(item);
 
           return (
-            <Link
-              link={item?.seopath}
-              title={item.msid}
-              class={style["list-items"]}
-            >
+            <li class={style["list-items"]}>
               <HorizontalCard
                 data={item}
                 isWhiteLayout={false}
                 isRowReverse={false}
+                getUrlConfig={{
+                  to: item?.seopath,
+                  title: item?.title,
+                }}
                 imageConfig={{
                   style: "width-110x62",
                   inLineStyle: {},
@@ -66,7 +66,7 @@ const { data } = Astro.props;
                   tag: "p",
                 }}
               />
-            </Link>
+            </li>
           );
         })
       }

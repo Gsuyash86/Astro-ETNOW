@@ -60,11 +60,9 @@ const ICON_STORY_LENGTH = 64;
       )}
 
       <Link
-        to={getUrlConfig?.to}
-        onClick={getUrlConfig?.onClick}
+        link={getUrlConfig?.to}
         title={getUrlConfig?.title}
         class={styles['link-wrap']}
-        isNoLink={!getUrlConfig?.to}
       >
         {titleConfig?.text?.length > 0 && (
           <Typography
@@ -118,11 +116,9 @@ const ICON_STORY_LENGTH = 64;
 
     {isImage && (
       <Link
-        to={getUrlConfig?.to}
-        onClick={getUrlConfig?.onClick}
+        link={getUrlConfig?.to}
         title={getUrlConfig?.title}
         class={styles['link-para-wrap']}
-        isNoLink={!getUrlConfig?.to}
       >
         <ImageWithIcon
           data={data}
@@ -141,11 +137,9 @@ const ICON_STORY_LENGTH = 64;
   </figure>
 ) : (
   <Link
-    to={getUrlConfig?.to}
-    onClick={getUrlConfig?.onClick}
+    link={getUrlConfig?.to}
     title={getUrlConfig?.title}
     class={styles['link-wrap']}
-    isNoLink={!getUrlConfig?.to}
   >
     <figure
       class={`${styles.figure} ${changeStyle ? styles[changeStyle] : ''} ${isRowReverse ? styles['row-reverse'] : ''}`}
