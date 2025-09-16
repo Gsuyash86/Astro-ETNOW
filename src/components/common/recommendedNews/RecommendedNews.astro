@@ -8,6 +8,7 @@ import Link from "../link/Link.astro";
 import TitleComponent from "@components/common/titleComponent/TitleComponent.astro";
 const fetchTime = (item) => new Date(item.updatedate).toLocaleTimeString();
 const { data } = Astro.props;
+if (!data?.length) return null;
 ---
 
 <div class={`${style["box"]}`}>

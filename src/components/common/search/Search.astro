@@ -38,24 +38,29 @@ const resultsContainerId = `resultsContainer_${instanceId}`;
 
 <script define:vars={{ instanceId }}>
   // Initialize only this specific instance
-  (function() {
+  (function () {
     const currentInstanceId = instanceId;
-    
+
     // Check if this instance is already initialized
-    const wrapper = document.querySelector(`[data-instance="${currentInstanceId}"]`);
+    const wrapper = document.querySelector(
+      `[data-instance="${currentInstanceId}"]`
+    );
     if (wrapper && wrapper.dataset.initialized) {
-      console.log(`Instance ${currentInstanceId} already initialized, skipping...`);
       return;
     }
 
     function initializeThisInstance() {
       const input = document.getElementById(`searchInput_${currentInstanceId}`);
       const btn = document.getElementById(`searchBtn_${currentInstanceId}`);
-      const resultsContainer = document.getElementById(`resultsContainer_${currentInstanceId}`);
+      const resultsContainer = document.getElementById(
+        `resultsContainer_${currentInstanceId}`
+      );
       const hamburger = document.getElementById("hamburgerMenu");
 
       if (!input || !btn || !resultsContainer) {
-        console.error(`Search elements not found for instance: ${currentInstanceId}`);
+        console.error(
+          `Search elements not found for instance: ${currentInstanceId}`
+        );
         return;
       }
 
@@ -68,7 +73,7 @@ const resultsContainerId = `resultsContainer_${instanceId}`;
       function setOpen(open) {
         resultsContainer.setAttribute("data-open", open ? "true" : "false");
         resultsContainer.setAttribute("aria-hidden", open ? "false" : "true");
-        if(currentInstanceId === "hamburger") {
+        if (currentInstanceId === "hamburger") {
           if (hamburger) {
             hamburger.style.display = open ? "none" : "block";
           }
@@ -111,15 +116,15 @@ const resultsContainerId = `resultsContainer_${instanceId}`;
       }
 
       async function renderResults(q) {
-        const term = String(q || "").trim().toLowerCase();
+        const term = String(q || "")
+          .trim()
+          .toLowerCase();
         resultsContainer.innerHTML = "";
 
         if (!term) {
           setOpen(false);
           return;
         }
-
-        console.log(`[${currentInstanceId}] Fetching search results for: "${term}"`);
 
         const response = await fetchSearchResults(term);
         let any = false;
@@ -176,7 +181,6 @@ const resultsContainerId = `resultsContainer_${instanceId}`;
 
           setOpen(true);
         } else {
-          console.log(`[${currentInstanceId}] No results found for: "${term}"`);
           setOpen(false);
         }
       }
@@ -191,14 +195,12 @@ const resultsContainerId = `resultsContainer_${instanceId}`;
 
       // Setup event listeners for this specific instance only
       const onInput = debounce((e) => {
-        console.log(`[${currentInstanceId}] Input event: ${e.target.value}`);
         renderResults(e.target.value);
       }, 500);
 
       input.addEventListener("input", onInput);
 
       btn.addEventListener("click", () => {
-        console.log(`[${currentInstanceId}] Search button clicked: ${input.value}`);
         renderResults(input.value);
       });
 
@@ -208,13 +210,9 @@ const resultsContainerId = `resultsContainer_${instanceId}`;
           const v = item.dataset.value || item.textContent;
           input.value = v;
           setOpen(false);
-          console.info(`[${currentInstanceId}] Selected:`, v);
           return;
         }
         const foot = ev.target.closest(".show-all");
-        if (foot) {
-          console.log(`[${currentInstanceId}] Show all clicked`);
-        }
       });
 
       resultsContainer.addEventListener("keydown", (ev) => {
@@ -223,7 +221,6 @@ const resultsContainerId = `resultsContainer_${instanceId}`;
           if (item) {
             input.value = item.dataset.value || item.textContent;
             setOpen(false);
-            console.log(`[${currentInstanceId}] Selected (enter):`, input.value);
           }
         }
       });
@@ -243,7 +240,6 @@ const resultsContainerId = `resultsContainer_${instanceId}`;
       document.addEventListener("keydown", keydownHandler);
 
       setOpen(false);
-      console.log(`Search instance initialized: ${currentInstanceId}`);
     }
 
     // Initialize when DOM is ready
