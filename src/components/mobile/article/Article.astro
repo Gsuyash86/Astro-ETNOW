@@ -67,7 +67,7 @@ const mainData = app?.response?.sections?.article_show?.data?.[0];
 }
 
 <Synopsis text={mainData.synopsis} inLineStyle={{ marginBottom: "34px" }} />
-<AdCaller {...app?.response?.ads?.atf} />
+<AdCaller {...app?.response?.ads?.atf} atf={true} />
 <KeyHighlight summary={mainData?.summary} />
 <CoverVDOAndImg
   data={mainData?.cmsassoc || []}

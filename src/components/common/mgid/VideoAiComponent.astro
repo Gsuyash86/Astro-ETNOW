@@ -1,13 +1,16 @@
 <div id="v-etnownews-v3"></div>
 
-<script>
-  (function (v, d, o, ai) {
-    ai = d.createElement("script");
-    ai.src = v.location.protocol + o;
-    d.head.appendChild(ai);
-  })(window, document, `//a.vdo.ai/core/v-etnownews-v3/vdo.ai.js`);
-
-  document.addEventListener("astro:before-preparation", () => {
-    console.log("Remove vdo ai");
-  });
+<script is:inline>
+  function loadVdoAi() {
+    if (document.getElementById("vdoai-script")) return; // prevent duplicate
+    const ai = document.createElement("script");
+    ai.id = "vdoai-script";
+    ai.src = window.location.protocol + "//a.vdo.ai/core/v-etnownews-v3/vdo.ai.js";
+    document.head.appendChild(ai);
+  }
+  const onScroll = () => {
+    loadVdoAi();
+    window.removeEventListener("scroll", onScroll);
+  };
+  window.addEventListener("scroll", onScroll, { once: true });
 </script>
