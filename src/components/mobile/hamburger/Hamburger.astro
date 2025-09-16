@@ -1,0 +1,42 @@
+---
+import Typography from "@components/common/widgets/typography/Typography.astro";
+import Link from "@components/common/link/Link.astro";
+import SvgIcon from "@components/common/svg/SvgIcon.astro";
+import style from "./Hamburger.module.scss";
+const {
+    hamburgerOpenId = "",
+    hamburgerCloseId = "",
+    inLineStyle = {},
+} = Astro.props;
+---
+
+<div class={style["box"]} id={hamburgerOpenId} style={{ ...inLineStyle }}>
+    <div class={style["box-header"]}>
+        <button id={hamburgerCloseId}>
+            <SvgIcon IconName={"CloseIconBig"} width={26} height={16} />
+        </button>
+        <Link link={""} className={style["live-tv"]}>
+            <SvgIcon
+                IconName={"livetvNewIcon"}
+                width={26}
+                height={16}
+                inLineStyle={{ marginTop: "-2px" }}
+            />
+            <Typography
+                tag={"span"}
+                text={"Live TV"}
+                changeStyle={"font-size-12"}
+                fontWeight={"400"}
+                isLineClamp={false}
+                isWhiteLayout={false}
+                inLineStyle={{
+                    WebkitLineClamp: "1",
+                    lineHeight: "20px",
+                    color: "#ffffff",
+                }}
+            />
+        </Link>
+    </div>
+
+    <div class={style["box-body"]}>Body goes here</div>
+</div>

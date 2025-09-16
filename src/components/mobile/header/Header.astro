@@ -4,6 +4,7 @@ import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.
 import Link from "@components/common/link/Link.astro";
 import SvgIcon from "@components/common/svg/SvgIcon.astro";
 import Navigation from "@components/mobile/navigation/Navigation.astro";
+import Hamburger from "@components/mobile/hamburger/Hamburger.astro";
 ---
 
 <header class={`${style["header"]}`}>
@@ -49,19 +50,12 @@ import Navigation from "@components/mobile/navigation/Navigation.astro";
                 </button>
             </div>
         </div>
-        <div id="mobileHamburgerPopup" style={{ display: "none" }}>
-            <div>
-                Something 
-            </div>
-            <button class={`${style["header-close"]}`}>
-                <SvgIcon
-                    id="mobileHamburgerCloseIcon"
-                    IconName={"CloseIconBig"}
-                    width={24}
-                    height={24}
-                />
-            </button>
-        </div>
+
+        <Hamburger
+            hamburgerOpenId="mobileHamburgerPopup"
+            hamburgerCloseId="mobileHamburgerCloseIcon"
+        />
+        
     </ContainerBox>
     <Navigation />
 </header>
@@ -81,13 +75,13 @@ import Navigation from "@components/mobile/navigation/Navigation.astro";
 
         if(hamburgerButton) {
             hamburgerButton.addEventListener("click", function() {
-                document.getElementById("mobileHamburgerPopup").style.display = "block";
+                document.getElementById("mobileHamburgerPopup").style.left = "0";
             });
         }
         const closeHamburgerButton = document.getElementById("mobileHamburgerCloseIcon");
         if(closeHamburgerButton) {
             closeHamburgerButton.addEventListener("click", function() {
-                document.getElementById("mobileHamburgerPopup").style.display = "none";
+                document.getElementById("mobileHamburgerPopup").style.left = "-100%";
             });
         }
     });
