@@ -1,17 +1,18 @@
 ---
+import style from "./SocialWidgets.module.scss";
 const { data } = Astro.props;
 const htmlText = data.text;
 if (!htmlText) return null;
 ---
 
-<div class={`_z_subblogs mb-5`}>
-  <div class={`_z_subblog_data`} data-embed-type={data.type}>
-    <span class={`_z_subblog_dot dot-none`}></span>
-    <p class={`_z_subblog_title f-s-14 mb-5`}>
+<div class={`${style['_z_subblogs mb-5']}`}>
+  <div class={`${style['_z_subblog_data']}`} data-embed-type={data.type}>
+    <span class={`${style['_z_subblog_dot']} ${style['dot-none']}`}></span>
+    <p class={`${style['_z_subblog_title']} ${style['f-s-14']} ${style['mb-5']}`}>
       {data && data.title && data.title}
     </p>
-    <div class="_z_media_embed">
-      <div class="fb-embded" set:html={htmlText} />
+    <div class={style['_z_media_embed']}>
+      <div class={style['fb-embded']} set:html={htmlText} />
     </div>
   </div>
 </div>

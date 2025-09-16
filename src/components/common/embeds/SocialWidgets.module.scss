@@ -1,0 +1,100 @@
+._z_subblog_wrap {
+  width: 100%;
+}
+.p-l-r-15 {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.mb-5 {
+    margin-bottom: 0;
+  }
+  
+  ._z_subblogs {
+    margin-bottom: 0px;
+  
+    ._z_subblog_data {
+      width: 100%;
+      position: relative;
+  
+      ._z_subblog_title {
+        font-size: 0.882rem;
+        margin-bottom: 10px;
+        font-weight: bold;
+        line-height: 1.5;
+        &:empty {
+          display: none;
+        }
+      }
+  
+      ._z_subblog_description {
+        line-height: 1.5;
+        font-weight: 500;
+        word-break: break-word;
+      }
+    }
+  }
+  .f-s-14 {
+    font-size: 0.874rem;
+  }
+  ._z_subblog_dot {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--white-color);
+    overflow: hidden;
+    border: 1px solid var(--blog-color);
+    border-radius: 50%;
+    bottom: 0px;
+    left: -5px;
+    z-index: 1;
+  
+    &:before {
+      content: '';
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      overflow: hidden;
+      background: var(--blog-color);
+      border-radius: 50%;
+      top: 2px;
+      left: 2px;
+    }
+  }
+  .dot-none {
+    display: none;
+  }
+  .fb-embded {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .reddit-Embed {
+      padding-left: 0;
+    }
+    
+    .fb-embded {
+      overflow-x: hidden;
+      max-width: 100%;
+      display: block;
+    
+      iframe {
+        position: relative;
+      }
+    
+      iframe,
+      amp-facebook {
+        width: 100%;
+      }
+    
+      amp-reddit {
+        height: 440px;
+      }
+    
+      amp-instagram {
+        border: 1px solid rgb(219, 219, 219);
+      }
+    }
+  }

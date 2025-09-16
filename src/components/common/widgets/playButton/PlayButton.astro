@@ -1,16 +1,16 @@
 ---
 import style from './PlayButton.module.scss';
+import SvgIcon from '@components/common/svg/SvgIcon.astro';
 
 const {
   layoutStyle = '',
-  time = ''
+  time = '',
 } = Astro.props;
-
-const wrapperClass = `${style.duration} ${layoutStyle && style[layoutStyle] ? style[layoutStyle] : ''}`;
-const iconClass = time ? style['play-icon'] : style['play-icon-9'];
 ---
 
-<i class={wrapperClass}>
-  <i class={iconClass}></i>
-  {time}
-</i>
+<>
+  <SvgIcon IconName="video-player" />
+  <i class={`${style['duration']} ${layoutStyle ? style[layoutStyle] : ''}`}>
+    {time}
+  </i>
+</>
