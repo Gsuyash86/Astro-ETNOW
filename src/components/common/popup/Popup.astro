@@ -68,12 +68,14 @@ const closeBtnId = `popupClose_${instanceId}`;
 
     if (open) {
       document.body.appendChild(popup);
+      document.body.style.overflow = "hidden"; 
     } else {
       if (nextSibling) {
         originalParent.insertBefore(popup, nextSibling);
       } else {
         originalParent.appendChild(popup);
       }
+      document.body.style.overflow = "auto"; 
     }
   }
 
