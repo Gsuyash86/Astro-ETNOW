@@ -76,7 +76,11 @@ const ga4Script = `${ga4TagScript(customDimension?.GA4CustomDimensions, serverCo
 <body>
   {
     isMobileView === "true" ? (
-      <MobileLayout category={pageTarget.category} msid={pageTarget.id} />
+      <MobileLayout
+        app={app}
+        category={pageTarget.category}
+        msid={pageTarget.id}
+      />
     ) : (
       <DesktopLayout
         ads={_get(app, "response.ads", {})}
