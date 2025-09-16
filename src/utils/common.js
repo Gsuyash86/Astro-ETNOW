@@ -1,5 +1,9 @@
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 import CONST from "../constant/index";
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export const getCustomDimensionsSSR = (app, navigation, seoData) => {
   let custom_dimension = null;
@@ -314,4 +318,17 @@ export const displayTime = (timestamp) => {
   }:${seconds < 10 ? "0" + seconds : seconds}`;
 
   return time;
+};
+
+export const getUrl = (item) => {
+  return (
+    item?.overridelink ||
+    `${import.meta.env.WEBAPP_BASE_URL}/${item?.seopath}-${getSlug(
+      item?.cmstype
+    )}-${item?.msid}`
+  );
+};
+
+export const formatDate = (date, format) => {
+  return dayjs.tz(Number(date), "Asia/Calcutta").format(format);
 };

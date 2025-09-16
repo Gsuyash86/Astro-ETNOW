@@ -2,6 +2,7 @@
 import style from "./AuthorDetailMobile.module.scss";
 import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.astro";
 import Typography from "@components/common/widgets/typography/Typography.astro";
+import { formatDate } from "src/utils/common";
 const {
   changeStyle = "",
   inLineStyle = {},
@@ -9,6 +10,7 @@ const {
   updatedate,
   byline,
 } = Astro.props;
+
 const formattedText = Object.entries(byline)
   .map(([key, arr]) => {
     const names = arr
@@ -47,7 +49,7 @@ const formattedText = Object.entries(byline)
       updatedate && (
         <Typography
           tag="p"
-          text={"Updated "}
+          text={"Updated" + formatDate(updatedate, "MMM D, YYYY HH:mm [IST]")}
           changeStyle={"font-size-12"}
           isLineClamp={false}
           isWhiteLayout={false}

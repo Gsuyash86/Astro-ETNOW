@@ -16,11 +16,11 @@ const MutualFundList = ({ mFCategoriesLandingData }) => {
   };
 
   return (
-    <div class="">
+    <div className="">
       <h3>Mutual Funds</h3>
-      <div class="filter ">
+      <div className="filter ">
         <p
-          class="font-size-14  black  font-weight-400  default-paragraph "
+          className="font-size-14  black  font-weight-400  default-paragraph "
           style={{
             lineHeight: "1.2",
             color: "#878787",
@@ -29,32 +29,32 @@ const MutualFundList = ({ mFCategoriesLandingData }) => {
         >
           Return period
         </p>
-        <select class="select " onChange={handleChange} name="mf-dropdown">
+        <select className="select " onChange={handleChange} name="mf-dropdown">
           <option value="1">1Y</option>
           <option value="3">3Y</option>
           <option value="5">5Y</option>
         </select>
       </div>
       <p
-        class="font-size-12  black  font-weight-400  default-paragraph "
+        className="font-size-12  black  font-weight-400  default-paragraph "
         style={{ lineHeight: "1.2", color: "#68656B", marginBottom: "16px" }}
       >
         List of Best Funds in India sorted by Returns
       </p>
-      <div class="undefined">
+      <div className="undefined">
         <div
-          class="CommonGridBox-module__d-grid  undefined"
+          className="CommonGridBox-module__d-grid  undefined"
           style={{ marginBottom: "0px", gap: "24px" }}
         >
           {data?.map((item) => (
             <a
               href="/mutual-funds/mirae-asset-nyse-fang-etf-fof-g-direct-plan-mutual-fund-45497"
               title=""
-              class=""
+              className=""
               key={item.SCHEMECODE}
             >
-              <div class="box ">
-                <div class="box-top ">
+              <div className="box ">
+                <div className="box-top ">
                   <i>
                     <img
                       src={`https://times-network.s3.ap-southeast-1.amazonaws.com/et-now-stocks/MF+house+logos/${item?.AMC_CODE}.png`}
@@ -62,15 +62,15 @@ const MutualFundList = ({ mFCategoriesLandingData }) => {
                     />
                   </i>
                   <p
-                    class="font-size-16  black  font-weight-500  default-paragraph "
+                    className="font-size-16  black  font-weight-500  default-paragraph "
                     style={{ lineHeight: "1.375", color: "#000000" }}
                   >
                     {item?.S_NAME}
                   </p>
-                  <ul class="box-category ">
+                  <ul className="box-category ">
                     <li>
                       <p
-                        class="font-size-14  black  font-weight-500  default-paragraph "
+                        className="font-size-14  black  font-weight-500  default-paragraph "
                         style={{ lineHeight: "1.2", color: "#7C7E8C" }}
                       >
                         {item?.mutualFundDetailsResponse?.assetType}
@@ -78,7 +78,7 @@ const MutualFundList = ({ mFCategoriesLandingData }) => {
                     </li>
                     <li>
                       <p
-                        class="font-size-14  black  font-weight-500  default-paragraph "
+                        className="font-size-14  black  font-weight-500  default-paragraph "
                         style={{ lineHeight: "1.2", color: "#7C7E8C" }}
                       >
                         {item?.mutualFundDetailsResponse?.category}
@@ -86,10 +86,10 @@ const MutualFundList = ({ mFCategoriesLandingData }) => {
                     </li>
                   </ul>
                 </div>
-                <ul class="box-bottom ">
+                <ul className="box-bottom ">
                   <li>
                     <p
-                      class="font-size-12  black  font-weight-400  default-paragraph "
+                      className="font-size-12  black  font-weight-400  default-paragraph "
                       style={{
                         lineHeight: "1.2",
                         color: "#878787",
@@ -99,7 +99,7 @@ const MutualFundList = ({ mFCategoriesLandingData }) => {
                       AUM
                     </p>
                     <p
-                      class="font-size-14  black  font-weight-500  default-paragraph "
+                      className="font-size-14  black  font-weight-500  default-paragraph "
                       style={{ lineHeight: "1.2", color: "#26232C" }}
                     >
                       {item?.totalAUM}
@@ -107,7 +107,7 @@ const MutualFundList = ({ mFCategoriesLandingData }) => {
                   </li>
                   <li>
                     <p
-                      class="font-size-12  black  font-weight-400  default-paragraph "
+                      className="font-size-12  black  font-weight-400  default-paragraph "
                       style={{
                         lineHeight: "1.2",
                         color: "#878787",
@@ -116,9 +116,9 @@ const MutualFundList = ({ mFCategoriesLandingData }) => {
                     >
                       Returns (p.a)
                     </p>
-                    <div class="default  up ">
+                    <div className="default  up ">
                       <p
-                        class="font-size-14  black  font-weight-700  default-paragraph "
+                        className="font-size-14  black  font-weight-700  default-paragraph "
                         style={{ color: "inherit" }}
                       >
                         {Number(item.Return).toFixed(2)} %
@@ -127,7 +127,7 @@ const MutualFundList = ({ mFCategoriesLandingData }) => {
                   </li>
                   <li>
                     <p
-                      class="font-size-12  black  font-weight-400  default-paragraph "
+                      className="font-size-12  black  font-weight-400  default-paragraph "
                       style={{
                         lineHeight: "1.2",
                         color: "#878787",
@@ -137,7 +137,7 @@ const MutualFundList = ({ mFCategoriesLandingData }) => {
                       NAV
                     </p>
                     <p
-                      class="font-size-14  black  font-weight-500  default-paragraph "
+                      className="font-size-14  black  font-weight-500  default-paragraph "
                       style={{ lineHeight: "1.2", color: "#26232C" }}
                     >
                       {item?.navRs}
@@ -149,11 +149,11 @@ const MutualFundList = ({ mFCategoriesLandingData }) => {
           ))}
         </div>
       </div>
-      <div class="load-more ">
+      <div className="load-more ">
         <a
           href="/mutual-funds/mutual-fund-performance"
           title=""
-          class=""
+          className=""
           style={{ width: "145px", height: "39px", padding: "0px" }}
         >
           Show more

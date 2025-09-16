@@ -2,7 +2,7 @@
 import style from "./LatestNews.module.scss";
 import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.astro";
 import HorizontalCard from "@components/common/widgets/horizontalCard/HorizontalCard.astro";
-import { getNewImageUrl } from "src/utils/common";
+import { getNewImageUrl, getUrl } from "src/utils/common";
 import Link from "../link/Link.astro";
 import TitleComponent from "@components/common/titleComponent/TitleComponent.astro";
 import CommonGridBox from "@components/common/wrappers/commonGridBox/CommonGridBox.astro";
@@ -11,7 +11,6 @@ const { data } = Astro.props;
 ---
 
 <ContainerBox>
-
   <TitleComponent
     type={"h2"}
     moreButtonLink={"/"}
@@ -43,7 +42,7 @@ const { data } = Astro.props;
               isRowReverse={true}
               isImage={false}
               getUrlConfig={{
-                to: item?.seopath,
+                to: getUrl(item),
                 title: item?.title,
               }}
               titleConfig={{

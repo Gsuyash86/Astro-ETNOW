@@ -2,16 +2,16 @@
 import style from "./RelatedNews.module.scss";
 import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.astro";
 import HorizontalCard from "@components/common/widgets/horizontalCard/HorizontalCard.astro";
-import { getNewImageUrl } from "src/utils/common";
+import { getNewImageUrl, getUrl } from "src/utils/common";
 import Link from "../link/Link.astro";
 import TitleComponent from "@components/common/titleComponent/TitleComponent.astro";
 import CommonGridBox from "@components/common/wrappers/commonGridBox/CommonGridBox.astro";
 const fetchTime = (item) => new Date(item.updatedate).toLocaleTimeString();
 const { data } = Astro.props;
+if (!data?.length) return null;
 ---
 
 <ContainerBox>
-  
   <TitleComponent
     type={"h2"}
     moreButtonLink={"/"}
@@ -23,7 +23,7 @@ const { data } = Astro.props;
     changeStyle={"left-red-border"}
     inLineParentStyle={{ marginBottom: "11px" }}
   />
-  
+
   <CommonGridBox
     gridType="ulGridBox"
     changeStyle={"listing-with-border"}
@@ -42,7 +42,7 @@ const { data } = Astro.props;
               isWhiteLayout={false}
               isRowReverse={true}
               getUrlConfig={{
-                to: item?.seopath,
+                to: getUrl(item),
                 title: item?.title,
               }}
               imageConfig={{
