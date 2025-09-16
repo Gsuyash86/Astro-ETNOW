@@ -5,7 +5,7 @@ import TitleComponent from "@components/common/titleComponent/TitleComponent.ast
 import CustomSlideBox from "@components/common/wrappers/customSlideBox/CustomSlideBox.astro";
 import VerticalCard from "@components/common/widgets/verticalCard/VerticalCard.astro";
 
-import { getNewImageUrl } from "src/utils/common"; // adjust paths as needed
+import { displayTime, getNewImageUrl } from "src/utils/common"; // adjust paths as needed
 
 const {
   componentData,
@@ -21,7 +21,8 @@ const {
 
 const data = componentData?.children || [];
 
-const fetchTime = (item) => new Date(item.updatedate).toLocaleTimeString();
+const fetchTime = (item) =>
+  item?.durationms ? displayTime(item.durationms) : null;
 ---
 
 <BgBoxWrapper changeStyle={changeBoxStyle} inLineStyle={inLineBoxStyle}>
