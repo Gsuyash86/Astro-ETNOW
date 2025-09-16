@@ -1,0 +1,101 @@
+---
+import style from "./Navigation.module.scss";
+import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.astro";
+import CustomSlideBox from "@components/common/wrappers/customSlideBox/CustomSlideBox.astro";
+import Link from "@components/common/link/Link.astro";
+import Typography from "@components/common/widgets/typography/Typography.astro";
+
+// Sample navItems array
+const navItems = [
+    {
+        label: "Smart Nivesh",
+        seopath:
+            "https://www.timesnownews.com/initiatives/smart-nivesh-sahi-nivesh",
+    },
+    {
+        label: "Latest",
+        seopath: "https://www.etnownews.com/latest-news",
+    },
+    {
+        label: "Market Overview",
+        seopath: "https://www.etnownews.com/market-overview",
+    },
+    {
+        label: "News",
+        seopath: "https://www.etnownews.com/news",
+    },
+    {
+        label: "Mutual Funds",
+        seopath: "https://www.etnownews.com/mutual-funds",
+    },
+    {
+        label: "Corporates",
+        seopath: "https://www.etnownews.com/companies",
+    },
+    {
+        label: "Money",
+        seopath: "https://www.etnownews.com/personal-finance",
+    },
+    {
+        label: "Crypto Now",
+        seopath: "https://www.etnownews.com/cryptocurrency",
+    },
+    {
+        label: "Economy",
+        seopath: "https://www.etnownews.com/economy",
+    },
+    {
+        label: "Luxe",
+        seopath: "https://www.etnownews.com/et-now-luxe",
+    },
+    {
+        label: "Sports",
+        seopath: "https://www.etnownews.com/sports",
+    },
+];
+---
+
+<nav class={`${style["nav"]}`}>
+    <ContainerBox>
+        <CustomSlideBox
+            elementType="ulBox"
+            gridGap={16}
+            changeStyle=""
+            marginTop={0}
+            marginBottom={0}
+            inLineStyle={{paddingTop: '8px', paddingBottom: '8px'}}
+        >
+            <li>
+                <Link
+                    link={""}
+                    className={`${style["nav-link"]} ${style["nav-mutual-fund"]}`}
+                >
+                    <img
+                        src="https://static.tnn.in/photo/msid-118213542/118213542.jpg"
+                        alt="Mutual Fund Sahi Hai"
+                    />
+                </Link>
+            </li>
+            {
+                navItems.map((item) => (
+                    <li>
+                        <Link
+                            link={item.seopath}
+                            className={`${style["nav-link"]} ${style["nav-active"]}`}
+                        >
+                            <Typography
+                                tag="span"
+                                text={item.label}
+                                changeStyle="font-size-14"
+                                fontWeight="400"
+                                isLineClamp={false}
+                                isWhiteLayout={false}
+                                inLineStyle={{ WebkitLineClamp: "1" }}
+                            />
+                        </Link>
+                    </li>
+                ))
+            }
+        </CustomSlideBox>
+    </ContainerBox>
+</nav>
