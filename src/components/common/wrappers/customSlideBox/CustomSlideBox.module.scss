@@ -148,6 +148,10 @@
   @include child-width('', 200, '*');
 }
 
+.width-100-120 {
+  @include child-width('', 120, '*');
+}
+
 .singleItem {
   .overflow {
 

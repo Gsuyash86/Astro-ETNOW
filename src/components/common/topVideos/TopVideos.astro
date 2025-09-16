@@ -1,0 +1,139 @@
+---
+import style from "./TopVideos.module.scss";
+import BgBoxWrapper from "@components/common/wrappers/bgBoxWrapper/BgBoxWrapper.astro";
+import TitleComponent from "@components/common/titleComponent/TitleComponent.astro";
+import CustomSlideBox from "@components/common/wrappers/customSlideBox/CustomSlideBox.astro";
+import VerticalCard from "@components/common/widgets/verticalCard/VerticalCard.astro";
+
+import { getNewImageUrl } from "src/utils/common"; // adjust paths as needed
+
+const {
+  componentData,
+  isWhiteLayout = true,
+  changeBoxStyle = "black-layout",
+  inLineBoxStyle = {
+    padding: "16px",
+    marginBottom: "15px",
+    position: "relative",
+    overflow: "hidden",
+  },
+} = Astro.props;
+
+const data = componentData?.children || [];
+
+const fetchTime = (item) => new Date(item.updatedate).toLocaleTimeString();
+---
+
+<BgBoxWrapper changeStyle={changeBoxStyle} inLineStyle={inLineBoxStyle}>
+  <TitleComponent
+    type="h2"
+    moreButtonLink="/videos"
+    moreButtonText="Top News"
+    fontSize="font-size-18"
+    fontWeight="700"
+    isSeprator={false}
+    isDefaultFontFamily={true}
+    isWhiteLayout={true}
+    changeStyle=""
+    inLineStyle={{ textTransform: "uppercase" }}
+    inLineParentStyle={{ marginBottom: "16px" }}
+  />
+
+  {
+    data[0] && (
+      <div class={style["list-items"]}>
+        <VerticalCard
+          data={data[0]}
+          isConditionalRendering={true}
+          isShowCaptionOnImage={false}
+          isWebStory={false}
+          isWhiteLayout={isWhiteLayout}
+          getUrlConfig={{
+            to: data[0]?.seopath,
+            title: data[0]?.title,
+          }}
+          imageConfig={{
+            style: "",
+            iconStyle: "image-icon",
+            inLineStyle: {},
+            imagePath: getNewImageUrl({
+              msid: data[0].msid,
+              imgSize: data[0].thumbSize || "",
+              imgWidth: data[0].imageWidth || 480,
+              imgHeight: data[0].imageHeight || 269,
+              isArticleBanner: false,
+              updatedAt: data[0].updatedate || "",
+            }),
+            imgWidth: data[0].imageWidth || 480,
+            imgHeight: data[0].imageHeight || 269,
+            time:
+              data[0].cmstype === "MEDIAVIDEO" && data[0].media
+                ? fetchTime(data[0].media)
+                : "",
+          }}
+          paraConfig={{
+            style: "font-size-14",
+            text: data[0].title || "",
+            inLineStyle: { WebkitLineClamp: "3" },
+            tag: "p",
+          }}
+        />
+      </div>
+    )
+  }
+
+  <CustomSlideBox
+    elementType="ulBox"
+    gridGap={16}
+    changeStyle="width-100-120"
+    marginTop={20}
+    marginBottom={0}
+  >
+    {
+      data.slice(1).map((item) => {
+        if (item?.cmstype?.toUpperCase() === "SECTION") return null;
+
+        return (
+          <li class={style["list-items"]}>
+            <VerticalCard
+              data={item}
+              isConditionalRendering={true}
+              isShowCaptionOnImage={false}
+              isWebStory={false}
+              isWhiteLayout={isWhiteLayout}
+              getUrlConfig={{
+                to: item?.seopath,
+                title: item?.title,
+              }}
+              imageConfig={{
+                style: "",
+                iconStyle: "image-icon",
+                inLineStyle: {},
+                imagePath: getNewImageUrl({
+                  msid: item.msid,
+                  imgSize: item.thumbSize || "",
+                  imgWidth: item.imageWidth || 480,
+                  imgHeight: item.imageHeight || 269,
+                  isArticleBanner: false,
+                  updatedAt: item.updatedate || "",
+                }),
+                imgWidth: item.imageWidth || 480,
+                imgHeight: item.imageHeight || 269,
+                time:
+                  item.cmstype === "MEDIAVIDEO" && item.media
+                    ? fetchTime(item.media)
+                    : "",
+              }}
+              paraConfig={{
+                style: "font-size-14",
+                text: item.title || "",
+                inLineStyle: { WebkitLineClamp: "3" },
+                tag: "p",
+              }}
+            />
+          </li>
+        );
+      })
+    }
+  </CustomSlideBox>
+</BgBoxWrapper>

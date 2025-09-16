@@ -27,13 +27,11 @@
 }
 
 .listing-with-border {
-  > a,
-  > div {
-    + a,
-    + div {
+  > * {
+    + * {
       border-top: 1px dotted hsla(0, 0%, 71%, 0.5);
-      padding-top: 12px;
-      margin-top: 12px;
+      padding-top: 8px;
+      margin-top: 8px;
     }
   }
 }

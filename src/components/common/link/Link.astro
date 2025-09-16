@@ -1,25 +1,28 @@
 ---
 const {
-    link = null,
-    title = "",
-    className = "",
-    inLineStyle = {},
+  link = null,
+  title = "",
+  className = "",
+  inLineStyle = {},
+  target = ""
 } = Astro.props;
 ---
 
 {
-    link ? (
-        <a
-            href={link}
-            title={title}
-            class={className}
-            style={{ ...inLineStyle }}
-        >
-            <slot />
-        </a>
-    ) : (
-        <div class={className} style={{ ...inLineStyle }}>
-            <slot />
-        </div>
-    )
+  link ? (
+    <a
+      href={link}
+      title={title}
+      class={className}
+      style={inLineStyle}
+      target={target || undefined}
+      rel={target === '_blank' ? 'noopener noreferrer' : undefined}
+    >
+      <slot />
+    </a>
+  ) : (
+    <div class={className} style={inLineStyle}>
+      <slot />
+    </div>
+  )
 }

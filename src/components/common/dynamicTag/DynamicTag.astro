@@ -1,7 +1,7 @@
 ---
 import { decodeHtml } from "@utils/common";
 
-const {
+let {
   tag: Tag = "h2",
   style,
   changeStyle = "",
@@ -11,22 +11,28 @@ const {
   isWhiteLayout = false,
   onClick = null,
   isLeftRedBorder = false,
+  isSplitType=false
 } = Astro.props;
 
 const baseClass = `${style['default-title']} ${changeStyle && style[changeStyle]} ${
   isWhiteLayout ? style['white'] : style['black']
 } ${isLeftRedBorder ? style['left-red-border'] : ''}`;
+
+const splitType = isSplitType ? titleText?.split(" ")?.pop() : titleText;
+titleText = titleText?.replace(splitType, '')?.trim();
+
 ---
 {moreButtonLink ? (
-  <a href={moreButtonLink} class={style['inline-block']} onClick={onClick}>
+  <a href={moreButtonLink} class={style['inline-block']} onclick={onClick}>
     <Tag class={baseClass}>
       {decodeHtml(titleText)}
+     {isSplitType && <span style={{fontStyle:"italic"}}>{` ${decodeHtml(splitType)}`}</span>}
       <slot />
     </Tag>
   </a>
 ) : (
   <Tag class={baseClass}>
     {decodeHtml(titleText)}
-    <slot />
+    {isSplitType && <span style={{fontStyle:"italic"}}>{` ${decodeHtml(splitType)}`}</span>}
   </Tag>
 )}

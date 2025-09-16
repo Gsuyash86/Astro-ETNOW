@@ -55,6 +55,16 @@ if (isProd) {
     preprocessorOptions: {
       scss: {
         outputStyle: "compressed",
+        additionalData: `@use "src/styles/_mixins-new.scss" as *;`,
+      },
+    },
+  };
+}else {
+  config.vite.css = {
+    preprocessorOptions: {
+      scss: {
+        outputStyle: "compressed",
+        additionalData: `@use "src/styles/_mixins-new.scss" as *;`,
       },
     },
   };
