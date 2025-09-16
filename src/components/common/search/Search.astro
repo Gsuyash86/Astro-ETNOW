@@ -6,7 +6,7 @@ export interface Props {
   instanceId?: string;
 }
 
-const { isTopNavigation = true, instanceId = "default" } = Astro.props;
+const { isTopNavigation = true, instanceId = "default", inLineStyle = {} } = Astro.props;
 
 // Generate unique IDs for this instance
 const searchInputId = `searchInput_${instanceId}`;
@@ -14,7 +14,7 @@ const searchBtnId = `searchBtn_${instanceId}`;
 const resultsContainerId = `resultsContainer_${instanceId}`;
 ---
 
-<div class={style.searchWrapper} data-instance={instanceId}>
+<div class={style.searchWrapper} data-instance={instanceId} style={{...inLineStyle}}>
   <div class={style.searchBox}>
     <input
       id={searchInputId}

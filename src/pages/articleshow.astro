@@ -13,7 +13,13 @@ const app = await articleData.json();
 ---
 
 <MainLayout app={app} />
-<Popup instanceId="mobileSearchPopup">
-    <Search instanceId="mobile"/>
+<Popup 
+    instanceId="mobileSearchPopup"
+    changeStyle={"top-to-bottom-slide"}
+    isPopupSlideUp={false}
+    isCloseButton={false}
+    inLineStyle={{padding: '0'}}
+>
+    <Search instanceId="mobile" inLineStyle={{padding: '20px'}}/>
 </Popup>
 
