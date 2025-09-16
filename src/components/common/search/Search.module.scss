@@ -35,6 +35,14 @@
     }
 }
 
+.mobile-search {
+    .searchBox {
+        box-shadow: none;
+        border-radius: 8px;
+        border: 1px solid #d4d4d4;
+    }
+}
+
 /* Global dropdown classes (client creates these) */
 :global(.results-container) {
     background: #fff;
@@ -55,8 +63,7 @@
 
 /* section header styling to match screenshot */
 :global(.results-section) {
-    padding: 12px 0;
-    border-bottom: 1px solid #f3f3f3;
+    padding: 12px 0 0 0;
 }
 
 :global(.results-section h2) {

@@ -10,6 +10,7 @@ export interface Props {
 const {
   isTopNavigation = true,
   instanceId = "default",
+  changeStyle = '',
   inLineStyle = {},
 } = Astro.props;
 
@@ -20,7 +21,7 @@ const resultsContainerId = `resultsContainer_${instanceId}`;
 ---
 
 <div
-  class={style.searchWrapper}
+  class={changeStyle && style[changeStyle]}
   data-instance={instanceId}
   style={{ ...inLineStyle }}
 >

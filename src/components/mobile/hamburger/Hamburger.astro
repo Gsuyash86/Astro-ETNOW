@@ -3,6 +3,7 @@ import Typography from "@components/common/widgets/typography/Typography.astro";
 import Link from "@components/common/link/Link.astro";
 import SvgIcon from "@components/common/svg/SvgIcon.astro";
 import style from "./Hamburger.module.scss";
+import Search from "@components/common/search/Search.astro";
 const {
     hamburgerOpenId = "",
     hamburgerCloseId = "",
@@ -37,6 +38,14 @@ const {
             />
         </Link>
     </div>
-
-    <div class={style["box-body"]}>Body goes here</div>
+    <div class={style["box-body"]}>
+        <Search
+            instanceId="hamburger"
+            changeStyle="mobile-search"
+            inLineStyle={{
+                padding: "0px 15px 10px 15px",
+                boxShadow: "none",
+            }}
+        />
+    </div>
 </div>
