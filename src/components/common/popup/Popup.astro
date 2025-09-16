@@ -1,0 +1,33 @@
+---
+import style from "./Popup.module.scss";
+
+const {
+  changeStyle = "",
+  ChangePopbody = "",
+  inLineStyle = {},
+  isDarkLayout = false,
+  isCloseButton = true,
+  isPopupSlideUp = true,
+  onClose,
+} = Astro.props;
+---
+
+<div className={`${style["popup-overlay"]} ${changeStyle ? style[changeStyle] : ""}`}>
+  <div
+    className={`${style["popup-content"]} ${
+      isPopupSlideUp ? style["slide-up"] : style["slide-down"]
+    }`}
+    style={inLineStyle}
+  >
+    {isCloseButton ? (
+      <button className={`${style["close-button"]}`} onClick={onClose}>
+        ×
+      </button>
+    ) : (
+      ""
+    )}
+    <div className={`${style["popup-body"]} ${ChangePopbody ? style[ChangePopbody] : ""}`}>
+      <slot />
+    </div>
+  </div>
+</div>
