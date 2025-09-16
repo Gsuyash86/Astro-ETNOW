@@ -3,6 +3,7 @@ import style from "./TopTrendingStock.module.scss";
 import CommonGridBox from "@components/common/wrappers/commonGridBox/CommonGridBox.astro";
 import LogoCardList from "../LogoCardList/LogoCardList.astro";
 import Link from "../link/Link.astro";
+import { getDomain } from "@utils/common";
 const { changeStyle = "", inLineStyle = {}, trendingStocks } = Astro.props;
 ---
 
@@ -19,7 +20,7 @@ const { changeStyle = "", inLineStyle = {}, trendingStocks } = Astro.props;
           trendingStocks?.map((item, index) => (
             <LogoCardList
               key={index}
-              href={`/${item?.seopath}`}
+              href={`${getDomain()}/${item?.seopath}`}
               iconConfig={{
                 iconUrl: item?.AMC_CODE,
                 iconName: item?.S_NAME || "Stock",
@@ -62,7 +63,7 @@ const { changeStyle = "", inLineStyle = {}, trendingStocks } = Astro.props;
   </div>
   <div class={`${style["load-more"]}`}>
     <Link
-      link="/stocks"
+      link={`${getDomain()}/stocks`}
       inLineStyle={{
         width: "145px",
         height: "39px",

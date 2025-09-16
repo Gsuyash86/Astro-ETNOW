@@ -4,6 +4,7 @@ import CommonGridBox from "@components/common/wrappers/commonGridBox/CommonGridB
 import Typography from "@components/common/widgets/typography/Typography.astro";
 import CalculatorImageSSR from "../imageSSR/CalculatorImageSSR.astro";
 import Link from "@components/common/link/Link.astro";
+import { getDomain } from "@utils/common";
 const { changeStyle = "", inLineStyle = {} } = Astro.props;
 const dataList = [
   {
@@ -70,7 +71,7 @@ const dataList = [
     {
       dataList?.map((item) => (
         <Link
-          link={item?.href}
+          link={`${getDomain()}/${item.href}`}
           inLineStyle={{
             backgroundColor: `rgba(${item?.backgroundColor}, 0.8)`,
             boxShadow: "0 4px 11px 0 rgba(0, 0, 0, 0.15)",
@@ -120,7 +121,7 @@ const dataList = [
 
   <div class={`${style["load-more"]}`}>
     <Link
-      link="/tools-calculators"
+      link={`${getDomain()}/tools-calculators`}
       inLineStyle={{
         width: "145px",
         height: "39px",

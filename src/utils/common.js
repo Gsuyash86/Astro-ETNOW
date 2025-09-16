@@ -332,3 +332,5 @@ export const getUrl = (item) => {
 export const formatDate = (date, format) => {
   return dayjs.tz(Number(date), "Asia/Calcutta").format(format);
 };
+
+export const getDomain = () => import.meta.env.WEBAPP_BASE_URL;

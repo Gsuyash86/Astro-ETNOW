@@ -3,7 +3,7 @@ import style from "./RecommendedNews.module.scss";
 import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.astro";
 import CustomSlideBox from "@components/common/wrappers/customSlideBox/CustomSlideBox.astro";
 import HorizontalCard from "@components/common/widgets/horizontalCard/HorizontalCard.astro";
-import { getNewImageUrl } from "src/utils/common";
+import { getNewImageUrl, getUrl } from "src/utils/common";
 import Link from "../link/Link.astro";
 import TitleComponent from "@components/common/titleComponent/TitleComponent.astro";
 const fetchTime = (item) => new Date(item.updatedate).toLocaleTimeString();
@@ -42,7 +42,7 @@ const { data } = Astro.props;
                 isWhiteLayout={false}
                 isRowReverse={false}
                 getUrlConfig={{
-                  to: item?.seopath,
+                  to: getUrl(item),
                   title: item?.title,
                 }}
                 imageConfig={{

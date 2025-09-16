@@ -24,6 +24,7 @@ import BreadCrumb from "@components/common/breadCrumb/BreadCrumb.astro";
 import LatestNews from "@components/common/latestNews/LatestNews.astro";
 import RelatedNews from "@components/common/relatedNews/RelatedNews.astro";
 import TopVideos from "@components/common/topVideos/topVideos.astro";
+import { getDomain } from "@utils/common";
 const { category, msid } = Astro.props;
 const data = await fetch(
   `https://api.etnownews.com/request/articleshow/?origin=mobile&msid=${msid}&channel_id=382`
@@ -44,7 +45,7 @@ const mainData = response?.response?.sections?.article_show?.data?.[0];
       lineHeight: "1.2",
       textDecoration: "underline",
     }}
-    redirectToUrl={`${category}`}
+    redirectToUrl={`${getDomain()}/${category}`}
     title={category || mainData?.categoryname || ""}
   />
 </ContainerBox>
