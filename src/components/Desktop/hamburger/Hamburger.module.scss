@@ -118,38 +118,3 @@
         outline-offset: 2px;
     }
 }
-
-// Responsive utilities
-@media (max-width: 480px) {
-    .categoryItem {
-        padding: 0.75rem;
-    }
-
-    .categoryTitle {
-        font-size: 0.9rem;
-    }
-
-    .subMenuLink {
-        font-size: 0.8rem;
-        padding: 0.4rem 0.6rem;
-    }
-}
-
-// Accessibility improvements
-@media (prefers-reduced-motion: reduce) {
-
-    .categoryItem,
-    .subMenuLink,
-    .additionalLink {
-        transition: none;
-    }
-
-    .categoryItem:hover {
-        transform: none;
-    }
-
-    .subMenuLink:hover {
-        transform: none;
-    }
-
-}
