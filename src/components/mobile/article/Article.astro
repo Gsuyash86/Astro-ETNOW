@@ -25,6 +25,7 @@ import { getDomain } from "@utils/common";
 import YoutubeEmbed from "@components/common/youtubeEmbed/YoutubeEmbed.astro";
 import QuotesWidget from "@components/common/widgets/htmlQuotes/QuotesWidget.astro";
 import MultiVideoPlayer from "@components/reactComponents/multiVideoPlayer/MultiVideoPlayer";
+import PhotoSlideList from "@components/common/photoSlideList/PhotoSlideList.astro";
 import {
   CATEGORY_TYPE_VIDEO_ARTICLE,
   DEFAULT_IMAGE_MSID,
@@ -76,6 +77,7 @@ const mainData = response?.response?.sections?.article_show?.data?.[0];
 {
   mainData?.embedData?.map((embedData, dataIndex) => (
     <Fragment>
+      <ContainerBox>
       <SocialWidgets data={{ text: embedData?.twitterList, type: "twitter" }} />
       <SocialWidgets
         data={{ text: embedData?.instagramList, type: "instagram" }}
@@ -83,6 +85,7 @@ const mainData = response?.response?.sections?.article_show?.data?.[0];
       <SocialWidgets data={{ text: embedData?.fbList, type: "fb" }} />
       <SocialWidgets data={{ text: embedData?.reditList, type: "reddIt" }} />
       <SocialWidgets data={{ text: embedData?.iframeText, type: "iframe" }} />
+      </ContainerBox>
       <TextLinkComponent
         htmlText={embedData.htmlText}
         iconType={embedData.iconType}
@@ -114,7 +117,7 @@ const mainData = response?.response?.sections?.article_show?.data?.[0];
       ) : null}
       <QuotesWidget data={embedData.htmlQuote} />
       <RecommendedNews data={embedData?.embedArticle} />
-      <RecommendedNews data={embedData?.photoType?.list} />
+      <PhotoSlideList data={embedData?.photoType?.list} />
       <HtmlParagraph
         htmlText={
           embedData.htmlText

@@ -1,37 +1,44 @@
 ---
-import PlayButton from '@components/common/widgets/playButton/PlayButton.astro';
+import PlayButton from "@components/common/widgets/playButton/PlayButton.astro";
 import ListingIcon from "@components/common/listingIcon/ListingIconType.astro";
-import style from './MediaIcons.module.scss';
+import style from "./MediaIcons.module.scss";
 
 const {
-  mediaIconStyle = 'default',
+  mediaIconStyle = "default",
   inLineMediaIconStyle = {},
   data,
-  mediaType = '',
+  mediaType = "",
   time,
-  isShowCaptionOnImage = false
+  isShowCaptionOnImage = false,
 } = Astro.props;
 
 const iconType = data?.cmstype
   ? data.cmstype
-  : data?.seopath?.startsWith('web-stories')
-    ? 'WEBSTORIES'
-    : '';
+  : data?.seopath?.startsWith("web-stories")
+    ? "WEBSTORIES"
+    : "";
 
-const className = `${style.default} ${style[mediaIconStyle] || ''}`;
-const isVisible = data?.cmstype !== 'ARTICLE';
+const className = `${style.default} ${style[mediaIconStyle] || ""}`;
+const isVisible = data?.cmstype !== "ARTICLE";
 const computedStyle = {
-  ...(isShowCaptionOnImage ? { position: 'static' } : {}),
-  ...inLineMediaIconStyle
+  position: isShowCaptionOnImage && "static",
+  paddingTop: "10px",
+  display: !isShowCaptionOnImage && "flex",
+  justifyContent: !isShowCaptionOnImage && "space-between",
+  right: !isShowCaptionOnImage && "0",
+  ...(isShowCaptionOnImage ? { position: "static" } : {}),
+  ...inLineMediaIconStyle,
 };
 ---
 
-{isVisible && (
-  <i class={className} style={computedStyle}>
-    {data?.cmstype === 'MEDIAVIDEO' && time ? (
-      <PlayButton time={time} />
-    ) : (
-      <ListingIcon type={iconType} />
-    )}
-  </i>
-)}
+{
+  isVisible && (
+    <i class={className} style={computedStyle}>
+      {data?.cmstype === "MEDIAVIDEO" && time ? (
+        <PlayButton time={time} />
+      ) : (
+        <ListingIcon type={iconType} />
+      )}
+    </i>
+  )
+}
