@@ -2,7 +2,7 @@
 import style from "./LatestNews.module.scss";
 import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.astro";
 import HorizontalCard from "@components/common/widgets/horizontalCard/HorizontalCard.astro";
-import { getNewImageUrl, getUrl } from "src/utils/common";
+import { getDomain, getNewImageUrl, getUrl } from "src/utils/common";
 import Link from "../link/Link.astro";
 import TitleComponent from "@components/common/titleComponent/TitleComponent.astro";
 import CommonGridBox from "@components/common/wrappers/commonGridBox/CommonGridBox.astro";
@@ -13,7 +13,7 @@ const { data } = Astro.props;
 <ContainerBox>
   <TitleComponent
     type={"h2"}
-    moreButtonLink={"/"}
+    moreButtonLink={`${getDomain()}/latest-news`}
     moreButtonText={"Latest News"}
     fontSize={"font-size-18"}
     fontWeight={"700"}

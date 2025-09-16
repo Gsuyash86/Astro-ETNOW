@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./MutualFundList.css";
+import { getDomain } from "@utils/common";
 
 const MutualFundList = ({ mFCategoriesLandingData }) => {
   const [data, setData] = useState(mFCategoriesLandingData);
@@ -48,7 +49,7 @@ const MutualFundList = ({ mFCategoriesLandingData }) => {
         >
           {data?.map((item) => (
             <a
-              href="/mutual-funds/mirae-asset-nyse-fang-etf-fof-g-direct-plan-mutual-fund-45497"
+              href={`${getDomain()}/${item?.seopath}`}
               title=""
               className=""
               key={item.SCHEMECODE}
@@ -151,7 +152,7 @@ const MutualFundList = ({ mFCategoriesLandingData }) => {
       </div>
       <div className="load-more ">
         <a
-          href="/mutual-funds/mutual-fund-performance"
+          href={`${getDomain()}/mutual-funds/mutual-fund-performance`}
           title=""
           className=""
           style={{ width: "145px", height: "39px", padding: "0px" }}

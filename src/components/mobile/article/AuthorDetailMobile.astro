@@ -2,7 +2,7 @@
 import style from "./AuthorDetailMobile.module.scss";
 import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.astro";
 import Typography from "@components/common/widgets/typography/Typography.astro";
-import { formatDate } from "src/utils/common";
+import { formatDate, getDomain } from "src/utils/common";
 const {
   changeStyle = "",
   inLineStyle = {},
@@ -16,7 +16,7 @@ const formattedText = Object.entries(byline)
     const names = arr
       .map(
         (item) =>
-          `<a href="/author/${item.seoname}-${item.id}" style="color: #292929;">${item.name}</a>`
+          `<a href="${getDomain()}/author/${item.seoname}-${item.id}" style="color: #292929;">${item.name}</a>`
       )
       .join(", ");
     return `${key}: ${names}`;

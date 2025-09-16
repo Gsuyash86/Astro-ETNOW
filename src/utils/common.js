@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import CONST from "../constant/index";
+import { CATEGORY_TYPES } from "../constant/index";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -332,3 +333,68 @@ export const getUrl = (item) => {
 export const formatDate = (date, format) => {
   return dayjs.tz(Number(date), "Asia/Calcutta").format(format);
 };
+
+export const getDomain = () => import.meta.env.WEBAPP_BASE_URL;
+export const getAdType = () => {
+  let stringValue =
+    typeof window != "undefined" && window?.location?.pathname != "/"
+      ? window?.location?.pathname
+      : "/home";
+  const stringToLookup = stringValue
+    ?.split("/")
+    .splice(1)[0] // remove the first empty space
+    .toLowerCase();
+  const matchedArray = Object.fromEntries(
+    Object.entries(CATEGORY_TYPES).filter(
+      ([key, value]) => key === stringToLookup
+    )
+  );
+  return Object.values(matchedArray).length > 0
+    ? Object.values(matchedArray)[0]
+    : "ROS";
+};
+
+export const getSlikeApiKeys = (channelId = 382) => {
+  const slikeApiKeys = {
+    382: {
+      web: "tgbsl487web5adbkugkku",
+      mweb: "tgbsl487mweb5adckuoouu",
+      amp: "tgbsl487googleamp5adikuu9ou",
+    },
+  };
+  return slikeApiKeys[channelId];
+};
+export const loadAdScript = () => {
+  let id = "slikeadscript";
+  let s;
+  if (document.getElementById(id) === null) {
+    s = document.createElement("script");
+    let el = document.getElementsByTagName("script")[0];
+    s.defer = true;
+    s.src =
+      (document.location.protocol == "https:" ? "https://" : "http://") +
+      "imasdk.googleapis.com/js/sdkloader/ima3.js";
+    s.id = id;
+    el.parentNode.insertBefore(s, el);
+  }
+  return s;
+};
+
+export function setGAValue(action, category, trackingObj) {
+  if (window && window.gtag) {
+    window.gtag(action, category, trackingObj);
+  }
+}
+
+export function SlikeLoaderScript() {
+  let isExist = document?.getElementById("slikeloader");
+  if (isExist == null) {
+    let slikeScript = document.createElement("script");
+    (slikeScript.id = "slikeloader"),
+      (slikeScript.src =
+        "https://watch.sociofyme.com/player/prod/sociofymeloader.js");
+    slikeScript.defer = true;
+    var t = document.getElementsByTagName("script")[0];
+    document.head.appendChild(slikeScript);
+  }
+}

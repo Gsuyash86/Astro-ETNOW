@@ -5,7 +5,12 @@ import TitleComponent from "@components/common/titleComponent/TitleComponent.ast
 import CustomSlideBox from "@components/common/wrappers/customSlideBox/CustomSlideBox.astro";
 import VerticalCard from "@components/common/widgets/verticalCard/VerticalCard.astro";
 
-import { displayTime, getNewImageUrl, getUrl } from "src/utils/common"; // adjust paths as needed
+import {
+  displayTime,
+  getDomain,
+  getNewImageUrl,
+  getUrl,
+} from "src/utils/common"; // adjust paths as needed
 
 const {
   componentData,
@@ -28,7 +33,7 @@ const fetchTime = (item) =>
 <BgBoxWrapper changeStyle={changeBoxStyle} inLineStyle={inLineBoxStyle}>
   <TitleComponent
     type="h2"
-    moreButtonLink="/videos"
+    moreButtonLink={`${getDomain()}/videos`}
     moreButtonText="Top News"
     fontSize="font-size-18"
     fontWeight="700"
