@@ -2,12 +2,12 @@
 import style from "./LatestNews.module.scss";
 import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.astro";
 import HorizontalCard from "@components/common/widgets/horizontalCard/HorizontalCard.astro";
-import { getDomain, getNewImageUrl, getUrl } from "src/utils/common";
-import Link from "../link/Link.astro";
+import { getDomain, getUrl } from "src/utils/common";
 import TitleComponent from "@components/common/titleComponent/TitleComponent.astro";
 import CommonGridBox from "@components/common/wrappers/commonGridBox/CommonGridBox.astro";
 const fetchTime = (item) => new Date(item.updatedate).toLocaleTimeString();
 const { data } = Astro.props;
+if (!data?.length) return null;
 ---
 
 <ContainerBox>
@@ -29,11 +29,8 @@ const { data } = Astro.props;
     inLineStyle={{ marginBottom: "20px" }}
   >
     {
-      data?.map((item, index) => {
+      data?.map((item) => {
         if (item.cmstype.toUpperCase() === "SECTION") return null;
-        const time =
-          item.cmstype === "MEDIAVIDEO" && item.media && fetchTime(item);
-
         return (
           <li class={style["list-items"]}>
             <HorizontalCard

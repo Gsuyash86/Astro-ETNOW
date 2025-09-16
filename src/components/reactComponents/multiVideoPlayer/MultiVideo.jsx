@@ -9,6 +9,7 @@ function Player({
   isLearning = false,
   type,
   learnGp,
+  isMobile,
 }) {
   let masterVideo = "";
   useEffect(() => {
@@ -292,7 +293,7 @@ function Player({
                   masterVideo.classList.remove("rhs-player");
                 }
                 let rootElem;
-                rootElem = !isMobile()
+                rootElem = !isMobile
                   ? document.getElementsByClassName(
                       "__player __dock __dockBR __sml"
                     )[0]
@@ -400,7 +401,7 @@ function Player({
               console.log("Error", error);
             }
             // scroll to top and share button position change accordingly botton sticky ad and pip open/close
-            if (isMobile()) {
+            if (isMobile) {
               let id =
                 document.getElementsByClassName(
                   "__player bottomStickyPip __md"
