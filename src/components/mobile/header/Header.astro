@@ -4,6 +4,8 @@ import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.
 import Link from "@components/common/link/Link.astro";
 import SvgIcon from "@components/common/svg/SvgIcon.astro";
 import Navigation from "@components/mobile/navigation/Navigation.astro";
+import Search from "@components/common/search/Search.astro";
+import Popup from "@components/common/popup/popup.astro";
 ---
 
 <header class={`${style["header"]}`}>
@@ -29,6 +31,7 @@ import Navigation from "@components/mobile/navigation/Navigation.astro";
                         height={20}
                     />
                 </Link>
+                <>
                 <button class={`${style["header-live-tv"]}`}>
                     <SvgIcon
                         IconName={"searchNewIconDesktop"}
@@ -36,6 +39,10 @@ import Navigation from "@components/mobile/navigation/Navigation.astro";
                         height={20}
                     />
                 </button>
+                <Popup>
+                    <Search />
+                </Popup>
+                </>
                 <button class={`${style["header-live-tv"]}`}>
                     <SvgIcon
                         IconName={"livetvNewIconRed"}
