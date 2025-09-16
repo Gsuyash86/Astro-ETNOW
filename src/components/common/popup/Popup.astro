@@ -84,6 +84,23 @@ const closeBtnId = `popupClose_${instanceId}`;
   if (closeBtn) {
     closeBtn.addEventListener("click", () => setOpen(false));
   }
+
+  popup.addEventListener("click", (event) => {
+    if (
+      popup.getAttribute("data-open") === "true" &&
+      popupContent &&
+      !popupContent.contains(event.target)
+    ) {
+      setOpen(false);
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && popup.getAttribute("data-open") === "true") {
+      setOpen(false);
+    }
+  });
+
   popup.dataset.initialized = "true";
   setOpen(false);
   
