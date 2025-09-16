@@ -1,33 +1,80 @@
 ---
 import style from "./Popup.module.scss";
 
+export interface Props {
+  instanceId?: string;
+  changeStyle?: string;
+  ChangePopbody?: string;
+  inLineStyle?: Record<string, string>;
+  isDarkLayout?: boolean;
+  isCloseButton?: boolean;
+  isPopupSlideUp?: boolean;
+}
+
 const {
+  instanceId = "default",
   changeStyle = "",
   ChangePopbody = "",
   inLineStyle = {},
   isDarkLayout = false,
   isCloseButton = true,
-  isPopupSlideUp = true,
-  onClose,
+  isPopupSlideUp = true
 } = Astro.props;
+
+// Generate unique IDs for each popup instance
+const popupId = `popup_${instanceId}`;
+const closeBtnId = `popupClose_${instanceId}`;
 ---
 
-<div className={`${style["popup-overlay"]} ${changeStyle ? style[changeStyle] : ""}`}>
+<div
+  id={popupId}
+  class={`${style["popup-overlay"]} ${changeStyle ? style[changeStyle] : ""}`}
+  data-instance={instanceId}
+  data-open="false"
+  aria-hidden="true"
+>
   <div
-    className={`${style["popup-content"]} ${
+    class={`${style["popup-content"]} ${
       isPopupSlideUp ? style["slide-up"] : style["slide-down"]
     }`}
     style={inLineStyle}
   >
-    {isCloseButton ? (
-      <button className={`${style["close-button"]}`} onClick={onClose}>
-        ×
-      </button>
-    ) : (
-      ""
+    {isCloseButton && (
+      <button id={closeBtnId} class={style["close-button"]}>×</button>
     )}
-    <div className={`${style["popup-body"]} ${ChangePopbody ? style[ChangePopbody] : ""}`}>
+    <div class={`${style["popup-body"]} ${ChangePopbody ? style[ChangePopbody] : ""}`}>
       <slot />
     </div>
   </div>
 </div>
+
+<script define:vars={{ instanceId }}>
+(function () {
+  const currentInstanceId = instanceId;
+  const popup = document.querySelector(`[data-instance="${currentInstanceId}"]`);
+  if (!popup || popup.dataset.initialized) return;
+  const closeBtn = document.getElementById(`popupClose_${currentInstanceId}`);
+  function setOpen(open) {
+    popup.setAttribute("data-open", open ? "true" : "false");
+    popup.setAttribute("aria-hidden", open ? "false" : "true");
+    popup.style.display = open ? "block" : "none";
+  }
+  // open & close functions exposed globally
+  window[`openPopup_${currentInstanceId}`] = () => setOpen(true);
+  window[`closePopup_${currentInstanceId}`] = () => setOpen(false);
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => setOpen(false));
+  }
+  // click outside closes
+  document.addEventListener("click", (e) => {
+    if (popup.getAttribute("data-open") === "true") {
+      if (!popup.querySelector(`.${popup.className.split(" ")[0]}`).contains(e.target) &&
+          !popup.contains(e.target)) {
+        setOpen(false);
+      }
+    }
+  });
+  popup.dataset.initialized = "true";
+  setOpen(false);
+})();
+</script>
