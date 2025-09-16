@@ -77,6 +77,10 @@
 }
 
 .font-size {
+  &-9 {
+    @include font-size(9);
+  }
+
   &-10 {
     @include font-size(10);
   }

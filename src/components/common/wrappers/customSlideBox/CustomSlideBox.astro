@@ -10,10 +10,11 @@ const {
   inLineStyle = {},
   elementType = 'divBox',
   isVerticalSlide = false,
+  isScrollSanp = true,
 } = Astro.props;
 
 const wrapperClass = [
-  isVerticalSlide ? styles['default-vertical'] : styles['default'],
+  isVerticalSlide ? styles['default-vertical'] : styles['default'], isScrollSanp ? '' : styles['no-scroll-snap'],
   changeStyle ? styles[changeStyle] : '',
 ].join(' ').trim();
 ---
