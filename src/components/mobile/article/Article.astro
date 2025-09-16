@@ -23,6 +23,7 @@ import KeywordTags from "@components/common/widgets/keywordTags/KeywordTags.astr
 import BreadCrumb from "@components/common/breadCrumb/BreadCrumb.astro";
 import LatestNews from "@components/common/latestNews/LatestNews.astro";
 import RelatedNews from "@components/common/relatedNews/RelatedNews.astro";
+import TopVideos from "@components/common/topVideos/topVideos.astro";
 const { category, msid } = Astro.props;
 const data = await fetch(
   `https://api.etnownews.com/request/articleshow/?origin=mobile&msid=${msid}&channel_id=382`
@@ -104,6 +105,11 @@ const mainData = response?.response?.sections?.article_show?.data?.[0];
         <RelatedNews data={response?.response?.recommendedNews} />
         <LatestNews data={response?.response?.recommendedNews} />
       ) : null}
+
+      {mainData?.rhs_widget?.children?.length > 0 && (
+        <TopVideos componentData={mainData?.rhs_widget} />
+      )}
+
     </Fragment>
   ))
 }

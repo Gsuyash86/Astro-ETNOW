@@ -1,0 +1,22 @@
+---
+import style from './BgBoxWrapper.module.scss';
+
+const {
+  children,
+  changeStyle = '',
+  inLineStyle = {},
+  isBoxShadow = false,
+} = Astro.props;
+
+const wrapperClass = [
+  style['box-default'],
+  changeStyle ? style[changeStyle] : '',
+  isBoxShadow ? style['shadow'] : '',
+]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<div class={wrapperClass} style={inLineStyle}>
+  <slot />
+</div>
