@@ -21,7 +21,7 @@ const {
   isPopupSlideUp = true
 } = Astro.props;
 
-// Generate unique IDs for each popup instance
+// Unique IDs
 const popupId = `popup_${instanceId}`;
 const closeBtnId = `popupClose_${instanceId}`;
 ---
@@ -34,6 +34,7 @@ const closeBtnId = `popupClose_${instanceId}`;
   aria-hidden="true"
 >
   <div
+    id={`popupContent_${instanceId}`}
     class={`${style["popup-content"]} ${
       isPopupSlideUp ? style["slide-up"] : style["slide-down"]
     }`}
@@ -50,31 +51,41 @@ const closeBtnId = `popupClose_${instanceId}`;
 
 <script define:vars={{ instanceId }}>
 (function () {
-  const currentInstanceId = instanceId;
-  const popup = document.querySelector(`[data-instance="${currentInstanceId}"]`);
+  const popup = document.querySelector(`[data-instance="${instanceId}"]`);
   if (!popup || popup.dataset.initialized) return;
-  const closeBtn = document.getElementById(`popupClose_${currentInstanceId}`);
+
+  const closeBtn = document.getElementById(`popupClose_${instanceId}`);
+  const popupContent = document.getElementById(`popupContent_${instanceId}`);
+
+  // Save original parent & next sibling (to restore position)
+  const originalParent = popup.parentNode;
+  const nextSibling = popup.nextSibling;
+
   function setOpen(open) {
     popup.setAttribute("data-open", open ? "true" : "false");
     popup.setAttribute("aria-hidden", open ? "false" : "true");
     popup.style.display = open ? "block" : "none";
+
+    if (open) {
+      document.body.appendChild(popup);
+    } else {
+      if (nextSibling) {
+        originalParent.insertBefore(popup, nextSibling);
+      } else {
+        originalParent.appendChild(popup);
+      }
+    }
   }
-  // open & close functions exposed globally
-  window[`openPopup_${currentInstanceId}`] = () => setOpen(true);
-  window[`closePopup_${currentInstanceId}`] = () => setOpen(false);
+
+  // expose global methods
+  window[`openPopup_${instanceId}`] = () => setOpen(true);
+  window[`closePopup_${instanceId}`] = () => setOpen(false);
+
   if (closeBtn) {
     closeBtn.addEventListener("click", () => setOpen(false));
   }
-  // click outside closes
-  document.addEventListener("click", (e) => {
-    if (popup.getAttribute("data-open") === "true") {
-      if (!popup.querySelector(`.${popup.className.split(" ")[0]}`).contains(e.target) &&
-          !popup.contains(e.target)) {
-        setOpen(false);
-      }
-    }
-  });
   popup.dataset.initialized = "true";
   setOpen(false);
+  
 })();
 </script>
