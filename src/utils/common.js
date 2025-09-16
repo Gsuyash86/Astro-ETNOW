@@ -1,5 +1,9 @@
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 import CONST from "../constant/index";
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export const getCustomDimensionsSSR = (app, navigation, seoData) => {
   let custom_dimension = null;
@@ -298,3 +302,33 @@ export const NAVIGATION_GROUPS = [
     titles: ["Sports"],
   },
 ];
+
+export const displayTime = (timestamp) => {
+  let time = "";
+
+  // convert ms → total seconds
+  const totalSeconds = Math.floor(timestamp / 1000);
+
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  time = `${hours > 0 ? (hours < 10 ? "0" + hours : hours) + ":" : ""}${
+    minutes < 10 ? "0" + minutes : minutes
+  }:${seconds < 10 ? "0" + seconds : seconds}`;
+
+  return time;
+};
+
+export const getUrl = (item) => {
+  return (
+    item?.overridelink ||
+    `${import.meta.env.WEBAPP_BASE_URL}/${item?.seopath}-${getSlug(
+      item?.cmstype
+    )}-${item?.msid}`
+  );
+};
+
+export const formatDate = (date, format) => {
+  return dayjs.tz(Number(date), "Asia/Calcutta").format(format);
+};

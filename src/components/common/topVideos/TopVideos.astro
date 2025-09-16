@@ -5,7 +5,7 @@ import TitleComponent from "@components/common/titleComponent/TitleComponent.ast
 import CustomSlideBox from "@components/common/wrappers/customSlideBox/CustomSlideBox.astro";
 import VerticalCard from "@components/common/widgets/verticalCard/VerticalCard.astro";
 
-import { getNewImageUrl } from "src/utils/common"; // adjust paths as needed
+import { displayTime, getNewImageUrl, getUrl } from "src/utils/common"; // adjust paths as needed
 
 const {
   componentData,
@@ -20,8 +20,9 @@ const {
 } = Astro.props;
 
 const data = componentData?.children || [];
-
-const fetchTime = (item) => new Date(item.updatedate).toLocaleTimeString();
+if (!data?.length) return null;
+const fetchTime = (item) =>
+  item?.durationms ? displayTime(item.durationms) : null;
 ---
 
 <BgBoxWrapper changeStyle={changeBoxStyle} inLineStyle={inLineBoxStyle}>
@@ -49,7 +50,7 @@ const fetchTime = (item) => new Date(item.updatedate).toLocaleTimeString();
           isWebStory={false}
           isWhiteLayout={isWhiteLayout}
           getUrlConfig={{
-            to: data[0]?.seopath,
+            to: getUrl(data[0]),
             title: data[0]?.title,
           }}
           imageConfig={{
@@ -102,7 +103,7 @@ const fetchTime = (item) => new Date(item.updatedate).toLocaleTimeString();
               isWebStory={false}
               isWhiteLayout={isWhiteLayout}
               getUrlConfig={{
-                to: item?.seopath,
+                to: getUrl(item),
                 title: item?.title,
               }}
               imageConfig={{

@@ -102,14 +102,7 @@ const mainData = response?.response?.sections?.article_show?.data?.[0];
       {embedData?.isVDOAiShow ? <VideoAiComponent /> : null}
       {dataIndex == 1 ? (
         <RecommendedNews data={response?.response?.recommendedNews} />
-        <RelatedNews data={response?.response?.recommendedNews} />
-        <LatestNews data={response?.response?.recommendedNews} />
       ) : null}
-
-      {mainData?.rhs_widget?.children?.length > 0 && (
-        <TopVideos componentData={mainData?.rhs_widget} />
-      )}
-
     </Fragment>
   ))
 }
@@ -117,3 +110,6 @@ const mainData = response?.response?.sections?.article_show?.data?.[0];
 <OneLiner />
 <BreadCrumb isWrap={true} category="news" />
 <TopStockWidget />
+<RelatedNews data={mainData?.editorpicks} />
+<TopVideos componentData={mainData?.rhs_widget} />
+<LatestNews data={mainData?.latestSiblings} />

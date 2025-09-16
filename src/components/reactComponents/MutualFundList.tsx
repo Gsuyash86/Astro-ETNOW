@@ -1,0 +1,166 @@
+import React, { useState } from "react";
+import "./MutualFundList.css";
+
+const MutualFundList = ({ mFCategoriesLandingData }) => {
+  const [data, setData] = useState(mFCategoriesLandingData);
+  const fetchData = async (year) => {
+    const response = await fetch(
+      `https://apifinancials.etnownews.com/api/et/mf-ranking?classcode=00099&yearReturn=${year}YEARRET&perPage=10`
+    );
+    const mfData = await response.json();
+    setData(mfData?.response?.items);
+  };
+  const handleChange = (e) => {
+    const year = e.target.value;
+    fetchData(year);
+  };
+
+  return (
+    <div className="">
+      <h3>Mutual Funds</h3>
+      <div className="filter ">
+        <p
+          className="font-size-14  black  font-weight-400  default-paragraph "
+          style={{
+            lineHeight: "1.2",
+            color: "#878787",
+            textTransform: "uppercase",
+          }}
+        >
+          Return period
+        </p>
+        <select className="select " onChange={handleChange} name="mf-dropdown">
+          <option value="1">1Y</option>
+          <option value="3">3Y</option>
+          <option value="5">5Y</option>
+        </select>
+      </div>
+      <p
+        className="font-size-12  black  font-weight-400  default-paragraph "
+        style={{ lineHeight: "1.2", color: "#68656B", marginBottom: "16px" }}
+      >
+        List of Best Funds in India sorted by Returns
+      </p>
+      <div className="undefined">
+        <div
+          className="CommonGridBox-module__d-grid  undefined"
+          style={{ marginBottom: "0px", gap: "24px" }}
+        >
+          {data?.map((item) => (
+            <a
+              href="/mutual-funds/mirae-asset-nyse-fang-etf-fof-g-direct-plan-mutual-fund-45497"
+              title=""
+              className=""
+              key={item.SCHEMECODE}
+            >
+              <div className="box ">
+                <div className="box-top ">
+                  <i>
+                    <img
+                      src={`https://times-network.s3.ap-southeast-1.amazonaws.com/et-now-stocks/MF+house+logos/${item?.AMC_CODE}.png`}
+                      alt="fund icon"
+                    />
+                  </i>
+                  <p
+                    className="font-size-16  black  font-weight-500  default-paragraph "
+                    style={{ lineHeight: "1.375", color: "#000000" }}
+                  >
+                    {item?.S_NAME}
+                  </p>
+                  <ul className="box-category ">
+                    <li>
+                      <p
+                        className="font-size-14  black  font-weight-500  default-paragraph "
+                        style={{ lineHeight: "1.2", color: "#7C7E8C" }}
+                      >
+                        {item?.mutualFundDetailsResponse?.assetType}
+                      </p>
+                    </li>
+                    <li>
+                      <p
+                        className="font-size-14  black  font-weight-500  default-paragraph "
+                        style={{ lineHeight: "1.2", color: "#7C7E8C" }}
+                      >
+                        {item?.mutualFundDetailsResponse?.category}
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+                <ul className="box-bottom ">
+                  <li>
+                    <p
+                      className="font-size-12  black  font-weight-400  default-paragraph "
+                      style={{
+                        lineHeight: "1.2",
+                        color: "#878787",
+                        marginBottom: "4px",
+                      }}
+                    >
+                      AUM
+                    </p>
+                    <p
+                      className="font-size-14  black  font-weight-500  default-paragraph "
+                      style={{ lineHeight: "1.2", color: "#26232C" }}
+                    >
+                      {item?.totalAUM}
+                    </p>
+                  </li>
+                  <li>
+                    <p
+                      className="font-size-12  black  font-weight-400  default-paragraph "
+                      style={{
+                        lineHeight: "1.2",
+                        color: "#878787",
+                        marginBottom: "4px",
+                      }}
+                    >
+                      Returns (p.a)
+                    </p>
+                    <div className="default  up ">
+                      <p
+                        className="font-size-14  black  font-weight-700  default-paragraph "
+                        style={{ color: "inherit" }}
+                      >
+                        {Number(item.Return).toFixed(2)} %
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <p
+                      className="font-size-12  black  font-weight-400  default-paragraph "
+                      style={{
+                        lineHeight: "1.2",
+                        color: "#878787",
+                        marginBottom: "4px",
+                      }}
+                    >
+                      NAV
+                    </p>
+                    <p
+                      className="font-size-14  black  font-weight-500  default-paragraph "
+                      style={{ lineHeight: "1.2", color: "#26232C" }}
+                    >
+                      {item?.navRs}
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+      <div className="load-more ">
+        <a
+          href="/mutual-funds/mutual-fund-performance"
+          title=""
+          className=""
+          style={{ width: "145px", height: "39px", padding: "0px" }}
+        >
+          Show more
+        </a>
+      </div>
+    </div>
+  );
+};
+
+export default MutualFundList;
