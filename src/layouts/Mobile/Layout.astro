@@ -32,14 +32,14 @@ let ad2 = {
     [980, 90],
   ],
 };
-const { category, msid } = Astro.props;
+const { category, msid, app } = Astro.props;
 ---
 
 <>
   <Header />
   <TrendingStock />
   <MutualFundStrip />
-  <Article category={category} msid={msid} />
+  <Article app={app} category={category} msid={msid} />
   <slot />
-  <Footer/>
+  <Footer />
 </>

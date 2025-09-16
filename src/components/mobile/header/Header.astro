@@ -9,49 +9,33 @@ import Popup from "@components/common/popup/popup.astro";
 ---
 
 <header class={`${style["header"]}`}>
-    <ContainerBox>
-        <div class={`${style["header-top"]}`}>
-            <div class={`${style["header-left"]}`}>
-                <button class={`${style["header-hamburger"]}`}>
-                    <SvgIcon
-                        IconName={"hamburgerIcon"}
-                        width={24}
-                        height={24}
-                    />
-                </button>
-                <Link link={"/"} className={`${style["header-logo"]}`}>
-                    <img src="/assets/images/logo-large.svg" alt="ET Now" />
-                </Link>
-            </div>
-            <div class={`${style["header-right"]}`}>
-                <Link link={"/"} class={`${style["header-lang"]}`}>
-                    <SvgIcon
-                        IconName={"LanguageSwaitchIcon"}
-                        width={20}
-                        height={20}
-                    />
-                </Link>
-                <>
-                <button class={`${style["header-live-tv"]}`}>
-                    <SvgIcon
-                        IconName={"searchNewIconDesktop"}
-                        width={20}
-                        height={20}
-                    />
-                </button>
-                <Popup>
+  <ContainerBox>
+    <div class={`${style["header-top"]}`}>
+      <div class={`${style["header-left"]}`}>
+        <button class={`${style["header-hamburger"]}`}>
+          <SvgIcon IconName={"hamburgerIcon"} width={24} height={24} />
+        </button>
+        <Link link={"/"} className={`${style["header-logo"]}`}>
+          <img src="/assets/images/logo-large.svg" alt="ET Now" />
+        </Link>
+      </div>
+      <div class={`${style["header-right"]}`}>
+        <Link link={"/"} class={`${style["header-lang"]}`}>
+          <SvgIcon IconName={"LanguageSwaitchIcon"} width={20} height={20} />
+        </Link>
+        <>
+          <button class={`${style["header-live-tv"]}`}>
+            <SvgIcon IconName={"searchNewIconDesktop"} width={20} height={20} />
+          </button>
+          <!-- <Popup>
                     <Search />
-                </Popup>
-                </>
-                <button class={`${style["header-live-tv"]}`}>
-                    <SvgIcon
-                        IconName={"livetvNewIconRed"}
-                        width={26}
-                        height={20}
-                    />
-                </button>
-            </div>
-        </div>
-    </ContainerBox>
-    <Navigation />
+                </Popup> -->
+        </>
+        <button class={`${style["header-live-tv"]}`}>
+          <SvgIcon IconName={"livetvNewIconRed"} width={26} height={20} />
+        </button>
+      </div>
+    </div>
+  </ContainerBox>
+  <Navigation />
 </header>

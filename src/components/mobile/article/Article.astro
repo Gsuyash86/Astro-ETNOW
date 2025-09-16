@@ -11,7 +11,9 @@ import HtmlParagraph from "./HtmlParagraph.astro";
 import RecommendedNews from "@components/common/recommendedNews/RecommendedNews.astro";
 import AdCaller from "@components/common/adcaller/AdCaller.astro";
 import CoverVDOAndImg from "./CoverVDOAndImg.astro";
-import MgIdComponent from "@components/common/mgid/MgIdComponent.astro";
+// import MgIdComponent from "@components/common/mgid/MgIdComponent.astro";
+import MgIdComponent from "@components/reactComponents/MgIdComponent";
+import MgIdComponentET from "@components/reactComponents/MgIdComponentET";
 import VideoAiComponent from "@components/common/mgid/VideoAiComponent.astro";
 import CONST from "src/constant";
 import TopStockWidget from "@components/common/topTrendingStocks/TopStockWidget.astro";
@@ -29,12 +31,9 @@ import {
   CATEGORY_TYPE_VIDEO_ARTICLE,
   DEFAULT_IMAGE_MSID,
 } from "src/constant/index";
-const { category, msid } = Astro.props;
-const data = await fetch(
-  `https://api.etnownews.com/request/articleshow/?origin=mobile&msid=${msid}&channel_id=382`
-);
-const response = await data.json();
-const mainData = response?.response?.sections?.article_show?.data?.[0];
+const { category, msid, app } = Astro.props;
+
+const mainData = app?.response?.sections?.article_show?.data?.[0];
 ---
 
 <ContainerBox inLineStyle={{ marginBottom: "7px" }}>
@@ -66,7 +65,7 @@ const mainData = response?.response?.sections?.article_show?.data?.[0];
 }
 
 <Synopsis text={mainData.synopsis} inLineStyle={{ marginBottom: "34px" }} />
-<AdCaller {...response?.response?.ads?.atf} />
+<AdCaller {...app?.response?.ads?.atf} />
 <KeyHighlight summary={mainData?.summary} />
 <CoverVDOAndImg
   data={mainData?.cmsassoc || []}
@@ -134,7 +133,7 @@ const mainData = response?.response?.sections?.article_show?.data?.[0];
       ) : null}
       {embedData?.isVDOAiShow ? <VideoAiComponent /> : null}
       {dataIndex == 1 ? (
-        <RecommendedNews data={response?.response?.recommendedNews} />
+        <RecommendedNews data={app?.response?.recommendedNews} />
       ) : null}
     </Fragment>
   ))
@@ -145,4 +144,5 @@ const mainData = response?.response?.sections?.article_show?.data?.[0];
 <TopStockWidget />
 <RelatedNews data={mainData?.editorpicks} />
 <TopVideos componentData={mainData?.rhs_widget} />
+<MgIdComponentET client:load />
 <LatestNews data={mainData?.latestSiblings} />
