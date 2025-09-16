@@ -141,7 +141,7 @@ const mainData = app?.response?.sections?.article_show?.data?.[0];
           elementID={CONST.MGID_ADD_1X1}
         />
       ) : null}
-      {embedData?.isVDOAiShow ? <VideoAiComponent /> : null}
+      {embedData?.isVDOAiShow ? <VideoAiComponent loadOnScroll={true} /> : null}
       {dataIndex == 1 ? (
         <RecommendedNews data={app?.response?.recommendedNews} />
       ) : null}
