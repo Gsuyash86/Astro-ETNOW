@@ -1,7 +1,5 @@
 ---
-import Advertisement from "../Advertisement/Advertisement.astro";
-import style from "./AdCaller.module.scss";
-
+import Advertisement from "../advertisement/Advertisement.astro";
 export interface Props {
   id?: string;
   isPrimeUser?: boolean;
@@ -205,16 +203,32 @@ const containerStyle = {
 };
 
 // Generate unique ID for lazy loading
-const lazyLoadId = `ad-lazy-${divId}-${Math.random().toString(36).substr(2, 9)}`;
+const lazyLoadId = `ad-lazy-${divId}-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`;
+
+// CRITICAL: Determine if this ad should be lazy loaded
+// Default to lazy loading UNLESS explicitly told not to
+const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
+
+// Debug info (will be removed in production)
+console.info('Ad Component Debug:', {
+  divId,
+  adCode,
+  atf,
+  isSkiplazyload,
+  isGlance,
+  shouldLazyLoad,
+  lazyLoadId
+});
 ---
 
 {
   !isAppView && (
     <div
-      id={parentDivId}
+      id={parentDivId || `container-${divId}`}
       style={containerStyle}
-      class={containerClasses}
+      class={`ad-container ${containerClasses}`}
       data-lazy-load-id={lazyLoadId}
+      data-should-lazy-load={shouldLazyLoad.toString()}
       data-ad-config={JSON.stringify({
         adCode,
         divId,
@@ -224,127 +238,498 @@ const lazyLoadId = `ad-lazy-${divId}-${Math.random().toString(36).substr(2, 9)}`
         isGlance,
         isSkiplazyload,
         isDelay,
+        shouldLazyLoad,
+        atf,
       })}
     >
-      {!isSkiplazyload && !isGlance ? (
-        <Advertisement
-          adCode={adCode}
-          size={size}
-          divId={divId}
-          pageTarget={pageTarget}
+      {shouldLazyLoad ? (
+        <div
+          id={`${divId}-placeholder`}
+          class={`ad-placeholder ${adClasses}`}
+          style={{
+            minHeight: maxHeight ? `${maxHeight}px` : "250px",
+            padding: !spacing ? "0px" : "8px",
+            backgroundColor: "#f0f0f0",
+            border: "2px dashed #ccc",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#666",
+            fontSize: "14px",
+            textAlign: "center",
+            position: "relative",
+          }}
+          {...dataAttributes}
+          data-original-div-id={divId}
         >
+          <div>
+            <div>🔄 Lazy Loading Ad...</div>
+            <div style="font-size: 12px; margin-top: 5px;">ID: {divId}</div>
+            <div style="font-size: 10px; color: #999;">LazyID: {lazyLoadId}</div>
+          </div>
+        </div>
+      ) : (
+        !isSkiplazyload && !isGlance ? (
+          <Advertisement
+            adCode={adCode}
+            size={size}
+            divId={divId}
+            pageTarget={pageTarget}
+          >
+            <div
+              id={divId}
+              class={`dfp ${adClasses}`}
+              style={!spacing ? { padding: "0px" } : { padding: "8px" }}
+              {...dataAttributes}
+            />
+          </Advertisement>
+        ) : (
           <div
             id={divId}
-            class={`dfp ${adClasses}`}
+            class={`${isSkiplazyload && !isDelay ? "dfp" : ""} ${isDelay ? "dfp-delay" : ""} ${adClasses}`}
             style={!spacing ? { padding: "0px" } : { padding: "8px" }}
             {...dataAttributes}
           />
-        </Advertisement>
-      ) : (
-        <div
-          id={divId}
-          class={`${isSkiplazyload && !isDelay ? "dfp" : ""} ${isDelay ? "dfp-delay" : ""} ${adClasses}`}
-          style={!spacing ? { padding: "0px" } : { padding: "8px" }}
-          {...dataAttributes}
-        />
+        )
       )}
     </div>
   )
 }
 
 <script>
+  // Debug flag - set to false in production
+  const DEBUG_ADS = true;
+  
+  function debugLog(...args) {
+    if (DEBUG_ADS) {
+      console.info('[AD DEBUG]', ...args);
+    }
+  }
+
   // Global state management for ad configurations
-  window.AdCallerState = window.AdCallerState || {
-    isDPFConfigSet: false,
-    isDFPTargetingSet: false,
-    CTNAdCounters: {},
-    adsCallbackDefined: false,
-  };
+  if (!window.AdCallerState) {
+    window.AdCallerState = {
+      isDPFConfigSet: false,
+      isDFPTargetingSet: false,
+      CTNAdCounters: {},
+      adsCallbackDefined: false,
+      observers: new Map(),
+      initialized: false,
+    };
+  }
 
   // Initialize lazy loading for ads
   function initAdLazyLoading() {
-    const adContainers = document.querySelectorAll("[data-lazy-load-id]");
+    debugLog('🚀 Starting ad lazy loading initialization...');
+    
+    // Find all ad containers that need lazy loading
+    const allContainers = document.querySelectorAll("[data-lazy-load-id]");
+    const uninitializedContainers = document.querySelectorAll("[data-lazy-load-id]:not([data-initialized])");
+    
+    debugLog(`Total ad containers found: ${allContainers.length}`);
+    debugLog(`Uninitialized containers: ${uninitializedContainers.length}`);
+    
+    if (uninitializedContainers.length === 0) {
+      debugLog('❌ No uninitialized ad containers found');
+      return;
+    }
 
-    adContainers.forEach((container) => {
-      const config = JSON.parse(container.dataset.adConfig || "{}");
-      const {
-        adCode,
-        divId,
-        size,
-        pageTarget,
-        pathname,
-        isGlance,
-        isSkiplazyload,
-        isDelay,
-      } = config;
+    uninitializedContainers.forEach((container, index) => {
+      try {
+        const configData = container.dataset.adConfig;
+        const lazyLoadId = container.dataset.lazyLoadId;
+        const shouldLazyLoadAttr = container.dataset.shouldLazyLoad;
+        
+        debugLog(`\n📦 Processing container ${index + 1}:`, {
+          lazyLoadId,
+          shouldLazyLoad: shouldLazyLoadAttr,
+          hasConfig: !!configData
+        });
 
-      // Skip if already initialized
-      if (container.dataset.initialized === "true") return;
+        if (!configData) {
+          debugLog('❌ No ad config found for container:', container);
+          return;
+        }
 
-      // For non-lazy load ads or Glance ads, load immediately
-      if (isSkiplazyload || isGlance) {
-        loadAd(container, config);
-        return;
-      }
+        const config = JSON.parse(configData);
+        debugLog('📋 Config parsed:', config);
 
-      // Set up Intersection Observer for lazy loading
-      if ("IntersectionObserver" in window) {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting || entry.intersectionRatio > 0) {
-                loadAd(entry.target, config);
-                observer.unobserve(entry.target);
-              }
-            });
-          },
-          {
-            rootMargin: "100px 0px 100px 0px",
+        // Mark as initialized immediately
+        container.dataset.initialized = "true";
+
+        // Check if should lazy load
+        if (!config.shouldLazyLoad || shouldLazyLoadAttr === 'false') {
+          debugLog('⚡ Loading ad immediately (not lazy)');
+          loadAdImmediately(container, config);
+          return;
+        }
+
+        // Setup intersection observer for lazy loading
+        if ("IntersectionObserver" in window) {
+          // Check if observer already exists
+          if (window.AdCallerState.observers.has(lazyLoadId)) {
+            debugLog('⚠️ Observer already exists for:', lazyLoadId);
+            return;
           }
-        );
 
-        observer.observe(container);
-      } else {
-        // Fallback for browsers without IntersectionObserver
-        loadAd(container, config);
+          debugLog('👁️ Setting up IntersectionObserver for:', lazyLoadId);
+
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                debugLog('👀 Intersection detected:', {
+                  isIntersecting: entry.isIntersecting,
+                  intersectionRatio: entry.intersectionRatio,
+                  lazyLoadId: entry.target.dataset.lazyLoadId
+                });
+
+                if (entry.isIntersecting && entry.intersectionRatio > 0) {
+                  debugLog('🎯 Loading lazy ad:', entry.target.dataset.lazyLoadId);
+                  loadAd(entry.target, config);
+                  observer.unobserve(entry.target);
+                  window.AdCallerState.observers.delete(lazyLoadId);
+                }
+              });
+            },
+            {
+              root: null, // viewport
+              rootMargin: "300px 0px 300px 0px", // Large margin for early loading
+              threshold: [0, 0.1], // Trigger at 0% and 10% visibility
+            }
+          );
+
+          window.AdCallerState.observers.set(lazyLoadId, observer);
+          observer.observe(container);
+          
+          debugLog('✅ Observer set up successfully for:', lazyLoadId);
+          
+          // Add visual indicator that observer is active
+          container.style.border = "2px solid #4CAF50";
+          container.title = `Lazy loading active: ${lazyLoadId}`;
+        } else {
+          debugLog('❌ IntersectionObserver not supported, loading immediately');
+          loadAd(container, config);
+        }
+      } catch (error) {
+        debugLog('💥 Error initializing ad container:', error, container);
       }
     });
+
+    debugLog(`🏁 Initialization complete. Active observers: ${window.AdCallerState.observers.size}`);
+  }
+
+  function loadAdImmediately(container, config) {
+    debugLog('⚡ Loading ad immediately:', config.divId);
+    container.classList.add("ad-loaded-immediate");
+    container.style.border = "2px solid #FF9800";
+    container.title = `Loaded immediately: ${config.divId}`;
   }
 
   function loadAd(container, config) {
-    const { adCode, divId, size, pageTarget, pathname, isGlance } = config;
+    try {
+      const { adCode, divId, size, pageTarget, pathname, isGlance, spacing = true } = config;
+      
+      debugLog('🔄 Loading lazy ad:', { divId, adCode });
 
-    // Mark as initialized
-    container.dataset.initialized = "true";
+      // Add loading state
+      container.classList.add("ad-loading");
+      container.style.border = "2px solid #2196F3";
 
-    // Handle Glance ads
-    // if (isGlance) {
-    //   let interval = setInterval(() => {
-    //     if (window.glanceAds) {
-    //       clearInterval(interval);
-    //       const AdBannerInstance = window.adInstances?.(
-    //         divId,
-    //         pageTarget?.categoryString,
-    //         pathname,
-    //         adCode,
-    //         size
-    //       );
-    //       AdBannerInstance?.loadAd();
-    //     }
-    //   }, 100);
-    // }
+      // Find the placeholder
+      const placeholder = container.querySelector(`#${divId}-placeholder`);
+      if (!placeholder) {
+        debugLog('❌ Placeholder not found for:', divId);
+        return;
+      }
 
-    // Add 'ad-loading' class to show ad is being loaded
-    container.classList.add("ad-loading");
+      // Create proper ad div structure
+      const adDiv = document.createElement('div');
+      adDiv.id = divId;
+      adDiv.className = `dfp ${placeholder.className.replace('ad-placeholder', '').trim()}`;
+      adDiv.style.padding = spacing ? '8px' : '0px';
+
+      // Copy all data attributes from placeholder
+      Array.from(placeholder.attributes).forEach(attr => {
+        if (attr.name.startsWith('data-') && attr.name !== 'data-original-div-id') {
+          adDiv.setAttribute(attr.name, attr.value);
+        }
+      });
+
+      // Replace placeholder with actual ad div
+      placeholder.parentNode.replaceChild(adDiv, placeholder);
+      debugLog('🔄 Replaced placeholder with ad div:', divId);
+
+      // Now trigger the actual ad loading mechanisms
+      
+      // 1. Handle Glance ads
+      if (isGlance) {
+        debugLog('👁️ Loading Glance ad:', divId);
+        
+        if (window.glanceAds && window.adInstances) {
+          const AdBannerInstance = window.adInstances(
+            divId,
+            pageTarget?.categoryString,
+            pathname,
+            adCode,
+            size
+          );
+          AdBannerInstance?.loadAd();
+        } else {
+          debugLog('⚠️ Glance ad system not available, waiting...');
+          // Poll for glance ads availability
+          const glanceInterval = setInterval(() => {
+            if (window.glanceAds && window.adInstances) {
+              clearInterval(glanceInterval);
+              const AdBannerInstance = window.adInstances(
+                divId,
+                pageTarget?.categoryString,
+                pathname,
+                adCode,
+                size
+              );
+              AdBannerInstance?.loadAd();
+              debugLog('👁️ Glance ad loaded after wait:', divId);
+            }
+          }, 100);
+          
+          // Timeout after 5 seconds
+          setTimeout(() => clearInterval(glanceInterval), 5000);
+        }
+      }
+
+      // 2. Handle regular DFP/GPT ads
+      else {
+        debugLog('📢 Loading regular ad:', divId);
+        
+        // Check if Google Publisher Tag is available
+        if (window.googletag) {
+          debugLog('🎯 Google Publisher Tag available');
+          
+          // Define the ad slot if not already defined
+          window.googletag.cmd.push(function() {
+            try {
+              // Check if slot already exists
+              const existingSlot = window.googletag.pubads().getSlots().find(slot => 
+                slot.getSlotElementId() === divId
+              );
+              
+              if (!existingSlot) {
+                debugLog('🏗️ Creating new GPT slot:', divId);
+                const slot = window.googletag.defineSlot(adCode, size, divId);
+                if (slot) {
+                  slot.addService(window.googletag.pubads());
+                  
+                  // Set targeting if available
+                  if (pageTarget?.section?.category) {
+                    slot.setTargeting('section', pageTarget.section.category);
+                  }
+                  if (pageTarget?.section?.sub_category) {
+                    slot.setTargeting('subsec', pageTarget.section.sub_category);
+                  }
+                }
+              }
+              
+              // Display the ad
+              debugLog('📺 Displaying GPT ad:', divId);
+              window.googletag.display(divId);
+              
+            } catch (gptError) {
+              debugLog('💥 GPT Error:', gptError);
+            }
+          });
+        }
+        
+        // 3. Fallback: Check for custom ad loading functions
+        else if (window.loadDFPAd || window.adInstances || window.Advertisement) {
+          debugLog('🔧 Using custom ad loading system');
+          
+          if (window.loadDFPAd) {
+            window.loadDFPAd(divId, adCode, size, pageTarget);
+          } else if (window.adInstances) {
+            const AdBannerInstance = window.adInstances(
+              divId,
+              pageTarget?.categoryString,
+              pathname,
+              adCode,
+              size
+            );
+            AdBannerInstance?.loadAd();
+          }
+        }
+        
+        // 4. Final fallback: Trigger any global ad initialization
+        else {
+          debugLog('⏳ Waiting for ad system to load...');
+          
+          // Poll for ad loading systems
+          const adSystemInterval = setInterval(() => {
+            if (window.googletag || window.loadDFPAd || window.glanceAds) {
+              clearInterval(adSystemInterval);
+              debugLog('🎯 Ad system detected, retrying load:', divId);
+              loadAd(container, config); // Retry
+            }
+          }, 200);
+          
+          // Timeout after 10 seconds
+          setTimeout(() => {
+            clearInterval(adSystemInterval);
+            debugLog('⏰ Timeout waiting for ad system:', divId);
+          }, 10000);
+        }
+      }
+
+      // Update visual state
+      setTimeout(() => {
+        container.classList.remove("ad-loading");
+        container.classList.add("ad-loaded");
+        container.style.border = "2px solid #4CAF50";
+        container.title = `Lazy loaded successfully: ${divId}`;
+        debugLog('✅ Ad loading initiated:', divId);
+      }, 1000);
+
+    } catch (error) {
+      debugLog('💥 Error loading ad:', error, config);
+      container.classList.add("ad-error");
+      container.style.border = "2px solid #f44336";
+      container.title = `Error loading: ${config.divId}`;
+    }
   }
 
-  // Initialize on DOM ready
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initAdLazyLoading);
-  } else {
-    initAdLazyLoading();
+  // Cleanup function
+  function cleanupObservers() {
+    debugLog('🧹 Cleaning up observers...');
+    window.AdCallerState.observers.forEach((observer, id) => {
+      observer.disconnect();
+      debugLog('🗑️ Disconnected observer:', id);
+    });
+    window.AdCallerState.observers.clear();
   }
 
-  // Re-initialize on Astro page navigation
-  document.addEventListener("astro:after-swap", initAdLazyLoading);
+  // Initialize when DOM is ready
+  function initializeWhenReady() {
+    debugLog('🎬 DOM ready, initializing ads...');
+    
+    if (document.readyState === "loading") {
+      debugLog('⏳ Document still loading, waiting for DOMContentLoaded...');
+      document.addEventListener("DOMContentLoaded", () => {
+        debugLog('📄 DOMContentLoaded fired');
+        setTimeout(initAdLazyLoading, 100);
+      });
+    } else {
+      debugLog('📄 Document already ready');
+      setTimeout(initAdLazyLoading, 100);
+    }
+  }
+
+  // Astro navigation handling
+  document.addEventListener("astro:before-swap", () => {
+    debugLog('🔄 Astro before-swap: cleaning up');
+    cleanupObservers();
+  });
+
+  document.addEventListener("astro:after-swap", () => {
+    debugLog('🔄 Astro after-swap: reinitializing');
+    setTimeout(initAdLazyLoading, 200);
+  });
+
+  // Initial setup
+  debugLog('🎯 Script loaded, starting initialization...');
+  
+  // Log available ad systems
+  debugLog('🔍 Available ad systems check:', {
+    googletag: !!window.googletag,
+    glanceAds: !!window.glanceAds,
+    adInstances: !!window.adInstances,
+    loadDFPAd: !!window.loadDFPAd,
+    Advertisement: typeof Advertisement !== 'undefined'
+  });
+  
+  initializeWhenReady();
+
+  // Debug helper - expose functions globally for manual testing
+  if (DEBUG_ADS) {
+    window.AdDebug = {
+      init: initAdLazyLoading,
+      cleanup: cleanupObservers,
+      state: () => window.AdCallerState,
+      containers: () => document.querySelectorAll("[data-lazy-load-id]"),
+      reinit: () => {
+        cleanupObservers();
+        setTimeout(initAdLazyLoading, 100);
+      }
+    };
+    debugLog('🔧 Debug tools available: window.AdDebug');
+  }
 </script>
+
+<style>
+  .ad-container {
+    margin: 10px 0;
+    position: relative;
+  }
+
+  .ad-placeholder {
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+
+  .ad-loading .ad-placeholder {
+    background-color: #e3f2fd !important;
+    border-color: #2196F3 !important;
+  }
+
+  .ad-loading .ad-placeholder::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, 
+      rgba(33, 150, 243, 0.1) 0%, 
+      rgba(33, 150, 243, 0.3) 50%, 
+      rgba(33, 150, 243, 0.1) 100%);
+    animation: shimmer 1.5s infinite;
+    border-radius: 8px;
+  }
+
+  .ad-error {
+    background-color: #ffebee;
+    border-color: #f44336 !important;
+  }
+
+  .ad-loaded {
+    border-color: #4CAF50 !important;
+  }
+
+  .ad-loaded-immediate {
+    border-color: #FF9800 !important;
+  }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  /* Debug info styles */
+  [data-lazy-load-id]::after {
+    content: attr(title);
+    position: absolute;
+    top: -20px;
+    left: 0;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 10px;
+    white-space: nowrap;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  [data-lazy-load-id]:hover::after {
+    opacity: 1;
+  }
+</style>
