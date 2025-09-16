@@ -31,6 +31,7 @@ import {
   CATEGORY_TYPE_VIDEO_ARTICLE,
   DEFAULT_IMAGE_MSID,
 } from "src/constant/index";
+import VideoTypeList from "./VideoTypeList.astro";
 const { category, msid, app } = Astro.props;
 
 const mainData = app?.response?.sections?.article_show?.data?.[0];
@@ -75,6 +76,12 @@ const mainData = app?.response?.sections?.article_show?.data?.[0];
 {
   mainData?.embedData?.map((embedData, dataIndex) => (
     <Fragment>
+      <VideoTypeList
+        videoType={embedData.videoType}
+        mainData={mainData}
+        aList={[mainData]}
+        MULTI_VIDEO_LIST_COUNT={1}
+      />
       <SocialWidgets data={{ text: embedData?.twitterList, type: "twitter" }} />
       <SocialWidgets
         data={{ text: embedData?.instagramList, type: "instagram" }}
