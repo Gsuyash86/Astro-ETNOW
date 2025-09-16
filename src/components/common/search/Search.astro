@@ -1,4 +1,5 @@
 ---
+import SvgIcon from "@components/common/svg/SvgIcon.astro";
 import style from "./Search.module.scss";
 
 export interface Props {
@@ -6,7 +7,11 @@ export interface Props {
   instanceId?: string;
 }
 
-const { isTopNavigation = true, instanceId = "default", inLineStyle = {} } = Astro.props;
+const {
+  isTopNavigation = true,
+  instanceId = "default",
+  inLineStyle = {},
+} = Astro.props;
 
 // Generate unique IDs for this instance
 const searchInputId = `searchInput_${instanceId}`;
@@ -14,7 +19,11 @@ const searchBtnId = `searchBtn_${instanceId}`;
 const resultsContainerId = `resultsContainer_${instanceId}`;
 ---
 
-<div class={style.searchWrapper} data-instance={instanceId} style={{...inLineStyle}}>
+<div
+  class={style.searchWrapper}
+  data-instance={instanceId}
+  style={{ ...inLineStyle }}
+>
   <div class={style.searchBox}>
     <input
       id={searchInputId}
@@ -24,7 +33,20 @@ const resultsContainerId = `resultsContainer_${instanceId}`;
       aria-label="Search"
       class={isTopNavigation ? style.topNavInput : style.hamburgerInput}
     />
-    <button id={searchBtnId} type="button">SEARCH</button>
+    <button id={searchBtnId} type="button">
+      <SvgIcon
+        IconName={"searchNewIconDesktop"}
+        width={18}
+        height={18}
+      />
+    </button>
+    <button id={''} type="button">
+      <SvgIcon
+        IconName={"CloseIconBig"}
+        width={14}
+        height={14}
+      />
+    </button>
   </div>
   <div
     id={resultsContainerId}
@@ -43,7 +65,7 @@ const resultsContainerId = `resultsContainer_${instanceId}`;
 
     // Check if this instance is already initialized
     const wrapper = document.querySelector(
-      `[data-instance="${currentInstanceId}"]`
+      `[data-instance="${currentInstanceId}"]`,
     );
     if (wrapper && wrapper.dataset.initialized) {
       return;
@@ -53,13 +75,13 @@ const resultsContainerId = `resultsContainer_${instanceId}`;
       const input = document.getElementById(`searchInput_${currentInstanceId}`);
       const btn = document.getElementById(`searchBtn_${currentInstanceId}`);
       const resultsContainer = document.getElementById(
-        `resultsContainer_${currentInstanceId}`
+        `resultsContainer_${currentInstanceId}`,
       );
       const hamburger = document.getElementById("hamburgerMenu");
 
       if (!input || !btn || !resultsContainer) {
         console.error(
-          `Search elements not found for instance: ${currentInstanceId}`
+          `Search elements not found for instance: ${currentInstanceId}`,
         );
         return;
       }
@@ -159,7 +181,7 @@ const resultsContainerId = `resultsContainer_${instanceId}`;
               const a = document.createElement("a");
               a.href = `/${item?.seopath || ""}${getSlug(item?.cmstype) ? `-${getSlug(item?.cmstype)}-` : ""}${item?.msid ? item?.msid : ""}`;
               a.textContent = sanitizeText(
-                item?.title || item?.name || item?.compname || item?.S_NAME
+                item?.title || item?.name || item?.compname || item?.S_NAME,
               );
               li.dataset.value = a.textContent;
               li.appendChild(a);
