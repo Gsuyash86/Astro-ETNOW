@@ -30,7 +30,7 @@ const {
             {children.map((item) => (
               <li class="menu-item">
                 <a href={item.href} class="menu-link">
-                  <Typography text={item.title} {...childProps} />
+                  <Typography text={`- ${item.title}`} {...childProps} />
                 </a>
               </li>
             ))}
@@ -72,7 +72,6 @@ const {
   .accordion {
     background: white;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: all 0.3s ease;
 

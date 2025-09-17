@@ -6,89 +6,84 @@ import SvgIcon from "@components/common/svg/SvgIcon.astro";
 import Navigation from "@components/mobile/navigation/Navigation.astro";
 import Hamburger from "@components/mobile/hamburger/Hamburger.astro";
 
-const navData = await fetch("https://api.etnownews.com/api/getnavigation?msid=ALL&channel_id=382");
+const navData = await fetch(
+  "https://api.etnownews.com/api/getnavigation?msid=ALL&channel_id=382"
+);
 const navDataJson = await navData.json();
 ---
 
 <header class={`${style["header"]}`}>
-    <ContainerBox>
-        <div class={`${style["header-top"]}`}>
-            <div class={`${style["header-left"]}`}>
-                <button class={`${style["header-hamburger"]}`}>
-                    <SvgIcon
-                        id="mobileHamburgerIcon"
-                        IconName={"hamburgerIcon"}
-                        width={24}
-                        height={24}
-                    />
-                </button>
-                <Link link={"/"} className={`${style["header-logo"]}`}>
-                    <img src="/assets/images/logo-large.svg" alt="ET Now" />
-                </Link>
-            </div>
-            <div class={`${style["header-right"]}`}>
-                <Link link={"/"} class={`${style["header-lang"]}`}>
-                    <SvgIcon
-                        IconName={"LanguageSwaitchIcon"}
-                        width={20}
-                        height={20}
-                    />
-                </Link>
-                <>
-                <button class={`${style["header-live-tv"]}`}>
-                    <SvgIcon
-                        id="mobileSearchIcon"
-                        IconName={"searchNewIconDesktop"}
-                        width={20}
-                        height={20}
-                    />
-                </button>
-                </>
-                <button class={`${style["header-live-tv"]}`}>
-                    <SvgIcon
-                        IconName={"livetvNewIconRed"}
-                        width={26}
-                        height={20}
-                    />
-                </button>
-            </div>
-        </div>
+  <ContainerBox>
+    <div class={`${style["header-top"]}`}>
+      <div class={`${style["header-left"]}`}>
+        <button class={`${style["header-hamburger"]}`}>
+          <SvgIcon
+            id="mobileHamburgerIcon"
+            IconName={"hamburgerIcon"}
+            width={24}
+            height={24}
+          />
+        </button>
+        <Link link={"/"} className={`${style["header-logo"]}`}>
+          <img src="/assets/images/logo-large.svg" alt="ET Now" />
+        </Link>
+      </div>
+      <div class={`${style["header-right"]}`}>
+        <Link link={"/"} class={`${style["header-lang"]}`}>
+          <SvgIcon IconName={"LanguageSwaitchIcon"} width={20} height={20} />
+        </Link>
+        <>
+          <button class={`${style["header-live-tv"]}`}>
+            <SvgIcon
+              id="mobileSearchIcon"
+              IconName={"searchNewIconDesktop"}
+              width={20}
+              height={20}
+            />
+          </button>
+        </>
+        <button class={`${style["header-live-tv"]}`}>
+          <SvgIcon IconName={"livetvNewIconRed"} width={26} height={20} />
+        </button>
+      </div>
+    </div>
 
-        <Hamburger
-            hamburgerOpenId="mobileHamburgerPopup"
-            hamburgerCloseId="mobileHamburgerCloseIcon"
-            data={navDataJson?.response}
-        />
-
-    </ContainerBox>
-    <Navigation />
+    <Hamburger
+      hamburgerOpenId="mobileHamburgerPopup"
+      hamburgerCloseId="mobileHamburgerCloseIcon"
+      data={navDataJson?.response}
+    />
+  </ContainerBox>
+  <Navigation navLinks={navDataJson?.response} />
 </header>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const searchButton = document.getElementById("mobileSearchIcon");
-        if (searchButton) {
-            searchButton.addEventListener("click", function() {
-                window.openPopup_mobileSearchPopup();
-            });
-        }
+  document.addEventListener("DOMContentLoaded", function () {
+    const searchButton = document.getElementById("mobileSearchIcon");
+    if (searchButton) {
+      searchButton.addEventListener("click", function () {
+        window.openPopup_mobileSearchPopup();
+      });
+    }
 
-        // Open Hamburger With Content 
+    // Open Hamburger With Content
 
-        const hamburgerButton = document.getElementById("mobileHamburgerIcon");
+    const hamburgerButton = document.getElementById("mobileHamburgerIcon");
 
-        if(hamburgerButton) {
-            hamburgerButton.addEventListener("click", function() {
-                document.getElementById("mobileHamburgerPopup").style.left = "0";
-                document.body.style.overflow = "hidden";
-            });
-        }
-        const closeHamburgerButton = document.getElementById("mobileHamburgerCloseIcon");
-        if(closeHamburgerButton) {
-            closeHamburgerButton.addEventListener("click", function() {
-                document.getElementById("mobileHamburgerPopup").style.left = "-100%";
-                document.body.style.overflow = "";
-            });
-        }
-    });
+    if (hamburgerButton) {
+      hamburgerButton.addEventListener("click", function () {
+        document.getElementById("mobileHamburgerPopup").style.left = "0";
+        document.body.style.overflow = "hidden";
+      });
+    }
+    const closeHamburgerButton = document.getElementById(
+      "mobileHamburgerCloseIcon"
+    );
+    if (closeHamburgerButton) {
+      closeHamburgerButton.addEventListener("click", function () {
+        document.getElementById("mobileHamburgerPopup").style.left = "-100%";
+        document.body.style.overflow = "";
+      });
+    }
+  });
 </script>
