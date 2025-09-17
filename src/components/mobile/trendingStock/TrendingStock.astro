@@ -7,7 +7,7 @@ import Typography from "@components/common/widgets/typography/Typography.astro";
 import SvgIcon from "@components/common/svg/SvgIcon.astro";
 import { getUrl } from "@utils/common";
 const response = await fetch(
-  "https://azapis.etnownews.com/api/trending/topic?msid=95875538&pageno=1&perpage=12&channel_id=382"
+  "https://api.etnownews.com/api/trending/topic?msid=95875538&pageno=1&perpage=12&channel_id=382"
 );
 const topics = await response.json();
 ---
