@@ -46,7 +46,7 @@ const ga4Script = `${ga4TagScript(customDimension?.GA4CustomDimensions, serverCo
     {_get(app, "response.sections.article_show.data.[0].title", "")}
   </title>
 
-  <script id="gtagScript" set:html={gaScript} defer async is:inline />
+  <!-- <script id="gtagScript" set:html={gaScript} defer async is:inline /> -->
 
   <script id="ga4Script" set:html={ga4Script} defer async is:inline />
 

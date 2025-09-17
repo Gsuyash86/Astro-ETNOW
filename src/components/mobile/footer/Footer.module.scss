@@ -1,119 +1,118 @@
 .footer {
-    background: linear-gradient(0deg, #171725, #171725), #7d1417;
-    padding: 20px 0px;
-    padding-bottom: 0;
-    margin-top: 20px;
+  background: linear-gradient(0deg, #171725, #171725), #7d1417;
+  padding: 20px 0px;
+  padding-bottom: 0;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+
+  a {
+    color: #ffffff;
+  }
+
+  p {
+    a {
+      text-decoration: underline;
+      font-style: italic;
+    }
+  }
+
+  &-social,
+  &-stocks {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 30px;
+  }
+
+  &-stocks {
+    gap: 14px 0;
+
+    li {
+      &:first-child {
+        margin-right: 15px;
+        flex: 0 0 100%;
+      }
+
+      + li:not(:last-child) {
+        border-right: 1px solid #8b8b8b;
+        line-height: 0.7rem;
+        padding-right: 12px;
+        margin-right: 12px;
+      }
+
+      + li {
+        a {
+          position: relative;
+
+          &:hover {
+            &::after {
+              content: "";
+              position: absolute;
+              bottom: -4px;
+              width: 100%;
+              border-bottom: 1px solid #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &-menu {
+    display: block;
+    column-width: 205px;
+    column-gap: 15px;
+
+    border-top: 1px solid #00000069;
+    padding-top: 25px;
+    margin-bottom: 20px;
+  }
+
+  &-menu,
+  &-menu-list {
+    gap: 10px 20px;
+    justify-content: space-between;
+  }
+
+  &-menu-list {
+    display: grid;
+    grid-template-columns: 1fr;
 
     a {
-        color: #ffffff;
+      display: inline-flex;
+      gap: 10px;
     }
+  }
 
-    p {
-        a {
-            text-decoration: underline;
-            font-style: italic;
+  &-menu-list-1 {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 35px;
+  }
+
+  &-menu-list-2 {
+    grid-template-columns: repeat(2, 1fr);
+
+    li {
+      a {
+        &::before {
+          content: "";
+          display: inline-block;
+          flex: 0 0 8px;
+          width: 8px;
+          height: 8px;
+          background: #8b8b8b;
+          border-radius: 100px;
+          margin-top: 6px;
         }
+      }
     }
+  }
 
-    &-social,
-    &-stocks {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 16px;
-        margin-bottom: 30px;
-    }
-
-    &-stocks {
-        gap: 14px 0;
-
-        li {
-            &:first-child {
-                margin-right: 15px;
-                flex: 0 0 100%;
-            }
-
-            +li:not(:last-child) {
-                border-right: 1px solid #8b8b8b;
-                line-height: .7rem;
-                padding-right: 12px;
-                margin-right: 12px;
-            }
-
-            +li {
-                a {
-                    position: relative;
-
-                    &:hover {
-                        &::after {
-                            content: "";
-                            position: absolute;
-                            bottom: -4px;
-                            width: 100%;
-                            border-bottom: 1px solid #fff;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    &-menu {
-        display: flex;
-        column-width: 205px;
-        column-gap: 15px;
-
-        border-top: 1px solid #00000069;
-        padding-top: 25px;
-        margin-bottom: 20px;
-    }
-
-    &-menu,
-    &-menu-list {
-        gap: 10px 20px;
-        justify-content: space-between;
-    }
-
-    &-menu-list {
-        display: grid;
-        grid-template-columns: 1fr;
-
-        a {
-            display: inline-flex;
-            gap: 10px;
-        }
-    }
-
-    &-menu-list-1 {
-        grid-template-columns: repeat(2, 1fr);
-        column-gap: 35px;
-    }
-
-    &-menu-list-2 {
-        grid-template-columns: repeat(2, 1fr);
-
-        li {
-
-            a {
-                &::before {
-                    content: "";
-                    display: inline-block;
-                    flex: 0 0 8px;
-                    width: 8px;
-                    height: 8px;
-                    background: #8b8b8b;
-                    border-radius: 100px;
-                    margin-top: 6px;
-                }
-            }
-        }
-    }
-
-    &-copy-right {
-        background-color: var(--blackColor);
-        padding: 18px 16px;
-        text-align: center;
-    }
+  &-copy-right {
+    background-color: var(--blackColor);
+    padding: 18px 16px;
+    text-align: center;
+  }
 }

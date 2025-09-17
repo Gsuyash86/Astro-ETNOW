@@ -6,208 +6,137 @@ import Link from "@components/common/link/Link.astro";
 import Typography from "@components/common/widgets/typography/Typography.astro";
 import SvgIcon from "@components/common/svg/SvgIcon.astro";
 import CommonGridBox from "@components/common/wrappers/commonGridBox/CommonGridBox.astro";
-
+import { getDomain } from "@utils/common";
+const response = await fetch(
+  "https://azapis.etnownews.com/api/marketstock?channel_id=382"
+);
+const trendingMf = await response.json();
 ---
 
 <div class={`${style["mutual"]}`}>
-    <ContainerBox>
-        <CustomSlideBox
-            elementType="ulBox"
-            isScrollSanp={false}
-            gridGap={0}
-            changeStyle=""
-            marginTop={0}
-            marginBottom={0}
-            inLineStyle={{}}
-        >
-            <li class={`${style["mutual-main-list"]} ${style["mutual-sticky"]}`}>
-                <button className={`${style["mutual-fund-button"]}`}>
-                    <Typography
-                        tag="span"
-                        text={"Mutual Funds"}
-                        changeStyle="font-size-10"
-                        fontWeight="400"
-                        isLineClamp={false}
-                        isWhiteLayout={false}
-                        inLineStyle={{
-                            padding: "13px 10px",
-                            lineHeight: "10px",
-                            textTransform: "uppercase",
-                        }}
-                    />
-                </button>
-            </li>
-
-            <li class={`${style["mutual-main-list"]}`}>
-                <div class={`${style['mutual-scroll']}`}>
-                    <div className={`${style["mutual-list"]}`}>
-                        <Link link={"/"} className={`${style["mutual-link"]}`}>
-                            <Typography
-                                tag="span"
-                                text={"Mirae Asset Equity Savings Fund - Direct (G)"}
-                                changeStyle="font-size-12"
-                                fontWeight="700"
-                                isLineClamp={false}
-                                isWhiteLayout={false}
-                                inLineStyle={{}}
-                            />
-                        </Link>
-                    </div>
-                    <div className={`${style["mutual-list"]}`}>
-                        <Link link={"/"} className={`${style["mutual-link"]}`}>
-                            <Typography
-                                tag="span"
-                                text={`1 Year Return: <strong>6.04</strong>`}
-                                changeStyle="font-size-12"
-                                fontWeight=""
-                                isLineClamp={false}
-                                isWhiteLayout={false}
-                                inLineStyle={{}}
-                            />
-                        </Link>
-                    </div>
-                    <div className={`${style["mutual-list"]}`}>
-                        <Link link={"/"} className={`${style["mutual-link"]}`}>
-                            <Typography
-                                tag="span"
-                                text={`1 Year Return: <strong>6.04</strong>`}
-                                changeStyle="font-size-12"
-                                fontWeight="700"
-                                isLineClamp={false}
-                                isWhiteLayout={false}
-                                inLineStyle={{}}
-                            />
-                        </Link>
-                    </div>
-                    <div className={`${style["mutual-list"]}`}>
-                        <Link
-                            link={"/"}
-                            className={`${style["mutual-link"]} ${style["mutual-invets-button"]}`}
-                        >
-                            <Typography
-                                tag="span"
-                                text={`Invest Now`}
-                                changeStyle="font-size-12"
-                                fontWeight="600"
-                                isLineClamp={false}
-                                isWhiteLayout={false}
-                                inLineStyle={{}}
-                            />
-                        </Link>
-                    </div>
-                    <div className={`${style["mutual-list"]}`}>
-                        <Link
-                            link={"/"}
-                            className={`${style["mutual-link"]} ${style["mutual-powerd-by"]}`}
-                        >
-                            <Typography
-                                tag="span"
-                                text={`Powered by:`}
-                                changeStyle="font-size-9"
-                                fontWeight="400"
-                                isLineClamp={false}
-                                isWhiteLayout={false}
-                                inLineStyle={{}}
-                            />
-                            <Typography
-                                tag="span"
-                                text={`Mirae Asset`}
-                                changeStyle="font-size-12"
-                                fontWeight="400"
-                                isLineClamp={false}
-                                isWhiteLayout={false}
-                                inLineStyle={{}}
-                            />
-                        </Link>
-                    </div>
-                </div>
-            </li>
-
-            <li class={`${style["mutual-main-list"]}`}>
-                <div class={`${style['mutual-scroll']}`}>
-                    <div className={`${style["mutual-list"]}`}>
-                        <Link link={"/"} className={`${style["mutual-link"]}`}>
-                            <Typography
-                                tag="span"
-                                text={"Mirae Asset Equity Savings Fund - Direct (G)"}
-                                changeStyle="font-size-12"
-                                fontWeight="700"
-                                isLineClamp={false}
-                                isWhiteLayout={false}
-                                inLineStyle={{}}
-                            />
-                        </Link>
-                    </div>
-                    <div className={`${style["mutual-list"]}`}>
-                        <Link link={"/"} className={`${style["mutual-link"]}`}>
-                            <Typography
-                                tag="span"
-                                text={`1 Year Return: <strong>6.04</strong>`}
-                                changeStyle="font-size-12"
-                                fontWeight=""
-                                isLineClamp={false}
-                                isWhiteLayout={false}
-                                inLineStyle={{}}
-                            />
-                        </Link>
-                    </div>
-                    <div className={`${style["mutual-list"]}`}>
-                        <Link link={"/"} className={`${style["mutual-link"]}`}>
-                            <Typography
-                                tag="span"
-                                text={`1 Year Return: <strong>6.04</strong>`}
-                                changeStyle="font-size-12"
-                                fontWeight="700"
-                                isLineClamp={false}
-                                isWhiteLayout={false}
-                                inLineStyle={{}}
-                            />
-                        </Link>
-                    </div>
-                    <div className={`${style["mutual-list"]}`}>
-                        <Link
-                            link={"/"}
-                            className={`${style["mutual-link"]} ${style["mutual-invets-button"]}`}
-                        >
-                            <Typography
-                                tag="span"
-                                text={`Invest Now`}
-                                changeStyle="font-size-12"
-                                fontWeight="600"
-                                isLineClamp={false}
-                                isWhiteLayout={false}
-                                inLineStyle={{}}
-                            />
-                        </Link>
-                    </div>
-                    <div className={`${style["mutual-list"]}`}>
-                        <Link
-                            link={"/"}
-                            className={`${style["mutual-link"]} ${style["mutual-powerd-by"]}`}
-                        >
-                            <Typography
-                                tag="span"
-                                text={`Powered by:`}
-                                changeStyle="font-size-9"
-                                fontWeight="400"
-                                isLineClamp={false}
-                                isWhiteLayout={false}
-                                inLineStyle={{}}
-                            />
-                            <Typography
-                                tag="span"
-                                text={`Mirae Asset`}
-                                changeStyle="font-size-12"
-                                fontWeight="400"
-                                isLineClamp={false}
-                                isWhiteLayout={false}
-                                inLineStyle={{}}
-                            />
-                        </Link>
-                    </div>
-                </div>
-            </li>
-
-        </CustomSlideBox>
-    </ContainerBox>
+  <ContainerBox>
+    <CustomSlideBox
+      elementType="ulBox"
+      isScrollSanp={false}
+      gridGap={0}
+      changeStyle=""
+      marginTop={0}
+      marginBottom={0}
+      inLineStyle={{}}
+    >
+      <li class={`${style["mutual-main-list"]} ${style["mutual-sticky"]}`}>
+        <button className={`${style["mutual-fund-button"]}`}>
+          <Typography
+            tag="span"
+            text={"Mutual Funds"}
+            changeStyle="font-size-10"
+            fontWeight="400"
+            isLineClamp={false}
+            isWhiteLayout={false}
+            inLineStyle={{
+              padding: "13px 10px",
+              lineHeight: "10px",
+              textTransform: "uppercase",
+            }}
+          />
+        </button>
+      </li>
+      {
+        trendingMf?.trendingMutalFunds?.map((mf) => (
+          <li class={`${style["mutual-main-list"]}`}>
+            <div class={`${style["mutual-scroll"]}`}>
+              <div className={`${style["mutual-list"]}`}>
+                <Link
+                  link={`${getDomain()}/${mf.seopath}`}
+                  className={`${style["mutual-link"]}`}
+                >
+                  <Typography
+                    tag="span"
+                    text={mf?.sch_name}
+                    changeStyle="font-size-12"
+                    fontWeight="700"
+                    isLineClamp={false}
+                    isWhiteLayout={false}
+                    inLineStyle={{}}
+                  />
+                </Link>
+              </div>
+              <div className={`${style["mutual-list"]}`}>
+                <Link
+                  link={`${getDomain()}/${mf.seopath}`}
+                  className={`${style["mutual-link"]}`}
+                >
+                  <Typography
+                    tag="span"
+                    text={`1 Year Return: <strong>${Number(mf["1YEARRET"]).toFixed(2)}</strong>`}
+                    changeStyle="font-size-12"
+                    fontWeight=""
+                    isLineClamp={false}
+                    isWhiteLayout={false}
+                    inLineStyle={{}}
+                  />
+                </Link>
+              </div>
+              <div className={`${style["mutual-list"]}`}>
+                <Link
+                  link={`${getDomain()}/${mf.seopath}`}
+                  className={`${style["mutual-link"]}`}
+                >
+                  <Typography
+                    tag="span"
+                    text={`3 Year Return: <strong>${Number(mf["3YEARRET"]).toFixed(2)}</strong>`}
+                    changeStyle="font-size-12"
+                    fontWeight="700"
+                    isLineClamp={false}
+                    isWhiteLayout={false}
+                    inLineStyle={{}}
+                  />
+                </Link>
+              </div>
+              <div className={`${style["mutual-list"]}`}>
+                <Link
+                  link={
+                    "https://www.miraeassetmf.co.in/mutual-fund-scheme/hybrid-fund/mirae-asset-equity-savings-fund?utm_source=et_now&utm_medium=web&utm_campaign=etnowmiraeassetesfsep2024web&utm_id=etnowmiraeassetesfsep2024"
+                  }
+                  className={`${style["mutual-link"]} ${style["mutual-invets-button"]}`}
+                >
+                  <Typography
+                    tag="span"
+                    text={`Invest Now`}
+                    changeStyle="font-size-12"
+                    fontWeight="600"
+                    isLineClamp={false}
+                    isWhiteLayout={false}
+                    inLineStyle={{}}
+                  />
+                </Link>
+              </div>
+              <div className={`${style["mutual-list"]}`}>
+                <Link link={null} class={`${style["mutual-link"]}`}>
+                  <Typography
+                    tag="span"
+                    text={`Powered by:`}
+                    changeStyle="font-size-9"
+                    fontWeight="400"
+                    isLineClamp={false}
+                    isWhiteLayout={false}
+                    inLineStyle={{}}
+                  />
+                  <Typography
+                    tag="span"
+                    text={`Mirae Asset`}
+                    changeStyle="font-size-12"
+                    fontWeight="400"
+                    isLineClamp={false}
+                    isWhiteLayout={false}
+                    inLineStyle={{}}
+                  />
+                </Link>
+              </div>
+            </div>
+          </li>
+        ))
+      }
+    </CustomSlideBox>
+  </ContainerBox>
 </div>
