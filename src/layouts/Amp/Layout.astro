@@ -2,12 +2,20 @@
 import StaticMetaLinks from "@components/common/seo/staticMetaLinks/StaticMetaLinks.astro";
 import DynamicMetaLinks from "@components/common/seo/dynamicMetaLinks/DynamicMetaLinks.astro";
 import _get from "lodash/get";
-import { getCustomDimensionsSSR, ampGA4, removeHtmlTags, NOT_FOUND_META_DETAIL , PUBMATIC_PUB_ID_AMP , PUBMATIC_PROFILE_ID_AMP, generateAmpScripts} from "@utils/common";
+import {
+  getCustomDimensionsSSR,
+  ampGA4,
+  removeHtmlTags,
+  NOT_FOUND_META_DETAIL,
+  PUBMATIC_PUB_ID_AMP,
+  PUBMATIC_PROFILE_ID_AMP,
+  generateAmpScripts,
+} from "@utils/common";
 import serverConfig from "src/scripts/serverConfig";
 import dataConfig from "./dataConfig";
 
 const values = Astro.url.searchParams;
-const { app, cdpCookies = {}, status , usedTags = []} = Astro.props;
+const { app, cdpCookies = {}, status, usedTags = [] } = Astro.props;
 const ampScripts = generateAmpScripts(usedTags);
 
 const pageTarget = {
@@ -22,7 +30,94 @@ const customDimension: any = getCustomDimensionsSSR(app, pageTarget, seoData);
 const eventScriptGA4 = ampGA4(serverConfig.analytics.ga4TrackingId);
 const createdBy = customDimension?.GA4CustomDimensions?.authors;
 const sectionData = customDimension?.GA4CustomDimensions?.section;
+const ampStyle = `<style amp-custom>
+  body {
+        -webkit-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+        -moz-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+        -ms-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+        animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+      }
+      @-webkit-keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+        to {
+          visibility: visible;
+        }
+      }
+      @-moz-keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+        to {
+          visibility: visible;
+        }
+      }
+      @-ms-keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+        to {
+          visibility: visible;
+        }
+      }
+      @-o-keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+        to {
+          visibility: visible;
+        }
+      }
+      @keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+        to {
+          visibility: visible;
+        }
+      }
+</style>`;
 
+const ampStyleAbc = `
+<style amp-boilerplate>
+    body {
+        -webkit-animation: -amp-start 8s steps(1,end) 0s 1 normal both;
+        -moz-animation: -amp-start 8s steps(1,end) 0s 1 normal both;
+        -ms-animation: -amp-start 8s steps(1,end) 0s 1 normal both;
+        animation: -amp-start 8s steps(1,end) 0s 1 normal both
+      }
+      @-webkit-keyframes -amp-start {
+        from {visibility: hidden}
+        to {visibility: visible}
+      }
+      @-moz-keyframes -amp-start {
+        from {visibility: hidden}
+        to {visibility: visible}
+      }
+      @-ms-keyframes -amp-start {
+        from {visibility: hidden}
+        to {visibility: visible}
+      }
+      @-o-keyframes -amp-start {
+        from {visibility: hidden}
+        to {visibility: visible}
+      }
+      @keyframes -amp-start {
+        from {visibility: hidden}
+        to {visibility: visible}
+      }
+  </style>  
+<noscript>
+      <style amp-boilerplate>
+        body {
+          -webkit-animation: none;
+          -moz-animation: none;
+          -ms-animation: none;
+          animation: none;
+        }
+      </style>
+    </noscript>`;
 eventScriptGA4.vars.config[serverConfig.analytics.ga4TrackingId] =
   customDimension?.GA4CustomDimensions != null
     ? {
@@ -33,105 +128,20 @@ eventScriptGA4.vars.config[serverConfig.analytics.ga4TrackingId] =
     : {};
 ---
 
-<!doctype html>
-<html amp lang="en" i-amphtml-binding="" i-amphtml-layout="" i-amphtml-no-boilerplate="" transformed="self;v=1">
-  <head>
-    <title>
-      {status === 404
-        ? NOT_FOUND_META_DETAIL.title
-        : removeHtmlTags(seoData?.title) || ''}
-    </title>
-    <StaticMetaLinks />
-    <DynamicMetaLinks data={seoData} channelId={382} status={status} pathname={Astro.url.pathname}/>
-    <style amp-custom>
-        body { font-family: Arial, sans-serif; }
-    </style>
-   
-    {
-      dataConfig.commonDNSPrefetches &&
-        dataConfig.commonDNSPrefetches.length > 0 &&
-        dataConfig.commonDNSPrefetches.map((domain) => (
-          <link href={domain} rel="dns-prefetch" />
-        ))
-    }
+<head>
+  <meta charset="utf-8" />
+  <title>AMP Page</title>
+  <link rel="canonical" href="https://example.com/amp-page.html" />
+  <meta
+    name="viewport"
+    content="width=device-width,minimum-scale=1,initial-scale=1"
+  />
+  <Fragment set:html={ampStyle} />
+  <Fragment set:html={ampStyleAbc} />
+  <!-- AMP runtime -->
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
 
-    {
-      dataConfig?.commonPreconnects?.map((domain) => (
-        <link href={domain} rel="preconnect" crossorigin/>
-      ))
-    }
-    <Fragment set:html={ampScripts}></Fragment>
-
-  </head>
   <body>
-    <amp-iframe
-            class="pwtscriptiframe"
-            title="User Sync"
-            width="1"
-            height="1"
-            sandbox="allow-same-origin allow-scripts"
-            frameborder="0"
-            src={`https://ads.pubmatic.com/AdServer/js/pwtSync/load-cookie.html?pubid=${PUBMATIC_PUB_ID_AMP}&profid=${PUBMATIC_PROFILE_ID_AMP}`}
-          >
-            <amp-img
-              layout="fill"
-              src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-              placeholder
-            ></amp-img>
-       </amp-iframe>
-
-    <amp-analytics
-      type="gtag"
-      data-credentials="include"
-      >
-      <script
-        type="application/json"
-        data-ampelement="1"
-        set:html={JSON.stringify(eventScriptGA4)}
-        is:inline
-      />
-    </amp-analytics>
-
-    <amp-analytics
-      data-block-on-consent
-      type="comscore"
-    >
-      <script type="application/json" data-ampelement="1" is:inline>
-        {
-          "vars": { "c1": "2", "c2": "26200502" },
-          "extraUrlParams": { "comscorekw": "amp" }
-        }
-      </script>
-    </amp-analytics>
-
-    <amp-analytics
-      type="chartbeat"
-      ><script  type="application/json"  data-ampelement="1" is:inline set:html={`{
-        "vars": {
-          "uid": "10538",
-          "domain": "etnownews.com",
-          "sections": "${sectionData}",
-          "authors": "${createdBy}"
-        }
-      }`}>
-      </script>
-    </amp-analytics>
-    
-    <amp-geo
-      layout="nodisplay"
-      >
-      <script type="application/json" data-ampelement="1" is:inline>
-        {
-          "ISOCountryGroups": {
-            "eea": ["preset-eea"],
-            "usca": ["preset-us-ca"]
-          }
-        }
-      </script>
-    </amp-geo>
-    
-    AMP COMPONENT COME HERE
-   
-    </body
-  >
-</html>
+    <h1>Hello AMP!</h1>
+  </body>
+</head>
