@@ -112,24 +112,26 @@ const trendingMf = await response.json();
                 </Link>
               </div>
               <div className={`${style["mutual-list"]}`}>
-                <Typography
-                  tag="span"
-                  text={`Powered by:`}
-                  changeStyle="font-size-9"
-                  fontWeight="400"
-                  isLineClamp={false}
-                  isWhiteLayout={false}
-                  inLineStyle={{}}
-                />
-                <Typography
-                  tag="span"
-                  text={`Mirae Asset`}
-                  changeStyle="font-size-12"
-                  fontWeight="400"
-                  isLineClamp={false}
-                  isWhiteLayout={false}
-                  inLineStyle={{}}
-                />
+                <Link link={null} class={`${style["mutual-link"]}`}>
+                  <Typography
+                    tag="span"
+                    text={`Powered by:`}
+                    changeStyle="font-size-9"
+                    fontWeight="400"
+                    isLineClamp={false}
+                    isWhiteLayout={false}
+                    inLineStyle={{}}
+                  />
+                  <Typography
+                    tag="span"
+                    text={`Mirae Asset`}
+                    changeStyle="font-size-12"
+                    fontWeight="400"
+                    isLineClamp={false}
+                    isWhiteLayout={false}
+                    inLineStyle={{}}
+                  />
+                </Link>
               </div>
             </div>
           </li>
