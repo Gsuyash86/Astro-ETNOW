@@ -1,15 +1,36 @@
 ---
-const { scriptID, elementID, isAppView = false } = Astro.props;
+const { scriptID, elementID, isAppView = false  , lazy = false} = Astro.props;
 const rootId = `M863117ScriptRootC${elementID}`;
-const scriptSrc = `https://jsc.mgid.com/e/t/etnownews.com.${scriptID}.js`;
 ---
 
 {
   !isAppView && (
     <div class="mgIDWrap">
       <div id={rootId}>
-        <script is:inline src={scriptSrc} defer />
       </div>
     </div>
   )
 }
+<script is:inline define:vars={{ rootId, scriptID, lazy }}>  
+function loadOnscroll() {
+    const scriptSrc = `https://jsc.mgid.com/e/t/etnownews.com.${scriptID}.js`;
+    const rootEl = document.getElementById(rootId);
+    if (rootEl) {
+      const script = document.createElement("script");
+      script.src = scriptSrc;
+      script.defer = true;
+      rootEl.appendChild(script);
+    }
+  }
+
+if (lazy) {
+    const onScroll = () => {
+      loadOnscroll();
+      window.removeEventListener("scroll", onScroll);
+    };
+    window.addEventListener("scroll", onScroll, { once: true });
+  }else {
+    loadOnscroll();
+  }
+
+</script>
