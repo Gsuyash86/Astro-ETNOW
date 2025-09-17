@@ -33,7 +33,7 @@ const footerCompanyMenu = data?.response?.[0]?.data;
       isWhiteLayout={true}
       inLineStyle={{ marginBottom: "10px" }}
     />
-    
+
     <div class={`${style["footer-description"]}`}>
       <Typography
         tag="p"
@@ -62,9 +62,21 @@ const footerCompanyMenu = data?.response?.[0]?.data;
           inLineStyle={{ lineHeight: "24px" }}
         />
       </li>
-      <li><a href="#"><SvgIcon IconName={"footerFbIcon"} width="22" height="22" /></a></li>
-      <li><a href="#"><SvgIcon IconName={"footerXIcon"} width="22" height="22" /></a></li>
-      <li><a href="#"><SvgIcon IconName={"footerInstaIcon"} width="22" height="22" /></a></li>
+      <li>
+        <a href="#"
+          ><SvgIcon IconName={"footerFbIcon"} width="22" height="22" /></a
+        >
+      </li>
+      <li>
+        <a href="#"
+          ><SvgIcon IconName={"footerXIcon"} width="22" height="22" /></a
+        >
+      </li>
+      <li>
+        <a href="#"
+          ><SvgIcon IconName={"footerInstaIcon"} width="22" height="22" /></a
+        >
+      </li>
     </ul>
 
     <ul class={`${style["footer-stocks"]}`}>
@@ -138,32 +150,9 @@ const footerCompanyMenu = data?.response?.[0]?.data;
         footerMenu.map((section, sectionIndex) => {
           const title = section?.title;
           const links = section?.children;
-          const parentProps = {
-            tag: "h4",
-            changeStyle: "font-size-16",
-            fontWeight: "700",
-            isLineClamp: false,
-            isWhiteLayout: true,
-            inLineStyle: {
-              lineHeight: "1",
-              marginBottom: "16px",
-            },
-          };
-
-          const childProps = {
-            tag: "p",
-            changeStyle: "font-size-12",
-            fontWeight: "400",
-            isLineClamp: false,
-            isWhiteLayout: true,
-            inLineStyle: {
-              lineHeight: "1",
-              color: "hsla(0,0%,100%,.75)",
-            },
-          };
 
           return (
-            <Accordian showChildren={links?.length}>
+            <Accordian showChildren={links?.length} closePrev={true}>
               <Link
                 slot="header"
                 link={section?.href}
@@ -183,30 +172,28 @@ const footerCompanyMenu = data?.response?.[0]?.data;
                 />
               </Link>
               <ul class={`${style["footer-menu-list"]}`} slot="body">
-                {
-                  links?.map((item) => (
-                    <li>
-                      <Link
-                        link={item.href}
-                        className={`${style.categoryHeader} ${style["active"]}`}
-                      >
-                        <Typography
-                          tag="span"
-                          text={`${item.title}`}
-                          changeStyle="font-size-16"
-                          fontWeight="500"
-                          isLineClamp={false}
-                          isWhiteLayout={false}
-                          inLineStyle={{
-                            WebkitLineClamp: "1",
-                            lineHeight: "44px",
-                            color: "inherit",
-                          }}
-                        />
-                      </Link>
-                    </li>
-                  ))
-                }
+                {links?.map((item) => (
+                  <li>
+                    <Link
+                      link={item.href}
+                      className={`${style.categoryHeader} ${style["active"]}`}
+                    >
+                      <Typography
+                        tag="span"
+                        text={`${item.title}`}
+                        changeStyle="font-size-16"
+                        fontWeight="500"
+                        isLineClamp={false}
+                        isWhiteLayout={true}
+                        inLineStyle={{
+                          WebkitLineClamp: "1",
+                          lineHeight: "44px",
+                          color: "#fffff",
+                        }}
+                      />
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </Accordian>
           );
@@ -233,28 +220,32 @@ const footerCompanyMenu = data?.response?.[0]?.data;
                   marginBottom: "16px",
                 }}
               />
-              <ul class={`${style["footer-menu-list"]} ${style["footer-menu-list-1"]}`}>
-                {
-                  links.map((item, index) => (
-                    <li id={`${index}-footer-brand-menu`}>
-                      <a href={item.url}>
-                        <SvgIcon IconName={"rightArrowIconGrey"} width="6" height="10" />
-                        <Typography
-                          tag="p"
-                          text={item.title}
-                          changeStyle="font-size-12"
-                          fontWeight="400"
-                          isLineClamp={false}
-                          isWhiteLayout={true}
-                          inLineStyle={{
-                            lineHeight: "1",
-                            color: "hsla(0,0%,100%,.75)",
-                          }}
-                        />
-                      </a>
-                    </li>
-                  ))
-                }
+              <ul
+                class={`${style["footer-menu-list"]} ${style["footer-menu-list-1"]}`}
+              >
+                {links.map((item, index) => (
+                  <li id={`${index}-footer-brand-menu`}>
+                    <a href={item.url}>
+                      <SvgIcon
+                        IconName={"rightArrowIconGrey"}
+                        width="6"
+                        height="10"
+                      />
+                      <Typography
+                        tag="p"
+                        text={item.title}
+                        changeStyle="font-size-12"
+                        fontWeight="400"
+                        isLineClamp={false}
+                        isWhiteLayout={true}
+                        inLineStyle={{
+                          lineHeight: "1",
+                          color: "hsla(0,0%,100%,.75)",
+                        }}
+                      />
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
           );
@@ -276,12 +267,18 @@ const footerCompanyMenu = data?.response?.[0]?.data;
             marginBottom: "16px",
           }}
         />
-        <ul class={`${style["footer-menu-list"]} ${style["footer-menu-list-1"]}`}>
+        <ul
+          class={`${style["footer-menu-list"]} ${style["footer-menu-list-1"]}`}
+        >
           {
             footerCompanyMenu?.children.map((item, index) => (
               <li key={index}>
                 <a href={item.url}>
-                  <SvgIcon IconName={"rightArrowIconGrey"} width="6" height="10" />
+                  <SvgIcon
+                    IconName={"rightArrowIconGrey"}
+                    width="6"
+                    height="10"
+                  />
                   <Typography
                     tag="p"
                     text={item.title}
@@ -316,7 +313,9 @@ const footerCompanyMenu = data?.response?.[0]?.data;
             marginBottom: "16px",
           }}
         />
-        <ul class={`${style["footer-menu-list"]} ${style["footer-menu-list-2"]}`}>
+        <ul
+          class={`${style["footer-menu-list"]} ${style["footer-menu-list-2"]}`}
+        >
           {
             footerLatestMenu?.children.map((item) => (
               <li id={`${item?.id}-latest-stories`}>
