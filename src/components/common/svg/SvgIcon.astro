@@ -11,7 +11,7 @@ const {
 } = Astro.props;
 
 const svgStyle = (width !== 0 && height !== 0) ? { width: `${width}px`, height: `${height}px` } : {};
-const combinedStyle = { ...svgStyle, ...inLineStyle };
+const combinedStyle = { fontSize : '0', ...svgStyle, ...inLineStyle };
 
 const iconClass = style[`icon-${size}`] || '';
 ---
