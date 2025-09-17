@@ -31,6 +31,7 @@ import {
   DEFAULT_IMAGE_MSID,
 } from "src/constant/index";
 import VideoTypeList from "./VideoTypeList.astro";
+import AdContainer from "@components/common/adcontainer/AdContainer.astro";
 const { category, msid, app } = Astro.props;
 
 const mainData = app?.response?.sections?.article_show?.data?.[0];
@@ -65,7 +66,9 @@ const mainData = app?.response?.sections?.article_show?.data?.[0];
 }
 
 <Synopsis text={mainData.synopsis} inLineStyle={{ marginBottom: "34px" }} />
-<AdCaller {...app?.response?.ads?.atf} atf={true} />
+<AdContainer inLineStyle={{ width: "300px", minHeight: "250px" }}>
+  <AdCaller {...app?.response?.ads?.atf} atf={true} />
+</AdContainer>
 <KeyHighlight summary={mainData?.summary} />
 <CoverVDOAndImg
   data={mainData?.cmsassoc || []}
@@ -134,7 +137,11 @@ const mainData = app?.response?.sections?.article_show?.data?.[0];
         }
         firstPara={embedData.paraLength == 1 && embedData?.ispara}
       />
-      {embedData?.ad ? <AdCaller {...embedData?.ad} /> : null}
+      {embedData?.ad ? (
+        <AdContainer inLineStyle={{ width: "300px", minHeight: "250px" }}>
+          <AdCaller {...embedData?.ad} />
+        </AdContainer>
+      ) : null}
       {embedData.isMGIDShow ? (
         <MgIdComponent
           scriptID={CONST.MGID_ADD_1X1}
@@ -155,5 +162,9 @@ const mainData = app?.response?.sections?.article_show?.data?.[0];
 <TopStockWidget />
 <RelatedNews data={mainData?.editorpicks} />
 <TopVideos componentData={mainData?.rhs_widget} />
-<MgIdComponent scriptID={CONST.MGID_ADD_5X5} elementID={CONST.MGID_ADD_5X5} lazy={true} />
+<MgIdComponent
+  scriptID={CONST.MGID_ADD_5X5}
+  elementID={CONST.MGID_ADD_5X5}
+  lazy={true}
+/>
 <LatestNews data={mainData?.latestSiblings} />

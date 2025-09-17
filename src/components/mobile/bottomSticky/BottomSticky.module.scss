@@ -1,7 +1,7 @@
 .bottom-sticky {
     &-box {
         background: #ffffff;
-        position: fixed;
+        position: sticky;
         bottom: -48px;
         z-index: 999;
         transition: all ease-in-out 0.5s;
