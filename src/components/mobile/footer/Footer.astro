@@ -157,7 +157,7 @@ const footerCompanyMenu = data?.response?.[0]?.data;
               <Link
                 slot="header"
                 link={section?.href}
-                className={`${style.categoryHeader} ${style["active"]}`}
+                className={`${style.categoryHeader}`}
               >
                 <Typography
                   tag="p"
@@ -226,7 +226,7 @@ const footerCompanyMenu = data?.response?.[0]?.data;
               >
                 {links.map((item, index) => (
                   <li id={`${index}-footer-brand-menu`}>
-                    <a href={item.url}>
+                    <Link link={item.url}>
                       <SvgIcon
                         IconName={"rightArrowIconGrey"}
                         width="6"
@@ -244,7 +244,7 @@ const footerCompanyMenu = data?.response?.[0]?.data;
                           color: "hsla(0,0%,100%,.75)",
                         }}
                       />
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -320,7 +320,7 @@ const footerCompanyMenu = data?.response?.[0]?.data;
           {
             footerLatestMenu?.children.map((item) => (
               <li id={`${item?.id}-latest-stories`}>
-                <a href={item?.url}>
+                <Link link={item?.url}>
                   <Typography
                     tag="p"
                     text={item?.title}
@@ -334,7 +334,7 @@ const footerCompanyMenu = data?.response?.[0]?.data;
                       display: "inline-block",
                     }}
                   />
-                </a>
+                </Link>
               </li>
             ))
           }
