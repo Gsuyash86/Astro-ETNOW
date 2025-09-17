@@ -9,11 +9,12 @@ const {
     hamburgerOpenId = "",
     hamburgerCloseId = "",
     inLineStyle = {},
+    data
 } = Astro.props;
 
 // Menu data structure
 const menuData = NAVIGATION_GROUPS;
-const { data } = Astro.props;
+
 function groupMenuData(flatData) {
     const findByTitle = (title) =>
         flatData?.find((item) => item?.title === title);
