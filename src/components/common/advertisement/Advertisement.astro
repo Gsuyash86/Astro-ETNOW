@@ -1,5 +1,4 @@
 ---
-import Advertisement from "../advertisement/Advertisement.astro";
 export interface Props {
   id?: string;
   isPrimeUser?: boolean;
@@ -252,29 +251,14 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
           }}
           {...dataAttributes}
           data-original-div-id={divId}
-        >
-          <div>
-            <div>🔄 Lazy Loading Ad...</div>
-            <div style="font-size: 12px; margin-top: 5px;">ID: {divId}</div>
-            <div style="font-size: 10px; color: #999;">
-              LazyID: {lazyLoadId}
-            </div>
-          </div>
-        </div>
+        />
       ) : !isSkiplazyload && !isGlance ? (
-        <Advertisement
-          adCode={adCode}
-          size={size}
-          divId={divId}
-          pageTarget={pageTarget}
-        >
           <div
             id={divId}
             class={`dfp ${adClasses}`}
             style={!spacing ? { padding: "0px" } : { padding: "8px" }}
             {...dataAttributes}
           />
-        </Advertisement>
       ) : (
         <div
           id={divId}
@@ -288,11 +272,6 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
 }
 
 <script>
-  function debugLog(...args) {
-    if (import.meta.env.PUBLIC_DEBUG_ADS === "true") {
-      console.info("[AD DEBUG]", ...args);
-    }
-  }
   // Global state management for ad configurations
   if (!window.AdCallerState) {
     window.AdCallerState = {
@@ -307,19 +286,11 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
 
   // Initialize lazy loading for ads
   function initAdLazyLoading() {
-    debugLog("🚀 Starting ad lazy loading initialization...");
-
-    // Find all ad containers that need lazy loading
     const allContainers = document.querySelectorAll("[data-lazy-load-id]");
     const uninitializedContainers = document.querySelectorAll(
       "[data-lazy-load-id]:not([data-initialized])"
     );
-
-    debugLog(`Total ad containers found: ${allContainers.length}`);
-    debugLog(`Uninitialized containers: ${uninitializedContainers.length}`);
-
     if (uninitializedContainers.length === 0) {
-      debugLog("❌ No uninitialized ad containers found");
       return;
     }
 
@@ -329,26 +300,16 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
         const lazyLoadId = container.dataset.lazyLoadId;
         const shouldLazyLoadAttr = container.dataset.shouldLazyLoad;
 
-        debugLog(`\n📦 Processing container ${index + 1}:`, {
-          lazyLoadId,
-          shouldLazyLoad: shouldLazyLoadAttr,
-          hasConfig: !!configData,
-        });
-
         if (!configData) {
-          debugLog("❌ No ad config found for container:", container);
           return;
         }
 
         const config = JSON.parse(configData);
-        debugLog("📋 Config parsed:", config);
-
         // Mark as initialized immediately
         container.dataset.initialized = "true";
 
         // Check if should lazy load
         if (!config.shouldLazyLoad || shouldLazyLoadAttr === "false") {
-          debugLog("⚡ Loading ad immediately (not lazy)");
           loadAdImmediately(container, config);
           return;
         }
@@ -357,26 +318,14 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
         if ("IntersectionObserver" in window) {
           // Check if observer already exists
           if (window.AdCallerState.observers.has(lazyLoadId)) {
-            debugLog("⚠️ Observer already exists for:", lazyLoadId);
             return;
           }
-
-          debugLog("👁️ Setting up IntersectionObserver for:", lazyLoadId);
 
           const observer = new IntersectionObserver(
             (entries) => {
               entries.forEach((entry) => {
-                debugLog("👀 Intersection detected:", {
-                  isIntersecting: entry.isIntersecting,
-                  intersectionRatio: entry.intersectionRatio,
-                  lazyLoadId: entry.target.dataset.lazyLoadId,
-                });
 
                 if (entry.isIntersecting && entry.intersectionRatio > 0) {
-                  debugLog(
-                    "🎯 Loading lazy ad:",
-                    entry.target.dataset.lazyLoadId
-                  );
                   loadAd(entry.target, config);
                   observer.unobserve(entry.target);
                   window.AdCallerState.observers.delete(lazyLoadId);
@@ -386,26 +335,18 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
             {
               root: null,
               rootMargin: "300px 0px 300px 0px",
-              threshold: [0, 0.1],
+              threshold: [0, 0.2],
             }
           );
 
           window.AdCallerState.observers.set(lazyLoadId, observer);
           observer.observe(container);
         } else {
-          debugLog(
-            "❌ IntersectionObserver not supported, loading immediately"
-          );
           loadAd(container, config);
         }
       } catch (error) {
-        debugLog("💥 Error initializing ad container:", error, container);
       }
     });
-
-    debugLog(
-      `🏁 Initialization complete. Active observers: ${window.AdCallerState.observers.size}`
-    );
   }
 
   function loadAdImmediately(container, config) {
@@ -425,12 +366,9 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
         spacing = true,
       } = config;
 
-      debugLog("🔄 Loading lazy ad:", { divId, adCode, pageTarget });
-
       container.classList.add("ad-loading");
       const placeholder = container.querySelector(`#${divId}-placeholder`);
       if (!placeholder) {
-        debugLog("❌ Placeholder not found for:", divId);
         return;
       }
 
@@ -455,18 +393,14 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
       });
 
       placeholder.parentNode.replaceChild(adDiv, placeholder);
-      debugLog("🔄 Replaced placeholder with ad div:", divId);
-
       initializeAdvertisementAd(adCode, size, divId, pageTarget, uniqueId);
 
       setTimeout(() => {
         container.classList.remove("ad-loading");
         container.classList.add("ad-loaded");
         container.title = `Lazy loaded successfully: ${divId}`;
-        debugLog("✅ Ad loading initiated:", divId);
-      }, 1000);
+      }, 100);
     } catch (error) {
-      debugLog("💥 Error loading ad:", error, config);
       container.classList.add("ad-error");
       container.title = `Error loading: ${config.divId}`;
     }
@@ -479,16 +413,8 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
     pageTarget,
     uniqueId
   ) {
-    debugLog("🏗️ Initializing Advertisement ad:", {
-      adCode,
-      size,
-      divId,
-      pageTarget,
-    });
-
     const adElement = document.querySelector(`[data-unique-id="${uniqueId}"]`);
     if (!adElement || adElement.dataset.initialized === "true") {
-      debugLog("⚠️ Ad already initialized or element not found:", uniqueId);
       return;
     }
     adElement.dataset.initialized = "true";
@@ -504,19 +430,7 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
       currentCustomParams = pageTarget?.customParams,
       query = pageTarget?.query && Object.values(pageTarget?.query)[0];
 
-    debugLog("📋 Ad targeting parameters:", {
-      sec,
-      subsec,
-      ptype,
-      metaInfoAttr,
-      id,
-      sequence,
-      cdp_audience,
-      query,
-    });
-
     if (window?.apstag && window.APS_CONFIG) {
-      debugLog("🎯 Initializing Amazon APS");
       window.apstag.init(window.APS_CONFIG);
     }
 
@@ -527,11 +441,8 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
     const tg_ppid = window.getCookieValue
       ? window.getCookieValue("tg_ppid")
       : null;
-    debugLog("🍪 PPID cookie:", tg_ppid ? "Found" : "Not found");
 
     window.googletag.cmd.push(function () {
-      debugLog("📺 Defining GPT slot:", { adCode, size, divId });
-
       let ab = adCode?.includes("_ROS_Interstitial")
         ? window.googletag
             ?.defineOutOfPageSlot(
@@ -544,60 +455,46 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
             ?.addService(window.googletag.pubads());
 
       if (!ab) {
-        debugLog("❌ Failed to define GPT slot");
         return;
       }
-
       SlotArr.push(ab);
-      debugLog("✅ GPT slot defined successfully");
 
       window.googletag.pubads().clearTargeting();
 
       if (sec) {
         window.googletag.pubads().setTargeting("section", [sec]);
-        debugLog("🎯 Set section targeting:", sec);
       }
       if (subsec) {
         window.googletag.pubads().setTargeting("subsec", [subsec]);
-        debugLog("🎯 Set subsection targeting:", subsec);
       }
       if (ptype) {
         window.googletag.pubads().setTargeting("page", [ptype]);
-        debugLog("🎯 Set page targeting:", ptype);
       }
       if (metaInfoAttr) {
         window.googletag.pubads().setTargeting("keyword", [metaInfoAttr]);
-        debugLog("🎯 Set keyword targeting:", metaInfoAttr);
       }
       if (id) {
         window.googletag.pubads().setTargeting("articleid", [id]);
-        debugLog("🎯 Set article ID targeting:", id);
       }
       if (sequence) {
         window.googletag.pubads().setTargeting("article_sequence", [sequence]);
-        debugLog("🎯 Set article sequence targeting:", sequence);
       }
       if (query) {
         window.googletag.pubads().setTargeting("demo", [query]);
-        debugLog("🎯 Set demo targeting:", query);
       }
       if (tg_ppid) {
         window.googletag.pubads().setPublisherProvidedId(tg_ppid);
-        debugLog("🎯 Set PPID:", tg_ppid);
       }
       if (cdp_audience) {
         window.googletag.pubads().setTargeting("cdp_audience", [cdp_audience]);
-        debugLog("🎯 Set CDP audience targeting:", cdp_audience);
       }
 
       // Set custom params
       if (currentCustomParams && typeof currentCustomParams === "object") {
         Object.keys(currentCustomParams).forEach((key) => {
           window.googletag.pubads().setTargeting(key, currentCustomParams[key]);
-          debugLog("🎯 Set custom targeting:", key, currentCustomParams[key]);
         });
       } else if (currentCustomParams) {
-        debugLog("❌ Invalid currentCustomParams format:", currentCustomParams);
       }
 
       // Configure pubads
@@ -612,32 +509,24 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
 
       window.googletag.pubads().disableInitialLoad();
       window.googletag.enableServices();
-
-      debugLog("⚙️ GPT configuration completed");
     });
 
     let isPubDone = false,
       isApsDone = false;
 
     window.googletag.cmd.push(function () {
-      debugLog("🎬 Starting ad display and bidding process");
-
       // Display the ad
       window.googletag.display(divId);
-      debugLog("📺 GPT display called for:", divId);
 
       // Fetch bids from apstag
       if (SlotArr && window.pubmaticOn && window.apstag) {
-        debugLog("💰 Fetching Amazon APS bids");
         window.apstag.fetchBids(
           { slots: [slotID] || [], timeout: window.BID_TIMEOUT || 2000 },
           () => {
-            debugLog("✅ Amazon APS bids completed");
             isApsDone = true;
           }
         );
       } else {
-        debugLog("⏭️ Skipping Amazon APS (not available or disabled)");
         isApsDone = true;
       }
 
@@ -646,38 +535,27 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
         window?.PWT?.requestBids &&
         typeof window?.PWT?.requestBids === "function"
       ) {
-        debugLog("💰 Requesting PWT bids");
         window.PWT.initAdserverSet = false;
         window.PWT.setAuctionTimeout(1000);
         window.PWT.requestBids(
           window.PWT.generateConfForGPT(SlotArr),
           function (adUnitsArray) {
-            debugLog("✅ PWT bids completed");
             window.PWT.addKeyValuePairsToGPTSlots(adUnitsArray);
             isPubDone = true;
           }
         );
       } else {
-        debugLog("⏭️ Skipping PWT (not available)");
         isPubDone = true;
       }
 
       // Refresh function to display ads after bidding
       let refresh = () => {
-        debugLog("🔄 Checking bid completion status:", {
-          isPubDone,
-          isApsDone,
-        });
-
         if (isPubDone && isApsDone) {
-          debugLog("🚀 All bids complete, refreshing ad slot");
           window.googletag.cmd.push(function () {
             if (window.apstag) {
               window.apstag.setDisplayBids();
-              debugLog("🎯 Amazon APS display bids set");
             }
             window.googletag.pubads().refresh(SlotArr);
-            debugLog("✅ GPT refresh called - ad should now load!");
           });
         } else {
           setTimeout(refresh, 100);
@@ -689,84 +567,39 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
 
     // Store cleanup function for potential manual cleanup
     adElement._cleanupAd = function () {
-      debugLog("🧹 Cleaning up ad:", divId);
       window.googletag.cmd.push(function () {
         window.googletag.destroySlots();
       });
     };
-
-    debugLog("🎉 Advertisement initialization completed for:", divId);
   }
 
   // Cleanup function
   function cleanupObservers() {
-    debugLog("🧹 Cleaning up observers...");
     window.AdCallerState.observers.forEach((observer, id) => {
       observer.disconnect();
-      debugLog("🗑️ Disconnected observer:", id);
     });
     window.AdCallerState.observers.clear();
   }
 
   // Initialize when DOM is ready
   function initializeWhenReady() {
-    debugLog("🎬 DOM ready, initializing ads...");
-
     if (document.readyState === "loading") {
-      debugLog("⏳ Document still loading, waiting for DOMContentLoaded...");
       document.addEventListener("DOMContentLoaded", () => {
-        debugLog("📄 DOMContentLoaded fired");
         setTimeout(initAdLazyLoading, 100);
       });
     } else {
-      debugLog("📄 Document already ready");
       setTimeout(initAdLazyLoading, 100);
     }
   }
 
   // Astro navigation handling
   document.addEventListener("astro:before-swap", () => {
-    debugLog("🔄 Astro before-swap: cleaning up");
     cleanupObservers();
   });
 
   document.addEventListener("astro:after-swap", () => {
-    debugLog("🔄 Astro after-swap: reinitializing");
     setTimeout(initAdLazyLoading, 200);
   });
 
-  // Initial setup
-  debugLog("🎯 Script loaded, starting initialization...");
-
-  // Log available ad systems
-  debugLog("🔍 Available ad systems check:", {
-    googletag: !!window.googletag,
-    glanceAds: !!window.glanceAds,
-    adInstances: !!window.adInstances,
-    loadDFPAd: !!window.loadDFPAd,
-    Advertisement: typeof Advertisement !== "undefined",
-    apstag: !!window.apstag,
-    APS_CONFIG: !!window.APS_CONFIG,
-    PWT: !!window.PWT,
-    pubmaticOn: !!window.pubmaticOn,
-    BID_TIMEOUT: window.BID_TIMEOUT,
-    getCookieValue: !!window.getCookieValue,
-  });
-
   initializeWhenReady();
-
-  // Debug helper - expose functions globally for manual testing
-  if (import.meta.env.PUBLIC_DEBUG_ADS === "true") {
-    window.AdDebug = {
-      init: initAdLazyLoading,
-      cleanup: cleanupObservers,
-      state: () => window.AdCallerState,
-      containers: () => document.querySelectorAll("[data-lazy-load-id]"),
-      reinit: () => {
-        cleanupObservers();
-        setTimeout(initAdLazyLoading, 100);
-      },
-    };
-    debugLog("🔧 Debug tools available: window.AdDebug");
-  }
 </script>
