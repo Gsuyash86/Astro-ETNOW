@@ -54,7 +54,7 @@ const bottomNav = [
 ];
 ---
 
-<div class={`${style["bottom-sticky-box"]}`} style={{ bottom: "0" }}>
+<div class={`${style["bottom-sticky-box"]}`} style={{ bottom: "48" }} id="btm-navbar">
     <AdContainer
         inLineStyle={{
             background: "#ffffff",
@@ -90,3 +90,23 @@ const bottomNav = [
         }
     </div>
 </div>
+<script>
+    let prevScrollpos =
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop ||
+      0;
+    window.addEventListener('scroll', (event) => {
+      let currentScrollPos =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop ||
+        0;        
+      if (Math.abs(112) >= currentScrollPos) {
+        document.getElementById('btm-navbar').style.bottom = '-48px';
+      } else {
+        document.getElementById('btm-navbar').style.bottom = '0px';
+      }
+      prevScrollpos = currentScrollPos;
+    });
+</script>
