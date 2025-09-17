@@ -33,6 +33,8 @@ import {
 import VideoTypeList from "./VideoTypeList.astro";
 import AdContainer from "@components/common/adcontainer/AdContainer.astro";
 import ScrollHideButtons from "@components/common/buttons/ScrollHideButtons.astro";
+import ShareIcon from "../socialShare/ShareIcon.astro";
+import { processReadingTime } from "@utils/common";
 const { category, msid, app } = Astro.props;
 
 const mainData = app?.response?.sections?.article_show?.data?.[0];
@@ -65,11 +67,17 @@ const mainData = app?.response?.sections?.article_show?.data?.[0];
     />
   ) : null
 }
+
 <ScrollHideButtons
   nextStory={app?.response?.nextStory}
   prevStroy={app?.response?.prevStory}
 />
 <Synopsis text={mainData.synopsis} inLineStyle={{ marginBottom: "34px" }} />
+<ShareIcon
+  type={"TOP_SHARE_ICONS"}
+  time={processReadingTime(mainData)}
+  mainData={mainData}
+/>
 <AdContainer inLineStyle={{ width: "300px", minHeight: "250px" }}>
   <AdCaller {...app?.response?.ads?.atf} atf={true} />
 </AdContainer>

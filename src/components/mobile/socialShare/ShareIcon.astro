@@ -1,0 +1,101 @@
+---
+import SvgIcon from "@components/common/svg/SvgIcon.astro";
+import { FOLLOW_US_LINK, JOIN_US_LINK } from "@constant/index";
+import style from "./ShareIcon.module.scss";
+import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.astro";
+import Typography from "@components/common/widgets/typography/Typography.astro";
+import ReadTime from "@components/common/readTime/ReadTime.astro";
+import Link from "@components/common/link/Link.astro";
+const { type, time, mainData } = Astro.props;
+---
+
+{
+  type === "TOP_SHARE_ICONS" ? (
+    <ContainerBox>
+      <div
+        class={`${style["d-flex"]} ${style["justify__content__center"]} ${style["ShareIcon"]} ${style["align__items__center"]}`}
+      >
+        <ReadTime time={time} />
+        <div
+          class={`${style["follow-us"]} ${style["align__items__center"]} ${style["d-flex"]}`}
+          style={{ marginLeft: "auto" }}
+        >
+          <Typography
+            tag="span"
+            text={"Follow"}
+            changeStyle="font-size-12"
+            isConditionalRendering={true}
+            isLineClamp={false}
+            inLineStyle={{
+              lineHeight: "normal",
+              fontWeight: "normal",
+            }}
+          />
+          <a
+            target="_blank"
+            rel="noreferrer nofollow"
+            href={JOIN_US_LINK.GOOGLE}
+            class={`${style["align__items__center"]} ${style["d-flex"]}`}
+          >
+            <SvgIcon IconName="GoogleNewsIcon" />
+          </a>
+          <a
+            target="_blank"
+            rel="noreferrer nofollow"
+            href={JOIN_US_LINK.WHATSAPP}
+            class={`${style["align__items__center"]} ${style["d-flex"]}`}
+          >
+            <SvgIcon IconName="WhatsAppWithBG" key={"wp"} />
+          </a>
+        </div>
+        <div class={`${style["native-share"]}`}>
+          <button
+            class={`${style["MobileshareIcon"]} ${style["native-share-btn"]}`}
+            id="mobile-native-share"
+          >
+            <SvgIcon IconName="MobileshareIcon" />
+          </button>
+        </div>
+      </div>
+    </ContainerBox>
+  ) : (
+    <ContainerBox>
+      <div
+        class={`${style["d-flex"]} ${style["justify__content__center"]} ${style["align__items__center"]} ${style["border-bottom"]} ${style["mb-10"]}`}
+      >
+        <div class={style["follow_title"]}>Follow Us :</div>
+        <div
+          class={`${style["social-widgets"]} ${style["footer-social-widgets"]}`}
+        >
+          {Object.values(FOLLOW_US_LINK[followus]).map((item) => {
+            return (
+              <Link target="_blank" rel="noreferrer nofollow" link={item.link}>
+                <SvgIcon IconName={item.svgicon} />
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+    </ContainerBox>
+  )
+}
+<script define:vars={{ mainData }}>
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: mainData?.title,
+          text: mainData?.synopsis || "Amazing content here.",
+          url: window.location.href,
+        });
+      } catch (err) {
+        console.error("Error sharing:", err);
+      }
+    } else {
+      alert("Native share is not supported on this device.");
+    }
+  };
+
+  const nativeShare = document.getElementById("mobile-native-share");
+  nativeShare?.addEventListener("click", handleShare);
+</script>
