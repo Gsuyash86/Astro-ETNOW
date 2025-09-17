@@ -31,7 +31,6 @@ const getSlikeId = (msid, mainData) => {
           <div class={style["lineclamp_show"]}>
             {aList.length == MULTI_VIDEO_LIST_COUNT ? (
               <MultiVideoPlayer
-                client:load
                 data={{
                   media: {
                     id: getSlikeId(item.msid, mainData),
@@ -56,6 +55,7 @@ const getSlikeId = (msid, mainData) => {
                   msid: Number(item.msid),
                 }}
                 data-attr-cat={CATEGORY_TYPE_VIDEO_ARTICLE}
+                client:load
               />
             ) : (
               <div
