@@ -236,3 +236,51 @@ export const GNS_FEED = {
   'elections': 'elections',
   'sports': 'sports',
 };
+
+export const BOTTOMNAV = [
+  {
+      label: "Home",
+      link: `${import.meta.env.WEBAPP_BASE_URL}`,
+      icon: "HomeIcon",
+      activeIcon: "HomeIconRed",
+      width: "20",
+      height: "20",
+      active: false,
+  },
+  {
+      label: "News",
+      link: `${import.meta.env.WEBAPP_BASE_URL}/news`,
+      icon: "newsIcon",
+      activeIcon: "newsIconRed",
+      width: "20",
+      height: "20",
+      active: false,
+  },
+  {
+      label: "Live TV",
+      link: `${import.meta.env.WEBAPP_BASE_URL}/live-tv`,
+      icon: "LiveTvIcon",
+      activeIcon: "LiveTvIconRed",
+      width: "20",
+      height: "20",
+      active: false,
+  },
+  {
+      label: "Web Stories",
+      link: `${import.meta.env.WEBAPP_BASE_URL}/web-stories`,
+      icon: "storyWithoutShadowBlack",
+      activeIcon: "storyWithoutShadowRed",
+      width: "20",
+      height: "20",
+      active: false,
+  },
+  {
+      label: "Market",
+      link: `${import.meta.env.WEBAPP_BASE_URL}/market-overview`,
+      icon: "MarketIcon",
+      activeIcon: "MarketIconRed",
+      width: "20",
+      height: "20",
+      active: false,
+  },
+];
