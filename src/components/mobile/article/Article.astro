@@ -35,6 +35,7 @@ import AdContainer from "@components/common/adcontainer/AdContainer.astro";
 import ScrollHideButtons from "@components/common/buttons/ScrollHideButtons.astro";
 import ShareIcon from "../socialShare/ShareIcon.astro";
 import { processReadingTime } from "@utils/common";
+import HdfcCard from "@components/common/hdfcCard/HdfcCard.astro";
 const { category, msid, app } = Astro.props;
 
 const mainData = app?.response?.sections?.article_show?.data?.[0];
@@ -174,6 +175,10 @@ const mainData = app?.response?.sections?.article_show?.data?.[0];
 <TopStockWidget />
 <RelatedNews data={mainData?.editorpicks} />
 <TopVideos componentData={mainData?.rhs_widget} />
+<ShareIcon mainData={mainData} type={"BOTTOM_SHARE_ICONS"} followus="ET_ENG" />
+<section style={{ marginBottom: 0 }}>
+  <HdfcCard />
+</section>
 <MgIdComponent
   scriptID={CONST.MGID_ADD_5X5}
   elementID={CONST.MGID_ADD_5X5}

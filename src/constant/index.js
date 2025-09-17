@@ -384,3 +384,6 @@ export const JOIN_US_LINK = {
   GOOGLE:
     "https://news.google.com/publications/CAAqKAgKIiJDQklTRXdnTWFnOEtEV1YwYm05M2JtVjNjeTVqYjIwb0FBUAE?hl=en-IN&gl=IN&ceid=IN:en",
 };
+export const HDFC_CTR = {
+  link: "https://docs.google.com/forms/d/e/1FAIpQLSeVvQ0d47nh8kfkcL7jwK3CPCLXLoJauxmIiVJfDAd5GXVYpg/viewform",
+};
