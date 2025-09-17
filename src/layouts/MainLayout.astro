@@ -57,12 +57,14 @@ const ga4Script = `${ga4TagScript(customDimension?.GA4CustomDimensions, serverCo
     }
   </script>
 
-  <script id="dpfscript" src="/dfpamzn.js" type="text/javascript" defer
+  <script id="dpfscript" src="/dfpamzn.js" type="text/javascript" async defer
   ></script>
   <script
+    async
     defer
     type="text/javascript"
     src={`https://watch.sociofyme.com/player/prod/sociofymeloader.js`}></script>
+
   <script async src="https://watch.sociofyme.com/timescdp/cdtrk.js"></script>
 
   <script>

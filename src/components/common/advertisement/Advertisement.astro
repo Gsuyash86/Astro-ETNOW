@@ -297,11 +297,8 @@ console.info("Ad Component Debug:", {
 }
 
 <script>
-  // Debug flag - set to false in production
-  const DEBUG_ADS = true;
-
   function debugLog(...args) {
-    if (DEBUG_ADS) {
+    if (import.meta.env.PUBLIC_DEBUG_ADS === "true") {
       console.info("[AD DEBUG]", ...args);
     }
   }
@@ -794,7 +791,7 @@ console.info("Ad Component Debug:", {
   initializeWhenReady();
 
   // Debug helper - expose functions globally for manual testing
-  if (DEBUG_ADS) {
+  if (import.meta.env.PUBLIC_DEBUG_ADS === "true") {
     window.AdDebug = {
       init: initAdLazyLoading,
       cleanup: cleanupObservers,
