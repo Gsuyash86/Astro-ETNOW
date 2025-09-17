@@ -35,7 +35,7 @@ function MultiVideoPlayer({
   videoCount,
   channelTitle = "",
   nextVideo,
-  isVideoStarted,
+  isVideoStarted = () => {},
   thumbImg,
   isGlance = false,
   demoKeyFromQuery,

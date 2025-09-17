@@ -416,8 +416,8 @@ export const NOT_FOUND_META_DETAIL = {
     canonical: 'https://www.etnownews.com/404'
 };
 
-export const IMG_OG_DEFAULT = `${process.env.PUBLIC_PHOTO_API}/photo/msid-95762555/95762555.jpg`
-export const IMG_DEFAULT = `${process.env.PUBLIC_PHOTO_API}/photo/msid-95598012/95598012.jpg`
+export const IMG_OG_DEFAULT = `${import.meta.env.PUBLIC_PHOTO_API}/photo/msid-95762555/95762555.jpg`
+export const IMG_DEFAULT = `${import.meta.env.PUBLIC_PHOTO_API}/photo/msid-95598012/95598012.jpg`
 
 export const DEFAULT_IMAGE_WIDTH = 200;
 export const DEFAULT_IMAGE_HEIGHT = 200;
