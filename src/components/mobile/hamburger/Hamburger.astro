@@ -69,21 +69,6 @@ const groupedDataNavigation = groupMenuData(data);
         />
       </Link>
     </div>
-    <div class={style["box-profile"]}>
-      <Typography
-        tag={"p"}
-        text={"Welcome!"}
-        changeStyle={"font-size-14"}
-        fontWeight={"700"}
-        isLineClamp={false}
-        isWhiteLayout={false}
-        inLineStyle={{
-          WebkitLineClamp: "1",
-          lineHeight: "14px",
-        }}
-      />
-      <SvgIcon IconName={"userIcon"} width={26} height={26} />
-    </div>
     <Search
       instanceId="hamburger"
       changeStyle="mobile-search"
@@ -96,6 +81,21 @@ const groupedDataNavigation = groupMenuData(data);
   <div class={style["box-body"]}>
     <nav class={style.navigation} id="hamburgerMenu">
       <ul class={style.mainMenu}>
+        <li class={`${style.categoryItem} ${style.categoryHome}`}>
+          <div class={style.categoryHeader}>
+            <span class={style.categoryIcon} aria-hidden="true">
+              <SvgIcon IconName={"HomeIcon"} width="21" height="20" />
+            </span>
+            <h3 class={style.categoryTitle}>Home</h3>
+          </div>
+        </li>
+        <li class={style.categoryItem}>
+          <div class={style.categoryHeader}>
+            <Link link={"/"}>
+              <img src="/assets/images/Premiumhead.svg" alt="Premium" />
+            </Link>
+          </div>
+        </li>
         {
           groupedDataNavigation?.map((category) => (
             <li class={style.categoryItem}>
