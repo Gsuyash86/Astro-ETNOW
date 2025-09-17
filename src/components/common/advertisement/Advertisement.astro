@@ -384,20 +384,14 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
               });
             },
             {
-              root: null, // viewport
-              rootMargin: "300px 0px 300px 0px", // Large margin for early loading
-              threshold: [0, 0.1], // Trigger at 0% and 10% visibility
+              root: null,
+              rootMargin: "300px 0px 300px 0px",
+              threshold: [0, 0.1],
             }
           );
 
           window.AdCallerState.observers.set(lazyLoadId, observer);
           observer.observe(container);
-
-          debugLog("✅ Observer set up successfully for:", lazyLoadId);
-
-          // Add visual indicator that observer is active
-          container.style.border = "2px solid #4CAF50";
-          container.title = `Lazy loading active: ${lazyLoadId}`;
         } else {
           debugLog(
             "❌ IntersectionObserver not supported, loading immediately"
@@ -415,9 +409,7 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
   }
 
   function loadAdImmediately(container, config) {
-    debugLog("⚡ Loading ad immediately:", config.divId);
     container.classList.add("ad-loaded-immediate");
-    container.style.border = "2px solid #FF9800";
     container.title = `Loaded immediately: ${config.divId}`;
   }
 
@@ -435,18 +427,13 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
 
       debugLog("🔄 Loading lazy ad:", { divId, adCode, pageTarget });
 
-      // Add loading state
       container.classList.add("ad-loading");
-      container.style.border = "2px solid #2196F3";
-
-      // Find the placeholder
       const placeholder = container.querySelector(`#${divId}-placeholder`);
       if (!placeholder) {
         debugLog("❌ Placeholder not found for:", divId);
         return;
       }
 
-      // Create proper ad div structure (same as your Advertisement component)
       const adDiv = document.createElement("div");
       adDiv.id = divId;
       adDiv.className = placeholder.className
@@ -467,30 +454,24 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
         }
       });
 
-      // Replace placeholder with actual ad div
       placeholder.parentNode.replaceChild(adDiv, placeholder);
       debugLog("🔄 Replaced placeholder with ad div:", divId);
 
-      // Now execute the same logic as your Advertisement component
       initializeAdvertisementAd(adCode, size, divId, pageTarget, uniqueId);
 
-      // Update visual state
       setTimeout(() => {
         container.classList.remove("ad-loading");
         container.classList.add("ad-loaded");
-        container.style.border = "2px solid #4CAF50";
         container.title = `Lazy loaded successfully: ${divId}`;
         debugLog("✅ Ad loading initiated:", divId);
       }, 1000);
     } catch (error) {
       debugLog("💥 Error loading ad:", error, config);
       container.classList.add("ad-error");
-      container.style.border = "2px solid #f44336";
       container.title = `Error loading: ${config.divId}`;
     }
   }
 
-  // This function replicates the logic from your Advertisement.astro component
   function initializeAdvertisementAd(
     adCode,
     size,
@@ -505,7 +486,6 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
       pageTarget,
     });
 
-    // Check if this ad has already been initialized
     const adElement = document.querySelector(`[data-unique-id="${uniqueId}"]`);
     if (!adElement || adElement.dataset.initialized === "true") {
       debugLog("⚠️ Ad already initialized or element not found:", uniqueId);
@@ -535,7 +515,6 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
       query,
     });
 
-    // Initialize apstag if available
     if (window?.apstag && window.APS_CONFIG) {
       debugLog("🎯 Initializing Amazon APS");
       window.apstag.init(window.APS_CONFIG);
@@ -543,20 +522,16 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
 
     let slotID = { slotID: divId, sizes: size, slotName: adCode };
 
-    // Initialize googletag
     window.googletag = window.googletag || { cmd: [] };
 
-    // Get PPID cookie
     const tg_ppid = window.getCookieValue
       ? window.getCookieValue("tg_ppid")
       : null;
     debugLog("🍪 PPID cookie:", tg_ppid ? "Found" : "Not found");
 
-    // Push to googletag command queue
     window.googletag.cmd.push(function () {
       debugLog("📺 Defining GPT slot:", { adCode, size, divId });
 
-      // Define ad slot
       let ab = adCode?.includes("_ROS_Interstitial")
         ? window.googletag
             ?.defineOutOfPageSlot(
@@ -576,7 +551,6 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
       SlotArr.push(ab);
       debugLog("✅ GPT slot defined successfully");
 
-      // Clear and set targeting
       window.googletag.pubads().clearTargeting();
 
       if (sec) {
@@ -796,84 +770,3 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
     debugLog("🔧 Debug tools available: window.AdDebug");
   }
 </script>
-
-<style>
-  .ad-container {
-    margin: 10px 0;
-    position: relative;
-  }
-
-  .ad-placeholder {
-    transition: all 0.3s ease;
-    border-radius: 8px;
-    font-family:
-      system-ui,
-      -apple-system,
-      sans-serif;
-  }
-
-  .ad-loading .ad-placeholder {
-    background-color: #e3f2fd !important;
-    border-color: #2196f3 !important;
-  }
-
-  .ad-loading .ad-placeholder::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-      90deg,
-      rgba(33, 150, 243, 0.1) 0%,
-      rgba(33, 150, 243, 0.3) 50%,
-      rgba(33, 150, 243, 0.1) 100%
-    );
-    animation: shimmer 1.5s infinite;
-    border-radius: 8px;
-  }
-
-  .ad-error {
-    background-color: #ffebee;
-    border-color: #f44336 !important;
-  }
-
-  .ad-loaded {
-    border-color: #4caf50 !important;
-  }
-
-  .ad-loaded-immediate {
-    border-color: #ff9800 !important;
-  }
-
-  @keyframes shimmer {
-    0% {
-      transform: translateX(-100%);
-    }
-    100% {
-      transform: translateX(100%);
-    }
-  }
-
-  /* Debug info styles */
-  [data-lazy-load-id]::after {
-    content: attr(title);
-    position: absolute;
-    top: -20px;
-    left: 0;
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 2px 6px;
-    border-radius: 3px;
-    font-size: 10px;
-    white-space: nowrap;
-    z-index: 1000;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-
-  [data-lazy-load-id]:hover::after {
-    opacity: 1;
-  }
-</style>
