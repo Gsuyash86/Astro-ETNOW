@@ -24,7 +24,7 @@
   font-size: 0.813rem;
   letter-spacing: 1.3px;
   line-height: normal;
-  color: var(--white-color);
+  color: var(--whiteColor);
   text-transform: uppercase;
 }
 
@@ -51,18 +51,18 @@
 
   &::-webkit-input-placeholder {
     /* Edge */
-    color: var(--white-color);
+    color: var(--whiteColor);
     opacity: 0.5;
   }
 
   &:-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    color: var(--white-color);
+    color: var(--whiteColor);
     opacity: 0.5;
   }
 
   &::placeholder {
-    color: var(--white-color);
+    color: var(--whiteColor);
     opacity: 0.5;
   }
 }
@@ -74,13 +74,13 @@
   text-align: center;
 
   small {
-    color: var(--subscribeTextColor);
+    color: #0a3b81;
     line-height: 1.1;
   }
 }
 
 .error {
-  color: var(--error);
+  color: #ff0000;
   min-height: 20px;
   font-size: 0.6875rem;
   padding-top: 4px;
@@ -90,7 +90,7 @@
   @extend .subscribe-input;
   @extend .message-box;
   border: 0;
-  color: var(--white-color);
+  color: var(--whiteColor);
   font-weight: 500;
   text-transform: uppercase;
   background: #bf0003;

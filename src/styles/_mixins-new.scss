@@ -314,7 +314,7 @@ $xldesktop-width: 1280px;
       font-weight: bold;
       position: sticky;
       top: 0;
-      background: var(--bgWhite);
+      background: var(--whiteColor);
       z-index: 1;
     }
 
@@ -334,7 +334,7 @@ $xldesktop-width: 1280px;
     &::-webkit-scrollbar-thumb {
       border-radius: 10px;
       -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
-      background-color: var(--scrollbarColor);
+      background-color: #ccc;
     }
   }
 }

@@ -3,7 +3,7 @@
   margin: auto;
   padding: 10px 40px;
   background-color: var(--textDanger);
-  color: var(--white-color);
+  color: var(--whiteColor);
   border-radius: 28px;
   cursor: pointer;
   text-align: center;
@@ -38,7 +38,7 @@
     height: 36px;
   }
   &:hover {
-    color: var(--white-color);
+    color: var(--whiteColor);
     background-color: var(--textDanger);
   }
 }

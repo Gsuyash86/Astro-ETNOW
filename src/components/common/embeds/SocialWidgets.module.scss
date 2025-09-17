@@ -41,9 +41,9 @@
     position: absolute;
     width: 10px;
     height: 10px;
-    background: var(--white-color);
+    background: var(--whiteColor);
     overflow: hidden;
-    border: 1px solid var(--blog-color);
+    border: 1px solid var(--blogColor);
     border-radius: 50%;
     bottom: 0px;
     left: -5px;
@@ -55,7 +55,7 @@
       width: 4px;
       height: 4px;
       overflow: hidden;
-      background: var(--blog-color);
+      background: var(--blogColor);
       border-radius: 50%;
       top: 2px;
       left: 2px;
