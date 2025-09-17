@@ -250,7 +250,7 @@ export const BOTTOMNAV = [
   {
       label: "News",
       link: `${import.meta.env.WEBAPP_BASE_URL}/news`,
-      icon: "newsIcon",
+      icon: "newsIconBlack",
       activeIcon: "newsIconRed",
       width: "20",
       height: "20",

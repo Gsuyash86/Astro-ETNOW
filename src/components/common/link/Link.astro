@@ -4,7 +4,8 @@ const {
   title = "",
   className = "",
   inLineStyle = {},
-  target = ""
+  target = "",
+  id,
 } = Astro.props;
 ---
 
@@ -16,12 +17,13 @@ const {
       class={className}
       style={inLineStyle}
       target={target || undefined}
-      rel={target === '_blank' ? 'noopener noreferrer' : undefined}
+      rel={target === "_blank" ? "noopener noreferrer" : undefined}
+      id={id}
     >
       <slot />
     </a>
   ) : (
-    <div class={className} style={inLineStyle}>
+    <div class={className} style={inLineStyle} id={id}>
       <slot />
     </div>
   )

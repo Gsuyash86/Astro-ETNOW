@@ -1,0 +1,23 @@
+---
+import style from "./NextPrevButton.module.scss";
+import SvgIcon from "@components/common/svg/SvgIcon.astro";
+import Link from "../link/Link.astro";
+const {
+  changeStyle = "",
+  inLineStyle = {},
+  isNextButton = false,
+  link,
+  id,
+} = Astro.props;
+---
+
+<Link
+  className={`${style["default"]} ${changeStyle && style[changeStyle]} ${
+    isNextButton ? style["next"] : style["prev"]
+  }`}
+  inLineStyle={inLineStyle}
+  link={link}
+  id={id}
+>
+  <SvgIcon IconName="NextPrevBtn" width={28} height={50} />
+</Link>
