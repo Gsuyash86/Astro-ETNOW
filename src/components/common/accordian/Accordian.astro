@@ -1,0 +1,204 @@
+---
+import Typography from "../widgets/typography/Typography.astro";
+
+const {
+  title,
+  children,
+  closePrev = false,
+  parentProps,
+  childProps,
+} = Astro.props;
+---
+
+<div class="accordion" data-accordion>
+  <div class="accordion-header" data-accordion-trigger>
+    <Typography {...parentProps} text={title} />
+    {
+      children?.length ? (
+        <button class="accordion-toggle" aria-label="Toggle accordion">
+          <span class="icon-plus">+</span>
+          <span class="icon-close">×</span>
+        </button>
+      ) : null
+    }
+  </div>
+  {
+    children?.length ? (
+      <div class="accordion-content" data-accordion-content>
+        <div class="accordion-body">
+          <ul class="menu-list">
+            {children.map((item) => (
+              <li class="menu-item">
+                <a href={item.href} class="menu-link">
+                  <Typography text={item.title} {...childProps} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    ) : null
+  }
+</div>
+
+<script define:vars={{ closePrev }}>
+  document.addEventListener("DOMContentLoaded", () => {
+    const accordions = document.querySelectorAll("[data-accordion]");
+
+    accordions.forEach((accordion) => {
+      const trigger = accordion.querySelector("[data-accordion-trigger]");
+
+      trigger.addEventListener("click", () => {
+        const isOpen = accordion.classList.contains("open");
+
+        // Close all accordions first
+        if (closePrev) {
+          accordions.forEach((acc) => acc.classList.remove("open"));
+        }
+
+        // If current accordion wasn't open, open it
+        if (!isOpen) {
+          accordion.classList.add("open");
+        } else {
+          accordion.classList.remove("open");
+          accordion.classList.add("close");
+        }
+      });
+    });
+  });
+</script>
+
+<style lang="scss">
+  .accordion {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+
+    &-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      cursor: pointer;
+      background: white;
+      border: none;
+      width: 100%;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: #f8f9fa;
+      }
+    }
+
+    &-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    &-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 24px;
+      color: #666;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background-color: #f0f0f0;
+      }
+
+      .icon-close {
+        display: none;
+      }
+
+      .icon-plus {
+        display: block;
+      }
+    }
+
+    &-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    &-body {
+      padding: 0 24px 20px;
+    }
+
+    // Open state
+    &.open {
+      .accordion-toggle {
+        .icon-close {
+          display: block;
+        }
+
+        .icon-plus {
+          display: none;
+        }
+      }
+
+      .accordion-content {
+        max-height: 300px;
+      }
+    }
+  }
+
+  .menu-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .menu-item {
+    margin-bottom: 16px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .menu-link {
+    display: block;
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    padding: 8px 0;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #007bff;
+    }
+  }
+
+  // Responsive design
+  @media (max-width: 768px) {
+    .accordion {
+      &-header {
+        padding: 16px 20px;
+      }
+
+      &-title {
+        font-size: 16px;
+      }
+
+      &-body {
+        padding: 0 20px 16px;
+      }
+    }
+
+    .menu-link {
+      font-size: 14px;
+    }
+  }
+</style>

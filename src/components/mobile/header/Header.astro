@@ -5,6 +5,9 @@ import Link from "@components/common/link/Link.astro";
 import SvgIcon from "@components/common/svg/SvgIcon.astro";
 import Navigation from "@components/mobile/navigation/Navigation.astro";
 import Hamburger from "@components/mobile/hamburger/Hamburger.astro";
+
+const navData = await fetch("https://api.etnownews.com/api/getnavigation?msid=ALL&channel_id=382");
+const navDataJson = await navData.json();
 ---
 
 <header class={`${style["header"]}`}>
@@ -54,8 +57,9 @@ import Hamburger from "@components/mobile/hamburger/Hamburger.astro";
         <Hamburger
             hamburgerOpenId="mobileHamburgerPopup"
             hamburgerCloseId="mobileHamburgerCloseIcon"
+            data={navDataJson?.response}
         />
-        
+
     </ContainerBox>
     <Navigation />
 </header>
@@ -76,12 +80,14 @@ import Hamburger from "@components/mobile/hamburger/Hamburger.astro";
         if(hamburgerButton) {
             hamburgerButton.addEventListener("click", function() {
                 document.getElementById("mobileHamburgerPopup").style.left = "0";
+                document.body.style.overflow = "hidden";
             });
         }
         const closeHamburgerButton = document.getElementById("mobileHamburgerCloseIcon");
         if(closeHamburgerButton) {
             closeHamburgerButton.addEventListener("click", function() {
                 document.getElementById("mobileHamburgerPopup").style.left = "-100%";
+                document.body.style.overflow = "";
             });
         }
     });
