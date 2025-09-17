@@ -9,7 +9,7 @@ const {
     hamburgerOpenId = "",
     hamburgerCloseId = "",
     inLineStyle = {},
-    data
+    data,
 } = Astro.props;
 
 // Menu data structure
@@ -95,6 +95,27 @@ const groupedDataNavigation = groupMenuData(data);
     <div class={style["box-body"]}>
         <nav class={style.navigation} id="hamburgerMenu">
             <ul class={style.mainMenu}>
+                <li class={`${style.categoryItem} ${style.categoryHome}`}>
+                    <div class={style.categoryHeader}>
+                        <span class={style.categoryIcon} aria-hidden="true">
+                            <SvgIcon
+                                IconName={'HomeIcon'}
+                                width="21"
+                                height="20"
+                            />
+                        </span>
+                        <h3 class={style.categoryTitle}>
+                            Home
+                        </h3>
+                    </div>
+                </li>
+                <li class={style.categoryItem}>
+                    <div class={style.categoryHeader}>
+                        <Link link={'/'}>
+                            <img src="/assets/images/Premiumhead.svg" alt="Premium" />
+                        </Link>
+                    </div>
+                </li>
                 {
                     groupedDataNavigation?.map((category) => (
                         <li class={style.categoryItem}>
