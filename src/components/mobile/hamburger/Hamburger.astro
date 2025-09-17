@@ -75,26 +75,27 @@ const groupedDataNavigation = groupMenuData(data);
       inLineStyle={{
         padding: "0px 15px 10px 15px",
         boxShadow: "none",
+        borderBottom: "1px solid #d4d4d4",
       }}
     />
   </div>
+
   <div class={style["box-body"]}>
     <nav class={style.navigation} id="hamburgerMenu">
       <ul class={style.mainMenu}>
-        <li class={`${style.categoryItem} ${style.categoryHome}`}>
-          <div class={style.categoryHeader}>
-            <span class={style.categoryIcon} aria-hidden="true">
-              <SvgIcon IconName={"HomeIcon"} width="21" height="20" />
-            </span>
+        <li class={style.categoryHome}>
+          <Link
+            link={"/"}
+            className={`${style.categoryHeader} ${style["active"]}`}
+          >
+            <SvgIcon IconName={"HomeIcon"} width="21" height="20" />
             <h3 class={style.categoryTitle}>Home</h3>
-          </div>
+          </Link>
         </li>
-        <li class={style.categoryItem}>
-          <div class={style.categoryHeader}>
-            <Link link={"/"}>
-              <img src="/assets/images/Premiumhead.svg" alt="Premium" />
-            </Link>
-          </div>
+        <li class={style.categoryPremium}>
+          <Link link={"/"} className={style.categoryHeader}>
+            <img src="/assets/images/Premiumhead.svg" alt="Premium" />
+          </Link>
         </li>
         {
           groupedDataNavigation?.map((category) => (
@@ -103,11 +104,67 @@ const groupedDataNavigation = groupMenuData(data);
                 <span class={style.categoryIcon} aria-hidden="true">
                   <SvgIcon IconName={category.icon} width="17" height="17" />
                 </span>
-                <h3 class={style.categoryTitle}>{category.section}</h3>
+                <Typography
+                  tag={"h3"}
+                  text={category.section}
+                  changeStyle={"font-size-16"}
+                  fontWeight={"600"}
+                  isLineClamp={false}
+                  isWhiteLayout={false}
+                  inLineStyle={{
+                    WebkitLineClamp: "1",
+                    lineHeight: "44px",
+                    color: "inherit",
+                  }}
+                />
               </div>
               <ul class={style.subMenu}>
                 {category.items.map((item) => (
-                  <Accordian title={item?.title} children={item?.child} />
+                  <Accordian showChildren={item?.child?.length}>
+                    <Link
+                      slot="header"
+                      link={item?.href}
+                      className={`${style.categoryHeader} ${style["active"]}`}
+                    >
+                      <Typography
+                        tag={"p"}
+                        text={item?.title}
+                        changeStyle={"font-size-16"}
+                        fontWeight={"500"}
+                        isLineClamp={false}
+                        isWhiteLayout={false}
+                        inLineStyle={{
+                          WebkitLineClamp: "1",
+                          lineHeight: "44px",
+                          color: "inherit",
+                        }}
+                      />
+                    </Link>
+                    <ul class={style.subMenu} slot="body">
+                      {item?.child?.map((item) => (
+                        <li class={style.categoryItem}>
+                          <Link
+                            link={item.href}
+                            className={`${style.categoryHeader} ${style["active"]}`}
+                          >
+                            <Typography
+                              tag={"span"}
+                              text={`${item.title}`}
+                              changeStyle={"font-size-16"}
+                              fontWeight={"500"}
+                              isLineClamp={false}
+                              isWhiteLayout={false}
+                              inLineStyle={{
+                                WebkitLineClamp: "1",
+                                lineHeight: "44px",
+                                color: "inherit",
+                              }}
+                            />
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </Accordian>
                 ))}
               </ul>
             </li>
