@@ -1,0 +1,79 @@
+---
+import MarketsButton from "./MarketsButton.astro";
+import NextPrevButton from "./NextPrevButton.astro";
+import style from "./ScrollHideButtons.module.scss";
+const { nextStory = "", prevStory = "" } = Astro.props;
+console.log("next and prev stroy", prevStory);
+---
+
+<MarketsButton
+  inLineStyle={{
+    transition: "all 1000ms ease-in-out",
+  }}
+  id="markets-button"
+/>
+{
+  (
+    <>
+      <NextPrevButton
+        inLineStyle={{
+          transition: "all 1000ms ease-in-out",
+        }}
+        link={prevStory}
+        id="prev-button"
+      />
+      <NextPrevButton
+        isNextButton={true}
+        inLineStyle={{
+          transition: "all 1000ms ease-in-out",
+        }}
+        link={nextStory}
+        id="next-button"
+      />
+    </>
+  )
+}
+<script>
+  const marketsBtn = document.getElementById("markets-button");
+  const prevBtn = document.getElementById("prev-button");
+  const nextBtn = document.getElementById("next-button");
+
+  let isHidden = false;
+  let hideButtons = false;
+  let timeoutId = null;
+
+  function handleScroll() {
+    isHidden = true;
+    updatePositions();
+
+    let isEnd = false;
+    const articleEnd = document.getElementById("article-end");
+    const mgidDiv = document.getElementById("mgid-code-amp-5");
+
+    if (articleEnd) {
+      const rect = articleEnd.getBoundingClientRect();
+      isEnd = rect.top <= 70;
+    }
+
+    if (mgidDiv) {
+      const rect = mgidDiv.getBoundingClientRect();
+      isEnd = rect.top <= 200;
+    }
+
+    if (timeoutId) clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => {
+      hideButtons = isEnd;
+      isHidden = false;
+      updatePositions();
+    }, 300);
+  }
+  function updatePositions() {
+    // Hide/show with slide animation
+    marketsBtn.style.right = isHidden ? "-100%" : "0";
+    prevBtn.style.left = hideButtons || isHidden ? "-100%" : "0";
+    nextBtn.style.right = hideButtons || isHidden ? "-100%" : "0";
+  }
+
+  window.addEventListener("scroll", handleScroll);
+</script>
