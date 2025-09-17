@@ -1,0 +1,92 @@
+---
+import SvgIcon from "@components/common/svg/SvgIcon.astro";
+import Typography from "@components/common/widgets/typography/Typography.astro";
+import style from "./BottomSticky.module.scss";
+import Link from "@components/common/link/Link.astro";
+import AdContainer from "@components/common/adcontainer/AdContainer.astro";
+
+const bottomNav = [
+    {
+        label: "Home",
+        link: "/",
+        icon: "HomeIcon",
+        activeIcon: "HomeIconRed",
+        width: "20",
+        height: "20",
+        active: true,
+    },
+    {
+        label: "News",
+        link: "/news",
+        icon: "newsIcon",
+        activeIcon: "newsIconRed",
+        width: "20",
+        height: "20",
+        active: false,
+    },
+    {
+        label: "Live TV",
+        link: "/live-tv",
+        icon: "LiveTvIcon",
+        activeIcon: "LiveTvIconRed",
+        width: "20",
+        height: "20",
+        active: false,
+    },
+    {
+        label: "Web Stories",
+        link: "/web-stories",
+        icon: "storyWithoutShadowBlack",
+        activeIcon: "storyWithoutShadowRed",
+        width: "20",
+        height: "20",
+        active: false,
+    },
+    {
+        label: "Market",
+        link: "/market",
+        icon: "MarketIcon",
+        activeIcon: "MarketIconRed",
+        width: "20",
+        height: "20",
+        active: false,
+    },
+];
+---
+
+<div class={`${style["bottom-sticky-box"]}`} style={{ bottom: "0" }}>
+    <AdContainer
+        inLineStyle={{
+            background: "#ffffff",
+            height: "52px",
+        }}
+    >
+        Ad Goes Here
+    </AdContainer>
+    <div class={`${style["bottom-sticky"]}`}>
+        {
+            bottomNav.map((item) => (
+                <Link
+                    link={item.link}
+                    className={`${style["bottom-sticky-link"]}`}
+                >
+                    <SvgIcon
+                        IconName={item.active ? item.activeIcon : item.icon}
+                        width={item.width}
+                        height={item.height}
+                    />
+                    <Typography
+                        tag="p"
+                        text={item.label}
+                        changeStyle="font-size-12"
+                        fontWeight="400"
+                        inLineStyle={{
+                            lineHeight: "12px",
+                            color: item.active ? "#ea2318" : "#171725",
+                        }}
+                    />
+                </Link>
+            ))
+        }
+    </div>
+</div>

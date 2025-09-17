@@ -7,6 +7,7 @@ import Article from "@components/mobile/article/Article.astro";
 import TrendingStock from "@components/mobile/trendingStock/TrendingStock.astro";
 import MutualFundStrip from "@components/mobile/mutualFundStrip/MutualFundStrip.astro";
 import Footer from "@components/mobile/footer/Footer.astro";
+import BottomSticky from "@components/mobile/bottomSticky/BottomSticky.astro";
 
 const pageTarget = {
   section: { category: "news", sub_category: "tech" },
@@ -42,4 +43,5 @@ const { category, msid, app } = Astro.props;
   <Article app={app} category={category} msid={msid} />
   <slot />
   <Footer />
+  <BottomSticky />
 </>

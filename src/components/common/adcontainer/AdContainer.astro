@@ -1,7 +1,8 @@
 ---
-import style from './AdContainer.module.scss';
+import style from "./AdContainer.module.scss";
+const { changeStyle = "", inLineStyle = {} } = Astro.props;
 ---
 
-<div class={style['ad-box']}>
+<div class={`${style["ad-box"]}`} style={{ ...inLineStyle }}>
     <slot />
 </div>
