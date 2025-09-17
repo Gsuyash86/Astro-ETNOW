@@ -150,20 +150,14 @@ if (typeof getCohortData === 'undefined') {
           pubmaticOn &&
           apstag?.fetchBids({ slots: a || [], timeout: BID_TIMEOUT }, () => {
             isApsDone = true;
-            // window.OWT.notifyExternalBiddingComplete(o),
-            // googletag.cmd.push(function () {
-            //   apstag.setDisplayBids(), googletag.pubads().refresh(t);
-            // });
           });
         if (
           window?.PWT?.requestBids &&
           typeof window?.PWT?.requestBids === 'function'
         ) {
-          console.log('PWT.requestBids');
           PWT.initAdserverSet = false;
           PWT.requestBids(PWT.generateConfForGPT(t), function (adUnitsArray) {
             PWT.addKeyValuePairsToGPTSlots(adUnitsArray);
-            // initAdserver();
             isPubDone = true;
           });
         } else {
@@ -219,7 +213,7 @@ var googletag = googletag || {};
       window?.addEventListener('load', function () {
         setTimeout(function () {
           adToRender('.dfp-delay');
-        }, 7000);
+        }, 100);
       });
     };
   })();
