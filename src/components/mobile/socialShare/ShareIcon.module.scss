@@ -19,7 +19,7 @@
 }
 
 .border-bottom {
-  border-bottom: 1px dotted rgba(var(--bgBorderDotted), 0.5);
+  border-bottom: 1px dotted rgba(180, 180, 180, 0.5);
 }
 
 .social-widgets {
@@ -48,7 +48,7 @@
 }
 
 .follow-us {
-  background-color: var(--network-menu-bg);
+  background-color: #f4f4f4;
   border-radius: 20px;
   padding: 0px 11px;
   height: 30px;
@@ -71,7 +71,7 @@
 }
 
 .follow_title {
-  color: var(--textcolor-14);
+  color: #292929;
   font-size: 0.75rem;
   flex-shrink: 0;
   margin-right: 16px;
@@ -86,7 +86,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    background: var(--network-menu-bg);
+    background: #f4f4f4;
     width: 30px;
     height: 30px;
 

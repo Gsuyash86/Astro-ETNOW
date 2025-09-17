@@ -78,7 +78,7 @@ const mainData = app?.response?.sections?.article_show?.data?.[0];
   time={processReadingTime(mainData)}
   mainData={mainData}
 />
-<AdContainer inLineStyle={{ width: "300px", minHeight: "250px" }}>
+<AdContainer inLineStyle={{ width: "300px", minHeight: "250px", marginBottom: '16px' }}>
   <AdCaller {...app?.response?.ads?.atf} atf={true} />
 </AdContainer>
 <KeyHighlight summary={mainData?.summary} />
@@ -150,7 +150,7 @@ const mainData = app?.response?.sections?.article_show?.data?.[0];
         firstPara={embedData.paraLength == 1 && embedData?.ispara}
       />
       {embedData?.ad ? (
-        <AdContainer inLineStyle={{ width: "300px", minHeight: "250px" }}>
+        <AdContainer inLineStyle={{ width: "300px", minHeight: "250px", margin: '16px auto' }}>
           <AdCaller {...embedData?.ad} />
         </AdContainer>
       ) : null}
