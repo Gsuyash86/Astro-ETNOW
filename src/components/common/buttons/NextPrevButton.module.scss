@@ -1,0 +1,22 @@
+.default {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  position: fixed;
+  top: 276px;
+  z-index: 11;
+
+  svg {
+    opacity: 0.5;
+  }
+}
+
+.prev {
+  transform: scaleX(-1);
+  left: 0;
+}
+
+.next {
+  right: 0;
+}
