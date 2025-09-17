@@ -284,3 +284,9 @@ export const BOTTOMNAV = [
       active: false,
   },
 ];
+
+export const SOCIAL_LINKS = {
+  FB: "https://www.facebook.com/etnow",
+  TW: "https://twitter.com/ETNOWlive",
+  IG: "https://www.instagram.com/etnow",
+};
