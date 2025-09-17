@@ -1,9 +1,11 @@
 ---
 import style from "./MutualFundsList.module.scss";
+import TitleComponent from "@components/common/titleComponent/TitleComponent.astro";
 import Typography from "@components/common/widgets/typography/Typography.astro";
 import CommonGridBox from "@components/common/wrappers/commonGridBox/CommonGridBox.astro";
 import MutualFundCard from "../mutualFundCard/MutualFundCard.astro";
-import Link from "../link/Link.astro";
+import Link from "@components/common/link/Link.astro";
+import LoadMoreButton from "@components/common/loadMoreButton/LoadMoreButton.astro";
 const {
   changeStyle = "",
   inLineStyle = {},
@@ -15,7 +17,18 @@ const {
   className={`${changeStyle && style[changeStyle]}`}
   style={{ ...inLineStyle }}
 >
-  <h3>Mutual Funds</h3>
+  
+  <TitleComponent
+    type={"h3"}
+    moreButtonLink={``}
+    moreButtonText={"Mutual Funds"}
+    fontSize={"font-size-24"}
+    fontWeight={"700"}
+    isSeprator={true}
+    isDefaultFontFamily={false}
+    changeStyle={""}
+    inLineParentStyle={{ marginBottom: "16px" }}
+  />
 
   <div className={`${style["filter"]}`}>
     <Typography
@@ -100,15 +113,15 @@ const {
     </CommonGridBox>
   </div>
   <div className={`${style["load-more"]}`}>
-    <Link
-      link="/mutual-funds/mutual-fund-performance"
-      inLineStyle={{
-        width: "145px",
-        height: "39px",
-        padding: "0px",
-      }}
-    >
-      Show more
-    </Link>
+    <LoadMoreButton
+      changeStyle={'red-button'}
+      text={'Show more'}
+      link={'/mutual-funds/mutual-fund-performance'}
+        inLineStyle={{
+          width: "145px",
+          height: "39px",
+          padding: "0px",
+        }}
+    />
   </div>
 </div>

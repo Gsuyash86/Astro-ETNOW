@@ -10,6 +10,7 @@
   margin-top: 0px;
   @include font-size(14);
   font-weight: 500;
+  line-height: 1;
 }
 
 @media screen and (max-width: 768px) {
