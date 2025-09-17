@@ -36,6 +36,7 @@ import ScrollHideButtons from "@components/common/buttons/ScrollHideButtons.astr
 import ShareIcon from "../socialShare/ShareIcon.astro";
 import { processReadingTime } from "@utils/common";
 import HdfcCard from "@components/common/hdfcCard/HdfcCard.astro";
+import SubscribeWithEmail from "@components/common/subscribeWithEmail/SubscribeWithEmail.astro";
 const { category, msid, app } = Astro.props;
 
 const mainData = app?.response?.sections?.article_show?.data?.[0];
@@ -179,6 +180,7 @@ const mainData = app?.response?.sections?.article_show?.data?.[0];
 <section style={{ marginBottom: 0 }}>
   <HdfcCard />
 </section>
+<SubscribeWithEmail />
 <MgIdComponent
   scriptID={CONST.MGID_ADD_5X5}
   elementID={CONST.MGID_ADD_5X5}
