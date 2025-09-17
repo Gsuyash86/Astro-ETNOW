@@ -1,0 +1,31 @@
+---
+import { GNS_FEED } from "@constant/index";
+
+export interface Props {
+  category?: string;
+  pathname?: string;
+}
+
+const { category, pathname = "" } = Astro.props;
+
+let feeds: string[] = [];
+
+if (pathname === "/") {
+  feeds.push(`${import.meta.env.WEBAPP_BASE_URL}/feeds/gns-etn-${GNS_FEED?.["latest"]}.xml`);
+} else if (category === "latest-news" || pathname.includes("topic")) {
+  feeds.push(`${import.meta.env.WEBAPP_BASE_URL}/feeds/gns-etn-${GNS_FEED?.["latest"]}.xml`);
+} else if (category && GNS_FEED?.[category]) {
+  feeds.push(
+    `${import.meta.env.WEBAPP_BASE_URL}/feeds/gns-etn-${GNS_FEED?.["latest"]}.xml`,
+    `${import.meta.env.WEBAPP_BASE_URL}/feeds/gns-etn-${GNS_FEED?.[category]}.xml`
+  );
+}
+---
+
+{feeds.map((feed) => (
+  <link
+    rel="alternate"
+    type="application/rss+xml"
+    href={feed}
+  />
+))}

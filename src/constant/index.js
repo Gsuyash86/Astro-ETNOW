@@ -205,3 +205,34 @@ export const CHANNEL_MSID = {
   "1x8fbim9o6": "152327095",
 };
 export const DEFAULT_IMAGE_MSID = "95598012";
+
+export const GNS_FEED = {
+  'latest': 'latest',
+  'latest-news': 'latest',
+  'news': 'news',
+  'markets': 'markets',
+  'companies': 'companies',
+  'personal-finance': 'personal-finance',
+  'mutual-funds': 'mutual-funds',
+  'cryptocurrency': 'cryptocurrency',
+  'videos': 'videos',
+  'news-letter': 'news-letter',
+  'sitemap-etnow': 'sitemap',
+  'budget': 'budget',
+  'exams-results': 'exams-results',
+  // 'web-stories': 'web-stories', // originally commented
+  'auto': 'auto',
+  'technology': 'technology',
+  'breaking-news': 'breaking-news',
+  'business-summit': 'business-summit',
+  'infrastructure': 'infrastructure',
+  'et-now-luxe': 'et-now-luxe',
+  'entertainment': 'entertainment',
+  'success-stories': 'success-stories',
+  'economy': 'economy',
+  'real-estate': 'real-estate',
+  'jobs': 'jobs',
+  'income-tax': 'income-tax',
+  'elections': 'elections',
+  'sports': 'sports',
+};
