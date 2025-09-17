@@ -139,6 +139,7 @@ const mainData = app?.response?.sections?.article_show?.data?.[0];
         <MgIdComponent
           scriptID={CONST.MGID_ADD_1X1}
           elementID={CONST.MGID_ADD_1X1}
+          lazy={true}
         />
       ) : null}
       {embedData?.isVDOAiShow ? <VideoAiComponent loadOnScroll={true} /> : null}
@@ -154,5 +155,5 @@ const mainData = app?.response?.sections?.article_show?.data?.[0];
 <TopStockWidget />
 <RelatedNews data={mainData?.editorpicks} />
 <TopVideos componentData={mainData?.rhs_widget} />
-<MgIdComponent scriptID={CONST.MGID_ADD_1X1} elementID={CONST.MGID_ADD_1X1} />
+<MgIdComponent scriptID={CONST.MGID_ADD_5X5} elementID={CONST.MGID_ADD_5X5} lazy={true} />
 <LatestNews data={mainData?.latestSiblings} />

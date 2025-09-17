@@ -10,7 +10,7 @@ const { loadOnScroll = false } = Astro.props;
 
 <script is:inline define:vars={{ loadOnScroll }}>
   function loadVdoAi() {
-    if (document.getElementById("vdoai-script")) return; // prevent duplicate
+    if (document.getElementById("vdoai-script")) return;
     const ai = document.createElement("script");
     ai.id = "vdoai-script";
     ai.src = window.location.protocol + "//a.vdo.ai/core/v-etnownews-v3/vdo.ai.js";
