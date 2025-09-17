@@ -11,9 +11,7 @@ import HtmlParagraph from "./HtmlParagraph.astro";
 import RecommendedNews from "@components/common/recommendedNews/RecommendedNews.astro";
 import AdCaller from "@components/common/adcaller/AdCaller.astro";
 import CoverVDOAndImg from "./CoverVDOAndImg.astro";
-// import MgIdComponent from "@components/common/mgid/MgIdComponent.astro";
-import MgIdComponent from "@components/reactComponents/MgIdComponent";
-import MgIdComponentET from "@components/reactComponents/MgIdComponentET";
+import MgIdComponent from "@components/common/mgid/MgIdComponent.astro";
 import VideoAiComponent from "@components/common/mgid/VideoAiComponent.astro";
 import CONST from "src/constant";
 import TopStockWidget from "@components/common/topTrendingStocks/TopStockWidget.astro";
@@ -84,13 +82,15 @@ const mainData = app?.response?.sections?.article_show?.data?.[0];
         MULTI_VIDEO_LIST_COUNT={1}
       />
       <ContainerBox>
-      <SocialWidgets data={{ text: embedData?.twitterList, type: "twitter" }} />
-      <SocialWidgets
-        data={{ text: embedData?.instagramList, type: "instagram" }}
-      />
-      <SocialWidgets data={{ text: embedData?.fbList, type: "fb" }} />
-      <SocialWidgets data={{ text: embedData?.reditList, type: "reddIt" }} />
-      <SocialWidgets data={{ text: embedData?.iframeText, type: "iframe" }} />
+        <SocialWidgets
+          data={{ text: embedData?.twitterList, type: "twitter" }}
+        />
+        <SocialWidgets
+          data={{ text: embedData?.instagramList, type: "instagram" }}
+        />
+        <SocialWidgets data={{ text: embedData?.fbList, type: "fb" }} />
+        <SocialWidgets data={{ text: embedData?.reditList, type: "reddIt" }} />
+        <SocialWidgets data={{ text: embedData?.iframeText, type: "iframe" }} />
       </ContainerBox>
       <TextLinkComponent
         htmlText={embedData.htmlText}
@@ -154,5 +154,5 @@ const mainData = app?.response?.sections?.article_show?.data?.[0];
 <TopStockWidget />
 <RelatedNews data={mainData?.editorpicks} />
 <TopVideos componentData={mainData?.rhs_widget} />
-<MgIdComponentET client:load />
+<MgIdComponent scriptID={CONST.MGID_ADD_1X1} elementID={CONST.MGID_ADD_1X1} />
 <LatestNews data={mainData?.latestSiblings} />
