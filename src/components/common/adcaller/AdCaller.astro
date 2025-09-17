@@ -395,10 +395,6 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
           observer.observe(container);
 
           debugLog("✅ Observer set up successfully for:", lazyLoadId);
-
-          // Add visual indicator that observer is active
-          container.style.border = "2px solid #4CAF50";
-          container.title = `Lazy loading active: ${lazyLoadId}`;
         } else {
           debugLog(
             "❌ IntersectionObserver not supported, loading immediately",
@@ -592,15 +588,6 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
           }, 10000);
         }
       }
-
-      // Update visual state
-      setTimeout(() => {
-        container.classList.remove("ad-loading");
-        container.classList.add("ad-loaded");
-        container.style.border = "2px solid #4CAF50";
-        container.title = `Lazy loaded successfully: ${divId}`;
-        debugLog("✅ Ad loading initiated:", divId);
-      }, 1000);
     } catch (error) {
       debugLog("💥 Error loading ad:", error, config);
       container.classList.add("ad-error");
