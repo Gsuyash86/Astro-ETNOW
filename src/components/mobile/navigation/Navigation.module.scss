@@ -1,0 +1,45 @@
+.nav {
+    background: #fff;
+
+    &-link {
+        span {
+            color: var(--textColor);
+            text-transform: uppercase;
+        }
+    }
+
+    &-active {
+        position: relative;
+
+        span {
+            font-weight: 700;
+        }
+
+        &::after {
+            bottom: -9px;
+            left: 50%;
+            border: solid transparent;
+            content: "";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+            border-bottom-color: #014160;
+            border-width: 8px;
+            margin-left: -8px;
+        }
+    }
+
+    &-mutual-fund {
+
+        &,
+        img {
+            width: 147px;
+            height: 14px;
+            display: inline-block;
+            font-size: 0;
+            vertical-align: middle;
+        }
+
+    }
+}

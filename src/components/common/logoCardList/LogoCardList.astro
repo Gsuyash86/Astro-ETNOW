@@ -1,0 +1,63 @@
+---
+import style from "./LogoCardList.module.scss";
+import Typography from "@components/common/widgets/typography/Typography.astro";
+import StockPriceMovement from "../stockPriceMovement/StockPriceMovement.astro";
+import ImageSSR from "../imageSSR/ImageSSR.astro";
+import Link from "../link/Link.astro";
+const defaultImg =
+  "https://img.timesnownews.com/stock-images/Default+stock+image.png";
+const {
+  changeStyle = "",
+  inLineStyle = {},
+  key,
+  href = "/",
+  isMarketButton = true,
+  iconConfig,
+  companyConfig,
+  priceConfig,
+  marketButtonConfig,
+} = Astro.props;
+---
+
+<Link
+  link={href}
+  class={`${style["box"]} ${changeStyle && style[changeStyle]}`}
+  style={{ ...inLineStyle }}
+>
+  <div class={`${style["box-lhs"]}`}>
+    <div class={`${style["box-img"]}`} style={iconConfig?.inLineStyle}>
+      <ImageSSR iconConfig={iconConfig} defaultImg={defaultImg} />
+    </div>
+
+    <Typography
+      tag={companyConfig?.tag || "p"}
+      text={companyConfig?.text}
+      changeStyle={companyConfig?.changeStyle}
+      fontWeight={companyConfig?.fontWeight}
+      isLineClamp={companyConfig?.isLineClamp}
+      inLineStyle={companyConfig?.inLineStyle}
+    />
+  </div>
+
+  {
+    isMarketButton && (
+      <div class={`${style["box-rhs"]}`}>
+        <Typography
+          tag={priceConfig?.tag || "p"}
+          text={`₹${priceConfig?.text}`}
+          changeStyle={priceConfig?.changeStyle}
+          fontWeight={priceConfig?.fontWeight}
+          isLineClamp={priceConfig?.isLineClamp}
+          inLineStyle={priceConfig?.inLineStyle}
+        />
+        <StockPriceMovement
+          changeStyle={marketButtonConfig?.changeStyle}
+          inLineStyle={marketButtonConfig?.inLineStyle}
+          isUp={marketButtonConfig?.isUp}
+          change={marketButtonConfig?.change}
+          change_percent={marketButtonConfig?.change_percent}
+        />
+      </div>
+    )
+  }
+</Link>

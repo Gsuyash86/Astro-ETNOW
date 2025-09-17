@@ -1,0 +1,134 @@
+---
+import style from "./ToolsAndCalculator.module.scss";
+import CommonGridBox from "@components/common/wrappers/commonGridBox/CommonGridBox.astro";
+import Typography from "@components/common/widgets/typography/Typography.astro";
+import CalculatorImageSSR from "../imageSSR/CalculatorImageSSR.astro";
+import Link from "@components/common/link/Link.astro";
+import { getDomain } from "@utils/common";
+const { changeStyle = "", inLineStyle = {} } = Astro.props;
+const dataList = [
+  {
+    backgroundColor: "239, 255, 253",
+    company: "Mutual Fund Calculator",
+    image_id: "151694272",
+    href: "/tools-calculators/mutual-fund-calculator",
+  },
+  {
+    backgroundColor: "239, 245, 255",
+    company: "SIP Calculator",
+    image_id: "151694271",
+    href: "/tools-calculators/sip-calculator",
+  },
+
+  {
+    backgroundColor: "239, 245, 255",
+    company: "Return Calculator",
+    image_id: "151859738",
+    href: "/tools-calculators/sip-calculator",
+  },
+
+  {
+    backgroundColor: "251, 239, 255",
+    company: "Home Loan Calculator",
+    image_id: "151694269",
+    href: "/tools-calculators/home-loan-calculator",
+  },
+  {
+    backgroundColor: "255, 245, 239",
+    company: "Car Loan Calculator",
+    image_id: "151694268",
+    href: "/tools-calculators/car-loan-calculator",
+  },
+  {
+    backgroundColor: "255, 239, 239",
+    company: "Personal Loan Calculator",
+    image_id: "151694270",
+    href: "/tools-calculators/personal-loan-emi-calculator",
+  },
+  {
+    backgroundColor: "241, 255, 239",
+    company: "Sukanya Samriddhi Yojana Calculator",
+    logo_url: "151694266",
+    href: "/tools-calculators/sukanya-samriddhi-yojana-calculator",
+  },
+  {
+    backgroundColor: "255, 248, 239",
+    company: "Employees Provident Fund (EPF) Calculator",
+    logo_url: "151694265",
+    href: "/tools-calculators/epf-employees-provident-fund-calculator",
+  },
+];
+---
+
+<div class={`${changeStyle && style[changeStyle]}`} style={{ ...inLineStyle }}>
+  <h5>Tools & Calculators</h5>
+
+  <CommonGridBox
+    gridType="divGridBox"
+    changeStyle={""}
+    inLineStyle={{ marginBottom: "0px", gap: "16px" }}
+  >
+    {
+      dataList?.map((item) => (
+        <Link
+          link={`${getDomain()}/${item.href}`}
+          inLineStyle={{
+            backgroundColor: `rgba(${item?.backgroundColor}, 0.8)`,
+            boxShadow: "0 4px 11px 0 rgba(0, 0, 0, 0.15)",
+            borderRadius: "10px",
+            padding: "8px 12px 8px 0px",
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+            textDecoration: "none",
+            width: "100%",
+          }}
+        >
+          <div
+            class={`${style["img-box"]}`}
+            style={{
+              flex: "0 0 90px",
+              width: "90px",
+              height: "48px",
+              borderRadius: "0",
+              border: "0",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <CalculatorImageSSR
+              imageId={item?.image_id || item?.logo_url}
+              altText={`${item?.company} icon`}
+            />
+          </div>
+
+          <Typography
+            tag="p"
+            text={item?.company}
+            changeStyle="font-size-16"
+            fontWeight="bold"
+            isLineClamp={true}
+            inLineStyle={{
+              lineHeight: "1.5",
+              color: "#000000",
+              flex: 1,
+            }}
+          />
+        </Link>
+      ))
+    }
+  </CommonGridBox>
+
+  <div class={`${style["load-more"]}`}>
+    <Link
+      link={`${getDomain()}/tools-calculators`}
+      inLineStyle={{
+        width: "145px",
+        height: "39px",
+        padding: "0px",
+      }}
+    >
+      Show more
+    </Link>
+  </div>
+</div>

@@ -1,0 +1,132 @@
+---
+import style from "./MutualFundCard.module.scss";
+import Typography from "@components/common/widgets/typography/Typography.astro";
+import StockPriceMovement from "../stockPriceMovement/StockPriceMovement.astro";
+const defaultImg =
+  "https://img.timesnownews.com/stock-images/Default+stock+image.png";
+const {
+  changeStyle = "",
+  inLineStyle = {},
+  iconConfig,
+  companyConfig,
+  categoryConfig,
+  aum,
+  nav,
+  returns,
+  assetType,
+} = Astro.props;
+const categoryList = Array.isArray(categoryConfig?.text)
+  ? categoryConfig.text
+  : categoryConfig?.text
+    ? [categoryConfig.text]
+    : [];
+if (assetType) {
+  categoryList.unshift(assetType);
+}
+---
+
+<div
+  class={`${style["box"]} ${changeStyle && style[changeStyle]}`}
+  style={{ ...inLineStyle }}
+>
+  <div class={`${style["box-top"]}`}>
+    <i style={iconConfig?.inLineStyle}>
+      <img
+        src={`https://times-network.s3.ap-southeast-1.amazonaws.com/et-now-stocks/MF+house+logos/${iconConfig?.iconUrl}.png` ||
+          defaultImg}
+        alt="fund icon"
+      />
+    </i>
+
+    <Typography {...companyConfig} />
+
+    <ul class={`${style["box-category"]}`}>
+      {
+        categoryList.map((cat) => (
+          <li>
+            <Typography
+              {...categoryConfig}
+              text={cat}
+            />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <ul class={`${style["box-bottom"]}`}>
+    <li>
+      <Typography
+        tag="p"
+        text="AUM"
+        changeStyle="font-size-12"
+        fontWeight="400"
+        isLineClamp={true}
+        inLineStyle={{
+          lineHeight: "1.2",
+          color: "#878787",
+          marginBottom: "4px",
+        }}
+      />
+      <Typography
+        tag="p"
+        text={aum}
+        changeStyle="font-size-14"
+        fontWeight="500"
+        isLineClamp={true}
+        inLineStyle={{ lineHeight: "1.2", color: "#26232C" }}
+      />
+    </li>
+    <li>
+      <Typography
+        tag="p"
+        text="Returns (p.a)"
+        changeStyle="font-size-12"
+        fontWeight="400"
+        isLineClamp={true}
+        inLineStyle={{
+          lineHeight: "1.2",
+          color: "#878787",
+          marginBottom: "4px",
+        }}
+      />
+      <StockPriceMovement
+        changeStyle={returns?.changeStyle}
+        inLineStyle={returns?.inLineStyle}
+        isUp={returns?.isUp}
+        change={null}
+        change_percent={returns?.value}
+        displayOnlyPercent={true}
+        textConfig={{
+          tag: "p",
+          changeStyle: "font-size-14",
+          fontWeight: "700",
+          isLineClamp: true,
+          inLineStyle: {},
+        }}
+      />
+    </li>
+    <li>
+      <Typography
+        tag="p"
+        text="NAV"
+        changeStyle="font-size-12"
+        fontWeight="400"
+        isLineClamp={true}
+        inLineStyle={{
+          lineHeight: "1.2",
+          color: "#878787",
+          marginBottom: "4px",
+        }}
+      />
+      <Typography
+        tag="p"
+        text={nav}
+        changeStyle="font-size-14"
+        fontWeight="500"
+        isLineClamp={true}
+        inLineStyle={{ lineHeight: "1.2", color: "#26232C" }}
+      />
+    </li>
+  </ul>
+</div>

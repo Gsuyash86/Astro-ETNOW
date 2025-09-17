@@ -1,0 +1,177 @@
+---
+import {
+  IMG_DEFAULT,
+  IMG_OG_DEFAULT,
+  NOT_FOUND_META_DETAIL,
+  seoDefaultMeta,
+  getNewImageUrl,
+} from  "../../../../utils/common";
+
+import OrgSchema from "../schema/OrgSchema"
+import OrgSchemaMicrosite from "../schema/OrgSchemaMicrosite"
+import WebSite from "../schema/Website";
+
+const { data = {}, channelId, status, pathname, isAmp = false } = Astro.props;
+
+function generateTags(seoObject) {
+  if (seoObject?.metaTags instanceof Array) {
+    return seoObject.metaTags.map((tagItem) => {
+      const { tagName } = tagItem;
+      const attributes = {};
+      if (tagItem.attributes instanceof Array) {
+        tagItem.attributes.forEach((item) => {
+          attributes[item.attributeName] = item.attributeValue;
+        });
+      }
+      return { tagName, attributes };
+    });
+  }
+  return [];
+}
+
+function generateCDPMeta(seoData) {
+  if (!seoData || typeof seoData !== 'object') return [];
+
+  return Object.entries(seoData).map(([key, value]) => {
+    if (typeof value === 'object' && value !== null && 'value' in value) {
+      return { key, content: value.value };
+    } else if (Array.isArray(value)) {
+      return { key, content: value.join(',') };
+    } else if (typeof value === 'string') {
+      return { key, content: value };
+    }
+    return null;
+  }).filter(Boolean);
+}
+
+const seoObject = data || {};
+const seoObjectStatic =
+  status === 404
+    ? NOT_FOUND_META_DETAIL
+    : seoDefaultMeta;
+
+const metaTags = generateTags(seoObject);
+const cdpMetaTags = generateCDPMeta(seoObject?.custumParamCdtr);
+const is404 = status === 404;
+const canonical = seoObject.canonical || '';
+const baseUrl = import.meta.env.WEBAPP_BASE_URL || '';
+---
+
+<!-- Description and keywords -->
+<meta name="description" content={seoObject.description || seoObjectStatic?.description} />
+<meta name="keywords" content={seoObject.keywords || seoObjectStatic?.keywords} />
+<meta name="news_keywords" content={seoObject.keywords ?? ''} />
+
+<!-- Open Graph tags -->
+<meta
+  property="og:title"
+  content={
+    seoObject.headline
+      ? seoObject.headline
+      : seoObject.title
+      ? seoObject.title
+      : ''
+  }
+/>
+<meta
+  property="og:image"
+  content={
+    seoObject.msid
+      ? getNewImageUrl({
+          msid: seoObject.msid,
+          imgSize: seoObject.thumbsize || '',
+          updatedAt: seoObject.updatedate || '',
+          imgWidth: 1280,
+          imgHeight: 720,
+        }) || IMG_DEFAULT
+      : IMG_OG_DEFAULT
+  }
+/>
+{canonical === '/market-in-minutes' || canonical === '/market-in-minutes/' ? (
+  <meta property="og:url" content={`${baseUrl}${canonical}`} />
+) : (
+  <meta property="og:url" content={canonical} />
+)}
+<meta property="og:description" content={seoObject.description ?? ''} />
+
+<!-- Twitter tags -->
+{canonical === '/market-in-minutes' || canonical === '/market-in-minutes/' ? (
+  <meta property="twitter:url" content={`${baseUrl}${canonical}`} />
+) : (
+  <meta property="twitter:url" content={canonical} />
+)}
+<meta
+  property="twitter:title"
+  content={
+    seoObject.headline
+      ? seoObject.headline
+      : seoObject.title
+      ? seoObject.title
+      : ''
+  }
+/>
+<meta property="twitter:description" content={seoObject.description ?? ''} />
+{(seoObjectStatic?.robots || seoObject?.robots) && (
+  <meta
+    name="robots"
+    content={is404 ? seoObjectStatic?.robots : seoObject?.robots}
+  />
+)}
+
+{canonical === '/premium' ||
+canonical === '/market-in-minutes' ||
+canonical === '/market-in-minutes/' ? (
+  <link
+    rel="canonical"
+    href={
+      is404
+        ? seoObjectStatic.canonical
+        : `${baseUrl}${canonical}` || ''
+    }
+  />
+) : (
+  <link
+    rel="canonical"
+    href={is404 ? seoObjectStatic.canonical : canonical.replace(/\/$/, '') || ''}
+  />
+)}
+
+{!is404 && isAmp && (seoObject.amplink || seoObject.amphtml) && (
+  <link rel="amphtml" href={seoObject.amphtml} />
+)}
+{metaTags.map(({ tagName, attributes }) => {
+  if (tagName === 'meta') {
+    return <meta {...attributes} />;
+  }
+  if (tagName === 'link') {
+    return <link {...attributes} />;
+  }
+  return null;
+})}
+
+{cdpMetaTags.map(({ key, content }) => (
+  <meta name={key} content={content} />
+))}
+
+{seoObject?.fromPage === 'microsite' ? (
+  <>
+    <script type="application/ld+json" is:inline  set:html ={JSON.stringify(WebSite())}>
+    </script>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(OrgSchemaMicrosite())}>
+    </script>
+  </>
+) : (
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(OrgSchema())}>
+  </script>
+)}
+
+{seoObject?.fromPage === 'home' && (
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(WebSite())}>
+  </script>
+)}
+
+{seoObject?.schema?.length > 0 &&
+  seoObject.schema.map((item, index) => (
+    <script key={index} type="application/ld+json" is:inline set:html={JSON.stringify(item)}>
+    </script>
+  ))}

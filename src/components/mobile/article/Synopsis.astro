@@ -1,0 +1,30 @@
+---
+import style from "./Synopsis.module.scss";
+import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.astro";
+import Typography from "@components/common/widgets/typography/Typography.astro";
+const {
+  text,
+  changeStyle = "",
+  inLineStyle = {},
+  noGutterSpace = false,
+} = Astro.props;
+if (!text) return null;
+---
+
+<div
+  class={`${style["synopsis"]} ${changeStyle && style[changeStyle]}`}
+  style={{ ...inLineStyle }}
+>
+  <ContainerBox noGutterSpace={noGutterSpace}>
+    <Typography
+      tag="h2"
+      text={text}
+      changeStyle="font-size-16"
+      isLineClamp={false}
+      inLineStyle={{
+        lineHeight: "1.7",
+        fontWeight: "normal",
+      }}
+    />
+  </ContainerBox>
+</div>

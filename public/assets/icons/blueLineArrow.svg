@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="9px" viewBox="0 0 14 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>arrow</title>
+    <g id="Logos---Times" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="arrow" transform="translate(1, 1)" fill-rule="nonzero" stroke="#0065C2" stroke-width="1.5">
+            <line x1="0" y1="3.33333349" x2="11.666667" y2="3.33333349" id="Vector"></line>
+            <line x1="8.33333349" y1="6.66666675" x2="11.6666667" y2="3.33333349" id="Vector"></line>
+            <line x1="8.33333349" y1="0" x2="11.6666667" y2="3.33333325" id="Vector"></line>
+        </g>
+    </g>
+</svg>

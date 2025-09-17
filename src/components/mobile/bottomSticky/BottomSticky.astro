@@ -1,0 +1,85 @@
+---
+import SvgIcon from "@components/common/svg/SvgIcon.astro";
+import Typography from "@components/common/widgets/typography/Typography.astro";
+import style from "./BottomSticky.module.scss";
+import Link from "@components/common/link/Link.astro";
+import AdContainer from "@components/common/adcontainer/AdContainer.astro";
+import { BOTTOMNAV } from "@constant/index";
+import AdCaller from "@components/common/adcaller/AdCaller.astro";
+
+const {stickyAds = {} } = Astro.props;
+const values = Astro.url.searchParams;
+const pathname = Astro.url.pathname;
+const category = values.get("category");
+let bottomNav = BOTTOMNAV;
+
+bottomNav = bottomNav.map((item) => {
+            if(item.link === `${import.meta.env.WEBAPP_BASE_URL}/latest-news` && (category === "latest-news" || category === "latest")) {
+                    item.active = true;
+            }else if(item.link === `${import.meta.env.WEBAPP_BASE_URL}/market-overview` && (category === "market-overview" || category === "markets")) {
+                    item.active = true;
+            }else if(item.link === `${import.meta.env.WEBAPP_BASE_URL}/${category}`){
+                    item.active = true;
+            }else {
+                    item.active = false;
+            }
+            return item;
+});
+---
+
+<div class={`${style["bottom-sticky-box"]}`} style={{ bottom: "48" }} id="btm-navbar">
+    <AdContainer
+        inLineStyle={{
+            background: "#ffffff",
+            height: "52px",
+        }}
+    >
+        <AdCaller {...stickyAds} />
+    </AdContainer>
+    <div class={`${style["bottom-sticky"]}`}>
+        {
+            bottomNav.map((item) => (
+                <Link
+                    link={item.link}
+                    className={`${style["bottom-sticky-link"]}`}
+                >
+                    <SvgIcon
+                        IconName={item.active ? item.activeIcon : item.icon}
+                        width={item.width}
+                        height={item.height}
+                    />
+                    <Typography
+                        tag="p"
+                        text={item.label}
+                        changeStyle="font-size-12"
+                        fontWeight="400"
+                        inLineStyle={{
+                            lineHeight: "12px",
+                            color: item.active ? "#ea2318" : "#171725",
+                        }}
+                    />
+                </Link>
+            ))
+        }
+    </div>
+</div>
+<script>
+    let prevScrollpos =
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop ||
+      0;
+    window.addEventListener('scroll', (event) => {
+      let currentScrollPos =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop ||
+        0;        
+      if (Math.abs(112) >= currentScrollPos) {
+        document.getElementById('btm-navbar').style.bottom = '-48px';
+      } else {
+        document.getElementById('btm-navbar').style.bottom = '0px';
+      }
+      prevScrollpos = currentScrollPos;
+    });
+</script>

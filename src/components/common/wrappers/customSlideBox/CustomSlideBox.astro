@@ -1,0 +1,50 @@
+---
+import styles from './CustomSlideBox.module.scss';
+
+const {
+  gridGap = 6,
+  marginTop = 0,
+  marginBottom,
+  changeStyle = '',
+  inLineParentStyle = {},
+  inLineStyle = {},
+  elementType = 'divBox',
+  isVerticalSlide = false,
+  isScrollSanp = true,
+} = Astro.props;
+
+const wrapperClass = [
+  isVerticalSlide ? styles['default-vertical'] : styles['default'], isScrollSanp ? '' : styles['no-scroll-snap'],
+  changeStyle ? styles[changeStyle] : '',
+].join(' ').trim();
+---
+
+<div class={wrapperClass} style={inLineParentStyle}>
+  {elementType === 'divBox' && (
+    <div
+      class={styles['overflow']}
+      style={{
+        gap: `${gridGap}px`,
+        marginTop: `${marginTop}px`,
+        marginBottom: `${marginBottom}px`,
+        ...inLineStyle,
+      }}
+    >
+      <slot />
+    </div>
+  )}
+
+  {elementType === 'ulBox' && (
+    <ul
+      class={styles['overflow']}
+      style={{
+        gap: `${gridGap}px`,
+        marginTop: `${marginTop}px`,
+        marginBottom: `${marginBottom}px`,
+        ...inLineStyle,
+      }}
+    >
+      <slot />
+    </ul>
+  )}
+</div>

@@ -1,0 +1,78 @@
+export default {
+  commonDNSPrefetches: [
+    'https://geoapi.tnn.in',
+    'https://imasdk.googleapis.com',
+    'https://tvid.in',
+    'https://static.chartbeat.com',
+    'https://mab.chartbeat.com',
+    'https://ping.chartbeat.net',
+    'https://tpc.googlesyndication.com',
+    'https://sb.scorecardresearch.com',
+    'https://www.googletagservices.com',
+    'https://aax.amazon-adsystem.com',
+    'https://onelinksmartscript.appsflyer.com',
+    'https://ow.pubmatic.com',
+    'https://hbopenbid.pubmatic.com/',
+    'https://www18.smartadserver.com',
+    'https://ib.adnxs.com',
+    'https://acdn.adnxs.com',
+    'https://adservice.google.com',
+    'https://www.google.com',
+    'https://adservice.google.co.in',
+    'https://googleads.g.doubleclick.net',
+    'https://tags.crwdcntrl.net',
+    'https://bcp.crwdcntrl.net',
+    'https://ampcid.google.com',
+    'https://a.teads.tv',
+    'https://fastlane.rubiconproject.com',
+  ],
+  nonPrimeDNSPrefetches: ['https://googleads.g.doubleclick.net'],
+  commonPreconnects: [
+    'https://images.etnownews.com',
+    'https://www.googletagmanager.com',
+    'https://www.google-analytics.com',
+    'https://c.amazon-adsystem.com',
+    'https://securepubads.g.doubleclick.net',
+    'https://ads.pubmatic.com',
+    'https://www.etnownews.com',
+    'https://static.toiimg.com',
+    'https://geoapi.indiatimes.com',
+    'https://em.etnownews.com'
+
+  ],
+  nonPrimePreconnects: ['https://securepubads.g.doubleclick.net'],
+  scripts: [
+    // {
+    //   src: 'https://static.clmbtech.com/ad/commons/js/colombia_v2.js',
+    //   async: true,
+    //   defer: true,
+    //   nonPrimeOnly: true,
+    // },
+  ],
+  headScriptsCommon: [
+    // {
+    //   src: 'https://js-sec.indexww.com/ht/p/193119-87363260256000.js',
+    //   async: true,
+    //   defer: true,
+    //   nonPrimeOnly: true,
+    // },
+    // {
+    //   src: 'https://securepubads.g.doubleclick.net/tag/js/gpt.js',
+    //   async: true,
+    //   // defer: true,
+    //   nonPrimeOnly: true,
+    // },
+  ],
+  headScriptsMobile: [
+    // {
+    //   src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
+    //   async: true,
+    //   defer: true,
+    //   nonPrimeOnly: true,
+    //   attributes: {
+    //     'data-ad-client': 'ca-pub-1902173858658913',
+    //   },
+    // },
+  ],
+  headScriptsDesktop: [],
+};

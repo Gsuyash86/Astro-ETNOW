@@ -1,0 +1,12 @@
+.duration {
+  background: var(--textColor);
+  color: var(--whiteColor);
+  font-size: 0.75rem;
+  right: 10px;
+  padding: 4px 9px;
+  display: flex;
+  flex-direction: initial !important;
+  align-self: flex-end;
+  margin-bottom: -5px;
+  font-style: normal;
+}

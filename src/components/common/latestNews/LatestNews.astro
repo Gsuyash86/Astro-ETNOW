@@ -1,0 +1,57 @@
+---
+import style from "./LatestNews.module.scss";
+import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.astro";
+import HorizontalCard from "@components/common/widgets/horizontalCard/HorizontalCard.astro";
+import { getDomain, getUrl } from "src/utils/common";
+import TitleComponent from "@components/common/titleComponent/TitleComponent.astro";
+import CommonGridBox from "@components/common/wrappers/commonGridBox/CommonGridBox.astro";
+const fetchTime = (item) => new Date(item.updatedate).toLocaleTimeString();
+const { data } = Astro.props;
+if (!data?.length) return null;
+---
+
+<ContainerBox>
+  <TitleComponent
+    type={"h2"}
+    moreButtonLink={`${getDomain()}/latest-news`}
+    moreButtonText={"Latest News"}
+    fontSize={"font-size-18"}
+    fontWeight={"700"}
+    isSeprator={true}
+    isDefaultFontFamily={true}
+    changeStyle={"left-red-border"}
+    inLineParentStyle={{ marginBottom: "11px" }}
+  />
+
+  <CommonGridBox
+    gridType="ulGridBox"
+    changeStyle={"listing-with-border"}
+    inLineStyle={{ marginBottom: "20px" }}
+  >
+    {
+      data?.map((item) => {
+        if (item.cmstype.toUpperCase() === "SECTION") return null;
+        return (
+          <li class={style["list-items"]}>
+            <HorizontalCard
+              data={item}
+              isWhiteLayout={false}
+              isRowReverse={true}
+              isImage={false}
+              getUrlConfig={{
+                to: getUrl(item),
+                title: item?.title,
+              }}
+              titleConfig={{
+                style: "font-size-14",
+                inLineStyle: { WebkitLineClamp: "2", lineHeight: "24px" },
+                text: item.title || "",
+                tag: "p",
+              }}
+            />
+          </li>
+        );
+      })
+    }
+  </CommonGridBox>
+</ContainerBox>

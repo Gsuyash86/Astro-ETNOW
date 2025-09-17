@@ -1,0 +1,288 @@
+---
+import SvgIcon from "@components/common/svg/SvgIcon.astro";
+import style from "./Search.module.scss";
+
+export interface Props {
+  isTopNavigation?: boolean;
+  instanceId?: string;
+  inLineStyle?: object;
+  changeStyle?: string;
+}
+const {
+  isTopNavigation = true,
+  instanceId = "default",
+  changeStyle = '',
+  inLineStyle = {},
+} = Astro.props;
+
+// Generate unique IDs for this instance
+const searchInputId = `searchInput_${instanceId}`;
+const searchBtnId = `searchBtn_${instanceId}`;
+const closeBtnId = `closeBtn_${instanceId}`;
+const resultsContainerId = `resultsContainer_${instanceId}`;
+---
+
+<div
+  class={changeStyle && style[changeStyle]}
+  data-instance={instanceId}
+  style={{ ...inLineStyle }}
+>
+  <div class={style.searchBox}>
+    <input
+      id={searchInputId}
+      type="text"
+      placeholder="Search Stocks/IPOs, Mutual Funds, Articles..."
+      autocomplete="off"
+      aria-label="Search"
+      class={isTopNavigation ? style.topNavInput : style.hamburgerInput}
+    />
+    <button id={searchBtnId} type="button">
+      <SvgIcon
+        IconName={"searchNewIconDesktop"}
+        width={18}
+        height={18}
+      />
+    </button>
+    <button id={closeBtnId} type="button">
+      <SvgIcon
+        IconName={"CloseIconBig"}
+        width={14}
+        height={14}
+      />
+    </button>
+  </div>
+  <div
+    id={resultsContainerId}
+    class={`${style.resultsContainer} results-container ${isTopNavigation ? style.topNavResults : style.hamburgerResults}`}
+    data-open="false"
+    data-instance={instanceId}
+    aria-hidden="true"
+  >
+  </div>
+</div>
+
+<script define:vars={{ instanceId }}>
+  (function () {
+    const currentInstanceId = instanceId;
+    const wrapper = document.querySelector(
+      `[data-instance="${currentInstanceId}"]`,
+    );
+    if (wrapper && wrapper.dataset.initialized) {
+      return;
+    }
+
+    function initializeThisInstance() {
+      const input = document.getElementById(`searchInput_${currentInstanceId}`);
+      const btn = document.getElementById(`searchBtn_${currentInstanceId}`);
+      const resultsContainer = document.getElementById(
+        `resultsContainer_${currentInstanceId}`,
+      );
+      const hamburger = document.getElementById("hamburgerMenu");
+
+      if (!input || !btn || !resultsContainer) {
+        console.error(
+          `Search elements not found for instance: ${currentInstanceId}`,
+        );
+        return;
+      }
+      wrapper.dataset.initialized = "true";
+      const API_URL =
+        "https://api.etnownews.com/api/search?row=20&start=0&origin=desktop&channel_id=382&searchterms=";
+
+      function setOpen(open) {
+        resultsContainer.setAttribute("data-open", open ? "true" : "false");
+        resultsContainer.setAttribute("aria-hidden", open ? "false" : "true");
+        const closeBtn = document.getElementById(`closeBtn_${currentInstanceId}`);
+        if (closeBtn) {
+          closeBtn.style.display = open ? "block" : "none";
+        }
+        if (currentInstanceId === "hamburger") {
+          if (hamburger) {
+            hamburger.style.display = open ? "none" : "block";
+          }
+        }
+        if (!open) {
+          input.value = "";
+        }
+      }
+
+      function sanitizeText(s) {
+        return String(s || "");
+      }
+
+      async function fetchSearchResults(query) {
+        try {
+          const res = await fetch(API_URL + encodeURIComponent(query));
+          const data = await res.json();
+          return data?.response || {};
+        } catch (err) {
+          console.error("Search API error:", err);
+          return {};
+        }
+      }
+      function getSlug(cmstype) {
+        if (!cmstype) return "";
+        let ARTICLESLUGMAP = {
+          VIDEOS: "video",
+          MEDIAVIDEO: "video",
+          MOVIEREVIEW: "review",
+          ARTICLE: "article",
+          LIVEBLOG: "liveblog",
+          PHOTOGALLERYSLIDESHOWSECTION: "photo-gallery",
+          IMAGES: "photostory",
+          PHOTOGALLERYLISTSECTION: "photostory",
+          MEDIAAUDIO: "audio",
+          SHORTMEDIAVIDEO: "reels",
+        };
+        return ARTICLESLUGMAP[cmstype] || "";
+      }
+
+      async function renderResults(q) {
+        const term = String(q || "")
+          .trim()
+          .toLowerCase();
+        resultsContainer.innerHTML = "";
+
+        if (!term) {
+          setOpen(false);
+          return;
+        }
+
+        const response = await fetchSearchResults(term);
+        let any = false;
+        // keys we want to render from API
+        const sections = {
+          stocks: "Stocks/IPOs",
+          mutualfunds: "Mutual Funds",
+          article: "Articles",
+          video: "Videos",
+          liveblog: "Live Blogs",
+          image: "Images",
+        };
+
+        Object.keys(sections).forEach((key) => {
+          const items = response[key] || [];
+          if (items.length) {
+            any = true;
+            const sectionDiv = document.createElement("div");
+            sectionDiv.className = "results-section";
+
+            const h = document.createElement("h2");
+            h.textContent = sections[key];
+            sectionDiv.appendChild(h);
+
+            const ul = document.createElement("ul");
+            items.slice(0, 6).forEach((item) => {
+              const li = document.createElement("li");
+              li.className = "result-item";
+              li.tabIndex = 0;
+
+              const a = document.createElement("a");
+              a.href = `/${item?.seopath || ""}${getSlug(item?.cmstype) ? `-${getSlug(item?.cmstype)}-` : ""}${item?.msid ? item?.msid : ""}`;
+              a.textContent = sanitizeText(
+                item?.title || item?.name || item?.compname || item?.S_NAME,
+              );
+              li.dataset.value = a.textContent;
+              li.appendChild(a);
+              ul.appendChild(li);
+            });
+
+            sectionDiv.appendChild(ul);
+            resultsContainer.appendChild(sectionDiv);
+          }
+        });
+
+        if (any) {
+          const footer = document.createElement("a");
+          footer.className = "show-all";
+          footer.tabIndex = 0;
+          footer.href = `https://www.etnownews.com/search-result/${term}`;
+          footer.textContent = "Show all result";
+          resultsContainer.appendChild(footer); 
+          setOpen(true);
+        } else {
+            const footer = document.createElement('span');
+            footer.textContent = "No results found";
+            resultsContainer.appendChild(footer);
+            setOpen(true);
+        }
+      }
+
+      function debounce(fn, wait = 160) {
+        let timer;
+        return (...args) => {
+          clearTimeout(timer);
+          timer = setTimeout(() => fn(...args), wait);
+        };
+      }
+
+      // Setup event listeners for this specific instance only
+      const onInput = debounce((e) => {
+        renderResults(e.target.value);
+      }, 500);
+
+      input.addEventListener("input", onInput);
+
+      btn.addEventListener("click", () => {
+        if(!input.value && !resultsContainer.innerHTML) {
+           let span = document.createElement('span');
+           span.textContent = "No results found";
+           span.style.color = "red";
+           span.style.textAlign = "center";
+           span.style.fontSize = "12px";
+           span.style.marginTop = "10px";
+           span.style.marginBottom = "10px";
+           span.style.display = "block";
+           resultsContainer.appendChild(span);
+           setOpen(true);
+           return;
+        }
+        window.open(`https://www.etnownews.com/search-result/${input.value}`);
+      }, { once: true });
+
+      resultsContainer.addEventListener("click", (ev) => {
+        const item = ev.target.closest(".result-item");
+        if (item) {
+          const v = item.dataset.value || item.textContent;
+          input.value = v;
+          setOpen(false);
+          return;
+        }
+        const foot = ev.target.closest(".show-all");
+      });
+
+      resultsContainer.addEventListener("keydown", (ev) => {
+        if (ev.key === "Enter") {
+          const item = ev.target.closest(".result-item");
+          if (item) {
+            input.value = item.dataset.value || item.textContent;
+            setOpen(false);
+          }
+        }
+      });
+
+
+      const clickOutsideHandler = (e) => {
+        if (!resultsContainer.contains(e.target) && e.target !== input) {
+          setOpen(false);
+        }
+      };
+
+      const keydownHandler = (e) => {
+        if (e.key === "Escape") setOpen(false);
+      };
+
+      document.addEventListener("click", clickOutsideHandler);
+      document.addEventListener("keydown", keydownHandler);
+
+      setOpen(false);
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initializeThisInstance);
+    } else {
+      initializeThisInstance();
+    }
+  })();
+</script>

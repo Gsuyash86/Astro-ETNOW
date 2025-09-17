@@ -1,0 +1,210 @@
+---
+const {
+  data,
+  imageConfig,
+  titleConfig,
+  paraConfig,
+  dividerConfig,
+  liveUpdateConfig = {},
+  getUrlConfig,
+  categoryNameConfig,
+  changeStyle = '',
+  inLineStyle = {},
+  isColumnReverse = false,
+  isWhiteLayout = false,
+  isShowCaptionOnImage = false,
+  isCaptionWithIconInline = false,
+  isWebStory = false,
+  isIndividualLinks = false,
+  isImage = true,
+  isCategory = true,
+  isLeadTitle = false,
+  videoPlayIconCenter = false,
+} = Astro.props;
+
+// Import CSS module styles
+import styles from './VerticalCard.module.scss';
+
+// Components imports (assumed you have Astro or React versions of these)
+import Link from '@components/common/link/Link.astro'; 
+import ImageWithIcon from '@components/common/widgets/imageWithIcon/ImageWithIcon.astro';
+import Typography from '@components/common/widgets/typography/Typography.astro';
+import Divider from '@components/common/widgets/divider/Divider.astro';
+import CategoryName from '@components/common/widgets/categoryName/CategoryName.astro';
+
+const figureClass = [
+  styles.figure,
+  changeStyle ? styles[changeStyle] : '',
+  dividerConfig?.isDivider ? '' : styles.gap,
+  isColumnReverse ? styles['row-reverse'] : '',
+  isShowCaptionOnImage ? (isCaptionWithIconInline ? styles['caption-on-image-inline'] : styles['caption-on-image']) : '',
+  isWebStory ? styles['web-story'] : '',
+].filter(Boolean).join(' ');
+
+const figcaptionClass = styles.figcaption;
+
+const isLinkDisabled = !getUrlConfig?.to;
+---
+
+{isIndividualLinks ? (
+  <figure class={figureClass} style={inLineStyle}>
+    {isImage && (
+      <Link link={getUrlConfig?.to} title={getUrlConfig?.title} class={styles['link-wrap']}>
+        <ImageWithIcon
+          cmsType={data?.cmstype || ''}
+          data={data}
+          time={imageConfig?.time}
+          imgWidth={imageConfig?.imgWidth}
+          imgHeight={imageConfig?.imgHeight}
+          imagePath={imageConfig?.imagePath}
+          changeStyle={imageConfig?.style}
+          inLineStyle={imageConfig?.inLineStyle}
+          isFeaturedCard={imageConfig?.isFeaturedCard}
+          mediaIconStyle={!isShowCaptionOnImage ? imageConfig?.iconStyle : undefined}
+          inLineMediaIconStyle={!isShowCaptionOnImage ? imageConfig?.inLineIconStyle : undefined}
+          isShowCaptionOnImage={isWebStory ? true : isShowCaptionOnImage}
+          isCaptionWithIconInline={isCaptionWithIconInline}
+          isWebStory={isWebStory}
+          blinkerBottomPosition={liveUpdateConfig?.blinkerBottomPosition}
+          blinkerLeftPosition={liveUpdateConfig?.blinkerLeftPosition}
+          videoPlayIconCenter={videoPlayIconCenter}
+        />
+      </Link>
+    )}
+
+    {dividerConfig?.isDivider && (
+      <Divider tag="span" changeStyle={dividerConfig?.style} inLineStyle={dividerConfig?.inLineStyle} />
+    )}
+
+    <figcaption class={figcaptionClass}>
+      {categoryNameConfig?.categoryName && isCategory && (
+        <CategoryName
+          categoryName={categoryNameConfig.categoryName}
+          changeStyle="font-size-12"
+          fontWeight="bold"
+          inLineStyle={{
+            color: isWhiteLayout ? '#D7D7D7' : '#b62025',
+            lineHeight: '1.667',
+            marginBottom: '5px',
+            marginTop: isLeadTitle ? '-8px' : undefined,
+          }}
+          redirectToUrl={categoryNameConfig.redirectUrl}
+          title={categoryNameConfig.title}
+        />
+      )}
+
+      <Link link={getUrlConfig?.to} title={getUrlConfig?.title} class={styles['link-wrap']}>
+        {titleConfig?.text?.length > 0 && (
+          <Typography
+            cmsType={data?.cmstype || ''}
+            data={data}
+            time={imageConfig?.time}
+            tag={titleConfig?.tag}
+            text={titleConfig?.text}
+            changeStyle={titleConfig?.style}
+            fontWeight={titleConfig?.fontWeight}
+            isSecondFontFamily={titleConfig?.isSecondFontFamily}
+            inLineStyle={titleConfig?.inLineStyle}
+            isFeaturedCard={titleConfig?.isFeaturedCard}
+            isWhiteLayout={isWhiteLayout}
+            mediaIconStyle={isShowCaptionOnImage ? titleConfig?.iconStyle : undefined}
+            inLineMediaIconStyle={isShowCaptionOnImage ? titleConfig?.inLineIconStyle : undefined}
+            isShowCaptionOnImage={isWebStory ? false : isShowCaptionOnImage}
+            isCaptionWithIconInline={isCaptionWithIconInline}
+            isWebStory={isWebStory}
+            isPremium={titleConfig?.text?.length > 0 && paraConfig?.text?.length > 0}
+          />
+        )}
+
+        {paraConfig?.text?.length > 0 && (
+          <Typography
+            cmsType={data?.cmstype || ''}
+            data={data}
+            time={imageConfig?.time}
+            tag={paraConfig?.tag}
+            text={paraConfig?.text}
+            changeStyle={paraConfig?.style}
+            fontWeight={paraConfig?.fontWeight}
+            isSecondFontFamily={paraConfig?.isSecondFontFamily}
+            inLineStyle={paraConfig?.inLineStyle}
+            isFeaturedCard={paraConfig?.isFeaturedCard}
+            isWhiteLayout={isWhiteLayout}
+            mediaIconStyle={isShowCaptionOnImage ? paraConfig?.iconStyle : undefined}
+            inLineMediaIconStyle={isShowCaptionOnImage ? paraConfig?.inLineIconStyle : undefined}
+            isShowCaptionOnImage={isWebStory ? false : isShowCaptionOnImage}
+            isCaptionWithIconInline={isCaptionWithIconInline}
+            isWebStory={isWebStory}
+            inLineSpanStyle={isShowCaptionOnImage ? paraConfig?.inLineSpanStyle : undefined}
+            isPremium={!(titleConfig?.text?.length > 0 && paraConfig?.text?.length > 0)}
+          />
+        )}
+      </Link>
+    </figcaption>
+  </figure>
+) : (
+  <Link link={getUrlConfig?.to} title={getUrlConfig?.title} class={styles['link-wrap']}>
+    <figure class={figureClass} style={inLineStyle}>
+      {isImage && (
+        <ImageWithIcon
+          cmsType={data?.cmstype || ''}
+          data={data}
+          time={imageConfig?.time}
+          imgWidth={imageConfig?.imgWidth}
+          imgHeight={imageConfig?.imgHeight}
+          imagePath={imageConfig?.imagePath}
+          changeStyle={imageConfig?.style}
+          inLineStyle={imageConfig?.inLineStyle}
+          isFeaturedCard={imageConfig?.isFeaturedCard}
+          mediaIconStyle={!isShowCaptionOnImage ? imageConfig?.iconStyle : undefined}
+          inLineMediaIconStyle={!isShowCaptionOnImage ? imageConfig?.inLineIconStyle : undefined}
+          isShowCaptionOnImage={isWebStory ? true : isShowCaptionOnImage}
+          isCaptionWithIconInline={isCaptionWithIconInline}
+          isWebStory={isWebStory}
+        />
+      )}
+
+      {dividerConfig?.isDivider && (
+        <Divider tag="span" changeStyle={dividerConfig?.style} inLineStyle={dividerConfig?.inLineStyle} />
+      )}
+
+      <figcaption class={figcaptionClass}>
+        <Typography
+          data={data}
+          time={imageConfig?.time}
+          tag={titleConfig?.tag}
+          text={titleConfig?.text}
+          changeStyle={titleConfig?.style}
+          fontWeight={titleConfig?.fontWeight}
+          isSecondFontFamily={titleConfig?.isSecondFontFamily}
+          inLineStyle={titleConfig?.inLineStyle}
+          isFeaturedCard={titleConfig?.isFeaturedCard}
+          isWhiteLayout={isWhiteLayout}
+          mediaIconStyle={isShowCaptionOnImage ? titleConfig?.iconStyle : undefined}
+          inLineMediaIconStyle={isShowCaptionOnImage ? titleConfig?.inLineIconStyle : undefined}
+          isShowCaptionOnImage={isWebStory ? false : isShowCaptionOnImage}
+          isCaptionWithIconInline={isCaptionWithIconInline}
+          isWebStory={isWebStory}
+          isPremium={titleConfig?.text?.length > 0 && paraConfig?.text?.length > 0}
+        />
+        <Typography
+          data={data}
+          time={imageConfig?.time}
+          tag={paraConfig?.tag}
+          text={paraConfig?.text}
+          changeStyle={paraConfig?.style}
+          fontWeight={paraConfig?.fontWeight}
+          isSecondFontFamily={paraConfig?.isSecondFontFamily}
+          inLineStyle={paraConfig?.inLineStyle}
+          isFeaturedCard={paraConfig?.isFeaturedCard}
+          isWhiteLayout={isWhiteLayout}
+          mediaIconStyle={isShowCaptionOnImage ? paraConfig?.iconStyle : undefined}
+          inLineMediaIconStyle={isShowCaptionOnImage ? paraConfig?.inLineIconStyle : undefined}
+          isShowCaptionOnImage={isWebStory ? false : isShowCaptionOnImage}
+          isCaptionWithIconInline={isCaptionWithIconInline}
+          isWebStory={isWebStory}
+          isPremium={!(titleConfig?.text?.length > 0 && paraConfig?.text?.length > 0)}
+        />
+      </figcaption>
+    </figure>
+  </Link>
+)}

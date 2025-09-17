@@ -1,0 +1,74 @@
+---
+import { CATEGORY_TYPE_VIDEO_ARTICLE } from "src/constant/index";
+import MultiVideoPlayer from "@components/reactComponents/multiVideoPlayer/MultiVideoPlayer.jsx"; // React component
+import style from "./VideoTypeList.module.scss";
+
+const { videoType, mainData, aList, MULTI_VIDEO_LIST_COUNT, pathname } =
+  Astro.props;
+const getSlikeId = (msid, mainData) => {
+  try {
+    let cmsEmbed = mainData?.cmsembed;
+    const slikeKey = cmsEmbed.filter((data) => data.msid == Number(msid));
+    if (slikeKey.length > 0) {
+      return slikeKey[0]?.media?.id ? slikeKey[0]?.media?.id : "";
+    } else {
+      return "";
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+---
+
+<div
+  style={`display: ${videoType?.list?.length > 0 ? "" : "none"}`}
+  class={videoType?.list?.length > 1 ? "regular" : style["single-video"]}
+>
+  {
+    videoType?.list?.map((item, index) => (
+      <div key={item.msid} class={style["video-col"]}>
+        {getSlikeId(item.msid, mainData) && (
+          <div class={style["lineclamp_show"]}>
+            {aList.length == MULTI_VIDEO_LIST_COUNT ? (
+              <MultiVideoPlayer
+                data={{
+                  media: {
+                    id: getSlikeId(item.msid, mainData),
+                    msid: Number(item.msid),
+                  },
+                }}
+                key={Number(item.msid)}
+                index={11}
+                idx={11}
+                articleLength={1}
+                videoCount={1}
+                channelTitle={item.msid}
+                categoryType={CATEGORY_TYPE_VIDEO_ARTICLE}
+                videoId={{
+                  id: Number(item.hostid),
+                  startTime: "",
+                }}
+                style={style}
+                msid={Number(item.msid)}
+                mainData={{
+                  ...item,
+                  msid: Number(item.msid),
+                }}
+                data-attr-cat={CATEGORY_TYPE_VIDEO_ARTICLE}
+                client:load
+              />
+            ) : (
+              <div
+                key={index}
+                data-attr-slk={getSlikeId(item.msid, mainData) || ""}
+                data-attr-msid={item?.msid}
+                title={item.msid}
+                data-attr-cat={CATEGORY_TYPE_VIDEO_ARTICLE}
+              />
+            )}
+          </div>
+        )}
+      </div>
+    ))
+  }
+</div>

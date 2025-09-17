@@ -1,0 +1,170 @@
+@mixin child-width($width, $value, $element) {
+  @if $width=='fixed' {
+    .overflow {
+      display: grid;
+
+      @if $value==1 {
+        grid-template-columns: 1fr;
+      }
+
+      @else {
+        grid-template-columns: repeat(#{$value}, 1fr);
+      }
+
+      @if $element=='*' {
+        >* {
+          white-space: normal;
+        }
+      }
+
+      @else {
+        >#{$element} {
+          white-space: normal;
+        }
+      }
+    }
+  }
+
+  @else {
+    .overflow {
+      @if $element=='*' {
+        >* {
+          flex: 0 0 calc(100% - #{$value}px);
+          width: calc(100% - #{$value}px);
+          white-space: normal;
+        }
+      }
+
+      @else {
+        >#{$element} {
+          flex: 0 0 calc(100% - #{$value}px);
+          width: calc(100% - #{$value}px);
+          white-space: normal;
+        }
+      }
+    }
+  }
+}
+
+.overflow {
+  display: flex;
+  white-space: nowrap;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  list-style: none;
+  width: 100%;
+
+  >* {
+    scroll-snap-align: start;
+  }
+
+  &:empty {
+    display: none;
+  }
+}
+
+.default {
+  display: flex;
+}
+
+.default-vertical {
+  margin-right: -8px;
+
+  .overflow {
+    flex-direction: column;
+    scroll-snap-type: y mandatory;
+    white-space: normal;
+    max-height: 370px;
+    padding-bottom: 10px;
+    padding-right: 8px;
+
+    &::-webkit-scrollbar {
+      display: block;
+      width: 4px;
+      height: 30px;
+    }
+
+    &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 5px transparent;
+      border-radius: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(217, 217, 217, 1);
+      border-radius: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: rgba(217, 217, 217, 1);
+    }
+  }
+}
+
+.v-318 {
+  .overflow {
+    max-height: 318px;
+  }
+}
+
+.grid-4 {
+  @include child-width(fixed, 4, '*');
+}
+
+.col-5 {
+  @include child-width(fixed, 5, '*');
+}
+
+@include mobile {
+  .default {
+    margin: 0 -15px;
+
+    .overflow {
+      padding: 0 15px;
+
+      >* {
+        scroll-snap-align: center;
+      }
+    }
+  }
+}
+
+.width-100-70 {
+  @include child-width('', 70, '*');
+}
+
+.width-100-50 {
+  @include child-width('', 50, '*');
+}
+
+.width-100-30 {
+  @include child-width('', 30, '*');
+}
+
+.width-100-10 {
+  @include child-width('', 10, '*');
+}
+
+.width-100-200 {
+  @include child-width('', 200, '*');
+}
+
+.width-100-120 {
+  @include child-width('', 120, '*');
+}
+
+.singleItem {
+  .overflow {
+    >* {
+      flex: 1;
+    }
+  }
+}
+
+.no-scroll-snap {
+  .overflow {
+    >* {
+      scroll-snap-align: none;
+    }
+  }
+}

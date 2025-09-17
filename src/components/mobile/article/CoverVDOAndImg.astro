@@ -1,0 +1,61 @@
+---
+import ShowCoverImage from "./ShowCoverImage.astro";
+import ShowCoverVideo from "./ShowCoverVideo.astro";
+
+const { data = [], isMediaWireStory, mainData } = Astro.props;
+
+// Pick correct item
+let val: any = [];
+if (data.length > 0) {
+  val =
+    data[0].cmstype === "IMAGES" || data[0].cmstype === "MEDIAVIDEO"
+      ? data[0]
+      : [];
+
+  if (data.length > 0 && val.length === 0) {
+    val = data.find(
+      (el) => el.cmstype === "IMAGES" || el.cmstype === "MEDIAVIDEO"
+    );
+  }
+}
+
+const type = val?.cmstype || "DEFAULT_IMAGES";
+---
+
+{
+  type === "IMAGES" && (
+    <ShowCoverImage
+      data={val}
+      index={0}
+      isMediaWireStory={isMediaWireStory}
+      msid={mainData?.msid}
+    />
+  )
+}
+
+{
+  type === "MEDIAVIDEO" && (
+    <ShowCoverVideo
+      data={val}
+      index={0}
+      mainData={mainData}
+      dataIndex={0}
+      aList={[mainData]}
+      MULTI_VIDEO_LIST_COUNT="1"
+      isMobile={true}
+    />
+  )
+}
+
+{
+  type === "DEFAULT_IMAGES" && (
+    <ShowCoverImage
+      isDefault={true}
+      data={{
+        msid: mainData?.msid,
+        title: mainData?.title || null,
+      }}
+      index={0}
+    />
+  )
+}

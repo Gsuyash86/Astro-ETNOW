@@ -1,0 +1,29 @@
+.divider {
+  width: 100%;
+  display: block;
+  height: 0px;
+  border-bottom: 4px solid var(--borderColor);
+  margin: 20px 0 30px 0;
+}
+
+.dotted-divider {
+  border-bottom: 1px dotted var(--borderColor);
+  margin: 15px 0 20px 0;
+}
+
+.dotted-divider {
+  border-bottom: 1px dotted var(--borderColor);
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 767px) {
+  .divider {
+    margin-bottom: 20px;
+  }
+}
+
+.red-divider {
+  border-color: #b52025;
+  margin: 10px 0;
+}

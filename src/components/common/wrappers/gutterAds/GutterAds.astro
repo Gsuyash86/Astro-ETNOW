@@ -1,0 +1,18 @@
+---
+import style from './GutterAds.module.scss';
+const { changeStyle = '', inLineStyle = {} } = Astro.props;
+
+const baseClass = style?.tnngutterAds || 'tnngutterAds';
+const changeStyleClass = changeStyle && style?.[changeStyle] ? style[changeStyle] : '';
+
+const containerClass = `${baseClass} ${changeStyleClass}`.trim();
+---
+
+<div class={containerClass} style={inLineStyle}>
+  <div class={style?.['tnn-left-addgutter'] || 'tnn-left-addgutter'}>
+    <slot name="left" />
+  </div>
+  <div class={style?.['tnn-right-addgutter'] || 'tnn-right-addgutter'}>
+    <slot name="right" />
+  </div>
+</div>

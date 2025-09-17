@@ -1,0 +1,41 @@
+.trend {
+    background: #fff;
+    position: relative;
+
+    &-sticky {
+        position: sticky;
+        left: 0;
+        z-index: 1;
+
+        &::before {
+            content: '';
+            background: #ffffff;
+            display: block;
+            position: absolute;
+            width: 30px;
+            left: -15px;
+            top: -3px;
+            bottom: -3px;
+            z-index: -1;
+        }
+    }
+
+    &-link {
+        span {
+            color: #000;
+        }
+    }
+
+    &-icon {
+
+        &,
+        svg {
+            width: 10px;
+            height: 13px;
+            display: inline-block;
+            font-size: 0;
+            vertical-align: middle;
+        }
+
+    }
+}

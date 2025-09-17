@@ -1,0 +1,140 @@
+.box {
+    position: fixed;
+    z-index: 9999;
+    background: var(--whiteColor);
+    width: 100%;
+    top: 0;
+    left: -100%;
+    height: 100vh;
+    overflow-y: auto;
+    transition: left .5s ease-in-out;
+
+    &-header {
+        background: #f2f2f2;
+    }
+
+    &-top,
+    &-profile {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &-top {
+        padding: 15px 15px 12px;
+        border-bottom: 1px solid #d4d4d4;
+        margin-bottom: 10px;
+    }
+
+    &-profile {
+        padding: 0 15px;
+        margin-bottom: 10px;
+    }
+
+}
+
+.live-tv {
+    padding: 2px 15px;
+    background-color: #be1f24;
+    color: var(--whiteColor);
+    border-radius: 25px;
+    cursor: pointer;
+    height: 25px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.navigation {
+    background: #ffffff;
+    margin: 0 auto;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+}
+
+.mainMenu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.categoryHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0px 15px;
+    border-left: 5px solid transparent;
+}
+
+.categoryHome {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .19);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    .categoryHeader {
+        padding: 10px 15px;
+    }
+}
+
+.categoryPremium {
+    border-bottom: 1px dotted #ff6502;
+
+    .categoryHeader {
+        padding: 18px 15px;
+    }
+
+    img {
+        width: 100px;
+        height: 17px;
+        font-size: 0;
+    }
+}
+
+.active {
+    border-color: var(--textColor);
+    background: #f2f2f2;
+}
+
+.categoryIcon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #bf1f24;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.categoryTitle {
+    color: var(--textColor);
+}
+
+.subMenu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+
+    .categoryHeader {
+        padding-left: 42px;
+    }
+
+    .subMenu {
+        background: #f7f7f7cc;
+        .categoryHeader {
+            padding-left: 54px;
+            &::before {
+                content: "-";
+                margin-right: 4px;
+            }
+        }
+    }
+}
+
+.subMenuItem {
+    margin: 0;
+}

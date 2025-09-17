@@ -1,0 +1,41 @@
+.videoplayericon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.videoIconWrap {
+  position: relative;
+
+  & > img {
+    height: 210px;
+    object-fit: cover;
+  }
+}
+
+.br-0 {
+  border-radius: 0;
+}
+
+._z_imagecard {
+  width: 100%;
+  position: relative;
+  border-radius: 10px;
+  margin-bottom: 10px;
+
+  img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    height: auto;
+    aspect-ratio: 16/9;
+  }
+}
+.youTubeIframe {
+  iframe {
+    height: auto;
+    aspect-ratio: 16/9;
+  }
+}

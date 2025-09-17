@@ -1,0 +1,29 @@
+---
+interface Props {
+  loadOnScroll?: boolean;
+}
+
+const { loadOnScroll = false } = Astro.props;
+---
+
+<div id="v-etnownews-v3"></div>
+
+<script is:inline define:vars={{ loadOnScroll }}>
+  function loadVdoAi() {
+    if (document.getElementById("vdoai-script")) return;
+    const ai = document.createElement("script");
+    ai.id = "vdoai-script";
+    ai.src = window.location.protocol + "//a.vdo.ai/core/v-etnownews-v3/vdo.ai.js";
+    document.head.appendChild(ai);
+  }
+
+ if (loadOnScroll) {
+    const onScroll = () => {
+      loadVdoAi();
+      window.removeEventListener("scroll", onScroll);
+    };
+    window.addEventListener("scroll", onScroll, { once: true });
+  }else {
+    loadVdoAi();
+  }
+</script>

@@ -1,0 +1,17 @@
+---
+const { iconConfig, defaultImg } = Astro.props;
+const altText = iconConfig?.iconName || "Stock Logo";
+const imageUrl = `https://assets.timesnownews.com/etnow/et-now-stocks/MF+house+logos/${iconConfig.iconUrl}.png`;
+---
+
+{
+  !iconConfig?.iconUrl ? (
+    <div
+      set:html={`<img loading="lazy" src='${defaultImg}' alt='${altText}'/>`}
+    />
+  ) : (
+    <div
+      set:html={`<img loading="lazy" src='${imageUrl}' alt='${altText}' onerror="this.onerror=null;this.src='${defaultImg}';"/>`}
+    />
+  )
+}

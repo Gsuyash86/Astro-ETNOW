@@ -1,0 +1,18 @@
+---
+const {
+  datasrc,
+  alt = "image",
+  fallback = "/images/fallback.jpg",
+  className = "",
+  inLineStyle = {},
+} = Astro.props;
+---
+
+<img
+  src={datasrc}
+  alt={alt}
+  loading="lazy"
+  onerror={`this.onerror=null;this.src='${fallback}';`}
+  class={className}
+  style={{ ...inLineStyle }}
+/>

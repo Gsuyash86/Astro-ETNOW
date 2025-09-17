@@ -1,0 +1,39 @@
+---
+import style from "./StockPriceMovement.module.scss";
+import Typography from "@components/common/widgets/typography/Typography.astro";
+const defaultTextConfig = {
+  tag: "span",
+  changeStyle: "font-size-12",
+  fontWeight: "600",
+  isLineClamp: true,
+  inLineStyle: {
+    lineHeight: "1.2",
+  },
+};
+const {
+  changeStyle = "",
+  inLineStyle = {},
+  isUp = true,
+  change = "",
+  change_percent = "",
+  displayOnlyPercent = false,
+  textConfig = defaultTextConfig,
+} = Astro.props;
+const displayText = displayOnlyPercent
+  ? `${change_percent || ""}`
+  : `${change || ""} (${change_percent || ""})`;
+---
+
+<div
+  class={`${style["default"]} ${isUp ? style["up"] : style["down"]} ${changeStyle && style[changeStyle]}`}
+  style={{ ...inLineStyle }}
+>
+  <Typography
+    tag={textConfig.tag}
+    text={displayText}
+    changeStyle={textConfig.changeStyle}
+    fontWeight={textConfig.fontWeight}
+    isLineClamp={textConfig.isLineClamp}
+    inLineStyle={{ color: "inherit", ...textConfig.inLineStyle }}
+  />
+</div>

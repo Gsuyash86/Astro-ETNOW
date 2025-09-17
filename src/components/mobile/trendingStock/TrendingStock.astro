@@ -1,0 +1,49 @@
+---
+import style from "./TrendingStock.module.scss";
+import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.astro";
+import CustomSlideBox from "@components/common/wrappers/customSlideBox/CustomSlideBox.astro";
+import Link from "@components/common/link/Link.astro";
+import Typography from "@components/common/widgets/typography/Typography.astro";
+import SvgIcon from "@components/common/svg/SvgIcon.astro";
+import { getUrl } from "@utils/common";
+const response = await fetch(
+  "https://api.etnownews.com/api/trending/topic?msid=95875538&pageno=1&perpage=12&channel_id=382"
+);
+const topics = await response.json();
+---
+
+<div class={`${style["trend"]}`}>
+  <ContainerBox>
+    <CustomSlideBox
+      elementType="ulBox"
+      gridGap={16}
+      changeStyle=""
+      marginTop={0}
+      marginBottom={0}
+      inLineStyle={{ paddingTop: "3px", paddingBottom: "3px" }}
+    >
+      <li class={`${style["trend-sticky"]}`}>
+        <div className={`${style["trend-link"]} ${style["trend-icon"]}`}>
+          <SvgIcon IconName={"trendingStock"} width={10} height={13} />
+        </div>
+      </li>
+      {
+        topics?.response?.[0]?.children?.map((item) => (
+          <li>
+            <Link link={getUrl(item)} className={`${style["trend-link"]}`}>
+              <Typography
+                tag="span"
+                text={item?.title}
+                changeStyle="font-size-14"
+                fontWeight="400"
+                isLineClamp={false}
+                isWhiteLayout={false}
+                inLineStyle={{ WebkitLineClamp: "1" }}
+              />
+            </Link>
+          </li>
+        ))
+      }
+    </CustomSlideBox>
+  </ContainerBox>
+</div>

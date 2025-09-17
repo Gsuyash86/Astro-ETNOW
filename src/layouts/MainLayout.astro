@@ -1,0 +1,214 @@
+---
+import "@styles/global.scss";
+import MobileLayout from "./mobile/Layout.astro";
+import DesktopLayout from "./desktop/Layout.astro";
+import _get from "lodash/get";
+import { gtagScript, ga4TagScript } from "../scripts/ga";
+import {
+  getCustomDimensionsSSR,
+  PUBMATIC_PROFILE_ID_MWEB,
+  PUBMATIC_PROFILE_ID_WEB,
+} from "@utils/common";
+import serverConfig from "src/scripts/serverConfig";
+import DynamicMetaLinks from "@components/common/seo/dynamicMetaLinks/DynamicMetaLinks.astro";
+import StaticMetaLinks from "@components/common/seo/staticMetaLinks/StaticMetaLinks.astro";
+import GnsFeed from "@components/common/gnsfeed/GnsFeed.astro";
+import dataConfig from "./dataConfig";
+
+const values = Astro.url.searchParams;
+const app = Astro.props.app;
+const isAppView = values.get("isAppView");
+const isMobileView = values.get("isMobileView");
+
+const pageTarget = {
+  category: values.get("category"),
+  subCategory: values.get("subCategory"),
+  subSubCategory: values.get("subSubCategory"),
+  articleType: values.get("articleType"),
+  id: values.get("id"),
+};
+const seoData = _get(app, "response.sections.article_show.data.[0].seo", {});
+const customDimension: any = getCustomDimensionsSSR(app, pageTarget, seoData);
+const gaScript = `${gtagScript(customDimension?.custom_dimension)}`;
+const ga4Script = `${ga4TagScript(customDimension?.GA4CustomDimensions, serverConfig.analytics.ga4TrackingId)}`;
+---
+
+<Fragment slot={"head"}>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <link
+    rel="icon"
+    type="image/svg+xml"
+    href="/manifest/images/icons/favicon.png"
+  />
+
+  <link
+    rel="preload"
+    as="style"
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:wght@400;700&family=Inter:wght@400;700&display=swap"
+    fetchpriority="high"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+
+  <meta name="generator" content={Astro.generator} />
+  <title>
+    {_get(app, "response.sections.article_show.data.[0].title", "")}
+  </title>
+
+  <DynamicMetaLinks seoObject={seoData} />
+
+  <StaticMetaLinks />
+
+  <GnsFeed
+    category={pageTarget?.category || ""}
+    pathname={Astro.url.pathname}
+  />
+
+  <script
+    defer
+    type="text/javascript"
+    is:inline
+    set:html={`(function(w, d, s, l, i) {
+             w[l] = w[l] || []
+              w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js' }); 
+              var f = d.getElementsByTagName(s)[0],
+               j = d.createElement(s),
+               dl = l != 'dataLayer' ? '&l=' + l : '';
+             j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+             f.parentNode.insertBefore(j, f);
+           })(window, document, 'script', 'dataLayer', 'GTM-MCQ8T39Q')`}
+  />
+
+  {
+    dataConfig.commonDNSPrefetches &&
+      dataConfig.commonDNSPrefetches.length > 0 &&
+      dataConfig.commonDNSPrefetches.map((domain) => (
+        <link href={domain} rel="dns-prefetch" />
+      ))
+  }
+  {
+    dataConfig?.commonPreconnects?.map((domain) => (
+      <link href={domain} rel="preconnect" crossorigin />
+    ))
+  }
+
+  <!-- <script id="gtagScript" set:html={gaScript} defer async is:inline /> -->
+
+  <script id="ga4Script" set:html={ga4Script} defer async is:inline />
+
+  <script>
+    import apstagScript from "../scripts/apstag.js";
+    {
+      apstagScript;
+    }
+  </script>
+
+  <script id="dpfscript" src="/dfpamzn.js" type="text/javascript" async defer
+  ></script>
+  <script
+    async
+    defer
+    type="text/javascript"
+    src={`https://watch.sociofyme.com/player/prod/sociofymeloader.js`}></script>
+
+  <script async src="https://watch.sociofyme.com/timescdp/cdtrk.js"></script>
+
+  <link rel="dns-prefetch" href="https://securepubads.g.doubleclick.net" />
+  <link rel="dns-prefetch" href="https://images.etnownews.com" />
+
+  <link rel="preconnect" href="https://images.etnownews.com" crossorigin />
+
+  <script
+    defer
+    type="text/javascript"
+    src={`https://ads.pubmatic.com/AdServer/js/pwt/156537/${
+      isMobileView === "true"
+        ? PUBMATIC_PROFILE_ID_MWEB
+        : PUBMATIC_PROFILE_ID_WEB
+    }/pwt.js`}></script>
+  <script
+    defer
+    set:html={`!function(f,b,e,v,n,t,s) {if(f.fbq)return;n=f.fbq=function(){n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)}; if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0'; n.queue=[];t=b.createElement(e);t.async=!0; t.src=v;s=b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t,s)}(window, document,'script', 'https://connect.facebook.net/en_US/fbevents.js'); fbq('init', '1818740488648156'); fbq('track', 'PageView');`}
+  />
+  <noscript>
+    <img
+      height="1"
+      width="1"
+      style={{ display: "none" }}
+      src="https://www.facebook.com/tr?id=1818740488648156&ev=PageView&noscript=1"
+    />
+  </noscript>
+
+  <script>
+    import { checkScriptLoad } from "../scripts/onetap.js";
+    document.addEventListener("DOMContentLoaded", () => {
+      checkScriptLoad();
+    });
+  </script>
+</Fragment>
+
+<body>
+  <noscript>
+    <iframe
+      height="0"
+      width="0"
+      style={{ display: 'none', visibility: 'hidden' }}
+      src="https://www.googletagmanager.com/ns.html?id=GTM-MCQ8T39Q"
+    ></iframe>
+  </noscript>
+  <div id="fb-root"></div>
+  {
+    isMobileView === "true" ? (
+      <MobileLayout
+        app={app}
+        category={pageTarget.category}
+        msid={pageTarget.id}
+      />
+    ) : (
+      <DesktopLayout
+        ads={_get(app, "response.ads", {})}
+        pageTarget={pageTarget}
+      />
+    )
+  }
+     <script
+         defer
+         set:html={
+          `window?.addEventListener('load', function () {
+                 setTimeout(function() {
+                     var t = document.createElement("script");
+                     t?.setAttribute("defer", "defer");
+                     t?.setAttribute("src", "https://cdn.izooto.com/scripts/02b453f2a9ce19690b27ebb9f7d7135aaade1f0b.js");
+                     document.body.appendChild(t);
+             
+                     window._izq = window._izq || [];
+                     window._izq.push(["init"]);
+                     window._izq.push(["registerSubscriptionCallback", function(obj) {
+                         if (obj.statuscode == 1) {
+                             window._izq.push(["userProfile", {
+                                 "add": {
+                                     "Category": "${pageTarget.category}",
+                                     "et_lang": "en"
+                                 }
+                             }]);
+                         }
+                     }]);
+                 }, 7000);
+             });`}
+       ></script>
+       <div
+       id="universalVideoPlayer"
+       style={{ position: 'absolute', bottom: '1000px' }}
+     ></div>
+     <div
+       id="masterVideoPlayer"
+       class="playerContainer rootVideoContainer"
+       data-msid={''}
+       data-path={''}
+       style={{ position: 'absolute', bottom: '1000px' }}
+     ></div>
+     <script
+      defer
+      src="https://static.chartbeat.com/js/chartbeat_mab.js"
+    ></script>
+</body>

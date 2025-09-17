@@ -1,0 +1,27 @@
+.header {
+    background: var(--whiteColor);
+    position: sticky;
+    top: -80px;
+    z-index: 10;
+    transition: top .5s ease-in-out;
+
+    &-top-nav {
+        background: #2f2f2f;
+    }
+
+    &-logo {
+        padding: 10px 0;
+        text-align: center;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    &-main-nav {
+        background: #f6f6f6;
+        border-bottom: 1px solid #8b8b8b;
+        margin-bottom: 8px;
+    }
+}

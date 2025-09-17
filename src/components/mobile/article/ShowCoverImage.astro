@@ -1,0 +1,55 @@
+---
+import { getNewImageUrl } from "src/utils/common";
+import style from "./ShowCoverImage.module.scss";
+const {
+  data,
+  isDefault = false,
+  isMediaWireStory,
+  premium = false,
+  msid,
+} = Astro.props;
+const leadImg =
+  "https://images.etnownews.com/thumb/msid-152524877,updatedat-1756177848820,width-540,height-303,resizemode-75/152524877.jpg";
+---
+
+<div class={`${style["_z_imagecard"]} ${style["br-0"]} `}>
+  <img
+    src={getNewImageUrl({
+      msid: Number(msid) || data?.msid,
+      imgWidth: 540,
+      imgHeight: 303,
+      updatedAt: data?.updatedate || "",
+      isArticleBanner: false,
+    })}
+    alt={data?.title || null}
+    fetchpriority="high"
+    width="540"
+    height="303"
+  />
+
+  {
+    !isDefault && (
+      <div class={style["banner-synp"]}>
+        {!isMediaWireStory && (
+          <div
+            class={`${style["_z_image_credit"]} ${style["f-s-10"]} ${premium && style["premiumText"]}`}
+          >
+            {data && data.agency && data.agency.name
+              ? `Photo : ${data.agency.name}`
+              : ""}
+          </div>
+        )}
+      </div>
+    )
+  }
+</div>
+{
+  !isDefault && (
+    <div class={style["banner-synp"]}>
+      <div
+        class={`${style["_z_image_caption"]} ${style["f-s-13"]} ${premium && style["premiumText"]}`}
+        set:html={data?.synopsis ? data?.synopsis : data?.title}
+      />
+    </div>
+  )
+}

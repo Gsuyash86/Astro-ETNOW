@@ -1,0 +1,59 @@
+---
+import style from "./Navigation.module.scss";
+import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.astro";
+import CustomSlideBox from "@components/common/wrappers/customSlideBox/CustomSlideBox.astro";
+import Link from "@components/common/link/Link.astro";
+import Typography from "@components/common/widgets/typography/Typography.astro";
+import SvgIcon from "@components/common/svg/SvgIcon.astro";
+const { navLinks = [] } = Astro.props;
+---
+
+<nav class={`${style["nav"]}`}>
+  <ContainerBox>
+    <CustomSlideBox
+      elementType="ulBox"
+      gridGap={16}
+      changeStyle=""
+      marginTop={0}
+      marginBottom={0}
+      inLineStyle={{ paddingTop: "8px", paddingBottom: "8px" }}
+    >
+      <li>
+        <Link
+          link={""}
+          className={`${style["nav-link"]} ${style["nav-mutual-fund"]}`}
+        >
+          <img
+            src="https://static.tnn.in/photo/msid-118213542/118213542.jpg"
+            alt="Mutual Fund Sahi Hai"
+          />
+        </Link>
+      </li>
+      {
+        navLinks?.slice(0, 10)?.map((item) => (
+          <li>
+            <Link link={item.seopath} className={`${style["nav-link"]}`}>
+              <Typography
+                tag="span"
+                text={item.title}
+                changeStyle="font-size-14"
+                fontWeight="400"
+                isLineClamp={false}
+                isWhiteLayout={false}
+                inLineStyle={{ WebkitLineClamp: "1" }}
+              />
+            </Link>
+          </li>
+        ))
+      }
+      <button class={`${style["header-hamburger"]}`}>
+        <SvgIcon
+          id="mobileHamburgerIcon"
+          IconName={"hamburgerIcon"}
+          width={24}
+          height={24}
+        />
+      </button>
+    </CustomSlideBox>
+  </ContainerBox>
+</nav>

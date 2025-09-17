@@ -1,0 +1,30 @@
+---
+const {
+  link = null,
+  title = "",
+  className = "",
+  inLineStyle = {},
+  target = "",
+  id,
+} = Astro.props;
+---
+
+{
+  link ? (
+    <a
+      href={link}
+      title={title}
+      class={className}
+      style={inLineStyle}
+      target={target || undefined}
+      rel={target === "_blank" ? "noopener noreferrer" : undefined}
+      id={id}
+    >
+      <slot />
+    </a>
+  ) : (
+    <div class={className} style={inLineStyle} id={id}>
+      <slot />
+    </div>
+  )
+}

@@ -1,0 +1,113 @@
+---
+import style from "./Popup.module.scss";
+
+export interface Props {
+  instanceId?: string;
+  changeStyle?: string;
+  ChangePopbody?: string;
+  inLineStyle?: Record<string, string>;
+  isDarkLayout?: boolean;
+  isCloseButton?: boolean;
+  isPopupSlideUp?: boolean;
+}
+
+const {
+  instanceId = "default",
+  changeStyle = "",
+  ChangePopbody = "",
+  inLineStyle = {},
+  isDarkLayout = false,
+  isCloseButton = true,
+  isPopupSlideUp = true
+} = Astro.props;
+
+// Unique IDs
+const popupId = `popup_${instanceId}`;
+const closeBtnId = `popupClose_${instanceId}`;
+---
+
+<div
+  id={popupId}
+  class={`${style["popup-overlay"]} ${changeStyle ? style[changeStyle] : ""}`}
+  data-instance={instanceId}
+  data-open="false"
+  aria-hidden="true"
+>
+  <div
+    id={`popupContent_${instanceId}`}
+    class={`${style["popup-content"]} ${
+      isPopupSlideUp ? style["slide-up"] : style["slide-down"]
+    }`}
+    style={inLineStyle}
+  >
+    {isCloseButton && (
+      <button id={closeBtnId} class={style["close-button"]}>×</button>
+    )}
+    <div class={`${style["popup-body"]} ${ChangePopbody ? style[ChangePopbody] : ""}`}>
+      <slot />
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ instanceId }}>
+(function () {
+  const popup = document.querySelector(`[data-instance="${instanceId}"]`);
+  if (!popup || popup.dataset.initialized) return;
+
+  const closeBtn = document.getElementById(`popupClose_${instanceId}`);
+  const popupContent = document.getElementById(`popupContent_${instanceId}`);
+
+  // Save original parent & next sibling (to restore position)
+  const originalParent = popup.parentNode;
+  const nextSibling = popup.nextSibling;
+
+  function setOpen(open) {
+    popup.setAttribute("data-open", open ? "true" : "false");
+    popup.setAttribute("aria-hidden", open ? "false" : "true");
+    popup.style.display = open ? "block" : "none";
+
+    const handleEscape = (event) => {
+    if (event.key === "Escape" && popup.getAttribute("data-open") === "true") {
+      setOpen(false);
+    }
+  }
+
+    if (open) {
+      document.body.appendChild(popup);
+      document.body.style.overflow = "hidden"; 
+      document.addEventListener("keydown", handleEscape);
+    } else {
+      if (nextSibling) {
+        originalParent.insertBefore(popup, nextSibling);
+      } else {
+        originalParent.appendChild(popup);
+      }
+      document.body.style.overflow = "auto"; 
+      document.removeEventListener("keydown", handleEscape);
+    }
+  }
+
+  // expose global methods
+  window[`openPopup_${instanceId}`] = () => setOpen(true);
+  window[`closePopup_${instanceId}`] = () => setOpen(false);
+
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => setOpen(false));
+  }
+
+  popup.addEventListener("click", (event) => {
+    if (
+      popup.getAttribute("data-open") === "true" &&
+      popupContent &&
+      !popupContent.contains(event.target)
+    ) {
+      setOpen(false);
+    }
+  });
+    
+
+  popup.dataset.initialized = "true";
+  setOpen(false);
+  
+})();
+</script>

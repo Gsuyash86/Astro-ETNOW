@@ -1,0 +1,8 @@
+---
+const { count = 10 } = Astro.props;
+import styles from './WebStoryDots.module.scss';
+---
+
+<span class={styles['story-dots']}>
+  {Array.from({ length: count }).map(() => <i></i>)}
+</span>

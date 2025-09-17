@@ -1,0 +1,56 @@
+---
+import style from "./Accordian.module.scss";
+import Typography from "../widgets/typography/Typography.astro";
+
+const { title, children, closePrev = false, showChildren } = Astro.props;
+---
+
+<div class={style.accordion} data-accordion>
+  <div class={style["accordion-header"]} data-accordion-trigger>
+    <slot name="header" />
+    {
+      showChildren ? (
+        <button class={style["accordion-toggle"]} aria-label="Toggle accordion">
+          <span class={style["icon-plus"]}>+</span>
+          <span class={style["icon-close"]}>×</span>
+        </button>
+      ) : null
+    }
+  </div>
+  {
+    showChildren ? (
+      <div class={style["accordion-content"]} data-accordion-content>
+        <div class={style["accordion-body"]}>
+          <slot name="body" />
+        </div>
+      </div>
+    ) : null
+  }
+</div>
+
+<script define:vars={{ closePrev, style }}>
+  document.addEventListener("DOMContentLoaded", () => {
+    const accordions = document.querySelectorAll("[data-accordion]");
+
+    accordions.forEach((accordion) => {
+      const trigger = accordion.querySelector("[data-accordion-trigger]");
+
+      trigger.addEventListener("click", () => {
+        const isOpen = accordion.classList.contains(style["open"]);
+
+        // Close all accordions first
+        if (closePrev) {
+          accordions.forEach((acc) => acc.classList.remove(style["open"]));
+        }
+
+        // If current accordion wasn't open, open it
+        if (!isOpen) {
+          accordion.classList.add(style["open"]);
+        } else {
+          accordion.classList.remove(style["open"]);
+          accordion.classList.add(style["close"]);
+        }
+      });
+    });
+  });
+</script>

@@ -1,0 +1,97 @@
+.navigation {
+    background: #ffffff;
+    padding: 1rem 0;
+    margin: 0 auto;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+}
+
+.mainMenu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.categoryItem {
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+    }
+}
+
+.categoryHeader {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    gap: 0.75rem;
+}
+
+.categoryIcon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #bf1f24;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.categoryTitle {
+    margin: 0;
+    @include font-size(16);
+    font-weight: 700;
+    color: #000000;
+    line-height: 1.2;
+}
+
+.subMenu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    margin-left: 42px;
+
+    .subMenu {
+        margin-left: 20px;
+        margin-top: 12px;
+
+        a {
+            &::before {
+                content: "-";
+                margin-right: 4px;
+            }
+        }
+    }
+}
+
+.subMenuItem {
+    margin: 0;
+}
+
+.subMenuLink {
+    display: block;
+    padding: 0;
+    color: rgb(68, 68, 68);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    @include font-size(14);
+
+    &:hover {
+        background: #ffffff;
+        color: #212529;
+        transform: translateX(4px);
+    }
+
+    &:focus {
+        outline: 2px solid #0d6efd;
+        outline-offset: 2px;
+    }
+}

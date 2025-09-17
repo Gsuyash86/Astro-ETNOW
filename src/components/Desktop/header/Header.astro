@@ -1,0 +1,31 @@
+---
+import style from "./Header.module.scss";
+import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.astro";
+import TopNavigation from "../topNavigation/TopNavigation.astro";
+import Navigation from "../navigation/Navigation.astro";
+import EmblaSlider from "@components/common/slider/EmblaSlider.astro";
+
+const navData = await fetch("https://api.etnownews.com/api/getnavigation?msid=ALL&channel_id=382");
+const navDataJson = await navData.json();
+const { pageTarget } = Astro.props;
+---
+
+<header class={`${style['header']}`}>
+  <div class={`${style["header-top-nav"]}`}>
+    <ContainerBox>
+      <TopNavigation navLinks={navDataJson?.networks}/>
+    </ContainerBox>
+  </div>
+  <ContainerBox>
+    <div class={`${style['header-logo']}`}>
+        <a href="#" class={`${style['header-logo']}`}>
+            <img src="/assets/images/logo-large.svg" alt="ET Now" />
+        </a>
+    </div>
+  </ContainerBox>
+  <div class={`${style["header-main-nav"]}`}>
+    <ContainerBox>
+      <Navigation navLinks={navDataJson?.response} pageTarget = {pageTarget} />
+    </ContainerBox>
+  </div>
+</header>

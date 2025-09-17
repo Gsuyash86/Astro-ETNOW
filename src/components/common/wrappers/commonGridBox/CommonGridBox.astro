@@ -1,0 +1,45 @@
+---
+import style from "./CommonGridBox.module.scss";
+const { gridType, changeStyle, inLineStyle } = Astro.props;
+---
+
+{
+  gridType === "divFlexBox" && (
+    <div
+      class={`${style["d-flex"]} ${style[changeStyle]}`}
+      style={{ ...inLineStyle }}
+    >
+      <slot />
+    </div>
+  )
+}
+{
+  gridType === "ulFlexBox" && (
+    <ul
+      class={`${style["d-flex"]} ${style[changeStyle]}`}
+      style={{ ...inLineStyle }}
+    >
+      <slot />
+    </ul>
+  )
+}
+{
+  gridType === "divGridBox" && (
+    <div
+      class={`${style["d-grid"]} ${style[changeStyle]}`}
+      style={{ ...inLineStyle }}
+    >
+      <slot />
+    </div>
+  )
+}
+{
+  gridType === "ulGridBox" && (
+    <ul
+      class={`${style["d-grid"]} ${style[changeStyle]}`}
+      style={{ ...inLineStyle }}
+    >
+      <slot />
+    </ul>
+  )
+}

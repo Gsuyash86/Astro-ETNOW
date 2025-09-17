@@ -1,0 +1,20 @@
+.list-items {
+  display: flex;
+
+  figure {
+    position: relative;
+    overflow: hidden;
+  }
+
+  figcaption {
+    overflow: hidden;
+
+    h6 {
+      @include font-size(76);
+      color: rgba(255, 0, 0, 0.1);
+      line-height: 1.2;
+      position: absolute;
+      top: -15px;
+    }
+  }
+}

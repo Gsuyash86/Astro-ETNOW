@@ -1,23 +1,40 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-        <div>Desktop Layout</div>
-		<slot />
-	</body>
-</html>
+---
+import GutterAds from "@components/common/wrappers/gutterAds/GutterAds.astro";
+import AdCaller from "@components/common/adcaller/AdCaller.astro";
+import Header from "@components/desktop/header/Header.astro"
+import AdContainer from "@components/common/adcontainer/AdContainer.astro";
+import Footer from "@components/desktop/footer/Footer.astro";
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+const { ads, pageTarget } = Astro.props;
+
+---
+
+<>
+    <!-- <GutterAds>
+        <AdCaller
+            pageTarget={pageTarget}
+            adCode={ad.adCode}
+            divId={ad.divId}
+            size={ad.size}
+            slot="left"
+        />
+        <AdCaller
+            pageTarget={pageTarget}
+            adCode={ad.adCode}
+            divId={ad.divId}
+            size={ad.size}
+            slot="right"
+        />
+    </GutterAds> -->
+
+    <AdContainer>
+        <AdCaller
+            {...ads.atf_1}
+            pageTarget={pageTarget}
+            inlineStyle={{margin: '5px 0'}}
+        />
+    </AdContainer>
+    <Header pageTarget={pageTarget}/>
+    <slot />
+    <Footer />
+</>

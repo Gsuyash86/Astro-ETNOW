@@ -1,0 +1,38 @@
+.quote-section {
+  padding: 12px 30px 12px 44px;
+  border: 2px solid var(--blackColor);
+  position: relative;
+  margin-bottom: 15px;
+  margin-top: 15px;
+
+  .quote-icon {
+    margin-right: 10px;
+    width: 46px;
+    height: 45px;
+    background-color: var(--whiteColor);
+    position: absolute;
+  }
+
+  .lt-tp {
+    top: -2px;
+    left: -3px;
+  }
+
+  .rt-bt {
+    right: -12px;
+    bottom: -6px;
+    padding-left: 10px;
+    padding-top: 10px;
+  }
+}
+
+.premiumQuote {
+  border: 1px #ff6502 dotted;
+  background-image: url(/assets/images/premiumQuote.svg);
+  background-repeat: no-repeat;
+  background-position: 5px 10px;
+
+  .quote-icon {
+    display: none;
+  }
+}

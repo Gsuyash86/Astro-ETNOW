@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Frame</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="ET-MF-Details-Page-|-Desktop-" transform="translate(-185, -1324)" fill-rule="nonzero" stroke="#BE1F24" stroke-width="1.5">
+            <g id="Frame-514197" transform="translate(160, 1023)">
+                <g id="Frame-513597" transform="translate(24, 82)">
+                    <g transform="translate(0, 200)" id="Frame-514139">
+                        <g transform="translate(2.5, 18.5)">
+                            <g id="Frame" transform="translate(0, 2)">
+                                <line x1="8.33333302" y1="7.5" x2="8.33333302" y2="7.6" id="Vector"></line>
+                                <line x1="0" y1="15" x2="15" y2="15" id="Vector"></line>
+                                <path d="M1.66666651,15 L1.66666651,1.66666667 C1.66666651,1.22463917 1.84226117,0.800715908 2.15482179,0.488155286 C2.46738242,0.175594663 2.89130568,0 3.33333317,0 L9.58333317,0 M11.6666665,8.75 L11.6666665,15" id="Vector"></path>
+                                <path d="M9.16666698,3.33333325 L15.0000005,3.33333325 M12.5000004,0.833333254 L15.0000005,3.33333325 L12.5000004,5.83333325" id="Vector"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

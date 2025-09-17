@@ -1,0 +1,19 @@
+.premiumIcon {
+  margin-right: 4px;
+
+  &,
+  &::after {
+    display: inline-block;
+    width: 20px;
+    height: 17px;
+    font-size: 0;
+  }
+
+  &::after {
+    background-image: url(/assets/images/PremiumIcon.svg);
+    background-repeat: no-repeat;
+    background-position: 0px 4px;
+    background-size: 18px;
+    content: '';
+  }
+}

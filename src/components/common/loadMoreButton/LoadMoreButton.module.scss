@@ -1,0 +1,44 @@
+.default {
+  min-width: 160px;
+  margin: auto;
+  padding: 10px 40px;
+  background-color: var(--textDanger);
+  color: var(--white-color);
+  border-radius: 28px;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 0px;
+  @include font-size(14);
+  font-weight: 500;
+}
+
+@media screen and (max-width: 768px) {
+  .default {
+    min-width: auto;
+    @include font-size(12);
+    padding: 6px 48px;
+    font-weight: bold;
+  }
+}
+
+.red-button {
+  border: 1px var(--textDanger) solid;
+  background-color: transparent;
+  color: var(--textDanger);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  width: 114px;
+  padding: 9px 0;
+  margin-top: 16px;
+  display: inline-block;
+  @media screen and (max-width: 768px) {
+    width: 145px;
+    height: 36px;
+  }
+  &:hover {
+    color: var(--white-color);
+    background-color: var(--textDanger);
+  }
+}

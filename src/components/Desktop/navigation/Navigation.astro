@@ -1,0 +1,211 @@
+---
+import style from "./Navigation.module.scss";
+import Typography from "@components/common/widgets/typography/Typography.astro";
+import SvgIcon from "@components/common/svg/SvgIcon.astro";
+import DotsMenuIcon from "@components/common/widgets/dotsMenuIcon/DotsMenuIcon.astro";
+import MegaDropDownBox from "@components/common/wrappers/megaDropDownBox/MegaDropDownBox.astro";
+import Search from "@components/common/search/Search.astro";
+import Hamburger from "@components/desktop/hamburger/Hamburger.astro";
+
+const {
+  changeStyle = "",
+  inLineStyle = {},
+  navLinks = [],
+  pageTarget,
+} = Astro.props;
+---
+
+<div
+  id="hamburgerWrapper"
+  class={`${style["hamburgerWrapper"]}`}
+  data-nav-disabled-class={style.navDisabled}
+>
+  <ul
+    class={`${style["nav-ul"]} ${changeStyle ? style[changeStyle] : ""}`}
+    style={inLineStyle}
+  >
+    <li class={`${style["disable"]}`}>
+      <a
+        href="#"
+        title=""
+        class={`${style["nav-link"]} ${style["nav-link-home"]}`}
+      >
+        <span><SvgIcon IconName={"HomeIcon"} width={17} height={16} /></span>
+      </a>
+    </li>
+
+    {
+      navLinks?.slice(0, 7)?.map(
+        ({
+          seopath,
+          title,
+          child,
+        }: {
+          seopath: string;
+          title: string;
+          child: any;
+        }) => (
+          <li
+            class={`${child && child.length > 0 && style["rightArrow"]} ${style["disable"]}`}
+          >
+            <a
+              href={seopath}
+              title={title}
+              target="_blank"
+              class={`${style["nav-link"]} ${pageTarget.category === seopath ? style["nav-active"] : ""}`}
+            >
+              <Typography
+                tag="span"
+                text={title}
+                changeStyle="font-size-12"
+                fontWeight="400"
+                isLineClamp={false}
+                inLineStyle={{
+                  lineHeight: "1.2",
+                  letterSpacing: ".1em",
+                  whiteSpace: "nowrap",
+                }}
+              />
+            </a>
+
+            {/* Render submenu if children exist */}
+            {child && child.length > 0 && (
+              <ul class={style["sub-container-design1"]}>
+                {child.map(
+                  ({
+                    seopath: subHref,
+                    title: subTitle,
+                  }: {
+                    seopath: string;
+                    title: string;
+                  }) => (
+                    <li>
+                      <a
+                        href={subHref}
+                        title={subTitle}
+                        target="_blank"
+                        class={style["submenu-link"]}
+                      >
+                        <Typography
+                          tag="span"
+                          text={subTitle}
+                          changeStyle="font-size-12"
+                          fontWeight="400"
+                          isLineClamp={false}
+                          inLineStyle={{
+                            lineHeight: "1.2",
+                            letterSpacing: ".1em",
+                            whiteSpace: "nowrap",
+                          }}
+                        />
+                      </a>
+                    </li>
+                  )
+                )}
+              </ul>
+            )}
+          </li>
+        )
+      )
+    }
+
+    <li class={`${style["nav-premium-list"]} ${style["disable"]}`}>
+      <a
+        href="#"
+        title=""
+        class={`${style["nav-link"]} ${style["nav-premium"]}`}
+      >
+        <span>
+          <img src="/assets/images/Premiumhead.svg" alt="Premium" />
+        </span>
+      </a>
+    </li>
+    <li class={`${style["disable"]}`}>
+      <a
+        href="#"
+        title=""
+        class={`${style["nav-link"]} ${style["nav-mutual-fund"]}`}
+      >
+        <span>
+          <img
+            src="https://images.etnownews.com/photo/msid-118213542/118213542.jpg"
+            alt="Mutual Fund Sahi Hai"
+          />
+        </span>
+      </a>
+    </li>
+    <li>
+      <button
+        class={`${style["nav-link"]} ${style["nav-more-btn"]}`}
+        id="hamburgerToggleBtn"
+      >
+        <DotsMenuIcon id="hamburgerIcon" inLineStyle={{ color: "#34495e" }} />
+        <SvgIcon
+          id="hamburgerCloseIcon"
+          size="sm"
+          IconName="CloseIconBig"
+          width="40"
+          height="14"
+          inLineStyle={{ display: "none" }}
+        />
+      </button>
+    </li>
+  </ul>
+  <MegaDropDownBox id="hamburgerDropdownMenu" inLineStyle={{ display: "none" }}>
+    <Search isTopNavigation = {false} instanceId="hamburger"/>
+    <Hamburger data={navLinks}/>
+  </MegaDropDownBox>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggleBtn = document.getElementById("hamburgerToggleBtn");
+    const dropdown = document.getElementById("hamburgerDropdownMenu");
+    const openIcon = document.getElementById("hamburgerIcon");
+    const closeIcon = document.getElementById("hamburgerCloseIcon");
+    const wrapper = document.getElementById("hamburgerWrapper");
+    const searchResult = document.getElementById('resultsContainer_hamburger');
+
+    if (!toggleBtn || !dropdown || !openIcon || !closeIcon || !wrapper) return;
+    const navDisabledClass = wrapper.dataset.navDisabledClass;
+    let isOpen = false;
+    function openDropdown() {
+      if (isOpen) return;
+      isOpen = true;
+      dropdown.style.display = "block";
+      openIcon.style.display = "none";
+      closeIcon.style.display = "inline-block";
+      wrapper.classList.add(navDisabledClass);
+    }
+    function closeDropdown() {
+      if (!isOpen) return;
+      isOpen = false;
+      dropdown.style.display = "none";
+      openIcon.style.display = "inline-block";
+      closeIcon.style.display = "none";
+      wrapper.classList.remove(navDisabledClass);
+    }
+    // Optional: prevent any clicks from toggling menu
+    toggleBtn.addEventListener("click", (e) => {
+      if (!isOpen) {
+        openDropdown();
+      } else {
+        closeDropdown();
+      }
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!wrapper.contains(e.target) && e.target !== toggleBtn) {
+        closeDropdown();
+      }
+    });
+
+    wrapper.addEventListener("mouseleave", () => {
+      closeDropdown();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeDropdown();
+    });
+  });
+</script>

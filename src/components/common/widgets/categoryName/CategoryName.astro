@@ -1,0 +1,26 @@
+---
+import Link from "@components/common/link/Link.astro";
+import style from "./CategoryName.module.scss";
+import Typography from "@components/common/widgets/typography/Typography.astro";
+const {
+  changeStyle = "font-size-13",
+  fontWeight = "700",
+  inLineStyle = {},
+  categoryName = "",
+  redirectToUrl,
+} = Astro.props;
+---
+
+{
+  categoryName && (
+    <Link class={style.category} link={redirectToUrl}>
+      <Typography
+        tag={"p"}
+        text={categoryName}
+        changeStyle={changeStyle}
+        fontWeight={fontWeight}
+        inLineStyle={inLineStyle}
+      />
+    </Link>
+  )
+}

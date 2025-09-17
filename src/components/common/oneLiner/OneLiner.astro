@@ -1,0 +1,23 @@
+---
+import Link from "../link/Link.astro";
+import style from "./OneLiner.module.scss";
+---
+
+<div class={style["OneLiner"]}>
+  <p>
+    Get the latest <Link link={import.meta.env.WEBAPP_BASE_URL}
+      >Business News</Link
+    >,{" "} Stock Markets, IPO{" "}
+    <Link link={`${import.meta.env.WEBAPP_BASE_URL}/companies`}
+      >Companies News</Link
+    >, <Link link={`${import.meta.env.WEBAPP_BASE_URL}/news`}
+      >Breaking News
+    </Link>Events on ET Now. Watch all the big and small <Link
+      link={`${import.meta.env.WEBAPP_BASE_URL}/markets`}
+    >
+      Share Market News
+    </Link> on <Link link={`${import.meta.env.WEBAPP_BASE_URL}/live-tv`}>
+      ET Now Live TV</Link
+    >.
+  </p>
+</div>
