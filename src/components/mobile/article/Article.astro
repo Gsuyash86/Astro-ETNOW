@@ -37,9 +37,11 @@ import ShareIcon from "../socialShare/ShareIcon.astro";
 import { processReadingTime } from "@utils/common";
 import HdfcCard from "@components/common/hdfcCard/HdfcCard.astro";
 import SubscribeWithEmail from "@components/common/subscribeWithEmail/SubscribeWithEmail.astro";
+import PropWorthArticleCard from "@components/common/propWorthArticleCard/PropWorthArticleCard.astro";
 const { category, msid, app } = Astro.props;
 
 const mainData = app?.response?.sections?.article_show?.data?.[0];
+const ads = app?.response?.ads;
 ---
 
 <ContainerBox inLineStyle={{ marginBottom: "7px" }}>
@@ -80,7 +82,9 @@ const mainData = app?.response?.sections?.article_show?.data?.[0];
   time={processReadingTime(mainData)}
   mainData={mainData}
 />
-<AdContainer inLineStyle={{ width: "300px", minHeight: "250px", marginBottom: '16px' }}>
+<AdContainer
+  inLineStyle={{ width: "300px", minHeight: "250px", marginBottom: "16px" }}
+>
   <AdCaller {...app?.response?.ads?.atf} atf={true} />
 </AdContainer>
 <KeyHighlight summary={mainData?.summary} />
@@ -152,7 +156,13 @@ const mainData = app?.response?.sections?.article_show?.data?.[0];
         firstPara={embedData.paraLength == 1 && embedData?.ispara}
       />
       {embedData?.ad ? (
-        <AdContainer inLineStyle={{ width: "300px", minHeight: "250px", margin: '16px auto' }}>
+        <AdContainer
+          inLineStyle={{
+            width: "300px",
+            minHeight: "250px",
+            margin: "16px auto",
+          }}
+        >
           <AdCaller {...embedData?.ad} />
         </AdContainer>
       ) : null}
@@ -163,6 +173,11 @@ const mainData = app?.response?.sections?.article_show?.data?.[0];
           lazy={true}
         />
       ) : null}
+      {embedData?.isMbPropWorthWidget && (
+        <div style={{ marginTop: "10px" }}>
+          <PropWorthArticleCard />
+        </div>
+      )}
       {embedData?.isVDOAiShow ? <VideoAiComponent loadOnScroll={true} /> : null}
       {dataIndex == 1 ? (
         <RecommendedNews data={app?.response?.recommendedNews} />
@@ -170,6 +185,15 @@ const mainData = app?.response?.sections?.article_show?.data?.[0];
     </Fragment>
   ))
 }
+<AdContainer
+  inLineStyle={{
+    width: "300px",
+    minHeight: "250px",
+    margin: "16px auto",
+  }}
+>
+  <AdCaller {...ads?.btf1} />
+</AdContainer>
 <KeywordTags data={mainData} />
 <OneLiner />
 <BreadCrumb isWrap={true} category="news" />
