@@ -32,15 +32,15 @@ let ad2 = {
   ],
 };
 const { category, msid, app } = Astro.props;
-const ads = _get(app, "response.ads", {})
+const ads = _get(app, "response.ads", {});
 ---
 
 <Fragment>
   <Header />
   <TrendingStock />
-  <MutualFundStrip />
+  <!-- <MutualFundStrip /> -->
   <Article app={app} category={category} msid={msid} />
   <slot />
   <Footer />
-  <BottomSticky stickyAds={ads?.stky}/>
+  <BottomSticky stickyAds={ads?.stky} />
 </Fragment>

@@ -87,12 +87,19 @@ const ads = app?.response?.ads;
 >
   <AdCaller {...app?.response?.ads?.atf} atf={true} />
 </AdContainer>
-<KeyHighlight summary={mainData?.summary} />
-<CoverVDOAndImg
-  data={mainData?.cmsassoc || []}
-  isMediaWireStory={mainData?.isMediaWireStory}
-  mainData={mainData}
-/>
+{
+  mainData?.summary ? (
+    <Fragment>
+      <KeyHighlight summary={mainData.summary} />
+      <CoverVDOAndImg
+        data={mainData?.cmsassoc || []}
+        isMediaWireStory={mainData?.isMediaWireStory}
+        mainData={mainData}
+      />
+    </Fragment>
+  ) : null
+}
+
 {
   mainData?.embedData?.map((embedData, dataIndex) => (
     <Fragment>
@@ -173,12 +180,19 @@ const ads = app?.response?.ads;
           lazy={true}
         />
       ) : null}
-      {embedData?.isMbPropWorthWidget && (
+      {/* {embedData?.isMbPropWorthWidget && (
         <div style={{ marginTop: "10px" }}>
           <PropWorthArticleCard />
         </div>
-      )}
+      )} */}
       {embedData?.isVDOAiShow ? <VideoAiComponent loadOnScroll={true} /> : null}
+      {dataIndex == 0 && !mainData.summary ? (
+        <CoverVDOAndImg
+          data={mainData?.cmsassoc || []}
+          isMediaWireStory={mainData?.isMediaWireStory}
+          mainData={mainData}
+        />
+      ) : null}
       {dataIndex == 1 ? (
         <RecommendedNews data={app?.response?.recommendedNews} />
       ) : null}
