@@ -54,7 +54,17 @@ const navDataJson = await navData.json();
       data={navDataJson?.response}
     />
   </ContainerBox>
+  <div class={style['header-nav']}>
   <Navigation navLinks={navDataJson?.response} />
+  <button class={`${style["header-hamburger"]}`}>
+    <SvgIcon
+      id="mobileHamburgerIcon"
+      IconName={"hamburgerIcon"}
+      width={24}
+      height={24}
+    />
+  </button>
+</div>
 </header>
 
 <script>

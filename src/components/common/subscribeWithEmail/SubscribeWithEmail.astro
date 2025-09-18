@@ -1,0 +1,40 @@
+---
+import style from "./SubscribeWithEmail.module.scss";
+---
+
+<div class={`${style["subscribe-body"]}`}>
+  <div class={`${style["message-box"]}`}>
+    {
+      (
+        // !submitEmail ? (
+        //   <strong>{`subscribe to newsletter`}</strong>
+        // ) : (
+        <div class={`${style["success"]}`}>
+          <strong>{`Thank you for subscribing`}</strong>
+          {/* <small>We have sent you a verification email, please check your inbox.</small> */}
+        </div>
+        // )
+      )
+    }
+    <div class={`${style["error"]}`}>
+      <!-- <span>
+        {isValid ? "" : `Please Enter a valid email address`}
+      </span> -->
+    </div>
+  </div>
+  <div class={`${style["subscribe-input"]}`}>
+    <input
+      type="email"
+      class={`${style["input-box"]}`}
+      placeholder="Enter your Email Id"
+    />
+    <button class={`${style["button-box"]}`}>
+      <!-- <RightArrow arrowColor={"white"} arrowSize={"arrowHeight-11"} /> -->
+    </button>
+  </div>
+
+  <div class={`${style["subscribe-note"]}`}>
+    Get the latest financial news and personalised updates to stay ahead of the
+    rest!
+  </div>
+</div>

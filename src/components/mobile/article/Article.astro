@@ -33,6 +33,10 @@ import {
 import VideoTypeList from "./VideoTypeList.astro";
 import AdContainer from "@components/common/adcontainer/AdContainer.astro";
 import ScrollHideButtons from "@components/common/buttons/ScrollHideButtons.astro";
+import ShareIcon from "../socialShare/ShareIcon.astro";
+import { processReadingTime } from "@utils/common";
+import HdfcCard from "@components/common/hdfcCard/HdfcCard.astro";
+import SubscribeWithEmail from "@components/common/subscribeWithEmail/SubscribeWithEmail.astro";
 const { category, msid, app } = Astro.props;
 
 const mainData = app?.response?.sections?.article_show?.data?.[0];
@@ -65,12 +69,18 @@ const mainData = app?.response?.sections?.article_show?.data?.[0];
     />
   ) : null
 }
+
 <ScrollHideButtons
   nextStory={app?.response?.nextStory}
   prevStroy={app?.response?.prevStory}
 />
 <Synopsis text={mainData.synopsis} inLineStyle={{ marginBottom: "34px" }} />
-<AdContainer inLineStyle={{ width: "300px", minHeight: "250px" }}>
+<ShareIcon
+  type={"TOP_SHARE_ICONS"}
+  time={processReadingTime(mainData)}
+  mainData={mainData}
+/>
+<AdContainer inLineStyle={{ width: "300px", minHeight: "250px", marginBottom: '16px' }}>
   <AdCaller {...app?.response?.ads?.atf} atf={true} />
 </AdContainer>
 <KeyHighlight summary={mainData?.summary} />
@@ -142,7 +152,7 @@ const mainData = app?.response?.sections?.article_show?.data?.[0];
         firstPara={embedData.paraLength == 1 && embedData?.ispara}
       />
       {embedData?.ad ? (
-        <AdContainer inLineStyle={{ width: "300px", minHeight: "250px" }}>
+        <AdContainer inLineStyle={{ width: "300px", minHeight: "250px", margin: '16px auto' }}>
           <AdCaller {...embedData?.ad} />
         </AdContainer>
       ) : null}
@@ -166,6 +176,11 @@ const mainData = app?.response?.sections?.article_show?.data?.[0];
 <TopStockWidget />
 <RelatedNews data={mainData?.editorpicks} />
 <TopVideos componentData={mainData?.rhs_widget} />
+<ShareIcon mainData={mainData} type={"BOTTOM_SHARE_ICONS"} followus="ET_ENG" />
+<section style={{ marginBottom: 0 }}>
+  <HdfcCard />
+</section>
+<SubscribeWithEmail />
 <MgIdComponent
   scriptID={CONST.MGID_ADD_5X5}
   elementID={CONST.MGID_ADD_5X5}

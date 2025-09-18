@@ -4,7 +4,6 @@ import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.
 import CustomSlideBox from "@components/common/wrappers/customSlideBox/CustomSlideBox.astro";
 import Link from "@components/common/link/Link.astro";
 import Typography from "@components/common/widgets/typography/Typography.astro";
-import SvgIcon from "@components/common/svg/SvgIcon.astro";
 const { navLinks = [] } = Astro.props;
 ---
 
@@ -16,7 +15,7 @@ const { navLinks = [] } = Astro.props;
       changeStyle=""
       marginTop={0}
       marginBottom={0}
-      inLineStyle={{ paddingTop: "8px", paddingBottom: "8px" }}
+      inLineStyle={{ paddingTop: "4px", paddingBottom: "4px" }}
     >
       <li>
         <Link
@@ -46,14 +45,6 @@ const { navLinks = [] } = Astro.props;
           </li>
         ))
       }
-      <button class={`${style["header-hamburger"]}`}>
-        <SvgIcon
-          id="mobileHamburgerIcon"
-          IconName={"hamburgerIcon"}
-          width={24}
-          height={24}
-        />
-      </button>
     </CustomSlideBox>
   </ContainerBox>
 </nav>

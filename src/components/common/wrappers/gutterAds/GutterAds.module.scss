@@ -12,7 +12,7 @@
     top: 0;
     width: calc((100% - 1130px) / 2);
     height: 100%;
-    background-color: var(--bgWhite);
+    background-color: var(--whiteColor);
     z-index: 11;
     overflow: hidden;
 
@@ -22,7 +22,7 @@
         height: 600px;
         position: absolute;
         right: 0;
-        background-color: var(--adsbgcolor);
+        background-color: var(--adsBgColor);
         z-index: 11;
     }
 }

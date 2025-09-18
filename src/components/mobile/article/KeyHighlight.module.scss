@@ -36,7 +36,7 @@
 }
 
 .KeyHighlights {
-  background-color: var(--bgPink);
+  background-color: #F8E9E9;
   padding: 20px;
   //margin-top: 30px;
   margin-bottom: 15px;
@@ -121,7 +121,7 @@
 
   .KeyHighlights {
     padding: 20px;
-    background-color: var(--bgPink);
+    background-color: #F8E9E9;
     border: 0;
     display: block;
 
@@ -153,7 +153,7 @@
         &:not(:last-child) {
           padding-bottom: 16px;
           margin-bottom: 16px;
-          border-bottom: 1px solid var(--et-borderColor);
+          border-bottom: 1px solid var(--borderColor);
         }
       }
     }
