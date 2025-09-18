@@ -76,14 +76,13 @@ const navDataJson = await navData.json();
     const searchButton = document.getElementById("mobileSearchIcon");
     if (searchButton) {
       searchButton.addEventListener("click", function () {
-        window.openPopup_mobileSearchPopup();
+        // window.openPopup_mobileSearchPopup();
+        PopupManager.open("mobileSearchPopup");
       });
     }
 
-    // Open Hamburger With Content
-
+    
     const hamburgerButton = document.getElementById("mobileHamburgerIcon");
-
     if (hamburgerButton) {
       hamburgerButton.addEventListener("click", function () {
         document.getElementById("mobileHamburgerPopup").style.left = "0";
