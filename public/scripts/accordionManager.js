@@ -25,7 +25,6 @@
       const toggleButton = accordion.querySelector(".accordion-toggle");
       
       if (!trigger || !content) {
-        console.error(`Accordion "${instanceId}" missing required trigger or content elements`);
         return null;
       }
       
