@@ -7,6 +7,7 @@ import Typography from "@components/common/widgets/typography/Typography.astro";
 import ReadTime from "@components/common/readTime/ReadTime.astro";
 import Link from "@components/common/link/Link.astro";
 const { type, time, mainData, followus } = Astro.props;
+const { title, synopsis } = mainData;
 ---
 
 {
@@ -79,13 +80,13 @@ const { type, time, mainData, followus } = Astro.props;
     </ContainerBox>
   )
 }
-<script define:vars={{ mainData }}>
+<script define:vars={{ title, synopsis }}>
   const handleShare = async () => {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: mainData?.title,
-          text: mainData?.synopsis || "Amazing content here.",
+          title: title,
+          text: synopsis || "Amazing content here.",
           url: window.location.href,
         });
       } catch (err) {
