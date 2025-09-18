@@ -249,7 +249,7 @@ export const NAVIGATION_GROUPS = [
   },
   {
     section: "Business & Finance",
-    icon: "businessIcon",
+    icon: "business",
     titles: [
       "Corporates",
       "Money",
@@ -277,7 +277,7 @@ export const NAVIGATION_GROUPS = [
   },
   {
     section: "Lifestyle & Culture",
-    icon: "lifestyleIcon",
+    icon: "lifestyle",
     titles: [
       "ET Now Luxe",
       "Entertainment",
@@ -289,17 +289,17 @@ export const NAVIGATION_GROUPS = [
   },
   {
     section: "Tech & Innovation",
-    icon: "techIcon",
+    icon: "tech",
     titles: ["Technology", "Auto"],
   },
   {
     section: "Career & Inspiration",
-    icon: "careerIcon",
+    icon: "career",
     titles: ["Success Stories", "Jobs"],
   },
   {
     section: "Sports & Leisure",
-    icon: "sportsIcon",
+    icon: "sports",
     titles: ["Sports"],
   },
 ];
