@@ -9,6 +9,7 @@ import {
   DEFAULT_IMAGE_HEIGHT,
 } from "src/constant/index";
 import { getSlikeApiKeys } from "../../../utils/common";
+import style from "./MultiVideoPlayer.module.scss";
 
 let arrList = [];
 let List = [];

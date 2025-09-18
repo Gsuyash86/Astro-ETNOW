@@ -529,38 +529,38 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
       }
 
       // Request bids from PWT
-      // if (
-      //   window?.PWT?.requestBids &&
-      //   typeof window?.PWT?.requestBids === "function"
-      // ) {
-      //   window.PWT.initAdserverSet = false;
-      //   window.PWT.setAuctionTimeout(1000);
-      //   window.PWT.requestBids(
-      //     window.PWT.generateConfForGPT(SlotArr),
-      //     function (adUnitsArray) {
-      //       window.PWT.addKeyValuePairsToGPTSlots(adUnitsArray);
-      //       isPubDone = true;
-      //     }
-      //   );
-      // } else {
-      //   isPubDone = true;
-      // }
+      if (
+        window?.PWT?.requestBids &&
+        typeof window?.PWT?.requestBids === "function"
+      ) {
+        window.PWT.initAdserverSet = false;
+        window.PWT.setAuctionTimeout(1000);
+        window.PWT.requestBids(
+          window.PWT.generateConfForGPT(SlotArr),
+          function (adUnitsArray) {
+            window.PWT.addKeyValuePairsToGPTSlots(adUnitsArray);
+            isPubDone = true;
+          }
+        );
+      } else {
+        isPubDone = true;
+      }
 
-      // Refresh function to display ads after bidding
-      // let refresh = () => {
-      //   if (isPubDone && isApsDone) {
-      //     window.googletag.cmd.push(function () {
-      //       if (window.apstag) {
-      //         window.apstag.setDisplayBids();
-      //       }
-      //       window.googletag.pubads().refresh(SlotArr);
-      //     });
-      //   } else {
-      //     setTimeout(refresh, 100);
-      //   }
-      // };
+      Refresh function to display ads after bidding
+      let refresh = () => {
+        if (isPubDone && isApsDone) {
+          window.googletag.cmd.push(function () {
+            if (window.apstag) {
+              window.apstag.setDisplayBids();
+            }
+            window.googletag.pubads().refresh(SlotArr);
+          });
+        } else {
+          setTimeout(refresh, 100);
+        }
+      };
 
-      // refresh();
+      refresh();
     });
 
     // Store cleanup function for potential manual cleanup
