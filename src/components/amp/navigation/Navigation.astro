@@ -1,0 +1,32 @@
+---
+
+const { data } = Astro.props;
+
+---
+
+<div style="display:flex" id="navbar-header">
+    <div class="_15gob scrollviewport" style="display:block;flex:1">
+      <div class="_1lpls">
+        <a
+          href="https://www.timesnownews.com/initiatives/smart-nivesh-sahi-nivesh"
+          class="_39dmz _2mTH0"
+          target="_blank"
+          rel="noopener nofollow noreferrer"
+        >
+          <amp-img
+            alt="Smart Nivesh"
+            src="https://static.tnn.in/photo/msid-118213542/118213542.jpg"
+            width="520"
+            height="293"
+            layout="responsive"
+          >
+          </amp-img>
+        </a>
+        {data?.slice(0,10)?.map((item) => (
+          <a href={item?.seopath} id={item?.msid} class="_39dmz">
+            <span itemprop="name">{item?.title}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div> 
