@@ -1,0 +1,94 @@
+@mixin font-size($i) {
+    font-size: $i * 0.0625rem;
+}
+
+.default {
+    display: grid;
+    grid-template-columns: 1fr 227px;
+    grid-gap: 20px;
+    padding: 20px;
+    border-radius: 4px;
+    background-image: url(/assets/magicbricks/images/circle-bg.svg);
+    background-repeat: no-repeat;
+    background-position: top 82px left 20px;
+    background-color: rgba(215, 36, 43, 0.05);
+}
+
+.d-flex {
+    display: flex;
+}
+
+.logo-bar {
+    gap: 0 10px;
+    align-items: center;
+    margin-bottom: 10px;
+
+    a{
+      color: #fff;
+    }
+  
+    li {
+      display: inline-flex;
+    }
+  }
+  
+  .left-link {
+    gap: 0 6px;
+    align-items: center;
+  }
+  
+  .rupee {
+  
+    &,
+    img {
+      width: 170px;
+      height: 40px;
+    }
+  }
+  
+  .magic-logo {
+    flex-direction: column;
+    gap: 5px 0;
+  
+    small {
+      @include font-size(10);
+      font-weight: 400;
+      color: #000;
+    }
+  
+    img {
+      width: 95px;
+      height: 24px;
+    }
+  }
+  
+  .left-para {
+    @include font-size(14);
+    color: rgba(48, 48, 48, 1);
+    font-weight: 400;
+    margin-bottom: 11px;
+  }
+
+.right {
+    img {
+        max-width: 100%;
+    }
+}
+
+.link {
+    border-radius: 30px;
+    background-color: rgba(215, 36, 43, 1);
+    color: rgba(255, 255, 255, 1) !important;
+    @include font-size(16);
+    font-weight: 400;
+    text-transform: uppercase;
+    padding: 10px 22px;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+@media screen and (max-width: 767px) {
+    .default {
+        grid-template-columns: 1fr;
+    }
+}
