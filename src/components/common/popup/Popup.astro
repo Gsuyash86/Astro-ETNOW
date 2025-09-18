@@ -9,6 +9,7 @@ export interface Props {
   isDarkLayout?: boolean;
   isCloseButton?: boolean;
   isPopupSlideUp?: boolean;
+  parentInLineStyle?: Record<string, string>;
 }
 
 const {
@@ -16,6 +17,7 @@ const {
   changeStyle = "",
   ChangePopbody = "",
   inLineStyle = {},
+  parentInLineStyle = {},
   isDarkLayout = false,
   isCloseButton = true,
   isPopupSlideUp = true
@@ -28,6 +30,7 @@ const closeBtnId = `popupClose_${instanceId}`;
 
 <div
   id={popupId}
+  style={parentInLineStyle}
   class={`${style["popup-overlay"]} ${changeStyle ? style[changeStyle] : ""}`}
   data-instance={instanceId}
   data-open="false"
@@ -50,64 +53,19 @@ const closeBtnId = `popupClose_${instanceId}`;
 </div>
 
 <script define:vars={{ instanceId }}>
-(function () {
-  const popup = document.querySelector(`[data-instance="${instanceId}"]`);
-  if (!popup || popup.dataset.initialized) return;
-
-  const closeBtn = document.getElementById(`popupClose_${instanceId}`);
-  const popupContent = document.getElementById(`popupContent_${instanceId}`);
-
-  // Save original parent & next sibling (to restore position)
-  const originalParent = popup.parentNode;
-  const nextSibling = popup.nextSibling;
-
-  function setOpen(open) {
-    popup.setAttribute("data-open", open ? "true" : "false");
-    popup.setAttribute("aria-hidden", open ? "false" : "true");
-    popup.style.display = open ? "block" : "none";
-
-    const handleEscape = (event) => {
-    if (event.key === "Escape" && popup.getAttribute("data-open") === "true") {
-      setOpen(false);
-    }
-  }
-
-    if (open) {
-      document.body.appendChild(popup);
-      document.body.style.overflow = "hidden"; 
-      document.addEventListener("keydown", handleEscape);
+(function() {
+  function initPopup() {
+    if (window.PopupManager) {
+      window.PopupManager.init(instanceId);
     } else {
-      if (nextSibling) {
-        originalParent.insertBefore(popup, nextSibling);
-      } else {
-        originalParent.appendChild(popup);
-      }
-      document.body.style.overflow = "auto"; 
-      document.removeEventListener("keydown", handleEscape);
+      setTimeout(initPopup, 50);
     }
   }
-
-  // expose global methods
-  window[`openPopup_${instanceId}`] = () => setOpen(true);
-  window[`closePopup_${instanceId}`] = () => setOpen(false);
-
-  if (closeBtn) {
-    closeBtn.addEventListener("click", () => setOpen(false));
-  }
-
-  popup.addEventListener("click", (event) => {
-    if (
-      popup.getAttribute("data-open") === "true" &&
-      popupContent &&
-      !popupContent.contains(event.target)
-    ) {
-      setOpen(false);
-    }
-  });
-    
-
-  popup.dataset.initialized = "true";
-  setOpen(false);
   
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPopup);
+  } else {
+    initPopup();
+  }
 })();
 </script>

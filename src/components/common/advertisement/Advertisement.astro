@@ -238,16 +238,16 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
           class={`ad-placeholder ${adClasses}`}
           style={{
             minHeight: maxHeight ? `${maxHeight}px` : "250px",
-            padding: !spacing ? "0px" : "8px",
-            backgroundColor: "#f0f0f0",
-            border: "2px dashed #ccc",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "#666",
-            fontSize: "14px",
-            textAlign: "center",
-            position: "relative",
+            // padding: !spacing ? "0px" : "8px",
+            // backgroundColor: "#f0f0f0",
+            // border: "2px dashed #ccc",
+            // display: "flex",
+            // alignItems: "center",
+            // justifyContent: "center",
+            // color: "#666",
+            // fontSize: "14px",
+            // textAlign: "center",
+            // position: "relative",
           }}
           {...dataAttributes}
           data-original-div-id={divId}
@@ -546,7 +546,7 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
         isPubDone = true;
       }
 
-      Refresh function to display ads after bidding
+      // Refresh function to display ads after bidding
       let refresh = () => {
         if (isPubDone && isApsDone) {
           window.googletag.cmd.push(function () {
