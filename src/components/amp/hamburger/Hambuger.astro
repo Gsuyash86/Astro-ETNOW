@@ -1,0 +1,176 @@
+---
+import SvgIcon from "@components/common/svg/SvgIcon.astro";
+import { NAVIGATION_GROUPS } from "@utils/common";
+
+const { data } = Astro.props;
+
+function groupMenuData(flatData) {
+  const findByTitle = (title) =>
+    flatData?.find((item) => item?.title === title);
+
+  return NAVIGATION_GROUPS?.map((group) => ({
+    section: group?.section,
+    icon: group?.icon,
+    items: group?.titles
+      ?.map((title) => findByTitle(title))
+      ?.filter(Boolean) // Remove undefined if title not found
+      ?.map((item) => {
+        if (item?.child) {
+          return {
+            ...item,
+            child: item?.child?.map((child) => ({ ...child })),
+          };
+        }
+        return item;
+      }),
+  }));
+}
+
+const groupedDataNavigation = groupMenuData(data);
+
+---
+
+<amp-sidebar id="ampHamburger" layout="nodisplay" side="left" role="menu">
+    <div class="_1elNr">
+      <div class="_3JIQw">
+        <div class="_1JpEM">
+          <div class="meIcn">
+            <div class="_3-MA_">
+              <button
+                id="close_burger_icon"
+                on="tap:ampHamburger.toggle"
+                type="button"
+                aria-label="Close"
+                class="_3bHP2"
+              >
+                <SvgIcon IconName={"CloseIconBig"} width={24} height={24} />
+              </button>
+            </div>
+            <div class="_3j3Ka">
+              <div class="_3dI5W">
+                <a href="/live-tv" class="_2VzFF">
+                  <button aria-label="Live Tv" type="button" class="_3bHP2">
+                    <SvgIcon IconName={"livetvNewIcon"} width={26} height={16} />
+                    <p>Live TV</p>
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="qNZax">
+            <div class="_3-MA_">Welcome!</div>
+            <div class="_3PSHJ">
+              <SvgIcon IconName={"userIcon"} width={24} height={24} />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="_3nKHY">
+        <ul>
+          <li>
+            <a href="/">
+              <SvgIcon IconName={"homeIcon"} width={21} height={20} />
+              Home
+            </a>
+          </li>
+          <li class="_1ADlw">
+            <a href="/premium">
+              <amp-img
+                alt="Premium"
+                src="/assets/images/Premiunhead.svg"
+                width="520"
+                height="293"
+                layout="responsive"
+                style="width:100px;height:17px;margin-bottom:0"
+              >
+              </amp-img>
+            </a>
+          </li>
+          <li class="_1ADlw">
+            <span class="_1ual8">
+              <SvgIcon IconName={"newsIcon"} width={16} height={14} />
+            </span>
+            <span style="font-weight:600">News &amp; Current Affairs</span>
+          </li>
+  
+          <li><a href="https://www.etnownews.com/latest-news">Latest</a></li>
+          <li><a href="https://www.etnownews.com/news">News</a></li>
+          <li><a href="/exams-results">Education News</a></li>
+  
+          <li class="_1ADlw">
+            <span class="_1ual8">
+              <SvgIcon IconName={"businessIcon"} width={16} height={16} />
+            </span>
+            <span style="font-weight:600">Business &amp; Finance</span>
+          </li>
+  
+          <li><a href="https://www.etnownews.com/companies">Corporates</a></li>
+          <li><a href="https://www.etnownews.com/personal-finance">Money</a></li>
+          <li><a href="/brand-stories">Brand Stories</a></li>
+          <li><a href="/infrastructure">Infrastructure</a></li>
+          <li><a href="/real-estate">Real Estate</a></li>
+  
+          <li class="_1ADlw">
+            <span class="_1ual8">
+              <SvgIcon IconName={"marketIcon"} width={17} height={17} />
+            </span>
+            <span style="font-weight:600">Market &amp; Investment</span>
+          </li>
+  
+          <li><a href="/market-overview">Market Overview</a></li>
+          <li><a href="https://www.etnownews.com/markets">Market News</a></li>
+          <li><a href="https://www.etnownews.com/stocks">Stocks</a></li>
+          <li><a href="https://www.etnownews.com/markets/ipo">IPO</a></li>
+          <li><a href="https://www.etnownews.com/indices/nse">Indices</a></li>
+          <li><a href="https://www.etnownews.com/markets/forex">Forex</a></li>
+          <li><a href="/stocks">Stocks</a></li>
+          <li><a href="https://www.etnownews.com/mutual-funds">Mutual Funds</a></li>
+          <li><a href="https://www.etnownews.com/economy">Economy</a></li>
+          <li><a href="/cryptocurrency">Crypto Now</a></li>
+          <li><a href="/cryptocurrency/crypto-insights">Crypto Insights</a></li>
+          <li><a href="/budget">Budget 2025</a></li>
+          <li><a href="/income-tax">Income Tax</a></li>
+          <li class="_1ADlw">
+            <span class="_1ual8">
+              <SvgIcon IconName={"lifestyleIcon"} width={15} height={16} />
+            </span>
+            <span style="font-weight:600">Lifestyle &amp; Culture</span>
+          </li>
+          <li><a href="/entertainment">Entertainment</a></li>
+          <li><a href="/web-stories">Web Stories</a></li>
+          <li><a href="/photos">Photos</a></li>
+          <li><a href="/videos">Videos</a></li>
+          <li><a href="/videos/shows">Shows</a></li>
+          <li class="_1ADlw">
+            <span class="_1ual8">
+              <SvgIcon IconName={"techIcon"} width={12} height={18} />
+            </span>
+            <span style="font-weight:600">Tech &amp; Innovation</span>
+          </li>
+  
+          <li><a href="/technology">Technology</a></li>
+          <li><a href="/auto">Auto</a></li>
+  
+          <li class="_1ADlw">
+            <span class="_1ual8">
+              <SvgIcon IconName={"careerIcon"} width={14} height={14} />
+            </span>
+            <span style="font-weight:600">Career &amp; Inspiration</span>
+          </li>
+  
+          <li><a href="/success-stories">Success Stories</a></li>
+          <li><a href="/jobs">Jobs</a></li>
+  
+          <li class="_1ADlw">
+            <span class="_1ual8">
+              <SvgIcon IconName={"sportsIcon"} width={18} height={18} />
+            </span>
+            <span style="font-weight:600">Sports &amp; Leisure</span>
+          </li>
+  
+          <li><a href="/sports">Sports</a></li>
+        </ul>
+      </div>
+    </div>
+  </amp-sidebar>
+  

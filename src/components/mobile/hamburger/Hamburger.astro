@@ -14,9 +14,6 @@ const {
 } = Astro.props;
 const values = Astro.url.searchParams;
 
-// Menu data structure
-const menuData = NAVIGATION_GROUPS;
-
 function groupMenuData(flatData) {
   const findByTitle = (title) =>
     flatData?.find((item) => item?.title === title);
