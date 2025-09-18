@@ -1,4 +1,5 @@
 ---
+import RightArrow from "../rightArrow/RightArrow.astro";
 import style from "./SubscribeWithEmail.module.scss";
 ---
 
@@ -10,31 +11,82 @@ import style from "./SubscribeWithEmail.module.scss";
         //   <strong>{`subscribe to newsletter`}</strong>
         // ) : (
         <div class={`${style["success"]}`}>
-          <strong>{`Thank you for subscribing`}</strong>
+          <strong>subscribe to newsletter</strong>
+          {/* <strong>Thank you for subscribing</strong> */}
           {/* <small>We have sent you a verification email, please check your inbox.</small> */}
         </div>
         // )
       )
     }
-    <div class={`${style["error"]}`}>
-      <!-- <span>
-        {isValid ? "" : `Please Enter a valid email address`}
-      </span> -->
+    <div
+      class={`${style["error"]}`}
+      style={{ display: "none" }}
+      id="email-error"
+    >
+      <span> Please Enter a valid email address </span>
     </div>
   </div>
-  <div class={`${style["subscribe-input"]}`}>
+
+  <form id="subscribe-et" class={`${style["subscribe-input"]}`}>
     <input
       type="email"
+      id="email"
+      name="email"
       class={`${style["input-box"]}`}
       placeholder="Enter your Email Id"
     />
-    <button class={`${style["button-box"]}`}>
-      <!-- <RightArrow arrowColor={"white"} arrowSize={"arrowHeight-11"} /> -->
+    <button class={`${style["button-box"]}`} type="submit">
+      <RightArrow arrowColor={"white"} arrowSize={"arrowHeight-11"} />
     </button>
-  </div>
+  </form>
 
   <div class={`${style["subscribe-note"]}`}>
     Get the latest financial news and personalised updates to stay ahead of the
     rest!
   </div>
 </div>
+
+<script>
+  function validateForm() {
+    let isValid = true;
+
+    const emailInput = document.getElementById("email");
+    const emailError = document.getElementById("email-error");
+
+    // Reset previous errors
+    emailError.textContent = "";
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(emailInput.value.trim())) {
+      emailError?.innerHTML = `<span>Please enter a valid email address.</span>`;
+      isValid = false;
+    }
+    return isValid;
+  }
+  const myForm = document.getElementById("subscribe-et");
+  myForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+    if (validateForm()) {
+      const emailInput = document.getElementById("email");
+      try {
+        window?._izq?.push([
+          "syncUserDetailsEmail",
+          {
+            fname: "",
+            lname: "",
+            email: emailInput,
+          },
+          function (res) {
+            console.info("Submit response message: " + res?.response);
+            if (res?.success) {
+              const categoryCode = 330;
+              window?._izq?.push(["newsLetterOptIn", categoryCode, true]);
+            }
+          },
+        ]);
+      } catch (err) {
+        console.info(err);
+      }
+      myForm.reset();
+    }
+  });
+</script>
