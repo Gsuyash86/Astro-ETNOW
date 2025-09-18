@@ -16,7 +16,7 @@ function ampIntegration() {
   };
 }
 
-const config = {
+let config = {
   output: "server",
   adapter: node({
     mode: "standalone",
@@ -59,7 +59,11 @@ const config = {
 };
 
 if(isProd){
-    config.css.modules.generateScopedName = "[hash:base64:6]";
+    config.css= {
+      modules: {
+        generateScopedName: "[hash:base64:6]",
+      },
+    }
 }
 
 export default defineConfig(config);
