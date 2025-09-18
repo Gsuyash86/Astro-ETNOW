@@ -1,23 +1,23 @@
 ---
+import { getDomain } from "@utils/common";
 import Link from "../link/Link.astro";
 import style from "./OneLiner.module.scss";
 ---
 
 <div class={style["OneLiner"]}>
   <p>
-    Get the latest <Link link={import.meta.env.WEBAPP_BASE_URL}
-      >Business News</Link
-    >,{" "} Stock Markets, IPO{" "}
-    <Link link={`${import.meta.env.WEBAPP_BASE_URL}/companies`}
-      >Companies News</Link
-    >, <Link link={`${import.meta.env.WEBAPP_BASE_URL}/news`}
-      >Breaking News
-    </Link>Events on ET Now. Watch all the big and small <Link
-      link={`${import.meta.env.WEBAPP_BASE_URL}/markets`}
+    पढ़ें <Link link={getDomain()}>बिजनेस न्यूज़</Link>, <Link
+      link={`${getDomain()}/personal-finance`}
     >
-      Share Market News
-    </Link> on <Link link={`${import.meta.env.WEBAPP_BASE_URL}/live-tv`}>
-      ET Now Live TV</Link
-    >.
+      पर्सनल फाइनेंस
+    </Link> ,अन्य देश से जुड़ी
+    <Link link={`${getDomain()}/news`}> ब्रेकिंग न्यूज़ </Link> और पाएं <Link
+      link={`${getDomain()}/markets`}
+    >
+      स्टॉक मार्केट
+    </Link> के अपडेट हिंदी में और देखें छोटी बड़ी बिजनेस और शेयर बाज़ार से संबंधित
+    सभी न्यूज़ <Link link={`${getDomain()}/live-tv`}
+      >ET Now Swadesh Live TV
+    </Link>पर।
   </p>
 </div>
