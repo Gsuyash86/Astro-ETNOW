@@ -57,7 +57,7 @@ import style from "./SubscribeWithEmail.module.scss";
     emailError.textContent = "";
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(emailInput.value.trim())) {
-      emailError?.innerHTML = `<span>Please enter a valid email address.</span>`;
+      emailError.innerHTML = `<span>Please enter a valid email address.</span>`;
       isValid = false;
     }
     return isValid;
