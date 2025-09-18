@@ -3,23 +3,27 @@ import Popup from "@components/common/popup/Popup.astro";
 import MainLayout from "../layouts/MainLayout.astro";
 import Search from "@components/common/search/Search.astro";
 
-const values =  Astro.url.searchParams
+const values = Astro.url.searchParams;
 const msid = values.get("id");
 const isMobileView = values.get("isMobileView");
 
-const articleData = await fetch(`https://api.etnownews.com/request/articleshow?origin=${isMobileView === "true" ? "mobile" : "desktop"}&msid=${msid}&channel_id=382`);
+const articleData = await fetch(
+  `https://azapishindi.etnownews.com/request/articleshow?origin=${isMobileView === "true" ? "mobile" : "desktop"}&msid=${msid}&channel_id=386`
+);
 const app = await articleData.json();
-
 ---
 
 <MainLayout app={app} />
-<Popup 
-    instanceId="mobileSearchPopup"
-    changeStyle={"top-to-bottom-slide"}
-    isPopupSlideUp={false}
-    isCloseButton={false}
-    inLineStyle={{padding: '0'}}
+<Popup
+  instanceId="mobileSearchPopup"
+  changeStyle={"top-to-bottom-slide"}
+  isPopupSlideUp={false}
+  isCloseButton={false}
+  inLineStyle={{ padding: "0" }}
 >
-    <Search instanceId="mobile" changeStyle="mobile-search" inLineStyle={{padding: '20px'}}/>
+  <Search
+    instanceId="mobile"
+    changeStyle="mobile-search"
+    inLineStyle={{ padding: "20px" }}
+  />
 </Popup>
-

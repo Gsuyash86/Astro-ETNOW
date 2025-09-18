@@ -1,0 +1,50 @@
+---
+import LazyImage from "../lazyImage/LazyImage.astro";
+import style from "./PropWorthArticleCard.module.scss";
+const { changeStyle } = Astro.props;
+---
+
+<div class={`${style["default"]} ${style[changeStyle]}`}>
+  <div class={`${style["left"]}`}>
+    <ul class={`${style["logo-bar"]} ${style["d-flex"]}`}>
+      <li>
+        <a
+          href="https://www.magicbricks.com/propworth"
+          target="_blank"
+          class={`${style["d-flex"]} ${style["left-link"]}`}
+        >
+          <span class={`${style["rupee"]}`}>
+            <LazyImage
+              datasrc="/assets/magicbricks/images/Propworth-Logo.png"
+              alt="Rupee"
+            />
+          </span>
+        </a>
+      </li>
+      <li>
+        <a
+          target="_blank"
+          href="https://magicbricks.com"
+          class={`${style["magic-logo"]} ${style["d-flex"]}`}
+        >
+          <small>Powered by</small>
+
+          <LazyImage
+            datasrc="/assets/magicbricks/images/MB-Logo.png"
+            alt="Rupee"
+          />
+        </a>
+      </li>
+    </ul>
+    <p class={`${style["left-para"]}`}>
+      Get the latest and most precise assessment of property within projects,
+      societies, or localities.
+    </p>
+    <a target="_blank" href="/magic-bricks-property" class={`${style["link"]}`}>
+      Assess Price
+    </a>
+  </div>
+  <div class={`${style["right"]}`}>
+    <LazyImage datasrc="/assets/magicbricks/images/house.svg" alt="House" />
+  </div>
+</div>

@@ -4,7 +4,7 @@ import Link from "@components/common/link/Link.astro";
 import SvgIcon from "@components/common/svg/SvgIcon.astro";
 import style from "./Hamburger.module.scss";
 import Search from "@components/common/search/Search.astro";
-import { NAVIGATION_GROUPS } from "@utils/common";
+import { getDomain, getUrl, NAVIGATION_GROUPS } from "@utils/common";
 import Accordian from "@components/common/accordian/Accordian.astro";
 const {
   hamburgerOpenId = "",
@@ -12,9 +12,7 @@ const {
   inLineStyle = {},
   data,
 } = Astro.props;
-
-// Menu data structure
-const menuData = NAVIGATION_GROUPS;
+const values = Astro.url.searchParams;
 
 function groupMenuData(flatData) {
   const findByTitle = (title) =>
@@ -92,11 +90,11 @@ const groupedDataNavigation = groupMenuData(data);
             <h3 class={style.categoryTitle}>Home</h3>
           </Link>
         </li>
-        <li class={style.categoryPremium}>
+        <!-- <li class={style.categoryPremium}>
           <Link link={"/"} className={style.categoryHeader}>
             <img src="/assets/images/Premiumhead.svg" alt="Premium" />
           </Link>
-        </li>
+        </li> -->
         {
           groupedDataNavigation?.map((category) => (
             <li class={style.categoryItem}>
@@ -120,11 +118,16 @@ const groupedDataNavigation = groupMenuData(data);
               </div>
               <ul class={style.subMenu}>
                 {category.items.map((item) => (
-                  <Accordian showChildren={item?.child?.length}>
+                  <Accordian showChildren={item?.children?.length > 0} title={item?.title} instanceId={item?.title} closePrev={true}>
                     <Link
                       slot="header"
-                      link={item?.href}
-                      className={`${style.categoryHeader} ${style["active"]}`}
+                      link={`${getDomain()}/${item?.seopath}`}
+                      className={`${style.categoryHeader} ${
+                        item?.seopath?.split("/").pop() ===
+                        values.get("category")
+                          ? style["active"]
+                          : ""
+                      }`}
                     >
                       <Typography
                         tag={"p"}
@@ -144,8 +147,8 @@ const groupedDataNavigation = groupMenuData(data);
                       {item?.child?.map((item) => (
                         <li class={style.categoryItem}>
                           <Link
-                            link={item.href}
-                            className={`${style.categoryHeader} ${style["active"]}`}
+                            link={`${getUrl(item)}`}
+                            className={`${style.categoryHeader}`}
                           >
                             <Typography
                               tag={"span"}

@@ -4,12 +4,27 @@ import react from "@astrojs/react";
 
 const isProd = process.env.NODE_ENV === "production";
 
-let config = {
+// AMP integration - processing handled in middleware
+function ampIntegration() {
+  return {
+    name: "amp-integration", 
+    hooks: {
+      "astro:config:setup": () => {
+        console.log("🚀 AMP processing enabled via middleware");
+      }
+    }
+  };
+}
+
+const config = {
   output: "server",
   adapter: node({
     mode: "standalone",
   }),
-  integrations: [react()],
+  integrations: [
+    react(),
+    ampIntegration()
+  ],
   server: {
     port: 3000,
   },
@@ -17,11 +32,11 @@ let config = {
     resolve: {
       alias: {
         "@components": "/src/components",
-        "@layouts": "/src/layouts",
+        "@layouts": "/src/layouts", 
         "@lib": "/src/lib",
-        "@utils": ["src/utils"],
-        "@constant": ["src/constant"],
-        "@styles": ["src/styles"],
+        "@utils": "/src/utils",
+        "@constant": "/src/constant",
+        "@styles": "/src/styles",
       },
     },
     css: {
@@ -32,7 +47,7 @@ let config = {
       },
       preprocessorOptions: {
         scss: {
-          outputStyle: "compressed",
+          outputStyle: "compressed", 
           additionalData: `@use "src/styles/_mixins-new.scss" as *;`,
         },
       },
@@ -47,27 +62,5 @@ let config = {
     },
   },
 };
-if (isProd) {
-  config.vite.css = {
-    modules: {
-      generateScopedName: "[hash:base64:6]",
-    },
-    preprocessorOptions: {
-      scss: {
-        outputStyle: "compressed",
-        additionalData: `@use "src/styles/_mixins-new.scss" as *;`,
-      },
-    },
-  };
-}else {
-  config.vite.css = {
-    preprocessorOptions: {
-      scss: {
-        outputStyle: "compressed",
-        additionalData: `@use "src/styles/_mixins-new.scss" as *;`,
-      },
-    },
-  };
-}
 
 export default defineConfig(config);

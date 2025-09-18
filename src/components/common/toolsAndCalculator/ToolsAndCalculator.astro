@@ -1,9 +1,11 @@
 ---
 import style from "./ToolsAndCalculator.module.scss";
 import CommonGridBox from "@components/common/wrappers/commonGridBox/CommonGridBox.astro";
+import TitleComponent from "@components/common/titleComponent/TitleComponent.astro";
 import Typography from "@components/common/widgets/typography/Typography.astro";
 import CalculatorImageSSR from "../imageSSR/CalculatorImageSSR.astro";
 import Link from "@components/common/link/Link.astro";
+import LoadMoreButton from "@components/common/loadMoreButton/LoadMoreButton.astro";
 import { getDomain } from "@utils/common";
 const { changeStyle = "", inLineStyle = {} } = Astro.props;
 const dataList = [
@@ -61,8 +63,17 @@ const dataList = [
 ---
 
 <div class={`${changeStyle && style[changeStyle]}`} style={{ ...inLineStyle }}>
-  <h5>Tools & Calculators</h5>
-
+  <TitleComponent
+    type={"h3"}
+    moreButtonLink={``}
+    moreButtonText={"Tools & Calculators"}
+    fontSize={"font-size-24"}
+    fontWeight={"700"}
+    isSeprator={true}
+    isDefaultFontFamily={false}
+    changeStyle={""}
+    inLineParentStyle={{ marginBottom: "16px" }}
+  />
   <CommonGridBox
     gridType="divGridBox"
     changeStyle={""}
@@ -120,15 +131,15 @@ const dataList = [
   </CommonGridBox>
 
   <div class={`${style["load-more"]}`}>
-    <Link
+    <LoadMoreButton
+      changeStyle={'red-button'}
+      text={'Show more'}
       link={`${getDomain()}/tools-calculators`}
-      inLineStyle={{
-        width: "145px",
-        height: "39px",
-        padding: "0px",
-      }}
-    >
-      Show more
-    </Link>
+        inLineStyle={{
+          width: "145px",
+          height: "39px",
+          padding: "0px",
+        }}
+    />
   </div>
 </div>

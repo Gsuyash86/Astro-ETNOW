@@ -14,13 +14,11 @@ import CoverVDOAndImg from "./CoverVDOAndImg.astro";
 import MgIdComponent from "@components/common/mgid/MgIdComponent.astro";
 import VideoAiComponent from "@components/common/mgid/VideoAiComponent.astro";
 import CONST from "src/constant";
-import TopStockWidget from "@components/common/topTrendingStocks/TopStockWidget.astro";
 import OneLiner from "@components/common/oneLiner/OneLiner.astro";
 import KeywordTags from "@components/common/widgets/keywordTags/KeywordTags.astro";
 import BreadCrumb from "@components/common/breadCrumb/BreadCrumb.astro";
 import LatestNews from "@components/common/latestNews/LatestNews.astro";
 import RelatedNews from "@components/common/relatedNews/RelatedNews.astro";
-import TopVideos from "@components/common/topVideos/topVideos.astro";
 import { getDomain } from "@utils/common";
 import YoutubeEmbed from "@components/common/youtubeEmbed/YoutubeEmbed.astro";
 import QuotesWidget from "@components/common/widgets/htmlQuotes/QuotesWidget.astro";
@@ -33,9 +31,13 @@ import {
 import VideoTypeList from "./VideoTypeList.astro";
 import AdContainer from "@components/common/adcontainer/AdContainer.astro";
 import ScrollHideButtons from "@components/common/buttons/ScrollHideButtons.astro";
+import ShareIcon from "../socialShare/ShareIcon.astro";
+import { processReadingTime } from "@utils/common";
+import SubscribeWithEmail from "@components/common/subscribeWithEmail/SubscribeWithEmail.astro";
 const { category, msid, app } = Astro.props;
 
 const mainData = app?.response?.sections?.article_show?.data?.[0];
+const ads = app?.response?.ads;
 ---
 
 <ContainerBox inLineStyle={{ marginBottom: "7px" }}>
@@ -65,20 +67,35 @@ const mainData = app?.response?.sections?.article_show?.data?.[0];
     />
   ) : null
 }
+
 <ScrollHideButtons
   nextStory={app?.response?.nextStory}
   prevStroy={app?.response?.prevStory}
 />
 <Synopsis text={mainData.synopsis} inLineStyle={{ marginBottom: "34px" }} />
-<AdContainer inLineStyle={{ width: "300px", minHeight: "250px" }}>
-  <AdCaller {...app?.response?.ads?.atf} atf={true} />
-</AdContainer>
-<KeyHighlight summary={mainData?.summary} />
-<CoverVDOAndImg
-  data={mainData?.cmsassoc || []}
-  isMediaWireStory={mainData?.isMediaWireStory}
+<ShareIcon
+  type={"TOP_SHARE_ICONS"}
+  time={processReadingTime(mainData)}
   mainData={mainData}
 />
+<AdContainer
+  inLineStyle={{ width: "300px", minHeight: "250px", marginBottom: "16px" }}
+>
+  <AdCaller {...app?.response?.ads?.atf} atf={true} />
+</AdContainer>
+{
+  mainData?.summary ? (
+    <Fragment>
+      <KeyHighlight summary={mainData.summary} />
+      <CoverVDOAndImg
+        data={mainData?.cmsassoc || []}
+        isMediaWireStory={mainData?.isMediaWireStory}
+        mainData={mainData}
+      />
+    </Fragment>
+  ) : null
+}
+
 {
   mainData?.embedData?.map((embedData, dataIndex) => (
     <Fragment>
@@ -142,7 +159,13 @@ const mainData = app?.response?.sections?.article_show?.data?.[0];
         firstPara={embedData.paraLength == 1 && embedData?.ispara}
       />
       {embedData?.ad ? (
-        <AdContainer inLineStyle={{ width: "300px", minHeight: "250px" }}>
+        <AdContainer
+          inLineStyle={{
+            width: "300px",
+            minHeight: "250px",
+            margin: "16px auto",
+          }}
+        >
           <AdCaller {...embedData?.ad} />
         </AdContainer>
       ) : null}
@@ -154,18 +177,34 @@ const mainData = app?.response?.sections?.article_show?.data?.[0];
         />
       ) : null}
       {embedData?.isVDOAiShow ? <VideoAiComponent loadOnScroll={true} /> : null}
+      {dataIndex == 0 && !mainData.summary ? (
+        <CoverVDOAndImg
+          data={mainData?.cmsassoc || []}
+          isMediaWireStory={mainData?.isMediaWireStory}
+          mainData={mainData}
+        />
+      ) : null}
       {dataIndex == 1 ? (
         <RecommendedNews data={app?.response?.recommendedNews} />
       ) : null}
     </Fragment>
   ))
 }
+<AdContainer
+  inLineStyle={{
+    width: "300px",
+    minHeight: "250px",
+    margin: "16px auto",
+  }}
+>
+  <AdCaller {...ads?.btf1} />
+</AdContainer>
 <KeywordTags data={mainData} />
 <OneLiner />
 <BreadCrumb isWrap={true} category="news" />
-<TopStockWidget />
 <RelatedNews data={mainData?.editorpicks} />
-<TopVideos componentData={mainData?.rhs_widget} />
+<ShareIcon mainData={mainData} type={"BOTTOM_SHARE_ICONS"} followus="ET_HINDI" />
+<SubscribeWithEmail />
 <MgIdComponent
   scriptID={CONST.MGID_ADD_5X5}
   elementID={CONST.MGID_ADD_5X5}

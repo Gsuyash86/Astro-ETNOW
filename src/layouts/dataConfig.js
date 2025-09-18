@@ -28,16 +28,16 @@ export default {
   ],
   nonPrimeDNSPrefetches: ['https://googleads.g.doubleclick.net'],
   commonPreconnects: [
-    'https://images.etnownews.com',
-    'https://www.googletagmanager.com',
-    'https://www.google-analytics.com',
-    'https://c.amazon-adsystem.com',
-    'https://securepubads.g.doubleclick.net',
-    'https://ads.pubmatic.com',
-    'https://www.etnownews.com',
-    'https://static.toiimg.com',
-    'https://geoapi.indiatimes.com',
-    'https://em.etnownews.com'
+    // 'https://images.etnownews.com',
+    // 'https://www.googletagmanager.com',
+    // // 'https://www.google-analytics.com',
+    // 'https://c.amazon-adsystem.com',
+    // 'https://securepubads.g.doubleclick.net',
+    // 'https://ads.pubmatic.com',
+    // 'https://www.etnownews.com',
+    // 'https://static.toiimg.com',
+    // 'https://geoapi.indiatimes.com',
+    // 'https://em.etnownews.com'
 
   ],
   nonPrimePreconnects: ['https://securepubads.g.doubleclick.net'],

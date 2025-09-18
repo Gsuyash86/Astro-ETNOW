@@ -1,0 +1,58 @@
+---
+import Hambuger from "../hamburger/Hambuger.astro";
+import Navigation from "../navigation/Navigation.astro";
+import SvgIcon from "@components/common/svg/SvgIcon.astro";
+const navData = await fetch(
+  "https://apihindi.etnownews.com/api/getnavigation?msid=ALL&channel_id=386"
+);
+const navDataJson = await navData.json();
+---
+
+<header id="navbar" style="top:0">
+  <div class="_2qVai _3wTW4">
+    <div class="VKX92">
+      <div class="_3vvNO">
+        <button
+          id="open_burger_icon"
+          on="tap:ampHamburger.toggle"
+          type="button"
+          class="_2Kbcp icon_button"
+          aria-label="Open menu"
+        >
+          <SvgIcon IconName={"hamburgerIcon"} width={24} height={24} />
+        </button>
+        <div class="_3H-0_">
+          <a href="/" target="_self">
+            <amp-img
+              alt="Logo"
+              src="/assets/images/logo-large.svg"
+              width="520"
+              height="293"
+              layout="responsive"
+            >
+            </amp-img>
+          </a>
+        </div>
+      </div>
+      <div class="_2sSMz">
+        <div class="_2pF3K">
+          <a href="https://hindi.etnownews.com" class="Lx2al" target="_self">
+            <SvgIcon IconName={"LanguageSwaitchIcon"} width={24} height={24} />
+          </a>
+        </div>
+        <div class="_3oJBD">
+          <a href="/live-tv" target="_self">
+            <button type="button" class="_2Kbcp">
+              <SvgIcon IconName={"livetvNewIconRed"} width={24} height={24} />
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <Navigation data={navDataJson?.response} />
+  <section style="left:-100%" class="_1nZbr" id="amp_drawer">
+    <Hambuger data={navDataJson?.response} />
+  </section>
+</header>

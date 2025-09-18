@@ -112,7 +112,7 @@
   font-weight: bold;
   position: sticky;
   top: 0;
-  background: var(--bgWhite);
+  background: var(--whiteColor);
   z-index: 1;
 }
 .default-paragraph table::-webkit-scrollbar-track {
@@ -129,7 +129,7 @@
 .default-paragraph table::-webkit-scrollbar-thumb {
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
-  background-color: var(--scrollbarColor);
+  background-color: #ccc;
 }
 .default-paragraph ul,
 .default-paragraph ol {
@@ -294,7 +294,6 @@
 .d-grid::-webkit-scrollbar-thumb {
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
-  background-color: var(--scrollbarColor);
 }
 .box {
   width: 100%;
@@ -318,7 +317,7 @@
 }
 .box-top i {
   padding: 2px;
-  border: 1px solid var(--et-borderColor);
+  border: 1px solid var(--borderColor);
   border-radius: 50%;
   overflow: hidden;
   flex: 0 0 32px;
@@ -372,7 +371,7 @@
 }
 .box-top i {
   padding: 2px;
-  border: 1px solid var(--et-borderColor);
+  border: 1px solid var(--borderColor);
   border-radius: 50%;
   overflow: hidden;
   flex: 0 0 32px;

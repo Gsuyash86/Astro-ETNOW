@@ -1,89 +1,89 @@
 .mutual {
-    border-top: 1px solid rgba(23, 23, 37, .2);
-    border-bottom: 1px solid rgba(23, 23, 37, .2);
-    background-color: #fafafa;
+  border-top: 1px solid rgba(23, 23, 37, 0.2);
+  border-bottom: 1px solid rgba(23, 23, 37, 0.2);
+  background-color: #fafafa;
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+  position: sticky;
+  top: 32px;
+  z-index: 10;
+
+  &-main-list {
+    + .mutual-main-list {
+      &:not(:nth-child(2)) {
+        border-left: 1px solid rgba(23, 23, 37, 0.2);
+        padding-left: 10px;
+        margin-left: 10px;
+      }
+    }
+  }
+
+  &-sticky {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    margin-right: 10px;
+  }
+
+  &-scroll {
     display: flex;
     align-items: center;
-    margin-bottom: 6px;
-    position: sticky;
-    top: 90px;
-    z-index: 10;
+  }
 
-    &-main-list {
-        +.mutual-main-list {
-            &:not(:nth-child(2)) {
-                border-left: 1px solid rgba(23, 23, 37, .2);
-                padding-left: 10px;
-                margin-left: 10px;
-            }
-        }
+  &-link {
+    display: inline-flex;
+    align-items: center;
+
+    span {
+      color: var(--textColor);
     }
 
-    &-sticky {
-        position: sticky;
-        left: 0;
-        z-index: 1;
+    strong {
+      color: green;
+    }
+  }
+
+  &-fund-button {
+    background-color: #2d2d55;
+    display: flex;
+    align-items: center;
+    margin-left: -15px;
+
+    span {
+      color: #ffffff;
+    }
+  }
+
+  &-list {
+    padding: 5px 0;
+    display: inline-flex;
+
+    &:not(:last-child) {
+      .mutual-link {
+        border-right: 1px solid rgba(23, 23, 37, 0.2);
+        padding-right: 10px;
         margin-right: 10px;
+      }
     }
+  }
 
-    &-scroll {
-        display: flex;
-        align-items: center;
+  &-invets-button {
+    background: #be1f24;
+    border-radius: 4px;
+    padding: 3px 10px;
+
+    span {
+      color: var(--whiteColor);
+      line-height: normal;
     }
+  }
 
-    &-link {
-        display: inline-flex;
-        align-items: center;
+  &-powerd-by {
+    display: inline-block;
 
-        span {
-            color: var(--textColor)
-        }
-
-        strong {
-            color: green;
-        }
+    span {
+      line-height: normal;
     }
-
-    &-fund-button {
-        background-color: #2d2d55;
-        display: flex;
-        align-items: center;
-        margin-left: -15px;
-
-        span {
-            color: #ffffff;
-        }
-    }
-
-    &-list {
-        padding: 5px 0;
-        display: inline-flex;
-
-        &:not(:last-child) {
-            .mutual-link {
-                border-right: 1px solid rgba(23, 23, 37, .2);
-                padding-right: 10px;
-                margin-right: 10px;
-            }
-        }
-    }
-
-    &-invets-button {
-        background: #be1f24;
-        border-radius: 4px;
-        padding: 3px 10px;
-
-        span {
-            color: var(--whiteColor);
-            line-height: normal;
-        }
-    }
-
-    &-powerd-by {
-        display: inline-block;
-
-        span {
-            line-height: normal;
-        }
-    }
+  }
 }

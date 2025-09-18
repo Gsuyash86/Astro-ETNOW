@@ -8,7 +8,7 @@ import SvgIcon from "@components/common/svg/SvgIcon.astro";
 import CommonGridBox from "@components/common/wrappers/commonGridBox/CommonGridBox.astro";
 import { getDomain } from "@utils/common";
 const response = await fetch(
-  "https://api.etnownews.com/api/marketstock?channel_id=382"
+  "https://apihindi.etnownews.com/api/marketstock?channel_id=386"
 );
 const trendingMf = await response.json();
 ---
@@ -112,7 +112,7 @@ const trendingMf = await response.json();
                 </Link>
               </div>
               <div className={`${style["mutual-list"]}`}>
-                <Link link={null} class={`${style["mutual-link"]}`}>
+                <Link link={null} className={`${style["mutual-link"]} ${style["mutual-powerd-by"]}`}>
                   <Typography
                     tag="span"
                     text={`Powered by:`}

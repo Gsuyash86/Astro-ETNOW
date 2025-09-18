@@ -1,0 +1,26 @@
+---
+import style from "./ReadTime.module.scss";
+import SvgIcon from "@components/common/svg/SvgIcon.astro";
+import Typography from "../widgets/typography/Typography.astro";
+const { changeStyle = "", inLineStyle = {}, time } = Astro.props;
+---
+
+<div
+  class={`${style["default"]} ${style[changeStyle]}`}
+  style={{ ...inLineStyle }}
+>
+  <SvgIcon IconName="TimesClockDotted" width={16} height={16} />
+  <Typography
+    tag="span"
+    text={`${time} ${time > 1 ? "Mins" : "Min"} Read`}
+    changeStyle="font-size-12"
+    isConditionalRendering={true}
+    isLineClamp={false}
+    inLineStyle={{
+      lineHeight: "normal",
+      fontWeight: "normal",
+      color: "#292929",
+      whiteSpace: "nowrap",
+    }}
+  />
+</div>

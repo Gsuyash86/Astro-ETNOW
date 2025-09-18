@@ -238,27 +238,27 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
           class={`ad-placeholder ${adClasses}`}
           style={{
             minHeight: maxHeight ? `${maxHeight}px` : "250px",
-            padding: !spacing ? "0px" : "8px",
-            backgroundColor: "#f0f0f0",
-            border: "2px dashed #ccc",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "#666",
-            fontSize: "14px",
-            textAlign: "center",
-            position: "relative",
+            // padding: !spacing ? "0px" : "8px",
+            // backgroundColor: "#f0f0f0",
+            // border: "2px dashed #ccc",
+            // display: "flex",
+            // alignItems: "center",
+            // justifyContent: "center",
+            // color: "#666",
+            // fontSize: "14px",
+            // textAlign: "center",
+            // position: "relative",
           }}
           {...dataAttributes}
           data-original-div-id={divId}
         />
       ) : !isSkiplazyload && !isGlance ? (
-          <div
-            id={divId}
-            class={`dfp ${adClasses}`}
-            style={!spacing ? { padding: "0px" } : { padding: "8px" }}
-            {...dataAttributes}
-          />
+        <div
+          id={divId}
+          class={`dfp ${adClasses}`}
+          style={!spacing ? { padding: "0px" } : { padding: "8px" }}
+          {...dataAttributes}
+        />
       ) : (
         <div
           id={divId}
@@ -324,7 +324,6 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
           const observer = new IntersectionObserver(
             (entries) => {
               entries.forEach((entry) => {
-
                 if (entry.isIntersecting && entry.intersectionRatio > 0) {
                   loadAd(entry.target, config);
                   observer.unobserve(entry.target);
@@ -344,8 +343,7 @@ const shouldLazyLoad = !atf && !isSkiplazyload && !isGlance;
         } else {
           loadAd(container, config);
         }
-      } catch (error) {
-      }
+      } catch (error) {}
     });
   }
 

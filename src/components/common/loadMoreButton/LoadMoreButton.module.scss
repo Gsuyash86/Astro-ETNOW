@@ -3,13 +3,14 @@
   margin: auto;
   padding: 10px 40px;
   background-color: var(--textDanger);
-  color: var(--white-color);
+  color: var(--whiteColor);
   border-radius: 28px;
   cursor: pointer;
   text-align: center;
   margin-top: 0px;
   @include font-size(14);
   font-weight: 500;
+  line-height: 1;
 }
 
 @media screen and (max-width: 768px) {
@@ -38,7 +39,7 @@
     height: 36px;
   }
   &:hover {
-    color: var(--white-color);
+    color: var(--whiteColor);
     background-color: var(--textDanger);
   }
 }

@@ -4,11 +4,12 @@ import ContainerBox from "@components/common/wrappers/containerBox/ContainerBox.
 import CustomSlideBox from "@components/common/wrappers/customSlideBox/CustomSlideBox.astro";
 import Link from "@components/common/link/Link.astro";
 import Typography from "@components/common/widgets/typography/Typography.astro";
-import SvgIcon from "@components/common/svg/SvgIcon.astro";
 const { navLinks = [] } = Astro.props;
+const values = Astro.url.searchParams;
+const category = values.get("category");
 ---
 
-<nav class={`${style["nav"]}`}>
+<nav class={`${style["nav"]}`} id="navbar-header">
   <ContainerBox>
     <CustomSlideBox
       elementType="ulBox"
@@ -16,7 +17,7 @@ const { navLinks = [] } = Astro.props;
       changeStyle=""
       marginTop={0}
       marginBottom={0}
-      inLineStyle={{ paddingTop: "8px", paddingBottom: "8px" }}
+      inLineStyle={{ paddingTop: "4px", paddingBottom: "4px" }}
     >
       <li>
         <Link
@@ -32,7 +33,10 @@ const { navLinks = [] } = Astro.props;
       {
         navLinks?.slice(0, 10)?.map((item) => (
           <li>
-            <Link link={item.seopath} className={`${style["nav-link"]}`}>
+            <Link
+              link={item.seopath}
+              className={`${style["nav-link"]} ${item?.seopath === category ? style["nav-active"] : ""}`}
+            >
               <Typography
                 tag="span"
                 text={item.title}
@@ -46,14 +50,36 @@ const { navLinks = [] } = Astro.props;
           </li>
         ))
       }
-      <button class={`${style["header-hamburger"]}`}>
-        <SvgIcon
-          id="mobileHamburgerIcon"
-          IconName={"hamburgerIcon"}
-          width={24}
-          height={24}
-        />
-      </button>
     </CustomSlideBox>
   </ContainerBox>
 </nav>
+<script>
+  const hamburgerButton = document.getElementById("hamburger-button");
+  const closeHamburgerButton = document.getElementById(
+    "mobileHamburgerCloseIcon"
+  );
+  const handleScroll = () => {
+    const div = document.getElementById("navbar-header");
+    if (div) {
+      const rect = div.getBoundingClientRect();
+      const isAtTop = rect.top <= 1;
+      if (isAtTop) {
+        hamburgerButton.style.display = "block";
+      } else hamburgerButton.style.display = "none";
+    }
+  };
+
+  if (hamburgerButton) {
+    hamburgerButton.addEventListener("click", function () {
+      document.getElementById("mobileHamburgerPopup").style.left = "0";
+      document.body.style.overflow = "hidden";
+    });
+  }
+  if (closeHamburgerButton) {
+    closeHamburgerButton.addEventListener("click", function () {
+      document.getElementById("mobileHamburgerPopup").style.left = "-100%";
+      document.body.style.overflow = "";
+    });
+  }
+  document.addEventListener("scroll", handleScroll);
+</script>
