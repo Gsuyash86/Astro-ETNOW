@@ -286,9 +286,9 @@ export const BOTTOMNAV = [
 ];
 
 export const SOCIAL_LINKS = {
-  FB: "https://www.facebook.com/etnow",
-  TW: "https://twitter.com/ETNOWlive",
-  IG: "https://www.instagram.com/etnow",
+  FB: "https://www.facebook.com/etnowswadesh",
+  TW: "https://www.instagram.com/etnowswadesh",
+  IG: "https://www.instagram.com/etnowswadesh",
 };
 
 export const FOLLOW_US_LINK = {
