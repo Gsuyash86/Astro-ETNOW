@@ -7,7 +7,7 @@ import Typography from "@components/common/widgets/typography/Typography.astro";
 const { navLinks = [] } = Astro.props;
 ---
 
-<nav class={`${style["nav"]}`}>
+<nav class={`${style["nav"]}`} id="navbar-header">
   <ContainerBox>
     <CustomSlideBox
       elementType="ulBox"
@@ -48,3 +48,33 @@ const { navLinks = [] } = Astro.props;
     </CustomSlideBox>
   </ContainerBox>
 </nav>
+<script>
+  const hamburgerButton = document.getElementById("hamburger-button");
+  const closeHamburgerButton = document.getElementById(
+    "mobileHamburgerCloseIcon"
+  );
+  const handleScroll = () => {
+    const div = document.getElementById("navbar-header");
+    if (div) {
+      const rect = div.getBoundingClientRect();
+      const isAtTop = rect.top <= 1;
+      if (isAtTop) {
+        hamburgerButton.style.display = "block";
+      } else hamburgerButton.style.display = "none";
+    }
+  };
+
+  if (hamburgerButton) {
+    hamburgerButton.addEventListener("click", function () {
+      document.getElementById("mobileHamburgerPopup").style.left = "0";
+      document.body.style.overflow = "hidden";
+    });
+  }
+  if (closeHamburgerButton) {
+    closeHamburgerButton.addEventListener("click", function () {
+      document.getElementById("mobileHamburgerPopup").style.left = "-100%";
+      document.body.style.overflow = "";
+    });
+  }
+  document.addEventListener("scroll", handleScroll);
+</script>
